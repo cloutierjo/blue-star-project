@@ -1,0 +1,27 @@
+CAS D'USAGE POUR LA PREMIERE PARTIE
+
+1) Ouvrir un projet
+- Demander liste des projets
+- Afficher la liste des projets
+- Selectionner le projet
+- Attendre action utilisateur
+
+2) Ouvrir le programme
+- Demarrer l'interface et le modèle côté client
+
+3) Creer un projet
+- Demander un nom de projet
+- Verifier que ce nom n'existe pas
+- Le sauvegarder
+
+4) Sauvegarder le projet
+- Envoyer les données au serveur puis les sauvegarder dans la BD
+
+5) Ouvrir le mandat
+- Demander le lien du fichier contenant le mandat
+- Ouvrir le fichier
+- L'afficher dans l'interface
+
+6) Remplir un champ
+- Copier le mot sélectionné par l'tilisateur
+- Ajouter le mot à la liste correspondante
