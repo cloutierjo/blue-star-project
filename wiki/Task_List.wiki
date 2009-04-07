@@ -1,0 +1,16 @@
+TASK LIST POUR LES MEMBRES DE L'ÉQUIPE
+
+Jonathan H :
+- Contrôleur côté serveur
+
+Mathieu L :
+- Contrôleur côté client
+
+Pascal L & Jean-Philippe C :
+- Interface graphique
+
+Jonathan C :
+- Modèle côté client
+
+François L :
+- Modèle côté serveur
