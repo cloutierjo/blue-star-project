@@ -1,0 +1,14 @@
+CREER UN LOGICIEL DE GESTION DE PROJET
+
+Etape 1 :
+
+Creer une interface
+Fenêtre de champs textes
+Fenêtre tableau (nom, verbe, adjectif)
+Lire un fichier texte
+Sauvegarder le tableau dans la bd
+Envoyer le tableau au serveur
+Sauvegarder le mandat original dans la BD
+Creer un projet
+Ouvrir un projet
+Sauvegarder un projet
