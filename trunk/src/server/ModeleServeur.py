@@ -1,29 +1,11 @@
+#-*- coding: iso-8859-1 -*-
+
 # Classe : ModeleServeur
 # Projet : blue-star-project
 # Auteur : Francois Lahey
 
-
 import sqlite3
-
-# Classe de DEBUGAGE
-class DummyProjet:
-    
-    # Constructeur
-    def __init__(self):
-        
-        self.nom = "DummyProject"
-        self.mandat = "Utiliser la classe DummyProjet pour tester la classe ModeleServeur"
-        self.analyse = [{"nom":"des moules","verbe":"manger", "adjectif":"juteuses"},
-                        {"nom":"une huitre" ,"verbe":"grignoter" ,"adjectif":"baveuse"},
-                        {"nom":"une cerise" ,"verbe":"macher" ,"adjectif":"rouge" },
-                        {"nom":"roger" ,"verbe":"sucoter" ,"adjectif":"inconsciemment"}]
-        
-    def getAnaliseExplicite(self):
-        
-        return [("des moules","manger","juteuses"),
-                ("une huitre","grignoter","baveuse"),
-                ("une cerise","macher","rouge"),
-                ("roger","sucoter","inconsciemment")]
+from Projet import *
 
 class ModeleServeur:
 
@@ -63,7 +45,7 @@ class ModeleServeur:
         
         entryTableProjets = (projet.nom, projet.mandat)
         cur.execute('insert into Projets values(?, ?)', entryTableProjets)
-        for row in projet.getAnaliseExplicite():
+        for row in projet.getAnaliseExpliciteTuple():
             cur.execute('insert into Analyses values(?, ?, ?)', row)
             
         cur.close()
@@ -93,7 +75,16 @@ if __name__ == "__main__":
     
     ms = ModeleServeur()        # Creation du ModeleServeur
     ms.initDB()                 # To be changed (RAM DEBUG)
-    dp = DummyProjet()          # Creation d'un Projet
-    ms.sauvegardeProjet(dp)     # Test de sauvegarde d'un projet
+    
+    # Creation d'un Projet    
+    p=Projet()                  
+    p.nom="DummyProject"
+    p.mandat="Utiliser la classe Projet pour tester la classe ModeleServeur"
+    p.addItemAnaliseExplicite("des moules","manger","juteuses")
+    p.addItemAnaliseExplicite("une huitre","grignoter","baveuse")
+    p.addItemAnaliseExplicite("une cerise","macher","rouge")
+    p.addItemAnaliseExplicite("roger","sucoter","inconsciemment")
+    
+    ms.sauvegardeProjet(p)      # Test de sauvegarde d'un projet
     ms.test()                   # Check DB integrity
      
