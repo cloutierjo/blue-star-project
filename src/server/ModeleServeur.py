@@ -18,6 +18,13 @@ class DummyProjet:
                         {"nom":"une cerise" ,"verbe":"macher" ,"adjectif":"rouge" },
                         {"nom":"roger" ,"verbe":"sucoter" ,"adjectif":"inconsciemment"}]
         
+    def getAnaliseExplicite(self):
+        
+        return [("des moules","manger","juteuses"),
+                ("une huitre","grignoter","baveuse"),
+                ("une cerise","macher","rouge"),
+                ("roger","sucoter","inconsciemment")]
+
 class ModeleServeur:
 
     # Constructeur
@@ -47,7 +54,7 @@ class ModeleServeur:
         pass
     
     # Sauvegarde les donnees d'un projet dans la BD
-    def sauvegardeProjet(self):
+    def sauvegardeProjet(self, projet):
         
         pass
     
