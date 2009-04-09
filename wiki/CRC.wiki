@@ -1,0 +1,80 @@
+Tout nos CRC serons contenu ici sous le format décris en classe:
+<wiki:comment>
+
+voici le format a suivre pour les CRC, ne vous occupé pas du HTML si sa vous mélange, vous n'Avez qu'a remplacé ce qui est entre [[ ]] (en effaçant les crochet)
+<table border=1>
+   <tr>
+       <td width=60% width=70%>[[nom de la classe]]</td>
+       <td rowspan=3> [[
+                      * classe avec laquel elle interagit
+                      * autre classe]]
+       </td>
+   </tr>
+   <tr>
+       <td align="right">[[proprio]]</td>
+   </tr>
+   <tr>
+       <td>[[
+           * action fais par la classe
+           * autre action]]
+       </td>
+   </tr>
+</table>
+
+</wiki:comment>
+
+=Modèle Client (Jonatan C)=
+
+<table border=1 width=70%>
+   <tr>
+       <td width=60%> Projet </td>
+       <td rowspan=3> 
+                      * ModelClient
+                      * ModelServeur
+       </td>
+   </tr>
+   <tr>
+       <td align="right">Jonatan C.</td>
+   </tr>
+   <tr>
+       <td>
+           * aucune, ne sert qu'a stocké les informations
+       </td>
+   </tr>
+</table>
+
+
+<table border=1 width=70%>
+   <tr>
+       <td width=60%> ModelClient </td>
+       <td rowspan=3> 
+                      * Projet
+                      * ControleurClient
+       </td>
+   </tr>
+   <tr>
+       <td align="right">Jonatan C</td>
+   </tr>
+   <tr>
+       <td>
+           * creerProjet(String)
+           * ouvrirProjet(Projet)
+       </td>
+   </tr>
+</table>
+
+
+
+=Interface Graphique (Pascal L & Jean-Philippe C)=
+TODO
+
+=Controleur Client (Mathieu L)=
+TODO
+
+=Controleur Serveur (Jonathan H)=
+TODO
+
+=Modèle Serveur (François L)=
+TODO
+
+
