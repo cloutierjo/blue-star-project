@@ -30,17 +30,20 @@ class ModeleServeur:
     # Constructeur
     def __init__(self):
         
-        self.projet = None                      # Tampon pour un projet
-        self.db = ':memory:'                    # Chemin du fichier de DB
-        
-        # Initialisation sqlite3
+        self.projetTemp = None                  # Tampon pour un projet
+        self.db = ':memory:'                    # cheminFichierDB
         self.con = sqlite3.connect(self.db)     # Connecteur
     
     # Initialisation de premier demarrage (Creation BD/Tables)
     def initDB(self):
-        
-        pass 
     
+        cur = self.con.cursor()     # Curseur
+        
+        cur.execute('''create table Projets(nom text, mandat text)''')
+        cur.execute('''create table Analyses(nom text, verbe text, adjectif text)''')
+    
+        cur.close()
+        
     # Lecture d'un projet dans la BD et affectation dans les variables.
     def getProjet(self, nomProjet):
         
@@ -56,39 +59,41 @@ class ModeleServeur:
     # Sauvegarde les donnees d'un projet dans la BD
     def sauvegardeProjet(self, projet):
         
-        pass
-    
-    # Transforme une liste de dictionnaire en liste de tuples
-    def dictListToTuplesList(self, dict):
+        cur = self.con.cursor()     # Curseur
         
-        pass
+        entryTableProjets = (projet.nom, projet.mandat)
+        cur.execute('insert into Projets values(?, ?)', entryTableProjets)
+        for row in projet.getAnaliseExplicite():
+            cur.execute('insert into Analyses values(?, ?, ?)', row)
+            
+        cur.close()
     
     # Methode de DEBUGAGE
     def test(self):
         
         cur = self.con.cursor()    # Curseur
         
-        tuple = ('Projet 2', 'Macher sqlite3', 'complement sujet conjonction')  # Tuple
+        # Affichage des 2 tables tests
         
-        cur.execute('''create table tabletest(nom text, mandat text, at text)''')
-        cur.execute('''insert into tabletest values('Projet 1', 'Tester sqlite3', 'nom verbe adjectif')''')
-        cur.execute('insert into tabletest values(?, ?, ?)', tuple)             # Test d'insertion d'un tuple
-        cur.execute('''Select * from tabletest''')
+        print "Table Projets :"
+        cur.execute('''Select * from Projets''')
         for row in cur:
             print row
-        cur.execute('''Select * from tabletest where nom = 'Projet 2' ''')
+            
+        print ""
+        print "Table Analyses : "
+        cur.execute('''Select * from Analyses''')
         for row in cur:
             print row
+            
         cur.close()
             
 # DEBUGAGE
 if __name__ == "__main__":
     
-    ms = ModeleServeur()
-    # ms.test()
-    prj = DummyProjet()
-    print "Nom : "+prj.nom
-    print "Mandat : "+prj.mandat
-    print "Analyse : "
-    for row in prj.analyse:
-        print row
+    ms = ModeleServeur()        # Creation du ModeleServeur
+    ms.initDB()                 # To be changed (RAM DEBUG)
+    dp = DummyProjet()          # Creation d'un Projet
+    ms.sauvegardeProjet(dp)     # Test de sauvegarde d'un projet
+    ms.test()                   # Check DB integrity
+     
