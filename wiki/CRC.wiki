@@ -91,7 +91,7 @@ TODO
            * bool initDB()
            * Projet getProjet(String nomProjet)
            * String[] getListeProjet()
-           * ?TO_BE_DETERMINED? sauvegardeProjet(Projet projet)
+           * ?TO_DEFINE? sauvegardeProjet(Projet projet)
            * bool alreadyExist(Projet projet)
            * bool deleteProjet(String nomProjet)
        </td>
