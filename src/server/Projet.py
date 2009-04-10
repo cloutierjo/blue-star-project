@@ -44,13 +44,24 @@ class Projet(object):
     def addItemAnaliseExplicite(self, nom, verbe, adjectif):
         self.analyseExplicite.append({self.NOM:nom,self.VERBE:verbe,self.ADJECTIF:adjectif})
         
-        
+    def unicodize(self):
+        if self.nom != None:
+            self.nom = unicode(self.nom)
+        if self.mandat != None:
+            self.mandat = unicode(self.mandat)
+        if len(self.analyseExplicite) > 0:
+            for row in self.analyseExplicite:
+                row[self.NOM] = unicode(row[self.NOM])
+                row[self.VERBE] = unicode(row[self.VERBE])
+                row[self.ADJECTIF] = unicode(row[self.ADJECTIF])
+            
 if __name__ == '__main__':
     pj=Projet()
     pj.nom="project Name"
     pj.mandat="ceci est un tres tres grand projet comprenant beaucoup d'idée... encore incomplete"
     pj.addItemAnaliseExplicite("projet", "faire", "tres long")
     pj.addItemAnaliseExplicite("idée","comprant","beaucoup")
+    # pj.unicodize()
     pj.getAnaliseExpliciteTuple()
     print pj.serialize()
     pj.deserialize(pj.serialize())
