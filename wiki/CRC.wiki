@@ -75,6 +75,25 @@ TODO
 TODO
 
 =Modèle Serveur (François L)=
-TODO
-
-
+<table border=1 width=70%>
+   <tr>
+       <td width=60%> ModeleServeur </td>
+       <td rowspan=3> 
+                      * Projet
+                      * ControleurServeur
+       </td>
+   </tr>
+   <tr>
+       <td align="right">François L.</td>
+   </tr>
+   <tr>
+       <td>
+           * bool initDB()
+           * Projet getProjet(String nomProjet)
+           * String[] getListeProjet()
+           * ?TO_BE_DETERMINED? sauvegardeProjet(Projet projet)
+           * bool alreadyExist(Projet projet)
+           * bool deleteProjet(String nomProjet)
+       </td>
+   </tr>
+</table>
