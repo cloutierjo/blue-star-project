@@ -17,6 +17,7 @@ class Projet(object):
         Constructor
         '''
         self.NOMPJ="nompj"
+        self.NUMPJ="numpj"  # TO BE APPROVED
         self.NOM="nom"
         self.VERBE="verbe"
         self.ADJECTIF="adjectif"
@@ -24,14 +25,16 @@ class Projet(object):
       #  self.ANALISEIMPLICITE="analyseImplicite"
         self.ANALISEEXPLICITE="analyseExplicite"
         self.nom = None
+        self.num = None   # TO BE APPROVED
         self.mandat = None
         self.analyseExplicite = []
         
     def serialize(self):
-        return {self.NOMPJ:self.nom,self.MANDAT:self.mandat,self.ANALISEEXPLICITE:self.analyseExplicite}
+        return {self.NOMPJ:self.nom,self.NUMPJ:self.num,self.MANDAT:self.mandat,self.ANALISEEXPLICITE:self.analyseExplicite}
     
     def deserialize(self, serializedProject):
         self.nom=serializedProject[self.NOMPJ]
+        self.num=serializedProject[self.NUMPJ]
         self.mandat=serializedProject[self.MANDAT]
         self.analyseExplicite=serializedProject[self.ANALISEEXPLICITE]
         
@@ -58,6 +61,7 @@ class Projet(object):
 if __name__ == '__main__':
     pj=Projet()
     pj.nom="project Name"
+    pj.num=1
     pj.mandat="ceci est un tres tres grand projet comprenant beaucoup d'idée... encore incomplete"
     pj.addItemAnaliseExplicite("projet", "faire", "tres long")
     pj.addItemAnaliseExplicite("idée","comprant","beaucoup")

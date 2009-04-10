@@ -12,8 +12,7 @@ class ModeleServeur:
     # Constructeur
     def __init__(self):
         
-        self.projetTemp = None                  # Tampon pour un projet
-        self.db = ':memory:'                    # cheminFichierDB
+        self.db = 'test1.bd'                    # cheminFichierDB
         self.con = sqlite3.connect(self.db)     # Connecteur
     
     # Initialisation de premier demarrage (Creation BD/Tables)
@@ -41,12 +40,18 @@ class ModeleServeur:
     # Sauvegarde les donnees d'un projet dans la BD
     def sauvegardeProjet(self, projet):
         
+        projet.unicodize()          # Unicodize le projet
         cur = self.con.cursor()     # Curseur
-        entryTableProjets = (unicode(projet.nom), unicode(projet.mandat))
+        
+        # Update table Projets
+        entryTableProjets = (projet.nom, projet.mandat) # Nouvelle entrée
         cur.execute('insert into Projets values(?, ?)', entryTableProjets)
+        
+        # Update table Analyses 
         for row in projet.getAnaliseExpliciteTuple():
             # Ajout du nom du projet pour la sauvegarde dans la BD
-            toSave = (unicode(projet.nom), unicode(row[0]), unicode(row[1]), unicode(row[2]))
+            toSave = (projet.nom, row[0], row[1], row[2])
+            
             cur.execute('insert into Analyses values(?, ?, ?, ?)', toSave)
             
         cur.close()
@@ -81,7 +86,7 @@ class ModeleServeur:
 if __name__ == "__main__":
     
     ms = ModeleServeur()        # Creation du ModeleServeur
-    ms.initDB()                 # To be changed (RAM DEBUG)
+    # ms.initDB()               # TO BE CALLED FOR FIRST USE ON A SERVER (CREATE TABLES)
     
     # Creation d'un Projet    
     p=Projet()                  
@@ -94,4 +99,5 @@ if __name__ == "__main__":
        
     ms.sauvegardeProjet(p)      # Test de sauvegarde d'un projet
     ms.test()                   # Check DB integrity
+    ms.sauvegardeProjet(p)      # Test de sauvegarde d'un projet
      
