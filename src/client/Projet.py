@@ -17,6 +17,7 @@ class Projet(object):
         Constructor
         '''
         self.NOMPJ="nompj"
+        self.NUMPJ="numpj"
         self.NOM="nom"
         self.VERBE="verbe"
         self.ADJECTIF="adjectif"
@@ -24,14 +25,16 @@ class Projet(object):
       #  self.ANALISEIMPLICITE="analyseImplicite"
         self.ANALISEEXPLICITE="analyseExplicite"
         self.nom = None
+        self.num = 0    # Vaut 0 pour nouveau projet et ID du projet lorsque loadé
         self.mandat = None
         self.analyseExplicite = []
         
     def serialize(self):
-        return {self.NOMPJ:self.nom,self.MANDAT:self.mandat,self.ANALISEEXPLICITE:self.analyseExplicite}
+        return {self.NOMPJ:self.nom,self.NUMPJ:self.num,self.MANDAT:self.mandat,self.ANALISEEXPLICITE:self.analyseExplicite}
     
     def deserialize(self, serializedProject):
         self.nom=serializedProject[self.NOMPJ]
+        self.num=serializedProject[self.NUMPJ]
         self.mandat=serializedProject[self.MANDAT]
         self.analyseExplicite=serializedProject[self.ANALISEEXPLICITE]
         
@@ -66,6 +69,4 @@ if __name__ == '__main__':
     print pj.serialize()
     pj.deserialize(pj.serialize())
     print pj.serialize()
-    
-    
     
