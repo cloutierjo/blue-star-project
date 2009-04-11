@@ -22,18 +22,31 @@ class ModeleServeur:
         
         cur.execute('''CREATE TABLE Projets(ID NUMBER(6) PRIMARY KEY, Nom VARCHAR2(50), Mandat LONG)''')
         cur.execute('''CREATE TABLE Analyses(ID NUMBER(6) REFERENCES Projets, nom VARCHAR2(30), verbe VARCHAR2(30), adjectif VARCHAR2(30))''')
-        # En attendant de trouver comment créer une séquence, cette table sert de sauvegarde pour une séquence pour les ID
+        # En attendant de trouver comment créer une séquence, cette table sert de
+        # Générateur d'ID unique dans la méthode getNewID (bonne pour 999 999 projets 
         cur.execute('''CREATE TABLE Seq(Val NUMBER(6))''')
         cur.execute('insert into Seq values(?)', (1,))
         
         cur.close()
         
     # Lecture d'un projet dans la BD et affectation dans les variables.
-    def getProjet(self, nomProjet):
+    def getProject(self, projectID):
         
-        # To be implemented...
+        p = Projet()
+        cur = self.con.cursor()     # Curseur
         
-        return self.projet 
+        cur.execute('''SELECT * FROM Projets WHERE ID = (?)''', (projectID,))
+        for row in cur:
+            p.num = row[0]
+            p.nom = row[1]
+            p.mandat = row[2]
+        
+        cur.execute('''SELECT * FROM Analyses WHERE ID = (?)''', (projectID,))
+        for row in cur:
+            p.addItemAnaliseExplicite(row[1], row[2], row[3])
+                    
+        cur.close()  
+        return p 
     
     # Retourne la liste des projets existant dans la BD {ID, Nom}[] 
     def getListeProjet(self):
@@ -163,4 +176,9 @@ if __name__ == "__main__":
     ms.test()                       # Check DB integrity
     listePJ = ms.getListeProjet()   # Test getListeProjet
     print listePJ
+    p2 = ms.getProject(2)
+    print p2.num
+    print p2.nom
+    print p2.getAnaliseExpliciteTuple()
+    
      
