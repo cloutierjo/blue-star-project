@@ -176,7 +176,7 @@ if __name__ == "__main__":
     ms.test()                       # Check DB integrity
     listePJ = ms.getListeProjet()   # Test getListeProjet
     print listePJ
-    p2 = ms.getProject(2)
+    p2 = ms.getProject(2)           # Test de récupération d'un projet dans la BD
     print p2.num
     print p2.nom
     print p2.getAnaliseExpliciteTuple()
