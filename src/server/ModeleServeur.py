@@ -35,10 +35,20 @@ class ModeleServeur:
         
         return self.projet 
     
-    # Retourne la liste des projets existant dans la BD
+    # Retourne la liste des projets existant dans la BD {ID, Nom}[] 
     def getListeProjet(self):
         
-        pass
+        cur = self.con.cursor()     # Curseur
+        projets=[]
+        
+        cur.execute('''SELECT ID, Nom FROM Projets''')
+        
+        for projet in cur:
+            projets.append([projet[0], projet[1]])
+            
+        cur.close()
+            
+        return projets
     
     # Sauvegarde les donnees d'un projet dans la BD, renvoie True si réussi sinon renvoie false
     def saveProject(self, projet):
@@ -72,8 +82,9 @@ class ModeleServeur:
             cur = self.con.cursor()     # Curseur
             
             # Update table Projets
-            #entryTableProjets = (projet.num, projet.nom, projet.mandat) # Nouvelle entrée
-            #cur.execute('insert into Projets values(?, ?, ?)', entryTableProjets)
+            entryTableProjets = (projet.num, projet.nom, projet.mandat) # Nouvelle entrée
+            cur.execute('DELETE FROM Projets WHERE ID = (?)', (projet.num,))
+            cur.execute('insert into Projets values(?, ?, ?)', entryTableProjets)
             
             # Update table Analyses 
             cur.execute('DELETE FROM Analyses WHERE ID = (?)', (projet.num,))
@@ -147,4 +158,9 @@ if __name__ == "__main__":
     p.num = 0
     print ms.saveProject(p)    # Test de sauvegarde d'un projet
     ms.test()                       # Check DB integrity
+    p.mandat = "Vérifier que la base de données s'est bien updaté."
+    print ms.saveProject(p)    # Test de sauvegarde d'un projet
+    ms.test()                       # Check DB integrity
+    listePJ = ms.getListeProjet()   # Test getListeProjet
+    print listePJ
      
