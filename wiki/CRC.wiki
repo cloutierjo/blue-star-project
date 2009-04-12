@@ -86,7 +86,7 @@ TODO
    </tr>
    <tr>
        <td>
-           * getListeProjets() //Retourne une liste de strings
+           * getListeProjets() 
            * sauvegarderProjet(IdProjet)
            * getProjet(nom)
        </td>
