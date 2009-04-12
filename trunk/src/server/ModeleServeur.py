@@ -65,7 +65,7 @@ class ModeleServeur:
     # Sauvegarde les donnees d'un projet dans la BD, renvoie True si réussi sinon renvoie false
     def saveProject(self, projet):
         
-        saved = False
+        saved = 0
         projet.unicodize()          # Unicodize le projet pour les accents dans la BD
         
         # Si c'est un nouveau projet... on le cré
@@ -89,7 +89,7 @@ class ModeleServeur:
         
         self.con.commit()        
         cur.close()
-        return True # To be modified for errors handlings
+        return projet.num # To be modified for errors handlings
      
     def updateProject(self, projet):
         
@@ -105,7 +105,7 @@ class ModeleServeur:
         
         self.con.commit()    
         cur.close()
-        return True # To be modified for errors handlings
+        return projet.num # To be modified for errors handlings
      
     def deleteProject(self, projetID):
         
@@ -176,7 +176,7 @@ if __name__ == "__main__":
     p.addItemAnaliseExplicite("des moules","mangé","juteuses")
     p.addItemAnaliseExplicite("une huitre","grignoté","baveuse")
     p.addItemAnaliseExplicite("une cerise","maché","rouge")
-    p.addItemAnaliseExplicite("roger","sucoté","inconsciemment")
+    p.addItemAnaliseExplicite("un bourgeon","sucoté","tranquillement")
        
     print ms.saveProject(p)         # Test de sauvegarde d'un projet
     ms.test()                       # Check DB integrity
@@ -193,6 +193,10 @@ if __name__ == "__main__":
     print p2.nom
     print p2.mandat
     print p2.getAnaliseExpliciteForDB()
-    ms.deleteProject(p.num)        # Test de suppression de projet
-    ms.test()                      # Check DB integrity
+    print "deleting"
+    ms.deleteProject(1)             # Test de suppression de projet
+    ms.deleteProject(2)             # Test de suppression de projet
+    ms.test()                       # Check DB integrity
+    print "done"
+
      
