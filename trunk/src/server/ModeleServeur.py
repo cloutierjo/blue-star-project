@@ -71,45 +71,58 @@ class ModeleServeur:
         
         # Si c'est un nouveau projet... on le cré
         if projet.num == 0:
-            
-            cur = self.con.cursor()     # Curseur
-            
-            projet.num = self.getNewID()
-            
-            # Ajout du projet dans la table Projets
-            entryTableProjets = (projet.num, projet.nom, projet.mandat) # Nouvelle entrée
-            cur.execute('insert into Projets values(?, ?, ?)', entryTableProjets)
-            
-            # Update table Analyses 
-            for row in projet.getAnaliseExpliciteTuple():
-                # Ajout du nom du projet pour la sauvegarde dans la BD
-                toSave = (projet.num, row[0], row[1], row[2])
-                cur.execute('insert into Analyses values(?, ?, ?, ?)', toSave)
-                
-            cur.close()
+            self.saveNewProject(projet)
             saved = True
-            
         # Sinon... on update les tables nécéssaire. 
         else:
-            
-            cur = self.con.cursor()     # Curseur
-            
-            # Update table Projets
-            entryTableProjets = (projet.num, projet.nom, projet.mandat) # Nouvelle entrée
-            cur.execute('DELETE FROM Projets WHERE ID = (?)', (projet.num,))
-            cur.execute('insert into Projets values(?, ?, ?)', entryTableProjets)
-            
-            # Update table Analyses 
-            cur.execute('DELETE FROM Analyses WHERE ID = (?)', (projet.num,))
-            for row in projet.getAnaliseExpliciteTuple():
-                # Ajout du nom du projet pour la sauvegarde dans la BD
-                toSave = (projet.num, row[0], row[1], row[2])
-                cur.execute('insert into Analyses values(?, ?, ?, ?)', toSave)
-                
-            cur.close()
+            self.updateProject(projet)
             saved = True
             
         return saved
+    
+    def saveNewProject(self, projet):
+        
+        cur = self.con.cursor()     # Curseur
+            
+        projet.num = self.getNewID()
+            
+        # Ajout du projet dans la table Projets
+        entryTableProjets = (projet.num, projet.nom, projet.mandat) # Nouvelle entrée
+        cur.execute('insert into Projets values(?, ?, ?)', entryTableProjets)
+            
+        # Update table Analyses 
+        for row in projet.getAnaliseExpliciteTuple():
+            # Ajout du nom du projet pour la sauvegarde dans la BD
+            toSave = (projet.num, row[0], row[1], row[2])
+            cur.execute('insert into Analyses values(?, ?, ?, ?)', toSave)
+                
+        cur.close()
+     
+    def updateProject(self, projet):
+        
+        cur = self.con.cursor()     # Curseur
+            
+        # Update table Projets
+        entryTableProjets = (projet.num, projet.nom, projet.mandat) # Nouvelle entrée
+        cur.execute('DELETE FROM Projets WHERE ID = (?)', (projet.num,))
+        cur.execute('insert into Projets values(?, ?, ?)', entryTableProjets)
+            
+        # Update table Analyses 
+        cur.execute('DELETE FROM Analyses WHERE ID = (?)', (projet.num,))
+        for row in projet.getAnaliseExpliciteTuple():
+            # Ajout du nom du projet pour la sauvegarde dans la BD
+            toSave = (projet.num, row[0], row[1], row[2])
+            cur.execute('insert into Analyses values(?, ?, ?, ?)', toSave)
+                
+        cur.close()
+     
+    def deleteProject(self, projet):
+        
+        cur = self.con.cursor()     # Curseur
+        cur.execute('DELETE FROM Projets WHERE ID = (?)', (projet.num,))
+        cur.execute('DELETE FROM Analyses WHERE ID = (?)', (projet.num,))
+        
+        return True
         
     # Sert de séquence de nombre pour l'ID des projet en attendant de trouver comment faire une séquence
     def getNewID(self):
@@ -166,13 +179,13 @@ if __name__ == "__main__":
     p.addItemAnaliseExplicite("une cerise","maché","rouge")
     p.addItemAnaliseExplicite("roger","sucoté","inconsciemment")
        
-    print ms.saveProject(p)    # Test de sauvegarde d'un projet
+    print ms.saveProject(p)         # Test de sauvegarde d'un projet
     ms.test()                       # Check DB integrity
     p.num = 0
-    print ms.saveProject(p)    # Test de sauvegarde d'un projet
+    print ms.saveProject(p)         # Test de sauvegarde d'un projet
     ms.test()                       # Check DB integrity
     p.mandat = "Vérifier que la base de données s'est bien updaté."
-    print ms.saveProject(p)    # Test de sauvegarde d'un projet
+    print ms.saveProject(p)         # Test de sauvegarde d'un projet
     ms.test()                       # Check DB integrity
     listePJ = ms.getListeProjet()   # Test getListeProjet
     print listePJ
@@ -180,5 +193,6 @@ if __name__ == "__main__":
     print p2.num
     print p2.nom
     print p2.getAnaliseExpliciteTuple()
-    
+    ms.deleteProject(p)            # Test de suppression de projet
+    ms.test()                      # Check DB integrity
      
