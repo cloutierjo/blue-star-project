@@ -11,7 +11,7 @@ class ModeleServeur:
 
     # Constructeur
     def __init__(self):    
-        self.db = 'test1.db'                    # cheminFichierDB
+        self.db = ':memory:'                    # cheminFichierDB
         self.con = sqlite3.connect(self.db)     # Connecteur
     
     # Initialisation de premier demarrage (Creation BD/Tables)
@@ -167,7 +167,7 @@ class ModeleServeur:
 if __name__ == "__main__":
     
     ms = ModeleServeur()        # Creation du ModeleServeur
-    #ms.initDB()                 # TO BE CALLED FOR FIRST USE ON A SERVER (CREATE TABLES)
+    ms.initDB()                 # TO BE CALLED FOR FIRST USE ON A SERVER (CREATE TABLES)
     
     # Creation d'un Projet    
     p=Projet()
@@ -188,7 +188,7 @@ if __name__ == "__main__":
     ms.test()                       # Check DB integrity
     listePJ = ms.getListeProjet()   # Test getListeProjet
     print listePJ
-    p2 = ms.getProject(3)           # Test de récupération d'un projet dans la BD
+    p2 = ms.getProject(1)           # Test de récupération d'un projet dans la BD
     print p2.num
     print p2.nom
     print p2.mandat
