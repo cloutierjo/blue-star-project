@@ -55,7 +55,6 @@ class ModeleServeur:
         projets=[]
         
         cur.execute('''SELECT ID, Nom FROM Projets''')
-        
         for projet in cur:
             projets.append([projet[0], projet[1]])
             
@@ -71,12 +70,10 @@ class ModeleServeur:
         
         # Si c'est un nouveau projet... on le cré
         if projet.num == 0:
-            self.saveNewProject(projet)
-            saved = True
+            saved = self.saveNewProject(projet)
         # Sinon... on update les tables nécéssaire. 
         else:
-            self.updateProject(projet)
-            saved = True
+            saved = self.updateProject(projet)
               
         return saved
     
@@ -92,6 +89,7 @@ class ModeleServeur:
         
         self.con.commit()        
         cur.close()
+        return True # To be modified for errors handlings
      
     def updateProject(self, projet):
         
@@ -107,6 +105,7 @@ class ModeleServeur:
         
         self.con.commit()    
         cur.close()
+        return True # To be modified for errors handlings
      
     def deleteProject(self, projet):
         
@@ -117,7 +116,7 @@ class ModeleServeur:
         
         self.con.commit()
         cur.close()
-        return True
+        return True # To be modified for errors handlings
         
     # Sert de séquence de nombre pour l'ID des projet en attendant de trouver comment faire une séquence
     def getNewID(self):
@@ -132,6 +131,10 @@ class ModeleServeur:
         self.con.commit()
         cur.close()
         return val
+ 
+# Fin de ModeleServeur
+# Ne pas effacer la suite qui sert a tester la classe
+#############################################################################
     
     # Methode de DEBUGAGE
     def test(self):
