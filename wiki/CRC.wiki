@@ -75,18 +75,18 @@ TODO
 
 <table border=1 width=70%>
    <tr>
-       <td width=60%>ControleurServeur</td>
+       <td width=60%> ControleurServeur </td>
        <td rowspan=3>
                       * ControleurClient
                       * ModeleServeur
        </td>
    </tr>
    <tr>
-       <td align="right">Jonathan H</td>
+       <td align="right"> Jonathan H </td>
    </tr>
    <tr>
        <td>
-           * __init__() //demarre le serveur
+           * init() //demarre le serveur
            * getListeProjets() // retourne une liste de string
            * sauvegarderProjet(IdProjet) // save le projet dans la db
            * getProjet(IdProjet) // retourne un projet
