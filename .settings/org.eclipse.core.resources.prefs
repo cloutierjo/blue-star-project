@@ -1,6 +1,7 @@
-#Thu Apr 09 23:41:11 GMT 2009
+#Sun Apr 12 14:51:44 EDT 2009
 eclipse.preferences.version=1
 encoding//src/client/Projet.py=iso-8859-1
+encoding//src/server/ControleurServeur.py=iso-8859-1
 encoding//src/server/ModeleServeur.py=iso-8859-1
 encoding//src/server/Projet.py=iso-8859-1
 encoding/<project>=ISO-8859-1
