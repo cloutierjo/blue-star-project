@@ -2,7 +2,7 @@
 
 # Classe : ControleurServeur
 # Projet : blue-star-project
-# Auteur : Jonathan  Hallée
+# Auteur : Jonathan Hallée
 
 
 from SimpleXMLRPCServer import SimpleXMLRPCServer
