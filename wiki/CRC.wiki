@@ -88,11 +88,10 @@ TODO
    </tr>
    <tr>
        <td>
-           * bool initDB()
-           * Projet getProjet(String nomProjet)
-           * String[] getListeProjet()
-           * ?TO_DEFINE? sauvegardeProjet(Projet projet)
-           * bool alreadyExist(Projet projet)
+           * void initDB()
+           * Projet getProjet(projetID)
+           * [id, nom][] getListeProjet()
+           * bool saveProject(Projet projet)
            * bool deleteProjet(String nomProjet)
        </td>
    </tr>
