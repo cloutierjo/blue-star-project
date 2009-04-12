@@ -10,8 +10,7 @@ from Projet import *
 class ModeleServeur:
 
     # Constructeur
-    def __init__(self):
-        
+    def __init__(self):    
         self.db = ':memory:'                    # cheminFichierDB
         self.con = sqlite3.connect(self.db)     # Connecteur
     
@@ -26,6 +25,7 @@ class ModeleServeur:
         # Générateur d'ID unique dans la méthode getNewID() (bonne pour 999 999 projets 
         cur.execute('''CREATE TABLE Seq(Val NUMBER(6))''')
         cur.execute('insert into Seq values(?)', (1,))
+        
         self.con.commit()
         cur.close()
         

@@ -20,15 +20,15 @@ class ControleurServeur:
     
     #méthode qui retourne la liste des projets existants    
     def getListeProjets(self):
-        ms.getListeProjet()
+        return ms.getListeProjet()
     
     #méthode qui sauvegarde un projet
     def sauvegarderProjet(self):
-        ms.saveProject(projet)
+        return ms.saveProject(projet)
     
     #méthode qui retourne un projet via son ID
     def getProjet(idProjet):
-        ms.getProject(idProjet)
+        return ms.getProject(idProjet)
     
     #enregistrement des fonctions au serveur, obligé de mettre un alias???
     server.register_function(getProjet, 'getProjet')
