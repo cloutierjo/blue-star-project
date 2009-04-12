@@ -23,10 +23,10 @@ class ModeleServeur:
         cur.execute('''CREATE TABLE Projets(ID NUMBER(6) PRIMARY KEY, Nom VARCHAR2(50), Mandat LONG)''')
         cur.execute('''CREATE TABLE Analyses(ID NUMBER(6) REFERENCES Projets, nom VARCHAR2(30), verbe VARCHAR2(30), adjectif VARCHAR2(30))''')
         # En attendant de trouver comment créer une séquence, cette table sert de
-        # Générateur d'ID unique dans la méthode getNewID (bonne pour 999 999 projets 
+        # Générateur d'ID unique dans la méthode getNewID() (bonne pour 999 999 projets 
         cur.execute('''CREATE TABLE Seq(Val NUMBER(6))''')
         cur.execute('insert into Seq values(?)', (1,))
-        
+        self.con.commit()
         cur.close()
         
     # Lecture d'un projet dans la BD et affectation dans les variables.
@@ -36,10 +36,10 @@ class ModeleServeur:
         cur = self.con.cursor()     # Curseur
         
         cur.execute('''SELECT * FROM Projets WHERE ID = (?)''', (projectID,))
-        for row in cur:
-            p.num = row[0]
-            p.nom = row[1]
-            p.mandat = row[2]
+        row = cur.fetchone()
+        p.num = row[0]
+        p.nom = row[1]
+        p.mandat = row[2]
         
         cur.execute('''SELECT * FROM Analyses WHERE ID = (?)''', (projectID,))
         for row in cur:
@@ -67,7 +67,7 @@ class ModeleServeur:
     def saveProject(self, projet):
         
         saved = False
-        projet.unicodize()          # Unicodize le projet
+        projet.unicodize()          # Unicodize le projet pour les accents dans la BD
         
         # Si c'est un nouveau projet... on le cré
         if projet.num == 0:
@@ -78,6 +78,7 @@ class ModeleServeur:
             self.updateProject(projet)
             saved = True
             
+        self.con.commit()   
         return saved
     
     def saveNewProject(self, projet):
@@ -89,12 +90,7 @@ class ModeleServeur:
         # Ajout du projet dans la table Projets
         entryTableProjets = (projet.num, projet.nom, projet.mandat) # Nouvelle entrée
         cur.execute('insert into Projets values(?, ?, ?)', entryTableProjets)
-            
-        # Update table Analyses 
-        for row in projet.getAnaliseExpliciteTuple():
-            # Ajout du nom du projet pour la sauvegarde dans la BD
-            toSave = (projet.num, row[0], row[1], row[2])
-            cur.execute('insert into Analyses values(?, ?, ?, ?)', toSave)
+        cur.executemany('insert into Analyses values(?, ?, ?, ?)', projet.getAnaliseExpliciteForDB())
                 
         cur.close()
      
@@ -109,10 +105,7 @@ class ModeleServeur:
             
         # Update table Analyses 
         cur.execute('DELETE FROM Analyses WHERE ID = (?)', (projet.num,))
-        for row in projet.getAnaliseExpliciteTuple():
-            # Ajout du nom du projet pour la sauvegarde dans la BD
-            toSave = (projet.num, row[0], row[1], row[2])
-            cur.execute('insert into Analyses values(?, ?, ?, ?)', toSave)
+        cur.executemany('insert into Analyses values(?, ?, ?, ?)', projet.getAnaliseExpliciteForDB())
                 
         cur.close()
      
@@ -121,6 +114,8 @@ class ModeleServeur:
         cur = self.con.cursor()     # Curseur
         cur.execute('DELETE FROM Projets WHERE ID = (?)', (projet.num,))
         cur.execute('DELETE FROM Analyses WHERE ID = (?)', (projet.num,))
+        self.con.commit()
+        cur.close()
         
         return True
         
@@ -130,10 +125,10 @@ class ModeleServeur:
         cur = self.con.cursor()    # Curseur
         
         cur.execute('''Select Val from Seq''')
-        for row in cur:
-            val = row[0]
+        row = cur.fetchone()
+        val = row[0]
         cur.execute('UPDATE Seq SET Val = (?)', (val+1,))
-    
+        self.con.commit()
         cur.close()
         return val
     
@@ -171,7 +166,7 @@ if __name__ == "__main__":
     ms.initDB()                 # TO BE CALLED FOR FIRST USE ON A SERVER (CREATE TABLES)
     
     # Creation d'un Projet    
-    p=Projet()                  
+    p=Projet()
     p.nom="Projet d'études"
     p.mandat="Utiliser les caractères spéciaux pour tester la classe ModeleServeur"
     p.addItemAnaliseExplicite("des moules","mangé","juteuses")
@@ -192,7 +187,8 @@ if __name__ == "__main__":
     p2 = ms.getProject(2)           # Test de récupération d'un projet dans la BD
     print p2.num
     print p2.nom
-    print p2.getAnaliseExpliciteTuple()
+    print p2.mandat
+    print p2.getAnaliseExpliciteForDB()
     ms.deleteProject(p)            # Test de suppression de projet
     ms.test()                      # Check DB integrity
      
