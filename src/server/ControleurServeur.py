@@ -16,19 +16,19 @@ class ControleurServeur:
         server.register_introspection_functions()
         
         server.serve_forever()# la main loop du serveur
-        modeleServeur = ModeleServeur()# instance du modele côté serveur
+        ms = ModeleServeur()# instance du modele côté serveur
     
     #méthode qui retourne la liste des projets existants    
     def getListeProjets(self):
-        modeleServeur.getListeProjet()
+        ms.getListeProjet()
     
     #méthode qui sauvegarde un projet
     def sauvegarderProjet(self):
-        modeleServeur.saveProject(projet)
+        ms.saveProject(projet)
     
     #méthode qui retourne un projet via son ID
     def getProjet(idProjet):
-        modeleServeur.getProject(idProjet)
+        ms.getProject(idProjet)
     
     #enregistrement des fonctions au serveur, obligé de mettre un alias???
     server.register_function(getProjet, 'getProjet')
