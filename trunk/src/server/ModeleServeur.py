@@ -77,21 +77,20 @@ class ModeleServeur:
         else:
             self.updateProject(projet)
             saved = True
-            
-        self.con.commit()   
+              
         return saved
     
     def saveNewProject(self, projet):
         
-        cur = self.con.cursor()     # Curseur
-            
-        projet.num = self.getNewID()
+        cur = self.con.cursor()         # Curseur
+        projet.num = self.getNewID()    # Get a Unique ID for the project
             
         # Ajout du projet dans la table Projets
         entryTableProjets = (projet.num, projet.nom, projet.mandat) # Nouvelle entrée
         cur.execute('insert into Projets values(?, ?, ?)', entryTableProjets)
         cur.executemany('insert into Analyses values(?, ?, ?, ?)', projet.getAnaliseExpliciteForDB())
-                
+        
+        self.con.commit()        
         cur.close()
      
     def updateProject(self, projet):
@@ -102,21 +101,22 @@ class ModeleServeur:
         entryTableProjets = (projet.num, projet.nom, projet.mandat) # Nouvelle entrée
         cur.execute('DELETE FROM Projets WHERE ID = (?)', (projet.num,))
         cur.execute('insert into Projets values(?, ?, ?)', entryTableProjets)
-            
         # Update table Analyses 
         cur.execute('DELETE FROM Analyses WHERE ID = (?)', (projet.num,))
         cur.executemany('insert into Analyses values(?, ?, ?, ?)', projet.getAnaliseExpliciteForDB())
-                
+        
+        self.con.commit()    
         cur.close()
      
     def deleteProject(self, projet):
         
         cur = self.con.cursor()     # Curseur
+        
         cur.execute('DELETE FROM Projets WHERE ID = (?)', (projet.num,))
         cur.execute('DELETE FROM Analyses WHERE ID = (?)', (projet.num,))
+        
         self.con.commit()
         cur.close()
-        
         return True
         
     # Sert de séquence de nombre pour l'ID des projet en attendant de trouver comment faire une séquence
@@ -128,6 +128,7 @@ class ModeleServeur:
         row = cur.fetchone()
         val = row[0]
         cur.execute('UPDATE Seq SET Val = (?)', (val+1,))
+        
         self.con.commit()
         cur.close()
         return val
