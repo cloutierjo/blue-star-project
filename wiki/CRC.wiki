@@ -90,7 +90,7 @@ TODO
        <td>
            * void initDB()
            * Projet getProjet(projetID)
-           * [id, nom][] getListeProjet()
+           * liste de id, nom getListeProjet()
            * bool saveProject(Projet projet)
            * bool deleteProjet(String nomProjet)
        </td>
