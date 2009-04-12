@@ -12,7 +12,7 @@ from ModeleServeur import *
 class ControleurServeur:
     #initialisation du serveur
     def __init__(self):
-        server = SimpleXMLRPCServer((localhost, 8000),
+        server = SimpleXMLRPCServer(("localhost", 8000),
                                 requestHandler=SimpleXMLRPCRequestHandler)
         server.register_introspection_functions()
     
