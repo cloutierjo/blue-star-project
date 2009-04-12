@@ -72,6 +72,25 @@ TODO
 TODO
 
 =Controleur Serveur (Jonathan H)=
+<table border=1 width=70%>
+   <tr>
+       <td width=60% width=70%>ControleurServeur</td>
+       <td rowspan=3>
+                      * ControleurClient
+                      * ModeleServeur
+       </td>
+   </tr>
+   <tr>
+       <td align="right">Jonathan Hallée</td>
+   </tr>
+   <tr>
+       <td>
+           * getListeProjets() 
+           * sauvegarderProjet(IdProjet)
+           * getProjet(nom)
+       </td>
+   </tr>
+</table>
 
 =Modèle Serveur (François L)=
 <table border=1 width=70%>
