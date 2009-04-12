@@ -107,12 +107,12 @@ class ModeleServeur:
         cur.close()
         return True # To be modified for errors handlings
      
-    def deleteProject(self, projet):
+    def deleteProject(self, projetID):
         
         cur = self.con.cursor()     # Curseur
         
-        cur.execute('DELETE FROM Projets WHERE ID = (?)', (projet.num,))
-        cur.execute('DELETE FROM Analyses WHERE ID = (?)', (projet.num,))
+        cur.execute('DELETE FROM Projets WHERE ID = (?)', (projetID,))
+        cur.execute('DELETE FROM Analyses WHERE ID = (?)', (projetID,))
         
         self.con.commit()
         cur.close()
@@ -193,6 +193,6 @@ if __name__ == "__main__":
     print p2.nom
     print p2.mandat
     print p2.getAnaliseExpliciteForDB()
-    ms.deleteProject(p)            # Test de suppression de projet
+    ms.deleteProject(p.num)        # Test de suppression de projet
     ms.test()                      # Check DB integrity
      
