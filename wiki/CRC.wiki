@@ -73,7 +73,7 @@ TODO
 
 =Controleur Serveur (Jonathan H)=
 
-<table border=1>
+<table border=1 width=70%>
    <tr>
        <td width=60% width=70%>ControleurServeur</td>
        <td rowspan=3>
