@@ -11,7 +11,7 @@ class ModeleServeur:
 
     # Constructeur
     def __init__(self):    
-        self.db = ':memory:'                    # cheminFichierDB
+        self.db = 'test1.db'                    # cheminFichierDB
         self.con = sqlite3.connect(self.db)     # Connecteur
     
     # Initialisation de premier demarrage (Creation BD/Tables)
