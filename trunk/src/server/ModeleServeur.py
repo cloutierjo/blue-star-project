@@ -48,7 +48,7 @@ class ModeleServeur:
         cur.close()  
         return p 
     
-    # Retourne la liste des projets existant dans la BD {ID, Nom}[] 
+    # Retourne la liste des projets existant dans la BD [ID, Nom][] 
     def getListeProjet(self):
         
         cur = self.con.cursor()     # Curseur
