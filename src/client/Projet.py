@@ -38,10 +38,10 @@ class Projet(object):
         self.mandat=serializedProject[self.MANDAT]
         self.analyseExplicite=serializedProject[self.ANALISEEXPLICITE]
         
-    def getAnaliseExpliciteTuple(self):
+    def getAnaliseExpliciteForDB(self):
         anExpTup=[]
         for item in self.analyseExplicite:
-            anExpTup.append((item[self.NOM],item[self.VERBE],item[self.ADJECTIF]))
+            anExpTup.append((self.num,item[self.NOM],item[self.VERBE],item[self.ADJECTIF]))
         return anExpTup
     
     def addItemAnaliseExplicite(self, nom, verbe, adjectif):
