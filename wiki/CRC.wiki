@@ -89,7 +89,6 @@ TODO
            * getListeProjets() //Retourne une liste de strings
            * sauvegarderProjet(IdProjet)
            * getProjet(nom)
-
        </td>
    </tr>
 </table>
