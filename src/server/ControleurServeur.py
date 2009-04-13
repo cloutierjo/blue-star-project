@@ -21,18 +21,18 @@ print "Modele serveur crée"
     
 #méthode qui retourne la liste des projets existants    
 def getListeProjets(self):
-    getListeProjet()
+    ms.getListeProjet()
     
 #méthode qui sauvegarde un projet
 def sauvegarderProjet(self):
-    saveProject(projet)
+    ms.saveProject(projet)
     
 #méthode qui retourne un projet via son ID
-def getProjet(idProjet):
-    getProject(idProjet)
+def getProjet(self, idProjet):
+    ms.getProject(idProjet)
     
 print "Methodes crées"
-    
+
 #enregistrement des fonctions au serveur, obligé de mettre un alias???
 server.register_function(getProjet, 'getProjet')
 server.register_function(sauvegarderProjet, 'sauvegarderProjet')
