@@ -50,7 +50,6 @@ print "Test méthodes enr"
 
 print "Serveur demarré"
 
-#tests
 if __name__ == '__main__':
     s = xmlrpclib.ServerProxy("http://localhost:8000/")
     
