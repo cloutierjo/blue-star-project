@@ -9,7 +9,8 @@ from SimpleXMLRPCServer import SimpleXMLRPCServer
 from SimpleXMLRPCServer import SimpleXMLRPCRequestHandler
 from ModeleServeur import *
 
-server = SimpleXMLRPCServer(('localhost', 8000), requestHandler=SimpleXMLRPCRequestHandler)
+server = SimpleXMLRPCServer(("localhost", 8000), 
+                            requestHandler=SimpleXMLRPCRequestHandler)
 server.register_introspection_functions()
         
 print "Serveur crée"
@@ -48,14 +49,14 @@ server.register_function(additionner_tout, 'additionne')
 print "Test méthodes enr"
 
 print "Serveur demarré"
-server.serve_forever()# la main loop du serveur
 
 #tests
 if __name__ == '__main__':
-    s = xmlrpclib.ServerProxy('localhost:8000/')
+    s = xmlrpclib.ServerProxy("http://localhost:8000/")
     
     print s.additionne(2,3)
     a = raw_input()
     
+server.serve_forever()# la main loop du serveur
     
         
