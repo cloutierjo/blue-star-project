@@ -25,11 +25,11 @@ def getListeProjets():
     
 #méthode qui sauvegarde un projet
 def sauvegarderProjet(self):
-    ms.saveProject(projet)
+    return ms.saveProject(projet)
     
 #méthode qui retourne un projet via son ID
 def getProjet(self, idProjet):
-    ms.getProject(idProjet)
+    return ms.getProject(idProjet)
     
 print "Methodes crées"
 
