@@ -4,38 +4,57 @@
 # Projet : blue-star-project
 # Auteur : Jonathan Hallée
 
-
+import xmlrpclib
 from SimpleXMLRPCServer import SimpleXMLRPCServer
 from SimpleXMLRPCServer import SimpleXMLRPCRequestHandler
 from ModeleServeur import *
 
-class ControleurServeur:
-    #initialisation du serveur
-    def __init__(self):
-        server = SimpleXMLRPCServer(("localhost", 8000), requestHandler=SimpleXMLRPCRequestHandler)
-        server.register_introspection_functions()
+server = SimpleXMLRPCServer(('localhost', 8000), requestHandler=SimpleXMLRPCRequestHandler)
+server.register_introspection_functions()
         
-        server.serve_forever()# la main loop du serveur
-        ms = ModeleServeur()# instance du modele côté serveur
+print "Serveur crée"
+
+ms = ModeleServeur()# instance du modele côté serveur
+
+print "Modele serveur crée"
     
-    #méthode qui retourne la liste des projets existants    
-    def getListeProjets(self):
-        getListeProjet()
+#méthode qui retourne la liste des projets existants    
+def getListeProjets(self):
+    getListeProjet()
     
-    #méthode qui sauvegarde un projet
-    def sauvegarderProjet(self):
-        saveProject(projet)
+#méthode qui sauvegarde un projet
+def sauvegarderProjet(self):
+    saveProject(projet)
     
-    #méthode qui retourne un projet via son ID
-    def getProjet(idProjet):
-        getProject(idProjet)
+#méthode qui retourne un projet via son ID
+def getProjet(idProjet):
+    getProject(idProjet)
     
-    #enregistrement des fonctions au serveur, obligé de mettre un alias???
-    server.register_function(getProjet, 'getProjet')
-    server.register_function(sauvegarderProjet, 'sauvegarderProjet')
-    server.register_function(getListeProjets, 'getListeProjets')
-        
-    #tests
+print "Methodes crée"
+    
+#enregistrement des fonctions au serveur, obligé de mettre un alias???
+server.register_function(getProjet, 'getProjet')
+server.register_function(sauvegarderProjet, 'sauvegarderProjet')
+server.register_function(getListeProjets, 'getListeProjets')
+
+#MÉTHODE DE TEST PAS TOUCHE
+def additionner_tout(x,y):
+    return x + y
+    
+server.register_function(additionner_tout, 'additionne')
+
+server.serve_forever()# la main loop du serveur
+
+print "Methodes enregistrees"
+
+print "Serveur demarrer"
+
+#tests
 if __name__ == '__main__':
-    pass
+    s = xmlrpclib.ServerProxy('localhost:8000/')
+    
+    print s.additionne(2,3)
+    a = raw_input()
+    
+    
         
