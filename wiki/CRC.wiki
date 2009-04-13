@@ -86,7 +86,6 @@ TODO
    </tr>
    <tr>
        <td>
-           * init() //demarre le serveur
            * getListeProjets() // retourne une liste de string
            * sauvegarderProjet(IdProjet) // save le projet dans la db
            * getProjet(IdProjet) // retourne un projet
