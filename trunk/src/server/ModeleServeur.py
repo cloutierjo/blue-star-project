@@ -165,12 +165,12 @@ class ModeleServeur:
             
 # DEBUGAGE
 if __name__ == "__main__":
-    pass
     
-    #ms = ModeleServeur()        # Creation du ModeleServeur
+    ms = ModeleServeur()        # Creation du ModeleServeur
     #ms.initDB()                 # TO BE CALLED FOR FIRST USE ON A SERVER (CREATE TABLES)
+    ms.test()
     
-    # Creation d'un Projet
+    # Creation de 10 projets
 
 #    for i in range(10):
 #        p=Projet()
