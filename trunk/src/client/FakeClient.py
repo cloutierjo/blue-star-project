@@ -16,6 +16,7 @@ class FakeClient:
 if __name__ == "__main__":
     
     fc = FakeClient()
+    print "Fake client"
     # Creation d'un Projet    
     p=Projet()
     p.nom="Projet d'études"
@@ -24,5 +25,7 @@ if __name__ == "__main__":
     p.addItemAnaliseExplicite("une huitre","grignoté","baveuse")
     p.addItemAnaliseExplicite("une cerise","maché","rouge")
     p.addItemAnaliseExplicite("un bourgeon","sucoté","tranquillement")
+    print "Projet crée"
     
     print fc.s.additionne(4,5)
+    a = raw_input()
