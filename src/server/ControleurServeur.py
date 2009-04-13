@@ -62,6 +62,6 @@ print "Serveur demarré"
     #print s.additionne(2,3)
     
 server.serve_forever()# la main loop du serveur
-print "server down"
+print "Serveur down"
     
         
