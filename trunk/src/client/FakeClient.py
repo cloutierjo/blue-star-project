@@ -28,3 +28,4 @@ if __name__ == "__main__":
     print "Projet crée"
     
     print fc.s.additionne(4,5)
+    print fc.s.getListeProjets()
