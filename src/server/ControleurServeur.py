@@ -20,8 +20,8 @@ ms = ModeleServeur()# instance du modele côté serveur
 print "Modele serveur crée"
     
 #méthode qui retourne la liste des projets existants    
-def getListeProjets(self):
-    ms.getListeProjet()
+def getListeProjets():
+    return ms.getListeProjet()
     
 #méthode qui sauvegarde un projet
 def sauvegarderProjet(self):
