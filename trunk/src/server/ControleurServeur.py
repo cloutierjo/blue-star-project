@@ -9,7 +9,7 @@ from SimpleXMLRPCServer import SimpleXMLRPCServer
 from SimpleXMLRPCServer import SimpleXMLRPCRequestHandler
 from ModeleServeur import *
 
-server = SimpleXMLRPCServer(('localhost', 8000), 
+server = SimpleXMLRPCServer(("localhost", 8000), 
                             requestHandler=SimpleXMLRPCRequestHandler)
 server.register_introspection_functions()
         
@@ -50,12 +50,12 @@ print "Test méthodes enr"
 
 print "Serveur demarré"
 
-if __name__ == '__main__':
-    s = xmlrpclib.ServerProxy("http://localhost:8000/")
+#if __name__ == '__main__':
+    #s = xmlrpclib.ServerProxy("http://localhost:8000/")
     
-    print s.additionne(2,3)
-    a = raw_input()
+    #print s.additionne(2,3)
     
 server.serve_forever()# la main loop du serveur
+print "server down"
     
         
