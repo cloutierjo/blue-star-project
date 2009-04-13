@@ -10,11 +10,12 @@ from Projet import *
 class FakeClient:
     
     def __init__(self):
-        s = xmlrpclib.ServerProxy('http://manage.borealistechnologies.net:8000/')
+        self.s = xmlrpclib.ServerProxy('http://localhost:8000/')
 
     
 if __name__ == "__main__":
     
+    fc = FakeClient()
     # Creation d'un Projet    
     p=Projet()
     p.nom="Projet d'études"
@@ -24,4 +25,4 @@ if __name__ == "__main__":
     p.addItemAnaliseExplicite("une cerise","maché","rouge")
     p.addItemAnaliseExplicite("un bourgeon","sucoté","tranquillement")
     
-    print s.sauvegarderProjet(p)
+    print fc.s.additionne(4,5)
