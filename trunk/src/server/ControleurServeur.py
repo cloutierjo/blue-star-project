@@ -30,12 +30,14 @@ def sauvegarderProjet(self):
 def getProjet(idProjet):
     getProject(idProjet)
     
-print "Methodes crée"
+print "Methodes crées"
     
 #enregistrement des fonctions au serveur, obligé de mettre un alias???
 server.register_function(getProjet, 'getProjet')
 server.register_function(sauvegarderProjet, 'sauvegarderProjet')
 server.register_function(getListeProjets, 'getListeProjets')
+
+print "Main méthodes enr"
 
 #MÉTHODE DE TEST PAS TOUCHE
 def additionner_tout(x,y):
@@ -43,11 +45,10 @@ def additionner_tout(x,y):
     
 server.register_function(additionner_tout, 'additionne')
 
+print "Test méthodes enr"
+
+print "Serveur demarré"
 server.serve_forever()# la main loop du serveur
-
-print "Methodes enregistrees"
-
-print "Serveur demarrer"
 
 #tests
 if __name__ == '__main__':
