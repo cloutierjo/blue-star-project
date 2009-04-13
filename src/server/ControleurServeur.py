@@ -45,7 +45,7 @@ print "Main méthodes enr"
 ##########################################################
 #MÉTHODE DE TEST PAS TOUCHE
 def additionner_tout(x,y):
-    return x + y
+    return x+y
     
 server.register_function(additionner_tout, 'additionne')
 ##########################################################
