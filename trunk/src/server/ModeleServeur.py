@@ -11,7 +11,7 @@ class ModeleServeur:
 
     # Constructeur
     def __init__(self):    
-        self.db = ':memory:'                    # cheminFichierDB
+        self.db = 'test1.db'                    # cheminFichierDB
         self.con = sqlite3.connect(self.db)     # Connecteur
     
     # Initialisation de premier demarrage (Creation BD/Tables)
@@ -165,38 +165,21 @@ class ModeleServeur:
             
 # DEBUGAGE
 if __name__ == "__main__":
+    pass
     
-    ms = ModeleServeur()        # Creation du ModeleServeur
-    ms.initDB()                 # TO BE CALLED FOR FIRST USE ON A SERVER (CREATE TABLES)
+    #ms = ModeleServeur()        # Creation du ModeleServeur
+    #ms.initDB()                 # TO BE CALLED FOR FIRST USE ON A SERVER (CREATE TABLES)
     
-    # Creation d'un Projet    
-    p=Projet()
-    p.nom="Projet d'études"
-    p.mandat="Utiliser les caractères spéciaux pour tester la classe ModeleServeur"
-    p.addItemAnaliseExplicite("des moules","mangé","juteuses")
-    p.addItemAnaliseExplicite("une huitre","grignoté","baveuse")
-    p.addItemAnaliseExplicite("une cerise","maché","rouge")
-    p.addItemAnaliseExplicite("un bourgeon","sucoté","tranquillement")
-       
-    print ms.saveProject(p)         # Test de sauvegarde d'un projet
-    ms.test()                       # Check DB integrity
-    p.num = 0
-    print ms.saveProject(p)         # Test de sauvegarde d'un projet
-    ms.test()                       # Check DB integrity
-    p.mandat = "Vérifier que la base de données s'est bien updaté."
-    print ms.saveProject(p)         # Test de sauvegarde d'un projet
-    ms.test()                       # Check DB integrity
-    listePJ = ms.getListeProjet()   # Test getListeProjet
-    print listePJ
-    p2 = ms.getProject(1)           # Test de récupération d'un projet dans la BD
-    print p2.num
-    print p2.nom
-    print p2.mandat
-    print p2.getAnaliseExpliciteForDB()
-    print "deleting"
-    ms.deleteProject(1)             # Test de suppression de projet
-    ms.deleteProject(2)             # Test de suppression de projet
-    ms.test()                       # Check DB integrity
-    print "done"
+    # Creation d'un Projet
 
-     
+#    for i in range(10):
+#        p=Projet()
+#        p.nom="Projet d'études"
+#        p.mandat="Utiliser les caractères spéciaux pour tester la classe ModeleServeur"
+#        p.addItemAnaliseExplicite("des moules","mangé","juteuses")
+#        p.addItemAnaliseExplicite("une huitre","grignoté","baveuse")
+#        p.addItemAnaliseExplicite("de la dentyne","maché","ice")
+#        p.addItemAnaliseExplicite("avec le feu","jongler","tranquillement")
+#        ms.saveProject(p)
+#        
+#        ms.test()
