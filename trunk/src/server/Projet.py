@@ -18,9 +18,9 @@ class Projet(object):
         '''
         self.NOMPJ="nompj"
         self.NUMPJ="numpj"
-        self.NOM="nom"
-        self.VERBE="verbe"
-        self.ADJECTIF="adjectif"
+        self.NOMANALISE="nom"
+        self.VERBEANALISE="verbe"
+        self.ADJECTIFANALISE="adjectif"
         self.MANDAT="mandat"
       #  self.ANALISEIMPLICITE="analyseImplicite"
         self.ANALISEEXPLICITE="analyseExplicite"
@@ -41,11 +41,11 @@ class Projet(object):
     def getAnaliseExpliciteForDB(self):
         anExpTup=[]
         for item in self.analyseExplicite:
-            anExpTup.append((self.num,item[self.NOM],item[self.VERBE],item[self.ADJECTIF]))
+            anExpTup.append((self.num,item[self.NOMANALISE],item[self.VERBEANALISE],item[self.ADJECTIFANALISE]))
         return anExpTup
     
     def addItemAnaliseExplicite(self, nom, verbe, adjectif):
-        self.analyseExplicite.append({self.NOM:nom,self.VERBE:verbe,self.ADJECTIF:adjectif})
+        self.analyseExplicite.append({self.NOMANALISE:nom,self.VERBEANALISE:verbe,self.ADJECTIFANALISE:adjectif})
         
     def unicodize(self):
         if self.nom != None:
@@ -54,9 +54,9 @@ class Projet(object):
             self.mandat = unicode(self.mandat)
         if len(self.analyseExplicite) > 0:
             for row in self.analyseExplicite:
-                row[self.NOM] = unicode(row[self.NOM])
-                row[self.VERBE] = unicode(row[self.VERBE])
-                row[self.ADJECTIF] = unicode(row[self.ADJECTIF])
+                row[self.NOMANALISE] = unicode(row[self.NOMANALISE])
+                row[self.VERBEANALISE] = unicode(row[self.VERBEANALISE])
+                row[self.ADJECTIFANALISE] = unicode(row[self.ADJECTIFANALISE])
                 
 if __name__ == '__main__':
     pj=Projet()
