@@ -1,0 +1,30 @@
+#labels WikiModel
+#page modèle pour le scrum
+
+<wiki:comment>
+voici le model de scrum
+
+=jj/mm/aaaa=
+
+==Nom Personne==
+===1- qu'est-ce que j'ai fais (livré) depuis hier?===
+*...livré...
+===2- qu'est-ce que je farais (livré) aujourd'hui?===
+*...livré...
+==2
+=3- est-ce que j'ai eu des difficultés particulieres? (besoin d'Aide ?)===
+*...probleme, besoin d'aide, qui aidera...
+
+<wiki:comment>
+
+
+=15/05/2009=
+
+==Nom Personne==
+===1- qu'est-ce que j'ai fais (livré) depuis hier?===
+*...livré...
+===2- qu'est-ce que je farais (livré) aujourd'hui?===
+*...livré...
+==2
+=3- est-ce que j'ai eu des difficultés particulieres? (besoin d'Aide ?)===
+*...probleme, besoin d'aide, qui aidera...

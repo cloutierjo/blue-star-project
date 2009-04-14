@@ -38,7 +38,10 @@ voici le format a suivre pour les CRC, ne vous occup√© pas du HTML si sa vous m√
    </tr>
    <tr>
        <td>
-           * aucune, ne sert qu'a stock√© les informations
+           * serializedProject serialize()
+           * void deserialize(serializedProject)
+           * listeAnaliseTuple getAnaliseExpliciteForDB()
+           * void addItemAnaliseExplicite(self, string nom, string verbe, string adjectif)
        </td>
    </tr>
 </table>
@@ -57,8 +60,7 @@ voici le format a suivre pour les CRC, ne vous occup√© pas du HTML si sa vous m√
    </tr>
    <tr>
        <td>
-           * creerProjet(String)
-           * ouvrirProjet(Projet)
+           * void creerProjet(String nom)
        </td>
    </tr>
 </table>
