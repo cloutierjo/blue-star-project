@@ -5,6 +5,7 @@
 # Auteur : François Lahey
 
 import xmlrpclib
+from xml.parsers.expat import ExpatError
 from Projet import * 
 
 class FakeClient:
@@ -19,7 +20,7 @@ if __name__ == "__main__":
     print "Fake client"
     # Creation d'un Projet    
     p=Projet()
-    p.nom="Projet d'études"
+    p.nom="Test project"
     p.mandat="Utiliser les caractères spéciaux pour tester la classe ModeleServeur"
     p.addItemAnaliseExplicite("des moules","mangé","juteuses")
     p.addItemAnaliseExplicite("une huitre","grignoté","baveuse")
@@ -27,8 +28,16 @@ if __name__ == "__main__":
     p.addItemAnaliseExplicite("un bourgeon","sucoté","tranquillement")
     print "Projet crée"
     
+    ###################################WORKING###################################
     #print fc.s.additionne(4,5)
-    #print fc.s.getListeProjets()
-    print fc.s.getProjet(2)
-    
-    a = raw_input()
+    print fc.s.getListeProjets()
+    #print fc.s.getProjet(2)
+    ############################################################################# 
+
+    print p.serialize()
+    try:
+        fc.s.sauvegarderProjet(p.serialize())
+    except ExpatError:
+        print "A la ligne", ExpatError.lineno
+        
+    #print fc.s.getProjet(11)
