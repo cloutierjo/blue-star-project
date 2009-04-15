@@ -1,25 +1,25 @@
-from Projet import *
-from modelClient import *
+import Projet
+from ModeleClient import *
+import xmlrpclib
+from SimpleXMLRPCServer import SimpleXMLRPCServer
+from SimpleXMLRPCServer import SimpleXMLRPCRequestHandler
 
 class ControleurClient:
     def __init__(self):
         self.m = ModeleClient()
-        self.i = Interface()
-        self.server
+        #self.i = Interface()
+        self.server = None
         self.url = "http://localhost:8000/"
         self.connecter()
-        self.afficherInterface()
+        #self.afficherInterface()
         
     def connecter(self):
         self.server = xmlrpclib.ServerProxy(self.url)
         
         
-    def ouvrirProjet(self,nom):
-        # deserialize prend en argument le projet sérializé 
-        #je croi qu'il faudrait plutot faire:
-        # self.m.projet=projet()
-        # self.m.projet.deserialize(self.server.getProjet(nom))
-        self.m.projet = self.server.getProjet(nom).deserialize() 
+    def ouvrirProjet(self,projetId):
+         self.m.projet = Projet.Projet()
+         self.m.projet.deserialize(self.server.getProjet(projetId))
     
     
     def afficherInterface(self):
@@ -28,14 +28,15 @@ class ControleurClient:
         
     def creerProjet(self,nom):
         self.m.creerProjet(nom)
-    
+        self.m.projet.num = self.sauvegarder()
+        
     
     def getListeProjets(self):
         return  self.server.getListeProjets()
     
     
     def sauvegarder(self):
-        self.server.sauvegarderProjet(self.m.projet)
+        return self.server.sauvegarderProjet(self.m.projet.serialize())
     
     
     def creerMandat(self,mandat):
@@ -45,6 +46,11 @@ class ControleurClient:
     def ouvrirMandat(self):
         return m.projet.mandat
     
-    if __name__ == '__main__':
-        pass
+    
+    
+if __name__ == '__main__':
+    c = ControleurClient()
+    print c.getListeProjets()
+    c.ouvrirProjet(raw_input("Entrer id Projet"))
+    print "projet nomme ",c.m.projet.nom, "loader"  
         
