@@ -26,13 +26,15 @@ def getListeProjets():
 #méthode qui sauvegarde un projet
 def sauvegarderProjet(self, projetSerial):
     p = Projet()
-    p.deserialize(projetSerial)
+    p.deserialize(projetSerial)#on retourne le projet désérializé a francois pour le save
+                               #dans la db
     
     return ms.saveProject(p) 
 
 #méthode qui retourne un projet via son ID
-def getProjet(self, idProjet):
-    return ms.getProject(idProjet)
+def getProjet(idProjet):
+    return ms.getProject(idProjet).serialize()#on prend un projet serializé pour le passer sur le web ou en local
+                                              #on peut pas passer une instance de clase sur le web
     
 print "Methodes crées"
 
@@ -58,13 +60,10 @@ server.register_function(additionner_tout, 'additionne')
 print "Test méthodes enr"
 
 print "Serveur demarré"
-
-#if __name__ == '__main__':
-    #s = xmlrpclib.ServerProxy("http://localhost:8000/")
-    
-    #print s.additionne(2,3)
     
 server.serve_forever()# la main loop du serveur
 print "Serveur down"
+
+#UTILISER LE FAKE CLIENT POUR FAIRE LES TESTS
     
         
