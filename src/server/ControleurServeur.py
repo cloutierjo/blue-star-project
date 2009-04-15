@@ -9,6 +9,10 @@ from SimpleXMLRPCServer import SimpleXMLRPCServer
 from SimpleXMLRPCServer import SimpleXMLRPCRequestHandler
 from ModeleServeur import *
 
+import sys
+sys.path.append( "../server" )
+import Projet
+
 server = SimpleXMLRPCServer(("localhost", 8000), 
                             requestHandler=SimpleXMLRPCRequestHandler)
 server.register_introspection_functions()
