@@ -6,7 +6,10 @@
 
 import xmlrpclib
 from xml.parsers.expat import ExpatError
-from Projet import * 
+
+import sys
+sys.path.append( "../server" )
+import Projet
 
 class FakeClient:
     
@@ -40,6 +43,6 @@ if __name__ == "__main__":
         fc.s.sauvegarderProjet(p.serialize())
     except ExpatError:
         print "A la ligne", ExpatError.lineno
-        #########################################################################
+    #############################################################################
         
     #print fc.s.getProjet(11)
