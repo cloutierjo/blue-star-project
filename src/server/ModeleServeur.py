@@ -20,7 +20,8 @@ class ModeleServeur:
         cur = self.con.cursor()     # Curseur
         
         cur.execute('''CREATE TABLE Projets(ID NUMBER(6) PRIMARY KEY, Nom VARCHAR2(50), Mandat LONG)''')
-        cur.execute('''CREATE TABLE Analyses(ID NUMBER(6) REFERENCES Projets, nom VARCHAR2(30), verbe VARCHAR2(30), adjectif VARCHAR2(30))''')
+        cur.execute('''CREATE TABLE AnalysesExp(ID NUMBER(6) REFERENCES Projets, nom VARCHAR2(30), verbe VARCHAR2(30), adjectif VARCHAR2(30))''')
+        cur.execute('''CREATE TABLE AnalysesImp(ID NUMBER(6) REFERENCES Projets, nom VARCHAR2(30), verbe VARCHAR2(30), adjectif VARCHAR2(30))''')
         # En attendant de trouver comment créer une séquence, cette table sert de
         # Générateur d'ID unique dans la méthode getNewID() (bonne pour 999 999 projets 
         cur.execute('''CREATE TABLE Seq(Val NUMBER(6))''')
@@ -41,10 +42,14 @@ class ModeleServeur:
         p.nom = row[1]
         p.mandat = row[2]
         
-        cur.execute('''SELECT * FROM Analyses WHERE ID = (?)''', (projectID,))
+        cur.execute('''SELECT * FROM AnalysesExp WHERE ID = (?)''', (projectID,))
         for row in cur:
             p.addItemAnaliseExplicite(row[1], row[2], row[3])
-                    
+        
+        cur.execute('''SELECT * FROM AnalysesImp WHERE ID = (?)''', (projectID,))
+        for row in cur:
+            p.addItemAnaliseImplicite(row[1], row[2], row[3])
+                        
         cur.close()  
         return p 
     
@@ -85,7 +90,8 @@ class ModeleServeur:
         # Ajout du projet dans la table Projets
         entryTableProjets = (projet.num, projet.nom, projet.mandat) # Nouvelle entrée
         cur.execute('insert into Projets values(?, ?, ?)', entryTableProjets)
-        cur.executemany('insert into Analyses values(?, ?, ?, ?)', projet.getAnaliseExpliciteForDB())
+        cur.executemany('insert into AnalysesExp values(?, ?, ?, ?)', projet.getAnaliseExpliciteForDB())
+        cur.executemany('insert into AnalysesImp values(?, ?, ?, ?)', projet.getAnaliseImpliciteForDB())
         
         self.con.commit()        
         cur.close()
@@ -100,8 +106,9 @@ class ModeleServeur:
         cur.execute('DELETE FROM Projets WHERE ID = (?)', (projet.num,))
         cur.execute('insert into Projets values(?, ?, ?)', entryTableProjets)
         # Update table Analyses 
-        cur.execute('DELETE FROM Analyses WHERE ID = (?)', (projet.num,))
-        cur.executemany('insert into Analyses values(?, ?, ?, ?)', projet.getAnaliseExpliciteForDB())
+        cur.execute('DELETE FROM AnalysesExp WHERE ID = (?)', (projet.num,))
+        cur.executemany('insert into AnalysesExp values(?, ?, ?, ?)', projet.getAnaliseExpliciteForDB())
+        cur.executemany('insert into AnalysesImp values(?, ?, ?, ?)', projet.getAnaliseImpliciteForDB())
         
         self.con.commit()    
         cur.close()
@@ -112,7 +119,8 @@ class ModeleServeur:
         cur = self.con.cursor()     # Curseur
         
         cur.execute('DELETE FROM Projets WHERE ID = (?)', (projetID,))
-        cur.execute('DELETE FROM Analyses WHERE ID = (?)', (projetID,))
+        cur.execute('DELETE FROM AnalysesExp WHERE ID = (?)', (projetID,))
+        cur.execute('DELETE FROM AnalysesImp WHERE ID = (?)', (projetID,))
         
         self.con.commit()
         cur.close()
@@ -151,8 +159,19 @@ class ModeleServeur:
             print str(id)+" : "+nom+" : "+mandat
             
         print ""
-        print "Table Analyses : "
-        cur.execute('''Select * from Analyses''')
+        print "Table AnalysesExp : "
+        cur.execute('''Select * from AnalysesExp''')
+        for row in cur:
+            id = row[0]
+            champ2 = row[1]
+            champ3 = row[2]
+            champ4 = row[3]
+            ligne = str(id)+", "+champ2+", "+champ3+", "+champ4
+            print ligne
+            
+        print ""
+        print "Table AnalysesImp : "
+        cur.execute('''Select * from AnalysesImp''')
         for row in cur:
             id = row[0]
             champ2 = row[1]
@@ -167,19 +186,21 @@ class ModeleServeur:
 if __name__ == "__main__":
     
     ms = ModeleServeur()        # Creation du ModeleServeur
-    #ms.initDB()                 # TO BE CALLED FOR FIRST USE ON A SERVER (CREATE TABLES)
-    ms.test()
+    ms.initDB()                 # TO BE CALLED FOR FIRST USE ON A SERVER (CREATE TABLES)
+    #ms.test()
     
     # Creation de 10 projets
 
-#    for i in range(10):
-#        p=Projet()
-#        p.nom="Projet d'études"
-#        p.mandat="Utiliser les caractères spéciaux pour tester la classe ModeleServeur"
-#        p.addItemAnaliseExplicite("des moules","mangé","juteuses")
-#        p.addItemAnaliseExplicite("une huitre","grignoté","baveuse")
-#        p.addItemAnaliseExplicite("de la dentyne","maché","ice")
-#        p.addItemAnaliseExplicite("avec le feu","jongler","tranquillement")
-#        ms.saveProject(p)
-#        
-#        ms.test()
+    for i in range(10):
+        p=Projet()
+        p.nom="Projet d'études"
+        p.mandat="Utiliser les caractères spéciaux pour tester la classe ModeleServeur"
+        p.addItemAnaliseExplicite("des moules","mangé","juteuses")
+        p.addItemAnaliseExplicite("une huitre","grignoté","baveuse")
+        p.addItemAnaliseExplicite("de la dentyne","maché","ice")
+        p.addItemAnaliseExplicite("avec le feu","jongler","tranquillement")
+        p.addItemAnaliseImplicite("l'analyse","tester","implicite")
+        p.addItemAnaliseImplicite("le test","refaire","redondant")
+        ms.saveProject(p)
+        
+    ms.test()
