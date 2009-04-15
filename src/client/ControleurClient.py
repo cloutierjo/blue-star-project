@@ -1,22 +1,43 @@
+from Projet import *
+from modelClient import *
+
 class ControleurClient:
     def __init__(self):
-        m = Modele()
-        i = Interface()
-    
+        self.m = ModeleClient()
+        self.i = Interface()
+        self.server
+        self.url = "http://localhost:8000/"
+        self.connecter()
+        self.afficherInterface()
+        
     def connecter(self):
-        pass
+        self.server = xmlrpclib.ServerProxy(self.url)
+        
+        
     def ouvrirProjet(self,nom):
-        pass
+        self.m.projet = self.server.getProjet(nom).deserialize()
+    
+    
     def afficherInterface(self):
-        pass
+        i.root.mainloop()
+        
+        
     def creerProjet(self,nom):
-        pass
+        self.m.creerProjet(nom)
+    
+    
     def getListeProjets(self):
-        pass
+        return  self.server.getListeProjets()
+    
+    
     def sauvegarder(self):
-        pass
+        self.server.sauvegarderProjet(self.m.projet)
+    
+    
     def creerMandat(self,mandat):
-        m.projet.mandat = mandat
+        self.m.projet.mandat = mandat
+        
+        
     def ouvrirMandat(self):
         return m.projet.mandat
     
