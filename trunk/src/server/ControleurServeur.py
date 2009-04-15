@@ -11,7 +11,7 @@ from ModeleServeur import *
 
 import sys
 sys.path.append( "../server" )
-import Projet
+from Projet import *
 
 server = SimpleXMLRPCServer(("localhost", 8000), 
                             requestHandler=SimpleXMLRPCRequestHandler)
@@ -28,12 +28,13 @@ def getListeProjets():
     return ms.getListeProjet()
     
 #méthode qui sauvegarde un projet
-def sauvegarderProjet(projetSerial):
-    p = Projet.Projet()
-    p.deserialize(projetSerial)#on retourne le projet désérializé a francois pour le save
-                               #dans la db
+def sauvegarderProjet(serializedProjet):
     
-    return ms.saveProject(p).serialize()
+    p = Projet()
+    p.deserialize(serializedProjet) #on retourne le projet désérializé a francois pour le save
+                                    #dans la db
+    
+    return ms.saveProject(p)
 
 #méthode qui retourne un projet via son ID
 def getProjet(idProjet):
