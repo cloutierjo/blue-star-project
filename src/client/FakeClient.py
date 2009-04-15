@@ -42,7 +42,7 @@ if __name__ == "__main__":
     #################################NOT WORKING#################################
     
     try:
-        p.unicodize()
+        p.unicodize()   # Sert a xmlrpc (nécéssaire)
         print fc.s.sauvegarderProjet(p.serialize())
     except ExpatError:
         print "A la ligne", ExpatError.lineno
