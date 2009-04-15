@@ -4,6 +4,8 @@ Created on 14 avr. 2009
 
 @author: djo
 '''
+import sys
+sys.path.append( "../server" )
 import Projet
 
 class ModeleClient(object):

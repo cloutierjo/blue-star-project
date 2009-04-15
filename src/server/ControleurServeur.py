@@ -22,18 +22,18 @@ print "Serveur crée"
 ms = ModeleServeur()# instance du modele côté serveur
 
 print "Modele serveur crée"
-    
+
 #méthode qui retourne la liste des projets existants    
 def getListeProjets():
     return ms.getListeProjet()
     
 #méthode qui sauvegarde un projet
 def sauvegarderProjet(projetSerial):
-    p = Projet()
+    p = Projet.Projet()
     p.deserialize(projetSerial)#on retourne le projet désérializé a francois pour le save
                                #dans la db
     
-    return ms.saveProject(p) 
+    return ms.saveProject(p).serialize()
 
 #méthode qui retourne un projet via son ID
 def getProjet(idProjet):

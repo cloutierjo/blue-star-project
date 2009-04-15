@@ -22,7 +22,7 @@ if __name__ == "__main__":
     fc = FakeClient()
     print "Fake client"
     # Creation d'un Projet    
-    p=Projet()
+    p=Projet.Projet()
     p.nom="Test project"
     p.mandat="Utiliser les caractères spéciaux pour tester la classe ModeleServeur"
     p.addItemAnaliseExplicite("des moules","mangé","juteuses")
