@@ -37,15 +37,12 @@ if __name__ == "__main__":
     #print fc.s.getListeProjets()
     #serie = fc.s.getProjet(2)
     #p2 = Projet()
-    ############################################################################# 
-
-    #################################NOT WORKING#################################
-    
     try:
         p.unicodize()   # Sert a xmlrpc (nécéssaire)
         print fc.s.sauvegarderProjet(p.serialize())
     except ExpatError:
         print "A la ligne", ExpatError.lineno
-    #############################################################################
         
-    #print fc.s.getProjet(11)
+    #################################NOT WORKING#################################
+    
+    #############################################################################
