@@ -15,7 +15,11 @@ class ControleurClient:
         
         
     def ouvrirProjet(self,nom):
-        self.m.projet = self.server.getProjet(nom).deserialize()
+        # deserialize prend en argument le projet sérializé 
+        #je croi qu'il faudrait plutot faire:
+        # self.m.projet=projet()
+        # self.m.projet.deserialize(self.server.getProjet(nom))
+        self.m.projet = self.server.getProjet(nom).deserialize() 
     
     
     def afficherInterface(self):
