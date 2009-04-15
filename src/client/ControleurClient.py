@@ -1,3 +1,5 @@
+import sys
+sys.path.append( "../server" )
 import Projet
 from ModeleClient import *
 import xmlrpclib
@@ -52,5 +54,7 @@ if __name__ == '__main__':
     c = ControleurClient()
     print c.getListeProjets()
     c.ouvrirProjet(raw_input("Entrer id Projet"))
-    print "projet nomme ",c.m.projet.nom, "loader"  
+    print "projet nomme ",c.m.projet.nom, "loadee"
+    print c.m.projet.analyseExplicite
+    print c.m.projet.analyseImplicite
         
