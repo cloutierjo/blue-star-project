@@ -30,14 +30,16 @@ if __name__ == "__main__":
     
     ###################################WORKING###################################
     #print fc.s.additionne(4,5)
-    print fc.s.getListeProjets()
+    #print fc.s.getListeProjets()
     #print fc.s.getProjet(2)
     ############################################################################# 
 
+    #################################NOT WORKING#################################
     print p.serialize()
     try:
         fc.s.sauvegarderProjet(p.serialize())
     except ExpatError:
         print "A la ligne", ExpatError.lineno
+        #########################################################################
         
     #print fc.s.getProjet(11)
