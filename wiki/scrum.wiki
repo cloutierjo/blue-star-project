@@ -7,7 +7,7 @@ voici le model de scrum
 =jj/mm/aaaa=
 
 ==Nom Personne==
-===1- qu'est-ce que j'ai fais (livré) depuis hier?===
+===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
 *...livré...
 ===2- qu'est-ce que je farais (livré) aujourd'hui?===
 *...livré...
@@ -15,16 +15,16 @@ voici le model de scrum
 =3- est-ce que j'ai eu des difficultés particulieres? (besoin d'Aide ?)===
 *...probleme, besoin d'aide, qui aidera...
 
-<wiki:comment>
+</wiki:comment>
 
 
 =15/05/2009=
 
-==Nom Personne==
-===1- qu'est-ce que j'ai fais (livré) depuis hier?===
-*...livré...
-===2- qu'est-ce que je farais (livré) aujourd'hui?===
-*...livré...
+==Mathieu L.==
+===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+* fais la classe ControleurClient
+===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+* fais la classe ControleurClient
 ==2
 =3- est-ce que j'ai eu des difficultés particulieres? (besoin d'Aide ?)===
 *...probleme, besoin d'aide, qui aidera...
