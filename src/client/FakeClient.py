@@ -27,5 +27,8 @@ if __name__ == "__main__":
     p.addItemAnaliseExplicite("un bourgeon","sucoté","tranquillement")
     print "Projet crée"
     
-    print fc.s.additionne(4,5)
-    print fc.s.getListeProjets()
+    #print fc.s.additionne(4,5)
+    #print fc.s.getListeProjets()
+    print fc.s.getProjet(2)
+    
+    a = raw_input()
