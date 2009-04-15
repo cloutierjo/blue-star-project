@@ -9,7 +9,7 @@ from xml.parsers.expat import ExpatError
 
 import sys
 sys.path.append( "../server" )
-import Projet
+from Projet import *
 
 class FakeClient:
     
@@ -22,25 +22,28 @@ if __name__ == "__main__":
     fc = FakeClient()
     print "Fake client"
     # Creation d'un Projet    
-    p=Projet.Projet()
+    p=Projet()
     p.nom="Test project"
     p.mandat="Utiliser les caractères spéciaux pour tester la classe ModeleServeur"
     p.addItemAnaliseExplicite("des moules","mangé","juteuses")
     p.addItemAnaliseExplicite("une huitre","grignoté","baveuse")
     p.addItemAnaliseExplicite("une cerise","maché","rouge")
     p.addItemAnaliseExplicite("un bourgeon","sucoté","tranquillement")
+    p.addItemAnaliseImplicite("un bourgeon","sucoté","tranquillement")
     print "Projet crée"
     
     ###################################WORKING###################################
     #print fc.s.additionne(4,5)
     #print fc.s.getListeProjets()
-    #print fc.s.getProjet(2)
+    #serie = fc.s.getProjet(2)
+    #p2 = Projet()
     ############################################################################# 
 
     #################################NOT WORKING#################################
-    print p.serialize()
+    
     try:
-        fc.s.sauvegarderProjet(p.serialize())
+        p.unicodize()
+        print fc.s.sauvegarderProjet(p.serialize())
     except ExpatError:
         print "A la ligne", ExpatError.lineno
     #############################################################################
