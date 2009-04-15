@@ -24,7 +24,7 @@ def getListeProjets():
     return ms.getListeProjet()
     
 #méthode qui sauvegarde un projet
-def sauvegarderProjet(self, projetSerial):
+def sauvegarderProjet(projetSerial):
     p = Projet()
     p.deserialize(projetSerial)#on retourne le projet désérializé a francois pour le save
                                #dans la db
