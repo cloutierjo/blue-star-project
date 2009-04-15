@@ -24,8 +24,9 @@ def getListeProjets():
     return ms.getListeProjet()
     
 #méthode qui sauvegarde un projet
-def sauvegarderProjet(self):
-    return ms.saveProject(projet)
+def sauvegarderProjet(self): ## Peut -Etre plus def sauvegarderProjet(self,projet)...
+    return ms.saveProject(projet) ## Je crois qu'il y a i une erreur ici... la variable projet sort de ou?!?! 
+                                ## -- Mathieu Lavoie
     
 #méthode qui retourne un projet via son ID
 def getProjet(self, idProjet):
