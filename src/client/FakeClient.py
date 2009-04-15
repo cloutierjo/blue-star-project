@@ -33,16 +33,12 @@ if __name__ == "__main__":
     print "Projet crée"
     
     ###################################WORKING###################################
-    #print fc.s.additionne(4,5)
-    #print fc.s.getListeProjets()
-    #serie = fc.s.getProjet(2)
-    #p2 = Projet()
-    try:
-        p.unicodize()   # Sert a xmlrpc (nécéssaire)
-        print fc.s.sauvegarderProjet(p.serialize())
-    except ExpatError:
-        print "A la ligne", ExpatError.lineno
-        
+    print fc.s.additionne(4,5)
+    print fc.s.getListeProjets()
+    serie = fc.s.getProjet(2)
+    p2 = Projet()
+    print fc.s.sauvegarderProjet(p.serialize())
+   
     #################################NOT WORKING#################################
     
     #############################################################################

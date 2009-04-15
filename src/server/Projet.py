@@ -31,6 +31,7 @@ class Projet(object):
         self.analyseImplicite = []
         
     def serialize(self):
+        self.unicodize()  #néscéssaire pour que les char unicode passe sur le réseau
         return {self.NOMPJ:self.nom,self.NUMPJ:self.num,self.MANDAT:self.mandat,self.ANALISEEXPLICITE:self.analyseExplicite,self.ANALISEIMPLICITE:self.analyseImplicite}
     
     def deserialize(self, serializedProject):
