@@ -141,55 +141,20 @@ class ModeleServeur:
         return val
  
 # Fin de ModeleServeur
-# Ne pas effacer la suite qui sert a tester la classe
+# Ne pas effacer la suite qui sert à initialiser une BD
 #############################################################################
     
     # Methode de DEBUGAGE
     def test(self):
-        
-        cur = self.con.cursor()    # Curseur
-        
-        # Affichage dela table test
-        print "Table Projets :"
-        cur.execute('''Select * from Projets''')
-        for row in cur:
-            id = row[0]
-            nom = row[1]
-            mandat = row[2]
-            print str(id)+" : "+nom+" : "+mandat
-            
-        print ""
-        print "Table AnalysesExp : "
-        cur.execute('''Select * from AnalysesExp''')
-        for row in cur:
-            id = row[0]
-            champ2 = row[1]
-            champ3 = row[2]
-            champ4 = row[3]
-            ligne = str(id)+", "+champ2+", "+champ3+", "+champ4
-            print ligne
-            
-        print ""
-        print "Table AnalysesImp : "
-        cur.execute('''Select * from AnalysesImp''')
-        for row in cur:
-            id = row[0]
-            champ2 = row[1]
-            champ3 = row[2]
-            champ4 = row[3]
-            ligne = str(id)+", "+champ2+", "+champ3+", "+champ4
-            print ligne
-            
-        cur.close()
+        pass
             
 # DEBUGAGE
 if __name__ == "__main__":
     
     ms = ModeleServeur()        # Creation du ModeleServeur
     ms.initDB()                 # TO BE CALLED FOR FIRST USE ON A SERVER (CREATE TABLES)
-    #ms.test()
     
-    # Creation de 10 projets
+    # Creation de 10 projets pour fin de tests
 
     for i in range(10):
         p=Projet()
@@ -203,4 +168,3 @@ if __name__ == "__main__":
         p.addItemAnaliseImplicite("le test","refaire","redondant")
         ms.saveProject(p)
         
-    ms.test()
