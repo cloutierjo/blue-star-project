@@ -1,6 +1,7 @@
 from Tkinter import*
 import tkMessageBox, tkSimpleDialog
-
+sys.path.append( "../server" )
+import Projet
 
 class Vue(object):
 
@@ -14,11 +15,7 @@ class Vue(object):
         self.frame=Frame(self.root)
         self.frame2=Frame(self.root)
 
-#        self.mainWindow()
 
-#    def mainWindow(self):
-#        self.mainWin=Frame(self.root,width=800,height=600,bg="white")
-#        self.mainWin.pack()
  #Haut    
     def menuPrincipal(self):
         #cree une barre de menu (qui est aussi un objet Menu)
@@ -60,7 +57,8 @@ class Vue(object):
         menu.add_cascade(label="Aide", menu=helpmenu)
         helpmenu.add_command(label="blabla...", command=self.callback)
         
-#----------------------------------------------------------------------------        
+#----------------------------------------------------------------------------
+#temporaire        
     def effacerFenetre(self):
         if self.mode==1:
             self.frame.destroy()
@@ -71,9 +69,10 @@ class Vue(object):
 #---------------------------------------------------------------------------
 #liste des projets en cour
     def afficherProjet(self):
-        projets=ListeProjets(self.parent.getListeProjet())
+        projets=ListeProjets(self.parent.getListeProjets())
         nom=projets.choisirProjet()
-        self.parent.ouvrirProjet(nom)
+        print nom
+        #self.parent.ouvrirProjet(nom)
 #-----------------------------------------------------------------------------
     def saisirNomProjet(self):
         nom=tkSimpleDialog.askstring('Nom de projet',
@@ -102,7 +101,7 @@ class Vue(object):
 #        mandat=open('Mandat.txt','r')
 #        t.insert(END,mandat.read())
 #        t.insert(END,mandat.read())
-        t.insert(END,mandat.read())
+        t.insert(END,mandat)
         
 #Analyse        
 #        self.frame2=Frame(self.root)
@@ -140,11 +139,12 @@ class Vue(object):
                     while l<len(ligne):
                         adjectif+=ligne[l]
                         l+=1
-        
+#pour test        
                 print nom
                 print verbe
                 print adjectif
                 print l
+# pas fini
             self.parent.updateAT(listeDictionnaires)
             
         boutonUpdate=Button(self.frame2,text='Update Analyse',command=updateAnalyse)
@@ -178,9 +178,14 @@ class ListeProjets(object):
         self.b = Button(self.fen,text="OK",command=self.choisirProjet)
         self.b.pack()
     def choisirProjet(self):
-        projetChoisi=self.maliste.getData()
-    #pour test
-        print projetChoisi
+        retour = self.maliste.getData()
+        print retour
+       # for i in  data:
+       #    if i[1] == retour:
+        #        return i[0]
+       # else:
+       #     print"Impossible de laoder le projet"
+
         
 #----------------------------------------------------------------------------
 class Liste(Listbox):
@@ -190,13 +195,13 @@ class Liste(Listbox):
         
     def fillListe(self,data):
         for i in data:
-            self.insert(END,i)
+            self.insert(END,i[1])
             
     def getData(self,evt=0):
         retour=None
         ca=self.curselection()
         if ca:
-            retour=self.get(ca[0])
+            retour= self.data.index(ca)
         return retour
         
         
