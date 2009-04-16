@@ -50,6 +50,21 @@ class ControleurClient:
         return self.m.projet.mandat
     
     
+    def creerATImplicite(self,analyseImplicite):
+        self.m.projet.analyseImplicite = analyseImplicite
+        
+        
+    def ouvrirATImplicite(self):
+        return self.m.projet.analyseImplicite
+    
+    
+    def creerATExplicite(self,analyseExplicite):
+        self.m.projet.analyseExplicite = analyseExplicite
+        
+        
+    def ouvrirATExplicite(self):
+        return self.m.projet.analyseExplicite
+    
     
 if __name__ == '__main__':
     c = ControleurClient()
