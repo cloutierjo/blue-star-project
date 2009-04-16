@@ -3,17 +3,18 @@ sys.path.append( "../server" )
 import Projet
 from ModeleClient import *
 import xmlrpclib
+from vue import *
 from SimpleXMLRPCServer import SimpleXMLRPCServer
 from SimpleXMLRPCServer import SimpleXMLRPCRequestHandler
 
 class ControleurClient:
     def __init__(self):
         self.m = ModeleClient()
-        #self.i = Interface()
+        self.i = Vue(self)
         self.server = None
         self.url = "http://localhost:8000/"
         self.connecter()
-        #self.afficherInterface()
+        self.afficherInterface()
         
     def connecter(self):
         self.server = xmlrpclib.ServerProxy(self.url, allow_none=True) #allow none permet de passer des donnes nulle dans la serialisation
@@ -25,7 +26,9 @@ class ControleurClient:
     
     
     def afficherInterface(self):
-        i.root.mainloop()
+        self.i.menuPrincipal()
+        self.i.root.mainloop()
+        
         
         
     def creerProjet(self,nom):
@@ -49,7 +52,10 @@ class ControleurClient:
     def ouvrirMandat(self):
         return self.m.projet.mandat
     
-    
+    def quitter(self):
+        sys.exit(0)
+        
+        
     def creerATImplicite(self,analyseImplicite):
         self.m.projet.analyseImplicite = analyseImplicite
         
