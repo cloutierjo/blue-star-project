@@ -38,6 +38,7 @@ class ControleurClient:
     
     
     def sauvegarder(self):
+        self.m.projet.unicodize()
         return self.server.sauvegarderProjet(self.m.projet.serialize())
     
     
@@ -46,7 +47,7 @@ class ControleurClient:
         
         
     def ouvrirMandat(self):
-        return m.projet.mandat
+        return self.m.projet.mandat
     
     
     
@@ -55,6 +56,9 @@ if __name__ == '__main__':
     print c.getListeProjets()
     c.ouvrirProjet(raw_input("Entrer id Projet"))
     print "projet nomme ",c.m.projet.nom, "loadee"
-    print c.m.projet.analyseExplicite
-    print c.m.projet.analyseImplicite
+    print c.ouvrirMandat()
+    #print c.m.projet.analyseExplicite
+    #print c.m.projet.analyseImplicite
+    #c.creerMandat("Nouveau Mandat Joyeux")
+    #print c.sauvegarder()
         
