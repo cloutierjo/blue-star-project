@@ -12,7 +12,7 @@ class ModeleClient(object):
     '''
     la base du model coté client
     '''
-
+ 
 
     def __init__(self):
         '''
