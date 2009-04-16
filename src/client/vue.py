@@ -47,7 +47,7 @@ class Vue(object):
         #commandes de l'affichage
         displaymenu=Menu(menu)
         menu.add_cascade(label="Affichage",menu=displaymenu)
-        displaymenu.add_command(label="Afficher le mandat",command=self.parent.ouvrirMandat)
+        displaymenu.add_command(label="Afficher le mandat",command=self.afficherFenMandat)
         displaymenu.add_command(label="Afficher ...",command=self.effacerFenetre)
         #...
         
@@ -69,10 +69,8 @@ class Vue(object):
 #---------------------------------------------------------------------------
 #liste des projets en cour
     def afficherProjet(self):
-        projets=ListeProjets(self.parent.getListeProjets())
-        nom=projets.choisirProjet()
-        print nom
-        #self.parent.ouvrirProjet(nom)
+       ListeProjets(self.parent.getListeProjets(),self)
+        
 #-----------------------------------------------------------------------------
     def saisirNomProjet(self):
         nom=tkSimpleDialog.askstring('Nom de projet',
@@ -82,7 +80,7 @@ class Vue(object):
             self.parent.creerProjet(nom)
 #-----------------------------------------------------------------------------
 #mandat->liste et analyse ->liste de dictionnaire
-    def afficherFenMandat(self,mandat,analyse):
+    def afficherFenMandat(self):
 #        self.frame=Frame(self.root)
 #Mandat
         self.frame.pack(side=LEFT,fill=Y)
@@ -98,10 +96,7 @@ class Vue(object):
         s.config(command=t.yview)
         t.config(yscrollcommand=s.set)
         
-#        mandat=open('Mandat.txt','r')
-#        t.insert(END,mandat.read())
-#        t.insert(END,mandat.read())
-        t.insert(END,mandat)
+        t.insert(END,self.parent.ouvrirMandat())
         
 #Analyse        
 #        self.frame2=Frame(self.root)
@@ -112,58 +107,62 @@ class Vue(object):
 #ta->texte analyse
         ta = Text(self.frame2)
         ta.config(width=30)
-#prend ce qu'il y a dans le champ texte analyse et l'envoie au contreleur pour update
-        def updateAnalyse():
-            listeAnalyse=[]
-            listeDictionnaires=[]
-            i=1.0
-            j=1.99
-            while (ta.get(i,j)!=""):
-                ligne=ta.get(i,j)
-                i+=1.0
-                j+=1.0
-#transformation de la liste saisie en liste de dictionnaires pour controleur
-    #                for l in range(len(line)):
-                nom,verbe,adjectif="","",""
-                l=0
-                while ligne[l]!=" ":
-                    nom+=ligne[l]
-                    l+=1
-                l+=1
-                if l<len(ligne):
-                    while ligne[l]!=" ":
-                        verbe+=ligne[l]
-                        l+=1
-                    l+=1
-                if l<len(ligne):
-                    while l<len(ligne):
-                        adjectif+=ligne[l]
-                        l+=1
-#pour test        
-                print nom
-                print verbe
-                print adjectif
-                print l
-# pas fini
-            self.parent.updateAT(listeDictionnaires)
-            
-        boutonUpdate=Button(self.frame2,text='Update Analyse',command=updateAnalyse)
+#prend ce qu'il y a dans le champ texte analyse et l'envoie au contreleur pour update            
+                    
+        boutonUpdate=Button(self.frame2,text='Update Analyse',command=self.updateAnalyse)
         boutonUpdate.pack()
         s.pack(side=RIGHT, fill=Y)
         ta.pack(side=LEFT,fill=Y)
         s.config(command=ta.yview)
         ta.config(yscrollcommand=s.set)
-#remplissage du champ texte analyse a l'ouverture...avec la liste de dictionnaires recu du controleur
-        for i in analyse:
+        
+        for i in self.parent.ouvrirATExplicite():
             dict=i
             ta.insert(END,dict['nom']+" "+dict['verbe']+" "+dict['adjectif'])
             ta.insert(END,'\n')
+            
+    def updateAnalyse():
+        listeAnalyse=[]
+        listeDictionnaires=[]
+        i=1.0
+        j=1.99
+        while (ta.get(i,j)!=""):
+            ligne=ta.get(i,j)
+            i+=1.0
+            j+=1.0
+#transformation de la liste saisie en liste de dictionnaires pour controleur
+#                for l in range(len(line)):
+            nom,verbe,adjectif="","",""
+            l=0
+            while ligne[l]!=" ":
+                nom+=ligne[l]
+                l+=1
+            l+=1
+            if l<len(ligne):
+                while ligne[l]!=" ":
+                    verbe+=ligne[l]
+                    l+=1
+                l+=1
+            if l<len(ligne):
+                while l<len(ligne):
+                    adjectif+=ligne[l]
+                    l+=1
+#pour test        
+            print nom
+            print verbe
+            print adjectif
+            print l
+# pas fini
+            self.parent.updateAT(listeDictionnaires)
+            
+#remplissage du champ texte analyse a l'ouverture...avec la liste de dictionnaires recu du controleur
 #---------------------------------------------------------------------------            
 class ListeProjets(object):
-    def __init__(self,data):
+    def __init__(self,data,parent):
         self.fen=Tk()
         self.fen.title("Projets")
-        
+        self.parent = parent
+        self.data = data
         self.scroll = Scrollbar(self.fen)
         self.scroll.pack(side=RIGHT, fill=Y)
         
@@ -178,14 +177,9 @@ class ListeProjets(object):
         self.b = Button(self.fen,text="OK",command=self.choisirProjet)
         self.b.pack()
     def choisirProjet(self):
-        retour = self.maliste.getData()
-        print retour
-       # for i in  data:
-       #    if i[1] == retour:
-        #        return i[0]
-       # else:
-       #     print"Impossible de laoder le projet"
-
+       if self.maliste.getData():
+           self.parent.parent.ouvrirProjet(self.data[self.maliste.getData()][0])
+           self.fen.destroy()
         
 #----------------------------------------------------------------------------
 class Liste(Listbox):
@@ -198,10 +192,8 @@ class Liste(Listbox):
             self.insert(END,i[1])
             
     def getData(self,evt=0):
-        retour=None
         ca=self.curselection()
         if ca:
-            retour= self.data.index(ca)
-        return retour
+            return int(ca[0])
         
         
