@@ -2,7 +2,7 @@
 '''
 Created on 14 avr. 2009
 
-@author: djo
+@author: Jonatan Cloutier
 '''
 import sys
 sys.path.append( "../server" )

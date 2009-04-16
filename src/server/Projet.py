@@ -10,20 +10,24 @@ class Projet(object):
     contient tout les informations d'un projet ainsi que des méthode 
     utilitaire pour en simplifier l'accès
     '''
-
+    
+    class CST:
+        '''
+        Constant utiliser dans projet
+        '''
+        NOMPJ="nompj"
+        NUMPJ="numpj"
+        NOMANALISE="nom"
+        VERBEANALISE="verbe"
+        ADJECTIFANALISE="adjectif"
+        MANDAT="mandat"
+        ANALISEIMPLICITE="analyseImplicite"
+        ANALISEEXPLICITE="analyseExplicite"
 
     def __init__(self):
         '''
         Constructor
         '''
-        self.NOMPJ="nompj"
-        self.NUMPJ="numpj"
-        self.NOMANALISE="nom"
-        self.VERBEANALISE="verbe"
-        self.ADJECTIFANALISE="adjectif"
-        self.MANDAT="mandat"
-        self.ANALISEIMPLICITE="analyseImplicite"
-        self.ANALISEEXPLICITE="analyseExplicite"
         self.nom = None
         self.num = 0    # Vaut 0 pour nouveau projet et ID du projet lorsque loadé
         self.mandat = None
@@ -32,32 +36,32 @@ class Projet(object):
         
     def serialize(self):
         self.unicodize()  #néscéssaire pour que les char unicode passe sur le réseau
-        return {self.NOMPJ:self.nom,self.NUMPJ:self.num,self.MANDAT:self.mandat,self.ANALISEEXPLICITE:self.analyseExplicite,self.ANALISEIMPLICITE:self.analyseImplicite}
+        return {self.CST.NOMPJ:self.nom,self.CST.NUMPJ:self.num,self.CST.MANDAT:self.mandat,self.CST.ANALISEEXPLICITE:self.analyseExplicite,self.CST.ANALISEIMPLICITE:self.analyseImplicite}
     
     def deserialize(self, serializedProject):
-        self.nom=serializedProject[self.NOMPJ]
-        self.num=serializedProject[self.NUMPJ]
-        self.mandat=serializedProject[self.MANDAT]
-        self.analyseExplicite=serializedProject[self.ANALISEEXPLICITE]
-        self.analyseImplicite=serializedProject[self.ANALISEIMPLICITE]
+        self.nom=serializedProject[self.CST.NOMPJ]
+        self.num=serializedProject[self.CST.NUMPJ]
+        self.mandat=serializedProject[self.CST.MANDAT]
+        self.analyseExplicite=serializedProject[self.CST.ANALISEEXPLICITE]
+        self.analyseImplicite=serializedProject[self.CST.ANALISEIMPLICITE]
         
     def getAnaliseExpliciteForDB(self):
         anExpTup=[]
         for item in self.analyseExplicite:
-            anExpTup.append((self.num,item[self.NOMANALISE],item[self.VERBEANALISE],item[self.ADJECTIFANALISE]))
+            anExpTup.append((self.num,item[self.CST.NOMANALISE],item[self.CST.VERBEANALISE],item[self.CST.ADJECTIFANALISE]))
         return anExpTup
     
     def addItemAnaliseExplicite(self, nom, verbe, adjectif):
-        self.analyseExplicite.append({self.NOMANALISE:nom,self.VERBEANALISE:verbe,self.ADJECTIFANALISE:adjectif})
+        self.analyseExplicite.append({self.CST.NOMANALISE:nom,self.CST.VERBEANALISE:verbe,self.CST.ADJECTIFANALISE:adjectif})
         
     def getAnaliseImpliciteForDB(self):
         anExpTup=[]
         for item in self.analyseImplicite:
-            anExpTup.append((self.num,item[self.NOMANALISE],item[self.VERBEANALISE],item[self.ADJECTIFANALISE]))
+            anExpTup.append((self.num,item[self.CST.NOMANALISE],item[self.CST.VERBEANALISE],item[self.CST.ADJECTIFANALISE]))
         return anExpTup
     
     def addItemAnaliseImplicite(self, nom, verbe, adjectif):
-        self.analyseImplicite.append({self.NOMANALISE:nom,self.VERBEANALISE:verbe,self.ADJECTIFANALISE:adjectif})
+        self.analyseImplicite.append({self.CST.NOMANALISE:nom,self.CST.VERBEANALISE:verbe,self.CST.ADJECTIFANALISE:adjectif})
         
     def unicodize(self):
         if self.nom != None:
@@ -66,14 +70,14 @@ class Projet(object):
             self.mandat = unicode(self.mandat)
         if len(self.analyseExplicite) > 0:
             for row in self.analyseExplicite:
-                row[self.NOMANALISE] = unicode(row[self.NOMANALISE])
-                row[self.VERBEANALISE] = unicode(row[self.VERBEANALISE])
-                row[self.ADJECTIFANALISE] = unicode(row[self.ADJECTIFANALISE])
+                row[self.CST.NOMANALISE] = unicode(row[self.CST.NOMANALISE])
+                row[self.CST.VERBEANALISE] = unicode(row[self.CST.VERBEANALISE])
+                row[self.CST.ADJECTIFANALISE] = unicode(row[self.CST.ADJECTIFANALISE])
         if len(self.analyseImplicite) > 0:
             for row in self.analyseImplicite:
-                row[self.NOMANALISE] = unicode(row[self.NOMANALISE])
-                row[self.VERBEANALISE] = unicode(row[self.VERBEANALISE])
-                row[self.ADJECTIFANALISE] = unicode(row[self.ADJECTIFANALISE])
+                row[self.CST.NOMANALISE] = unicode(row[self.CST.NOMANALISE])
+                row[self.CST.VERBEANALISE] = unicode(row[self.CST.VERBEANALISE])
+                row[self.CST.ADJECTIFANALISE] = unicode(row[self.CST.ADJECTIFANALISE])
                 
 if __name__ == '__main__':
     pj=Projet()
@@ -84,6 +88,9 @@ if __name__ == '__main__':
     pj.addItemAnaliseImplicite("l'analyse", "tester", "implicite")
     pj.unicodize()
     pj.getAnaliseExpliciteForDB()
+    pj.unicodize()
+    pj.getAnaliseExpliciteForDB()
+    pj.getAnaliseImpliciteForDB()
     print pj.serialize()
     pj.deserialize(pj.serialize())
     print pj.serialize()
