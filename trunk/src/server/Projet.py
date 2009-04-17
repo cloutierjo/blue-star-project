@@ -17,9 +17,6 @@ class Projet(object):
         '''
         NOMPJ="nompj"
         NUMPJ="numpj"
-        NOMANALISE="nom"
-        VERBEANALISE="verbe"
-        ADJECTIFANALISE="adjectif"
         MANDAT="mandat"
         ANALISEIMPLICITE="analyseImplicite"
         ANALISEEXPLICITE="analyseExplicite"
@@ -31,54 +28,71 @@ class Projet(object):
         self.nom = None
         self.num = 0    # Vaut 0 pour nouveau projet et ID du projet lorsque loadé
         self.mandat = None
-        self.analyseExplicite = []
-        self.analyseImplicite = []
+        self.analyseExplicite = analise()
+        self.analyseImplicite = analise()
         
     def serialize(self):
         self.unicodize()  #néscéssaire pour que les char unicode passe sur le réseau
-        return {self.CST.NOMPJ:self.nom,self.CST.NUMPJ:self.num,self.CST.MANDAT:self.mandat,self.CST.ANALISEEXPLICITE:self.analyseExplicite,self.CST.ANALISEIMPLICITE:self.analyseImplicite}
+        return {self.CST.NOMPJ:self.nom,self.CST.NUMPJ:self.num,self.CST.MANDAT:self.mandat,self.CST.ANALISEEXPLICITE:self.analyseExplicite.analyse,self.CST.ANALISEIMPLICITE:self.analyseImplicite.analyse}
     
     def deserialize(self, serializedProject):
         self.nom=serializedProject[self.CST.NOMPJ]
         self.num=serializedProject[self.CST.NUMPJ]
         self.mandat=serializedProject[self.CST.MANDAT]
-        self.analyseExplicite=serializedProject[self.CST.ANALISEEXPLICITE]
-        self.analyseImplicite=serializedProject[self.CST.ANALISEIMPLICITE]
+        self.analyseExplicite=analise(serializedProject[self.CST.ANALISEEXPLICITE])
+        self.analyseImplicite=analise(serializedProject[self.CST.ANALISEIMPLICITE])
         
     def getAnaliseExpliciteForDB(self):
-        anExpTup=[]
-        for item in self.analyseExplicite:
-            anExpTup.append((self.num,item[self.CST.NOMANALISE],item[self.CST.VERBEANALISE],item[self.CST.ADJECTIFANALISE]))
-        return anExpTup
+        print "deprecate getAnaliseExpliciteForDB"
+        return self.analyseExplicite.getForDB(self.num)
     
     def addItemAnaliseExplicite(self, nom, verbe, adjectif):
-        self.analyseExplicite.append({self.CST.NOMANALISE:nom,self.CST.VERBEANALISE:verbe,self.CST.ADJECTIFANALISE:adjectif})
+        print "deprecate addItemAnaliseExplicite"
+        self.analyseExplicite.addItemAnaliseImplicite(nom, verbe, adjectif)
         
     def getAnaliseImpliciteForDB(self):
-        anExpTup=[]
-        for item in self.analyseImplicite:
-            anExpTup.append((self.num,item[self.CST.NOMANALISE],item[self.CST.VERBEANALISE],item[self.CST.ADJECTIFANALISE]))
-        return anExpTup
+        print "deprecate getAnaliseImpliciteForDB"
+        return self.analyseImplicite.getForDB(self.num)
     
     def addItemAnaliseImplicite(self, nom, verbe, adjectif):
-        self.analyseImplicite.append({self.CST.NOMANALISE:nom,self.CST.VERBEANALISE:verbe,self.CST.ADJECTIFANALISE:adjectif})
+        print "deprecate addItemAnaliseImplicite"
+        self.analyseImplicite.addItemAnaliseImplicite(nom, verbe, adjectif)
         
     def unicodize(self):
         if self.nom != None:
             self.nom = unicode(self.nom)
         if self.mandat != None:
             self.mandat = unicode(self.mandat)
-        if len(self.analyseExplicite) > 0:
-            for row in self.analyseExplicite:
-                row[self.CST.NOMANALISE] = unicode(row[self.CST.NOMANALISE])
-                row[self.CST.VERBEANALISE] = unicode(row[self.CST.VERBEANALISE])
-                row[self.CST.ADJECTIFANALISE] = unicode(row[self.CST.ADJECTIFANALISE])
-        if len(self.analyseImplicite) > 0:
-            for row in self.analyseImplicite:
-                row[self.CST.NOMANALISE] = unicode(row[self.CST.NOMANALISE])
-                row[self.CST.VERBEANALISE] = unicode(row[self.CST.VERBEANALISE])
-                row[self.CST.ADJECTIFANALISE] = unicode(row[self.CST.ADJECTIFANALISE])
-                
+        self.analyseExplicite.unicodize()
+        self.analyseImplicite.unicodize()
+        
+class analise:
+    
+    NOM="nom"
+    VERBE="verbe"
+    ADJECTIF="adjectif"
+    
+    def __init__(self,otherAnalise=None):
+        if otherAnalise:
+            self.analyse=otherAnalise
+        else:
+            self.analyse = []
+    
+    def getForDB(self,pjID):
+        anExpTup=[]
+        for item in self.analyse:
+            anExpTup.append((pjID,item[self.NOM],item[self.VERBE],item[self.ADJECTIF]))
+        return anExpTup
+    
+    def addItemAnaliseImplicite(self, nom, verbe, adjectif):
+        self.analyse.append({self.NOM:nom,self.VERBE:verbe,self.ADJECTIF:adjectif})
+        
+    def unicodize(self):
+        for row in self.analyse:
+            row[self.NOM] = unicode(row[self.NOM])
+            row[self.VERBE] = unicode(row[self.VERBE])
+            row[self.ADJECTIF] = unicode(row[self.ADJECTIF])
+
 if __name__ == '__main__':
     pj=Projet()
     pj.nom="project Name"
