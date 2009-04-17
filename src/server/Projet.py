@@ -14,8 +14,8 @@ class Projet(object):
     NOMPJ="nompj"
     NUMPJ="numpj"
     MANDAT="mandat"
-    ANALISEIMPLICITE="analyseImplicite"
-    ANALISEEXPLICITE="analyseExplicite"
+    analyseIMPLICITE="analyseImplicite"
+    analyseEXPLICITE="analyseExplicite"
 
     def __init__(self):
         '''
@@ -24,34 +24,34 @@ class Projet(object):
         self.nom = None
         self.num = 0    # Vaut 0 pour nouveau projet et ID du projet lorsque loadé
         self.mandat = None
-        self.analyseExplicite = analise()
-        self.analyseImplicite = analise()
+        self.analyseExplicite = Analyse()
+        self.analyseImplicite = Analyse()
         
     def serialize(self):
         self.unicodize()  #néscéssaire pour que les char unicode passe sur le réseau
-        return {self.NOMPJ:self.nom,self.NUMPJ:self.num,self.MANDAT:self.mandat,self.ANALISEEXPLICITE:self.analyseExplicite.analyse,self.ANALISEIMPLICITE:self.analyseImplicite.analyse}
+        return {self.NOMPJ:self.nom,self.NUMPJ:self.num,self.MANDAT:self.mandat,self.analyseEXPLICITE:self.analyseExplicite.analyse,self.analyseIMPLICITE:self.analyseImplicite.analyse}
     
     def deserialize(self, serializedProject):
         self.nom=serializedProject[self.NOMPJ]
         self.num=serializedProject[self.NUMPJ]
         self.mandat=serializedProject[self.MANDAT]
-        self.analyseExplicite=analise(serializedProject[self.ANALISEEXPLICITE])
-        self.analyseImplicite=analise(serializedProject[self.ANALISEIMPLICITE])
+        self.analyseExplicite=Analyse(serializedProject[self.analyseEXPLICITE])
+        self.analyseImplicite=Analyse(serializedProject[self.analyseIMPLICITE])
         
-    def getAnaliseExpliciteForDB(self):
-        print "deprecate getAnaliseExpliciteForDB"
+    def getAnalyseExpliciteForDB(self):
+        print "deprecate getanalyseExpliciteForDB"
         return self.analyseExplicite.getForDB(self.num)
     
-    def addItemAnaliseExplicite(self, nom, verbe, adjectif):
-        print "deprecate addItemAnaliseExplicite"
+    def addItemAnalyseExplicite(self, nom, verbe, adjectif):
+        print "deprecate addItemanalyseExplicite"
         self.analyseExplicite.addItem(nom, verbe, adjectif)
         
-    def getAnaliseImpliciteForDB(self):
-        print "deprecate getAnaliseImpliciteForDB"
+    def getAnalyseImpliciteForDB(self):
+        print "deprecate getanalyseImpliciteForDB"
         return self.analyseImplicite.getForDB(self.num)
     
-    def addItemAnaliseImplicite(self, nom, verbe, adjectif):
-        print "deprecate addItemAnaliseImplicite"
+    def addItemAnalyseImplicite(self, nom, verbe, adjectif):
+        print "deprecate addItemanalyseImplicite"
         self.analyseImplicite.addItem(nom, verbe, adjectif)
         
     def unicodize(self):
@@ -62,15 +62,15 @@ class Projet(object):
         self.analyseExplicite.unicodize()
         self.analyseImplicite.unicodize()
         
-class analise:
+class Analyse:
     
     NOM="nom"
     VERBE="verbe"
     ADJECTIF="adjectif"
     
-    def __init__(self,otherAnalise=None):
-        if otherAnalise:
-            self.analyse=otherAnalise
+    def __init__(self,otherAnalyse=None):
+        if otherAnalyse:
+            self.analyse=otherAnalyse
         else:
             self.analyse = []
     

@@ -44,11 +44,11 @@ class ModeleServeur:
         
         cur.execute('''SELECT * FROM AnalysesExp WHERE ID = (?)''', (projectID,))
         for row in cur:
-            p.addItemAnaliseExplicite(row[1], row[2], row[3])
+            p.addItemAnalyseExplicite(row[1], row[2], row[3])
         
         cur.execute('''SELECT * FROM AnalysesImp WHERE ID = (?)''', (projectID,))
         for row in cur:
-            p.addItemAnaliseImplicite(row[1], row[2], row[3])
+            p.addItemAnalyseImplicite(row[1], row[2], row[3])
                         
         cur.close()  
         return p 
@@ -90,8 +90,8 @@ class ModeleServeur:
         # Ajout du projet dans la table Projets
         entryTableProjets = (projet.num, projet.nom, projet.mandat) # Nouvelle entrée
         cur.execute('insert into Projets values(?, ?, ?)', entryTableProjets)
-        cur.executemany('insert into AnalysesExp values(?, ?, ?, ?)', projet.getAnaliseExpliciteForDB())
-        cur.executemany('insert into AnalysesImp values(?, ?, ?, ?)', projet.getAnaliseImpliciteForDB())
+        cur.executemany('insert into AnalysesExp values(?, ?, ?, ?)', projet.getAnalyseExpliciteForDB())
+        cur.executemany('insert into AnalysesImp values(?, ?, ?, ?)', projet.getAnalyseImpliciteForDB())
         
         self.con.commit()        
         cur.close()
@@ -107,8 +107,8 @@ class ModeleServeur:
         cur.execute('insert into Projets values(?, ?, ?)', entryTableProjets)
         # Update table Analyses 
         cur.execute('DELETE FROM AnalysesExp WHERE ID = (?)', (projet.num,))
-        cur.executemany('insert into AnalysesExp values(?, ?, ?, ?)', projet.getAnaliseExpliciteForDB())
-        cur.executemany('insert into AnalysesImp values(?, ?, ?, ?)', projet.getAnaliseImpliciteForDB())
+        cur.executemany('insert into AnalysesExp values(?, ?, ?, ?)', projet.getAnalyseExpliciteForDB())
+        cur.executemany('insert into AnalysesImp values(?, ?, ?, ?)', projet.getAnalyseImpliciteForDB())
         
         self.con.commit()    
         cur.close()
@@ -160,11 +160,11 @@ if __name__ == "__main__":
         p=Projet()
         p.nom="Projet d'études"
         p.mandat="Utiliser les caractères spéciaux pour tester la classe ModeleServeur"
-        p.addItemAnaliseExplicite("des moules","mangé","juteuses")
-        p.addItemAnaliseExplicite("une huitre","grignoté","baveuse")
-        p.addItemAnaliseExplicite("de la dentyne","maché","ice")
-        p.addItemAnaliseExplicite("avec le feu","jongler","tranquillement")
-        p.addItemAnaliseImplicite("l'analyse","tester","implicite")
-        p.addItemAnaliseImplicite("le test","refaire","redondant")
+        p.addItemAnalyseExplicite("des moules","mangé","juteuses")
+        p.addItemAnalyseExplicite("une huitre","grignoté","baveuse")
+        p.addItemAnalyseExplicite("de la dentyne","maché","ice")
+        p.addItemAnalyseExplicite("avec le feu","jongler","tranquillement")
+        p.addItemAnalyseImplicite("l'analyse","tester","implicite")
+        p.addItemAnalyseImplicite("le test","refaire","redondant")
         ms.saveProject(p)
         
