@@ -1,19 +1,17 @@
-#labels WikiModel
-#page modèle pour le scrum
-
+#labels SCRUM
+<wiki:toc max_depth="1" />
 <wiki:comment>
 voici le model de scrum
 
-=jj/mm/aaaa=
+.=jj/mm/aaaa=
 
 ==Nom Personne==
-===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
-*...livré...
-===2- qu'est-ce que je farais (livré) aujourd'hui?===
-*...livré...
-==2
-=3- est-ce que j'ai eu des difficultés particulieres? (besoin d'Aide ?)===
-*...probleme, besoin d'aide, qui aidera...
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  *...livré...
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  *...livré...
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  *...problème, besoin d'aide, qui aidera...
 
 </wiki:comment>
 
@@ -21,10 +19,47 @@ voici le model de scrum
 =15/05/2009=
 
 ==Mathieu L.==
-===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
-* fais la classe ControleurClient
-===2- qu'est-ce que je ferais (livré) aujourd'hui?===
-* fais la classe ControleurClient
-==2
-=3- est-ce que j'ai eu des difficultés particulieres? (besoin d'Aide ?)===
-*...probleme, besoin d'aide, qui aidera...
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * fais la classe ControleurClient
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * testé la classe ControleurClient
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * comment fonctionne serialize/deserialize
+
+==François L.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * fais et testé la classe ModeleServeur
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * faire le schéma de BDD
+  * début de la préparation du module suivant
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * N/A
+
+==Jonathan H.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * débuté la classe ControleurServeur
+   * getList (testé)
+   * getProjet (non testé)
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * testé getProjet
+  * faire saveProjet
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * comment fonctionne serialize/deserialize
+
+==Jean-Philippe C.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * débuté une interface DOS qui sert a testé
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * complété l'interface DOS pour pouvoir testé toute les fonctionnalité, le temps d'avoir une bonne interface GUI
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * divers concept de python et de la structure du projet
+
+==Jonatan C.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * fais et testé la classe Projet
+  * débuté la classe ModeleClient
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * aidé a réglé les problèmes survenue
+  * testé l'assemblage de tout le projet
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * N/A
