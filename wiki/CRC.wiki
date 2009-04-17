@@ -40,8 +40,28 @@ voici le format a suivre pour les CRC, ne vous occup√© pas du HTML si sa vous m√
        <td>
            * serializedProject serialize()
            * void deserialize(serializedProject)
-           * listeAnaliseTuple getAnaliseExpliciteForDB()
-           * void addItemAnaliseExplicite(self, string nom, string verbe, string adjectif)
+           
+       </td>
+   </tr>
+</table>
+
+
+<table border=1 width=70%>
+   <tr>
+       <td width=60%> Analise </td>
+       <td rowspan=3> 
+                      * ModelClient
+                      * ModelServeur
+                      * Projet
+       </td>
+   </tr>
+   <tr>
+       <td align="right">Jonatan C.</td>
+   </tr>
+   <tr>
+       <td>
+           * listeAnaliseTuple getForDB(ProjectID)
+           * void addItem(string nom, string verbe, string adjectif)
        </td>
    </tr>
 </table>
