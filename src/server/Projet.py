@@ -10,16 +10,12 @@ class Projet(object):
     contient tout les informations d'un projet ainsi que des méthode 
     utilitaire pour en simplifier l'accès
     '''
-    
-    class CST:
-        '''
-        Constant utiliser dans projet
-        '''
-        NOMPJ="nompj"
-        NUMPJ="numpj"
-        MANDAT="mandat"
-        ANALISEIMPLICITE="analyseImplicite"
-        ANALISEEXPLICITE="analyseExplicite"
+
+    NOMPJ="nompj"
+    NUMPJ="numpj"
+    MANDAT="mandat"
+    ANALISEIMPLICITE="analyseImplicite"
+    ANALISEEXPLICITE="analyseExplicite"
 
     def __init__(self):
         '''
@@ -33,14 +29,14 @@ class Projet(object):
         
     def serialize(self):
         self.unicodize()  #néscéssaire pour que les char unicode passe sur le réseau
-        return {self.CST.NOMPJ:self.nom,self.CST.NUMPJ:self.num,self.CST.MANDAT:self.mandat,self.CST.ANALISEEXPLICITE:self.analyseExplicite.analyse,self.CST.ANALISEIMPLICITE:self.analyseImplicite.analyse}
+        return {self.NOMPJ:self.nom,self.NUMPJ:self.num,self.MANDAT:self.mandat,self.ANALISEEXPLICITE:self.analyseExplicite.analyse,self.ANALISEIMPLICITE:self.analyseImplicite.analyse}
     
     def deserialize(self, serializedProject):
-        self.nom=serializedProject[self.CST.NOMPJ]
-        self.num=serializedProject[self.CST.NUMPJ]
-        self.mandat=serializedProject[self.CST.MANDAT]
-        self.analyseExplicite=analise(serializedProject[self.CST.ANALISEEXPLICITE])
-        self.analyseImplicite=analise(serializedProject[self.CST.ANALISEIMPLICITE])
+        self.nom=serializedProject[self.NOMPJ]
+        self.num=serializedProject[self.NUMPJ]
+        self.mandat=serializedProject[self.MANDAT]
+        self.analyseExplicite=analise(serializedProject[self.ANALISEEXPLICITE])
+        self.analyseImplicite=analise(serializedProject[self.ANALISEIMPLICITE])
         
     def getAnaliseExpliciteForDB(self):
         print "deprecate getAnaliseExpliciteForDB"
@@ -48,7 +44,7 @@ class Projet(object):
     
     def addItemAnaliseExplicite(self, nom, verbe, adjectif):
         print "deprecate addItemAnaliseExplicite"
-        self.analyseExplicite.addItemAnaliseImplicite(nom, verbe, adjectif)
+        self.analyseExplicite.addItem(nom, verbe, adjectif)
         
     def getAnaliseImpliciteForDB(self):
         print "deprecate getAnaliseImpliciteForDB"
@@ -56,7 +52,7 @@ class Projet(object):
     
     def addItemAnaliseImplicite(self, nom, verbe, adjectif):
         print "deprecate addItemAnaliseImplicite"
-        self.analyseImplicite.addItemAnaliseImplicite(nom, verbe, adjectif)
+        self.analyseImplicite.addItem(nom, verbe, adjectif)
         
     def unicodize(self):
         if self.nom != None:
@@ -84,7 +80,7 @@ class analise:
             anExpTup.append((pjID,item[self.NOM],item[self.VERBE],item[self.ADJECTIF]))
         return anExpTup
     
-    def addItemAnaliseImplicite(self, nom, verbe, adjectif):
+    def addItem(self, nom, verbe, adjectif):
         self.analyse.append({self.NOM:nom,self.VERBE:verbe,self.ADJECTIF:adjectif})
         
     def unicodize(self):
@@ -97,14 +93,14 @@ if __name__ == '__main__':
     pj=Projet()
     pj.nom="project Name"
     pj.mandat="ceci est un tres tres grand projet comprenant beaucoup d'idée... encore incomplete"
-    pj.addItemAnaliseExplicite("projet", "faire", "tres long")
-    pj.addItemAnaliseExplicite("idée","comprant","beaucoup")
-    pj.addItemAnaliseImplicite("l'analyse", "tester", "implicite")
+    pj.analyseExplicite.addItem("projet", "faire", "tres long")
+    pj.analyseExplicite.addItem("idée","comprant","beaucoup")
+    pj.analyseImplicite.addItem("l'analyse", "tester", "implicite")
     pj.unicodize()
-    pj.getAnaliseExpliciteForDB()
+    pj.analyseExplicite.getForDB(pj.num)
     pj.unicodize()
-    pj.getAnaliseExpliciteForDB()
-    pj.getAnaliseImpliciteForDB()
+    pj.analyseExplicite.getForDB(pj.num)
+    pj.analyseImplicite.getForDB(pj.num)
     print pj.serialize()
     pj.deserialize(pj.serialize())
     print pj.serialize()
