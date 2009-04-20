@@ -4,8 +4,8 @@ import Projet
 from ModeleClient import *
 import xmlrpclib
 from vue import *
-from SimpleXMLRPCServer import SimpleXMLRPCServer
-from SimpleXMLRPCServer import SimpleXMLRPCRequestHandler
+from SimpleXMLRPCServer import SimpleXMLRPCServer #NOT NEEDED VOIR LE NEXT COMMENT
+from SimpleXMLRPCServer import SimpleXMLRPCRequestHandler #NOT NEEDED JUSTE LE IMPORT DE XMLRPCLIB EST SUFFISANT POUR LE CLIENT
 
 class ControleurClient:
     def __init__(self):
