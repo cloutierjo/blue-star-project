@@ -110,6 +110,8 @@ class Vue(object):
 #Mandat
         if self.fenOuverte!=1:
             if(self.etat==1 or self.etat==2):
+                #etat 1: affiche mandat vide pour en creer un pour un nouveau projet
+                #etat 2: affiche le mandat du projet ouvert
                 self.frame.pack(side=LEFT,fill=Y)
                 nom = Label(self.frame,text = 'Mandat :')
                 nom.pack()
@@ -127,12 +129,13 @@ class Vue(object):
                 else:
                     self.t.insert(END,self.parent.ouvrirMandat())
                 
-                #instance d'analyseTextuelle
+                #instance d'analyseTextuelle (vide si nouveau projet)
                 if len(self.parent.ouvrirATExplicite()) != 0:
                     self.analyseGrid=analyseTextuelle(self,self.parent.ouvrirATExplicite())
                 else:
                     self.analyseGrid = analyseTextuelle(self,[])
-                        
+                    
+                #1:fenetre mandat et analyse textuelle        
                 self.fenOuverte=1
         
 #----------------------------------------------------------------------------
