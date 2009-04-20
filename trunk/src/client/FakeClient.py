@@ -25,19 +25,11 @@ if __name__ == "__main__":
     p=Projet()
     p.nom="Test project"
     p.mandat="Utiliser les caractères spéciaux pour tester la classe ModeleServeur"
-<<<<<<< .mine
     p.analyseExplicite.addItem("des moules","mangé","juteuses")
     p.analyseExplicite.addItem("une huitre","grignoté","baveuse")
     p.analyseExplicite.addItem("une cerise","maché","rouge")
     p.analyseExplicite.addItem("un bourgeon","sucoté","tranquillement")
     p.analyseImplicite.addItem("un bourgeon","sucoté","tranquillement")
-=======
-    p.addItemAnalyseExplicite("des moules","mangé","juteuses")
-    p.addItemAnalyseExplicite("une huitre","grignoté","baveuse")
-    p.addItemAnalyseExplicite("une cerise","maché","rouge")
-    p.addItemAnalyseExplicite("un bourgeon","sucoté","tranquillement")
-    p.addItemAnalyseImplicite("un bourgeon","sucoté","tranquillement")
->>>>>>> .r115
     print "Projet crée"
     
     ###################################WORKING###################################
