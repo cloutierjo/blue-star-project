@@ -69,15 +69,15 @@ class Vue(object):
             self.etat=2
 #-----------------------------------------------------------------------------
     def saisirNomProjet(self):
+         
         if self.etat==0:
             nom=tkSimpleDialog.askstring('Nom de projet',
                                      'Entrez un nom pour le projet:', 
                                      parent=self.root)
-        if nom:
-                self.parent.creerProjet(nom)
-                self.etat=1
-                mandat,analyse="",[]
-                self.afficherFenMandat(mandat,analyse)
+            if nom:
+                    self.parent.creerProjet(nom)
+                    self.etat=1
+                    self.afficherFenMandat()
                 
 #-----------------------------------------------------------------------------
     def creationMandat(self):
@@ -105,18 +105,23 @@ class Vue(object):
         nom.pack()
         s = Scrollbar(self.frame)
 #t->texte mandat
-        t = Text(self.frame)
-        t.config(width=80)
-        t.focus_set()
+        self.t = Text(self.frame)
+        self.t.config(width=80)
+        self.t.focus_set()
         s.pack(side=RIGHT, fill=Y)
-        t.pack(side=LEFT, fill=Y)
-        s.config(command=t.yview)
-        t.config(yscrollcommand=s.set)
-        
-        t.insert(END,self.parent.ouvrirMandat())
+        self.t.pack(side=LEFT, fill=Y)
+        s.config(command=self.t.yview)
+        self.t.config(yscrollcommand=s.set)
+        if self.parent.ouvrirMandat() == None:
+            self.t.insert(END,"")
+        else:
+            self.t.insert(END,self.parent.ouvrirMandat())
         
         #instance d'analyseTextuelle
-        self.analyseGrid=analyseTextuelle(self,self.parent.ouvrirATExplicite())
+        if len(self.parent.ouvrirATExplicite()) != 0:
+            self.analyseGrid=analyseTextuelle(self,self.parent.ouvrirATExplicite())
+        else:
+            self.analyseGrid = analyseTextuelle(self,[])
                 
         self.fenOuverte=1
         
