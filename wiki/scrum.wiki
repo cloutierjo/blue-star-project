@@ -94,7 +94,7 @@ voici le model de scrum
   * testage de la classe ControleurServeur
  ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
   * refactor de la classe ControleurServeur
-  * créé la méthode deleteProjet
+  * créé la méthode deleteProjet et testage et retestage
  ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
   * problème de l'envoie d'un projet par réseau (corrigé par François)
 
