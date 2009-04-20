@@ -25,20 +25,21 @@ if __name__ == "__main__":
     p=Projet()
     p.nom="Test project"
     p.mandat="Utiliser les caractères spéciaux pour tester la classe ModeleServeur"
-    p.addItemAnaliseExplicite("des moules","mangé","juteuses")
-    p.addItemAnaliseExplicite("une huitre","grignoté","baveuse")
-    p.addItemAnaliseExplicite("une cerise","maché","rouge")
-    p.addItemAnaliseExplicite("un bourgeon","sucoté","tranquillement")
-    p.addItemAnaliseImplicite("un bourgeon","sucoté","tranquillement")
+    p.addItemAnalyseExplicite("des moules","mangé","juteuses")
+    p.addItemAnalyseExplicite("une huitre","grignoté","baveuse")
+    p.addItemAnalyseExplicite("une cerise","maché","rouge")
+    p.addItemAnalyseExplicite("un bourgeon","sucoté","tranquillement")
+    p.addItemAnalyseImplicite("un bourgeon","sucoté","tranquillement")
     print "Projet crée"
     
     ###################################WORKING###################################
+    print fc.s.system.listMethods()
+    #print fc.s.additionne(2,4)
     print fc.s.additionne(4,5)
     print fc.s.getListeProjets()
-    serie = fc.s.getProjet(2)
-    p2 = Projet()
+    print fc.s.getProjet(2)
+    #p2 = Projet()
     print fc.s.sauvegarderProjet(p.serialize())
    
     #################################NOT WORKING#################################
-    
     #############################################################################
