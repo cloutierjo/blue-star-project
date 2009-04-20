@@ -61,7 +61,7 @@ class ControleurClient:
         
         
     def ouvrirATImplicite(self):
-        return self.m.projet.analyseImplicite
+        return self.m.projet.analyseImplicite.analyse
     
     
     def creerATExplicite(self,analyseExplicite):
@@ -69,7 +69,7 @@ class ControleurClient:
         
         
     def ouvrirATExplicite(self):
-        return self.m.projet.analyseExplicite
+        return self.m.projet.analyseExplicite.analyse
     
     def afficherMenu(self):
         if c.m.projet == None:  
