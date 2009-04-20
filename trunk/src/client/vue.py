@@ -1,5 +1,7 @@
-#classe vue
-#auteur Pascal Lemay
+'''
+classe vue
+auteur Pascal Lemay
+            '''
 from Tkinter import*
 import tkMessageBox, tkSimpleDialog
 sys.path.append( "../server" )
@@ -9,7 +11,10 @@ class Vue(object):
 
     def __init__(self,parent):
         self.parent=parent
+#0:free,1:projet en cour de creation,2:projet ouvert
         self.etat=0
+#ce qui est affiche dans la fenetre
+#0:rien, 1:mandat et analyse,2:a venir...
         self.fenOuverte=0
         self.root=Tk()
         self.root.title("Blue Star")
@@ -56,7 +61,7 @@ class Vue(object):
         #Aide
         helpmenu = Menu(menu)
         menu.add_cascade(label="Aide", menu=helpmenu)
-        helpmenu.add_command(label="blabla...", command=self.callback)
+        helpmenu.add_command(label="Info", command=self.callback)
         
 #----------------------------------------------------------------------------
 #temporaire        
@@ -79,6 +84,7 @@ class Vue(object):
             if nom:
                     self.parent.creerProjet(nom)
                     self.etat=1
+                                # 1:pret pour creation de mandat
                     self.afficherFenMandat()
                 
 #-----------------------------------------------------------------------------
@@ -95,10 +101,10 @@ class Vue(object):
         elif self.etat==1:
             self.parent.creerMandat(self.t.get(1.0,END))
             tkMessageBox.showinfo("Mandat","Creation du nouveau mandat reussi")
-            #projet creeer et ouvert
+            #projet creeer et ouvert (fenetre mandat et analyse textuelle ouverte)
             self.etat=2
 #-----------------------------------------------------------------------------
-#mandat->liste et analyse ->liste de dictionnaire
+#mandat->String et analyse ->liste de dictionnaire
     def afficherFenMandat(self):
         self.frame=Frame(self.root)
 #Mandat
@@ -134,9 +140,8 @@ class Vue(object):
         if(self.etat!=0):
             if self.fenOuverte==1:
                 self.frame.destroy()
-#                self.frame2.destroy()
                 self.analyseGrid.effacerFrame()
-                self.fenOuverte=1
+                self.fenOuverte=0
             self.etat=0
 #-----------------------------------------------------------------------------
 class analyseTextuelle(object):
