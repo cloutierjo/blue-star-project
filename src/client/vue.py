@@ -228,6 +228,7 @@ class ListeProjets(object):
         self.parent = parent
         self.data = data
         self.fen.title("Projets")
+        self.fen.resizable(False,False)
         
         self.scroll = Scrollbar(self.fen)
         self.scroll.pack(side=RIGHT, fill=Y)
