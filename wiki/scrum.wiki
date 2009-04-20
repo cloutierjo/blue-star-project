@@ -16,7 +16,7 @@ voici le model de scrum
 </wiki:comment>
 
 
-=15/05/2009=
+=15/04/2009=
 
 ==Mathieu L.==
  ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
@@ -24,7 +24,7 @@ voici le model de scrum
  ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
   * testé la classe ControleurClient
  ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
-  * comment fonctionne serialize/deserialize
+  * comment fonctionne serialize/deserialize (Jonatan C.)
 
 ==François L.==
  ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
@@ -44,15 +44,15 @@ voici le model de scrum
   * testé getProjet
   * faire saveProjet
  ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
-  * comment fonctionne serialize/deserialize
+  * comment fonctionne serialize/deserialize (Jonatan C.)
 
 ==Jean-Philippe C.==
  ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
-  * débuté une interface DOS qui sert a testé
+  * compréhension d'ensemble du projet et des outil de projet
  ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
-  * complété l'interface DOS pour pouvoir testé toute les fonctionnalité, le temps d'avoir une bonne interface GUI
+  * débuté une interface DOS qui sert a testé
  ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
-  * divers concept de python et de la structure du projet
+  * divers concept de python et de la structure du projet (Jonatan C.)
 
 ==Jonatan C.==
  ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
@@ -63,3 +63,63 @@ voici le model de scrum
   * testé l'assemblage de tout le projet
  ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
   * N/A
+==Pascal L.==
+  absent
+
+=20/04/2009=
+
+==Mathieu L.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * Intégré interface DOS de teste
+  * début d'intégration d'interface graphique
+  * correction orthographique
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * intégré l'interface
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * N/A
+
+==François L.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * Débugage de l'envoie d'un projet par réseau (problème d'unicode) dans ControleurServeur
+  * fais le modèle de DB
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * terminé au propre le schéma de BDD
+  * mettre a jour la classe ModeleServeur en fonction des modification de Projet
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * N/A
+
+==Jonathan H.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * finalisation de l'implémentation du ControleurServeur
+  * testage de la classe ControleurServeur
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * refactor de la classe ControleurServeur
+  * créé la méthode deleteProjet
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * problème de l'envoie d'un projet par réseau (corrigé par François)
+
+==Jean-Philippe C.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * débuté une interface DOS qui sert a testé
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * synchronisés l'état de chose avec la classe Vue de Pascal
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * 
+
+==Jonatan C.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * refactor de la classe Projet
+  * faire la classe Analyse
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * analyse de la partie suivant
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * N/A
+
+==Pascal L.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * débuté une interface DOS qui sert a testé
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * synchronisés l'état de chose avec avec Jean-Philippe sur la classe Vue
+  * intégré la vue avec le reste du projet
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * 
