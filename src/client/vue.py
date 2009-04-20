@@ -145,6 +145,7 @@ class Vue(object):
                 self.frame.destroy()
                 self.analyseGrid.effacerFrame()
                 self.fenOuverte=0
+            #elif...
             self.etat=0
 #-----------------------------------------------------------------------------
 class analyseTextuelle(object):
@@ -198,7 +199,7 @@ class analyseTextuelle(object):
                 dict['adjectif']=row[2].get()
                 listeDictionnaires.append(dict)
                 
-            self.master.parent.creerATImplicite(listeDictionnaires)
+            self.master.parent.creerATExplicite(listeDictionnaires)
                 
             
         def addRow():
