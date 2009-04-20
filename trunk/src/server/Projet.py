@@ -24,8 +24,8 @@ class Projet(object):
         self.nom = None
         self.num = 0    # Vaut 0 pour nouveau projet et ID du projet lorsque loadé
         self.mandat = None
-        self.analyseExplicite = Analyse()
-        self.analyseImplicite = Analyse()
+        self.analyseExplicite = Analyse(self)
+        self.analyseImplicite = Analyse(self)
         
     def serialize(self):
         self.unicodize()  #néscéssaire pour que les char unicode passe sur le réseau
@@ -35,8 +35,8 @@ class Projet(object):
         self.nom=serializedProject[self.NOMPJ]
         self.num=serializedProject[self.NUMPJ]
         self.mandat=serializedProject[self.MANDAT]
-        self.analyseExplicite=Analyse(serializedProject[self.analyseEXPLICITE])
-        self.analyseImplicite=Analyse(serializedProject[self.analyseIMPLICITE])
+        self.analyseExplicite.analyse=serializedProject[self.analyseEXPLICITE]
+        self.analyseImplicite.analyse=serializedProject[self.analyseIMPLICITE]
         
     def getAnalyseExpliciteForDB(self):
         print "deprecate getanalyseExpliciteForDB"
@@ -68,16 +68,15 @@ class Analyse:
     VERBE="verbe"
     ADJECTIF="adjectif"
     
-    def __init__(self,otherAnalyse=None):
-        if otherAnalyse:
-            self.analyse=otherAnalyse
-        else:
-            self.analyse = []
+    def __init__(self,parent):
+            
+        self.analyse = []
+        self.parent = parent
     
-    def getForDB(self,pjID):
+    def getForDB(self):
         anExpTup=[]
         for item in self.analyse:
-            anExpTup.append((pjID,item[self.NOM],item[self.VERBE],item[self.ADJECTIF]))
+            anExpTup.append((self.parent.num,item[self.NOM],item[self.VERBE],item[self.ADJECTIF]))
         return anExpTup
     
     def addItem(self, nom, verbe, adjectif):
@@ -97,10 +96,10 @@ if __name__ == '__main__':
     pj.analyseExplicite.addItem("idée","comprant","beaucoup")
     pj.analyseImplicite.addItem("l'analyse", "tester", "implicite")
     pj.unicodize()
-    pj.analyseExplicite.getForDB(pj.num)
+    pj.analyseExplicite.getForDB()
     pj.unicodize()
-    pj.analyseExplicite.getForDB(pj.num)
-    pj.analyseImplicite.getForDB(pj.num)
+    pj.analyseExplicite.getForDB()
+    pj.analyseImplicite.getForDB()
     print pj.serialize()
     pj.deserialize(pj.serialize())
     print pj.serialize()
