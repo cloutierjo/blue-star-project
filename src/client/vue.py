@@ -103,31 +103,31 @@ class Vue(object):
         self.frame=Frame(self.root)
 #Mandat
         if self.fenOuverte!=1:
-            
-            self.frame.pack(side=LEFT,fill=Y)
-            nom = Label(self.frame,text = 'Mandat :')
-            nom.pack()
-            s = Scrollbar(self.frame)
-    #t->texte mandat
-            self.t = Text(self.frame)
-            self.t.config(width=80)
-            self.t.focus_set()
-            s.pack(side=RIGHT, fill=Y)
-            self.t.pack(side=LEFT, fill=Y)
-            s.config(command=self.t.yview)
-            self.t.config(yscrollcommand=s.set)
-            if self.parent.ouvrirMandat() == None:
-                self.t.insert(END,"")
-            else:
-                self.t.insert(END,self.parent.ouvrirMandat())
-            
-            #instance d'analyseTextuelle
-            if len(self.parent.ouvrirATExplicite()) != 0:
-                self.analyseGrid=analyseTextuelle(self,self.parent.ouvrirATExplicite())
-            else:
-                self.analyseGrid = analyseTextuelle(self,[])
-                    
-            self.fenOuverte=1
+            if(self.etat==1 or self.etat==2):
+                self.frame.pack(side=LEFT,fill=Y)
+                nom = Label(self.frame,text = 'Mandat :')
+                nom.pack()
+                s = Scrollbar(self.frame)
+        #t->texte mandat
+                self.t = Text(self.frame)
+                self.t.config(width=80)
+                self.t.focus_set()
+                s.pack(side=RIGHT, fill=Y)
+                self.t.pack(side=LEFT, fill=Y)
+                s.config(command=self.t.yview)
+                self.t.config(yscrollcommand=s.set)
+                if self.parent.ouvrirMandat() == None:
+                    self.t.insert(END,"")
+                else:
+                    self.t.insert(END,self.parent.ouvrirMandat())
+                
+                #instance d'analyseTextuelle
+                if len(self.parent.ouvrirATExplicite()) != 0:
+                    self.analyseGrid=analyseTextuelle(self,self.parent.ouvrirATExplicite())
+                else:
+                    self.analyseGrid = analyseTextuelle(self,[])
+                        
+                self.fenOuverte=1
         
 #----------------------------------------------------------------------------
     def fermerProjet(self):
