@@ -13,6 +13,7 @@ import sys
 sys.path.append( "../server" )
 from Projet import *
 
+#serveur localhost sur le port 8000 (bidon le numéro de port)
 server = SimpleXMLRPCServer(("localhost", 8000), 
                             requestHandler=SimpleXMLRPCRequestHandler)
 server.register_introspection_functions()
@@ -25,7 +26,7 @@ print "Modele serveur crée"
 
 #méthode qui retourne la liste des projets existants
 class ServerMethods:
-        
+    #méthode qui retourne la liste des projets sous forme d'un liste  
     def getListeProjets(self):
         return ms.getListeProjet()
         
@@ -35,19 +36,16 @@ class ServerMethods:
         p = Projet()
         p.deserialize(serializedProjet) #on retourne le projet désérializé a francois pour le save
                                         #dans la db
-        
         return ms.saveProject(p)
     
     #méthode qui retourne un projet via son ID
     def getProjet(self, idProjet):
         return ms.getProject(idProjet).serialize()#on prend un projet serializé pour le passer sur le web ou en local
                                                   #on peut pas passer une instance de clase sur le web
-                                                  
-    def additionne(self, x,y):
-        return x+y
     
+    #méthode qui retourne un boolean dépendamment si le projet a bien été supprimé
     def deleteProjet(self, idProjet):
-        return ms.deleteProject(self, idProjet)
+        return ms.deleteProject(idProjet)
     
 server.register_instance(ServerMethods())
 
