@@ -47,7 +47,7 @@ class ServerMethods:
         return x+y
     
     def deleteProjet(self, idProjet):
-        pass
+        return ms.deleteProject(self, idProjet)
     
 server.register_instance(ServerMethods())
 
