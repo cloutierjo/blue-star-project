@@ -33,13 +33,14 @@ if __name__ == "__main__":
     print "Projet crée"
     
     ###################################WORKING###################################
-    print fc.s.system.listMethods()
-    #print fc.s.additionne(2,4)
-    print fc.s.additionne(4,5)
-    print fc.s.getListeProjets()
+    #print fc.s.system.listMethods()
+    print fc.s.additionne(2,4)
+    #print fc.s.additionne(4,5)
+    #print fc.s.getListeProjets()
     print fc.s.getProjet(2)
+    #print fc.s.getProjet(20)
     #p2 = Projet()
-    print fc.s.sauvegarderProjet(p.serialize())
+    #print fc.s.sauvegarderProjet(p.serialize())
    
     #################################NOT WORKING#################################
     #############################################################################
