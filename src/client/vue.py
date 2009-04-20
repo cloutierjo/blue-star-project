@@ -248,7 +248,10 @@ class ListeProjets(object):
             self.parent.parent.ouvrirProjet(self.data[self.maliste.getData()][0])
             self.fen.destroy()
         else:
-            print "impossible d'ouvrir le projet"
+            tkMessageBox.showwarning(
+            "Echec d'ouverture",
+            "impossible d'ouvrir le projet")
+            #print "impossible d'ouvrir le projet"
         
 #----------------------------------------------------------------------------
 class Liste(Listbox):
