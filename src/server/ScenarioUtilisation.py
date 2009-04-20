@@ -2,11 +2,8 @@ class ScenarioUtilisation:
     def __init__(self):
         self.etapes = []
         
-    def ajouterEtape(self,uneEtape,apres = -1):
+    def ajouterEtape(self,lesEtapes):
+        self.etapes = [] # vider la liste
+        for i in range(len(lesEtapes)): # ajouter toutes les etape sous forme     1, etape1       2,Etape2 ....
+            self.etapes.append([i+1,lesEtapes[i]])
         
-        if apres == -1:
-            self.etapes.append()
-        else:
-            self.etapes
-            for i in range(len(self.etapes),apres,-1):
-                pass
