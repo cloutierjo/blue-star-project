@@ -1,5 +1,5 @@
 #classe vue
-#auteur pascal lemay
+#auteur Pascal Lemay
 from Tkinter import*
 import tkMessageBox, tkSimpleDialog
 sys.path.append( "../server" )
