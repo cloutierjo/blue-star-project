@@ -23,30 +23,37 @@ ms = ModeleServeur()# instance du modele côté serveur
 
 print "Modele serveur crée"
 
-#méthode qui retourne la liste des projets existants    
-def getListeProjets():
-    return ms.getListeProjet()
+#méthode qui retourne la liste des projets existants
+class ServerMethods:
+        
+    def getListeProjets(self):
+        return ms.getListeProjet()
+        
+    #méthode qui sauvegarde un projet
+    def sauvegarderProjet(self, serializedProjet):
+        
+        p = Projet()
+        p.deserialize(serializedProjet) #on retourne le projet désérializé a francois pour le save
+                                        #dans la db
+        
+        return ms.saveProject(p)
     
-#méthode qui sauvegarde un projet
-def sauvegarderProjet(serializedProjet):
+    #méthode qui retourne un projet via son ID
+    def getProjet(self, idProjet):
+        return ms.getProject(idProjet).serialize()#on prend un projet serializé pour le passer sur le web ou en local
+                                                  #on peut pas passer une instance de clase sur le web
+                                                  
+    def additionne(self, x,y):
+        return x+y
     
-    p = Projet()
-    p.deserialize(serializedProjet) #on retourne le projet désérializé a francois pour le save
-                                    #dans la db
-    
-    return ms.saveProject(p)
+server.register_instance(ServerMethods())
 
-#méthode qui retourne un projet via son ID
-def getProjet(idProjet):
-    return ms.getProject(idProjet).serialize()#on prend un projet serializé pour le passer sur le web ou en local
-                                              #on peut pas passer une instance de clase sur le web
-    
 print "Methodes crées"
 
 #enregistrement des fonctions au serveur, obligé de mettre un alias???
-server.register_function(getProjet, 'getProjet')
-server.register_function(sauvegarderProjet, 'sauvegarderProjet')
-server.register_function(getListeProjets, 'getListeProjets')
+#server.register_function(getProjet, 'getProjet')
+#server.register_function(sauvegarderProjet, 'sauvegarderProjet')
+#server.register_function(getListeProjets, 'getListeProjets')
 
 print "Main méthodes enr"
 
@@ -54,12 +61,10 @@ print "Main méthodes enr"
 
 ##########################################################
 #MÉTHODE DE TEST PAS TOUCHE
-def additionner_tout(x,y):
-    return x+y
-    
-server.register_function(additionner_tout, 'additionne')
-##########################################################
 
+    
+#server.register_function(additionner_tout, 'additionne')
+##########################################################
 
 
 print "Test méthodes enr"
