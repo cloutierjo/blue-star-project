@@ -107,6 +107,7 @@ class ModeleServeur:
         cur.execute('insert into Projets values(?, ?, ?)', entryTableProjets)
         # Update table Analyses 
         cur.execute('DELETE FROM AnalysesExp WHERE ID = (?)', (projet.num,))
+        cur.execute('DELETE FROM AnalysesImp WHERE ID = (?)', (projet.num,))
         cur.executemany('insert into AnalysesExp values(?, ?, ?, ?)', projet.analyseExplicite.getForDB())
         cur.executemany('insert into AnalysesImp values(?, ?, ?, ?)', projet.analyseImplicite.getForDB())
         
@@ -152,7 +153,7 @@ class ModeleServeur:
 if __name__ == "__main__":
     
     ms = ModeleServeur()        # Creation du ModeleServeur
-    #ms.initDB()                 # TO BE CALLED FOR FIRST USE ON A SERVER (CREATE TABLES)
+    ms.initDB()                 # TO BE CALLED FOR FIRST USE ON A SERVER (CREATE TABLES)
     
     # Creation de 10 projets pour fin de tests
 
@@ -168,6 +169,6 @@ if __name__ == "__main__":
         p.analyseImplicite.addItem("le test","refaire","redondant")
         ms.saveProject(p)
         
-    p=ms.getProject(50)
+    p=ms.getProject(9)
     print p.analyseExplicite.getForDB()
         
