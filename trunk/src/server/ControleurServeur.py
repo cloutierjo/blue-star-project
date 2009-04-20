@@ -46,6 +46,9 @@ class ServerMethods:
     def additionne(self, x,y):
         return x+y
     
+    def deleteProjet(self, idProjet):
+        pass
+    
 server.register_instance(ServerMethods())
 
 print "Serveur demarré"
