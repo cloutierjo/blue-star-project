@@ -74,7 +74,7 @@ class Vue(object):
     def afficherProjet(self):
         if self.etat==0:
             projets=ListeProjets(self.parent.getListeProjets(),self)
-            self.etat=2
+            #self.etat=2
 #-----------------------------------------------------------------------------
     def saisirNomProjet(self):
          
@@ -83,10 +83,10 @@ class Vue(object):
                                      'Entrez un nom pour le projet:', 
                                      parent=self.root)
             if nom:
-                    self.parent.creerProjet(nom)
-                    self.etat=1
+                self.parent.creerProjet(nom)
+                self.etat=1
                                 # 1:pret pour creation de mandat
-                    self.afficherFenMandat()
+                self.afficherFenMandat()
                 
 #-----------------------------------------------------------------------------
     def creationMandat(self):
@@ -251,6 +251,8 @@ class ListeProjets(object):
     def choisirProjet(self):
         if self.maliste.getData():
             self.parent.parent.ouvrirProjet(self.data[self.maliste.getData()][0])
+            #projet ouvert
+            self.parent.etat=2
             self.fen.destroy()
         else:
             tkMessageBox.showwarning(
