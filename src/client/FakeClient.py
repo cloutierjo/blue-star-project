@@ -8,7 +8,7 @@ import xmlrpclib
 from xml.parsers.expat import ExpatError
 
 import sys
-sys.path.append( "../server" )
+sys.path.append( "../commun" )
 from Projet import *
 
 class FakeClient:

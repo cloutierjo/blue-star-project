@@ -10,7 +10,7 @@ from SimpleXMLRPCServer import SimpleXMLRPCRequestHandler
 from ModeleServeur import *
 
 import sys
-sys.path.append( "../server" )
+sys.path.append( "../commun" )
 from Projet import *
 
 #serveur localhost sur le port 8000 (bidon le numéro de port)

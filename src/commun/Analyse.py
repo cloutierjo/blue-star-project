@@ -1,3 +1,10 @@
+#-*- coding: iso-8859-1 -*-
+'''
+Created on 20 avr. 2009
+
+@author: Jonatan Cloutier
+'''
+
 class Analyse:
     
     NOM="nom"

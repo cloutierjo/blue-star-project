@@ -5,7 +5,7 @@ Created on 14 avr. 2009
 @author: Jonatan Cloutier
 '''
 import sys
-sys.path.append( "../server" )
+sys.path.append( "../commun" )
 import Projet
 
 class ModeleClient(object):
