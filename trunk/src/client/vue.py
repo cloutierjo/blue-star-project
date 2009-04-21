@@ -4,7 +4,8 @@ auteur Pascal Lemay
             '''
 from Tkinter import*
 import tkMessageBox, tkSimpleDialog
-sys.path.append( "../server" )
+import sys
+sys.path.append( "../commun" )
 import Projet
 
 class Vue(object):

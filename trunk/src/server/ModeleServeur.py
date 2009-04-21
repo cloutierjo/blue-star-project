@@ -5,6 +5,8 @@
 # Auteur : François Lahey
 
 import sqlite3
+import sys
+sys.path.append( "../commun" )
 from Projet import *
 
 class ModeleServeur:

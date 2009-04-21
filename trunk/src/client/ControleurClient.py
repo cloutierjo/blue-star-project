@@ -1,5 +1,5 @@
 import sys
-sys.path.append( "../server" )
+sys.path.append( "../commun" )
 import Projet
 from ModeleClient import *
 import xmlrpclib
