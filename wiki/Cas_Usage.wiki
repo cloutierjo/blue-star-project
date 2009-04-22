@@ -1,72 +1,61 @@
- #labels Phase-Design
 =Cas d'usage et scénario d'utilisation=
 ==première partie==
 
-* Ouvrir un projet
- # Demander liste des projets
- # Afficher la liste des projets
- # Sélectionner le projet
- # Attendre action utilisateur
-
-* Ouvrir le programme
- # Démarrer l'interface et le modèle côté client
-
-* Créer un projet
- # Demander un nom de projet
- # Vérifier que ce nom n'existe pas
- # Le sauvegarder
-
-* Sauvegarder le projet
- # Envoyer les données au serveur puis les sauvegarder dans la BD
-
-* Ouvrir le mandat
- # Demander le lien du fichier contenant le mandat
- # Ouvrir le fichier
- # L'afficher dans l'interface
-
-* Remplir un champ
- # Copier le mot sélectionné par l'utilisateur
- # Ajouter le mot à la liste correspondante
-
+ * Ouvrir un projet
+  # Demander liste des projets
+  # Afficher la liste des projets
+  # Sélectionner le projet
+  # Attendre action utilisateur
+ 
+ * Ouvrir le programme
+  # Démarrer l'interface et le modèle côté client
+  
+ * Créer un projet
+  # Demander un nom de projet
+  # Vérifier que ce nom n'existe pas
+  # Le sauvegarder
+ 
+ * Sauvegarder le projet
+  # Envoyer les données au serveur puis les sauvegarder dans la BD
+ 
+ * Ouvrir le mandat
+  # Demander le lien du fichier contenant le mandat
+  # Ouvrir le fichier
+  # L'afficher dans l'interface
+ 
+ * Remplir un champ
+  # Copier le mot sélectionné par l'utilisateur
+  # Ajouter le mot à la liste correspondante
+ 
 ==deuxième étape==
-* ouvrir mode cas d'usage
- # demandé les cas d'usage déjà enregistré a la BD
- # affiché l'analyse implicite a gauche
- # affiché les cas d'usage a droite
- # affiché les cas d'usage présent ordonné par priorité
- # permettre a l'utilisateur d'entré de nouveau cas d'usage (cas suivant)
+ * ouvrir mode cas d'usage & scénario d'utilisation
+  # demandé les cas d'usage déjà enregistré a la BD
+  # demandé les scénarios d'utilisations déjà enregistré a la BD
+  # affiché l'analyse implicite a gauche
+  # affiché les cas d'usage a droite & scénario d'utilisation
+  # affiché les cas d'usage présent ordonné par priorité
+  # affiché les scénarios d'utilisations présent
+  # permettre a l'utilisateur d'entré de nouveau cas d'usage ou scénarios d'utilisations 
+  
+ * entré d'un nouveau cas d'usage
+  # entré le cas d'usage, 1 par ligne
+  
+ * assombrir les analyse
+  # désactive la ligne d'analyse
  
-* entré d'un nouveau cas d'usage
- # entré le cas d'usage, 1 par ligne
- # enregistré le cas
- 
-* assombrir les analyse
- # désactive la ligne d'analyse
+ * placé la priorité des cas d'usage
+  # écrire le chiffre de priorité a coté de chaque cas d'usage
+  # vérifié l'unicité des priorité
+  # actualisé l'affichage (réordonné les cas)
 
-* placé la priorité des cas d'usage
- # écrire le chiffre de priorité a coté de chaque cas d'usage
- # enregistré c'est priorité
- # actualisé l'affichage
- 
-* enregistré les cas d'usage
- # envoyer a la BD 
-  * les cas d'usages
-  * les priorités
-  * les analyses désactivés
-
-* ouvrir le mode scénario d'utilisation
- # demandé les cas d'usages a la BD
- # demandé les scénarios d'utilisations déjà enregistré a la BD
- # affiché les scénarios d'utilisations présent
- # ajouté les cas d'usages non présent comme titre de scénario d'utilisation
- # permettre à l'utilisateur d'entré de nouveau scénarios d'utilisations (cas suivant)
- 
-* entré les étapes d'un scénario d'utilisation
- # entré le scénario d'usage
- # indiqué l'ordre de procédure
- # enregistré le scénario
- 
-* enregistré les scénario d'utilisation
- # envoyer a la BD 
-  * les scénarios d'utilisations
-  * leur ordres
+ * entré les étapes d'un scénario d'utilisation
+  # entré le scénario d'usage
+  # indiqué l'ordre de procédure
+  
+ * enregistré les cas d'usage & scénario d'utilisation
+  # envoyer a la BD 
+   * les cas d'usages
+   * les priorités
+   * les analyses désactivés
+   * les scénarios d'utilisations
+   * leur ordres 
