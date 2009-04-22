@@ -21,9 +21,9 @@ class Projet(object):
         '''
         Constructor
         '''
-        self.nom = None
+        self.nom = "" # Sinon j'ai plein d'erreur de Allow None en XMLRPC...(Mathieu)
         self.num = 0    # Vaut 0 pour nouveau projet et ID du projet lorsque loadé
-        self.mandat = None
+        self.mandat = ""# Sinon j'ai plein d'erreur de Allow None en XMLRPC... (Mathieu)
         self.analyseExplicite = Analyse(self)
         self.analyseImplicite = Analyse(self)
         
