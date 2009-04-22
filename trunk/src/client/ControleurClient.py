@@ -56,16 +56,20 @@ class ControleurClient:
         sys.exit(0)
         
         
-    def creerATImplicite(self,analyseImplicite):
-        self.m.projet.analyseImplicite = analyseImplicite
+    def creerATImplicite(self,dictATImplicite):
+        self.m.projet.analyseImplicite.analyse = []
+        for i in dictATImplicite:
+            self.m.projet.addItemAnalyseImplicite(i['nom'],i['verbe'],i['adjectif'])
         
         
     def ouvrirATImplicite(self):
         return self.m.projet.analyseImplicite.analyse
     
     
-    def creerATExplicite(self,nom,verbe,adj):
-        self.m.projet.addItemAnalyseExplicite(nom,verbe,adj)
+    def creerATExplicite(self,dictATExplicite):
+        self.m.projet.analyseExplicite.analyse = []
+        for i in dictATExplicite:
+            self.m.projet.addItemAnalyseExplicite(i['nom'],i['verbe'],i['adjectif'])
         
         
     def ouvrirATExplicite(self):
