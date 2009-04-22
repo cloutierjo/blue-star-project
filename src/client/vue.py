@@ -28,9 +28,7 @@ class Vue(object):
         
 #L'objet graphique des  AT
         self.ATImplicite = None
-        Self.ATExplicite = None
-
-
+        self.ATExplicite = None
 
 #Haut    
     def menuPrincipal(self):
