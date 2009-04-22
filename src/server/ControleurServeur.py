@@ -15,7 +15,7 @@ server = SimpleXMLRPCServer(("localhost", 8000),
         
 print "Serveur crée"
 
-#Enregistrement des méthodes du serveur a partir de ma classe externe
+#Enregistrement des méthodes du serveur a partir d'une instance de ma classe externe
 server.register_instance(ServerMethods())
 
 print "Méthodes enregistrée"
