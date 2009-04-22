@@ -1,19 +1,19 @@
  #labels Phase-Design
 =Cas d'usage et scénario d'utilisation=
-==premiere partie==
+==première partie==
 
 * Ouvrir un projet
  # Demander liste des projets
  # Afficher la liste des projets
- # Selectionner le projet
+ # Sélectionner le projet
  # Attendre action utilisateur
 
 * Ouvrir le programme
- # Demarrer l'interface et le modèle côté client
+ # Démarrer l'interface et le modèle côté client
 
-*) Creer un projet
+* Créer un projet
  # Demander un nom de projet
- # Verifier que ce nom n'existe pas
+ # Vérifier que ce nom n'existe pas
  # Le sauvegarder
 
 * Sauvegarder le projet
@@ -25,12 +25,14 @@
  # L'afficher dans l'interface
 
 * Remplir un champ
- # Copier le mot sélectionné par l'tilisateur
+ # Copier le mot sélectionné par l'utilisateur
  # Ajouter le mot à la liste correspondante
 
-==deuxieme étape==
+==deuxième étape==
 * ouvrir mode cas d'usage
- # demandé les cas d'usage déja enregistré
+ # demandé les cas d'usage déjà enregistré a la BD
+ # affiché l'analyse implicite a gauche
+ # affiché les cas d'usage a droite
  # affiché les cas d'usage présent ordonné par priorité
  # permettre a l'utilisateur d'entré de nouveau cas d'usage (cas suivant)
  
@@ -38,19 +40,33 @@
  # entré le cas d'usage, 1 par ligne
  # enregistré le cas
  
+* assombrir les analyse
+ # désactive la ligne d'analyse
+
 * placé la priorité des cas d'usage
- # écrir le chiffre de priorité a coté de chaque cas d'usage
+ # écrire le chiffre de priorité a coté de chaque cas d'usage
  # enregistré c'est priorité
  # actualisé l'affichage
  
+* enregistré les cas d'usage
+ # envoyer a la BD 
+  * les cas d'usages
+  * les priorités
+  * les analyses désactivés
+
 * ouvrir le mode scénario d'utilisation
- # demandé les scénarios d'utilisations déja enregistré
+ # demandé les cas d'usages a la BD
+ # demandé les scénarios d'utilisations déjà enregistré a la BD
  # affiché les scénarios d'utilisations présent
- # permettre a l'utilisateur d'entré de nouveau scénarios d'utilisations (cas suivant)
+ # ajouté les cas d'usages non présent comme titre de scénario d'utilisation
+ # permettre à l'utilisateur d'entré de nouveau scénarios d'utilisations (cas suivant)
  
 * entré les étapes d'un scénario d'utilisation
- # entré le scénario d'usage, 1 par ligne
+ # entré le scénario d'usage
  # indiqué l'ordre de procédure
  # enregistré le scénario
  
-
+* enregistré les scénario d'utilisation
+ # envoyer a la BD 
+  * les scénarios d'utilisations
+  * leur ordres
