@@ -1,3 +1,5 @@
+#-*- coding: iso-8859-1 -*-
+
 '''
 classe vue
 auteur: Pascal Lemay
