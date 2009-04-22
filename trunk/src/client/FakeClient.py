@@ -5,10 +5,9 @@
 # Auteur : François Lahey
 
 import xmlrpclib
-from xml.parsers.expat import ExpatError
-
 import sys
-sys.path.append( "../commun" )
+
+sys.path.append( "../commun" )#le path de ce qui est commun au serveur et au client
 from Projet import *
 
 class FakeClient:
@@ -16,7 +15,7 @@ class FakeClient:
     def __init__(self):
         self.s = xmlrpclib.ServerProxy('http://localhost:8000/')
 
-    
+#Testage du serveur
 if __name__ == "__main__":
     
     fc = FakeClient()
@@ -25,7 +24,7 @@ if __name__ == "__main__":
     p=Projet()
     p.nom="Test project"
     p.mandat="Utiliser les caractères spéciaux pour tester la classe ModeleServeur"
-    p.analyseExplicite.addItem("des moules","mangé","juteuses")
+    p.analyseExplicite.addItem("SA CRAINT","mangé","juteuses")
     p.analyseExplicite.addItem("une huitre","grignoté","baveuse")
     p.analyseExplicite.addItem("une cerise","maché","rouge")
     p.analyseExplicite.addItem("un bourgeon","sucoté","tranquillement")
@@ -35,12 +34,13 @@ if __name__ == "__main__":
     ###################################WORKING###################################
     #print fc.s.system.listMethods()
     #print fc.s.getListeProjets()
-    #print fc.s.deleteProjet(2)
+    #print fc.s.deleteProjet(4)
     #print fc.s.getListeProjets()
-    #print fc.s.getProjet(2)
+    #print fc.s.getProjet(8)
     #print fc.s.getProjet(20)
     #p2 = Projet()
     #print fc.s.sauvegarderProjet(p.serialize())
     print "Nothing to do left!"
+    
     #################################NOT WORKING#################################
     #############################################################################

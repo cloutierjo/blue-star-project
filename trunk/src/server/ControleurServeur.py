@@ -7,11 +7,7 @@
 import xmlrpclib
 from SimpleXMLRPCServer import SimpleXMLRPCServer
 from SimpleXMLRPCServer import SimpleXMLRPCRequestHandler
-from ModeleServeur import *
-
-import sys
-sys.path.append( "../commun" )
-from Projet import *
+from ServerMethods import *
 
 #serveur localhost sur le port 8000 (bidon le numéro de port)
 server = SimpleXMLRPCServer(("localhost", 8000), 
@@ -20,39 +16,12 @@ server.register_introspection_functions()
         
 print "Serveur crée"
 
-ms = ModeleServeur()# instance du modele côté serveur
-
-print "Modele serveur crée"
-
-#méthode qui retourne la liste des projets existants
-class ServerMethods:
-    #méthode qui retourne la liste des projets sous forme d'un liste  
-    def getListeProjets(self):
-        return ms.getListeProjet()
-        
-    #méthode qui sauvegarde un projet
-    def sauvegarderProjet(self, serializedProjet):
-        
-        p = Projet()
-        p.deserialize(serializedProjet) #on retourne le projet désérializé a francois pour le save
-                                        #dans la db
-        return ms.saveProject(p)
-    
-    #méthode qui retourne un projet via son ID
-    def getProjet(self, idProjet):
-        return ms.getProject(idProjet).serialize()#on prend un projet serializé pour le passer sur le web ou en local
-                                                  #on peut pas passer une instance de clase sur le web
-    
-    #méthode qui retourne un boolean dépendamment si le projet a bien été supprimé
-    def deleteProjet(self, idProjet):
-        return ms.deleteProject(idProjet)
-    
+#Enregistrement des méthodes du serveur a partir de ma classe externe
 server.register_instance(ServerMethods())
 
+print "Méthodes enregistrée"
 print "Serveur demarré"
     
 server.serve_forever()# la main loop du serveur
 
-print "Serveur down"
-
-       
+print "Serveur down"    
