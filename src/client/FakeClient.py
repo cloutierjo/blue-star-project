@@ -32,7 +32,6 @@ if __name__ == "__main__":
     print "Projet crée"
     
     ###################################WORKING###################################
-    #print fc.s.system.listMethods()
     #print fc.s.getListeProjets()
     #print fc.s.deleteProjet(4)
     #print fc.s.getListeProjets()
@@ -41,6 +40,7 @@ if __name__ == "__main__":
     #p2 = Projet()
     #print fc.s.sauvegarderProjet(p.serialize())
     print "Nothing to do left!"
+    #############################################################################
     
     #################################NOT WORKING#################################
     #############################################################################
