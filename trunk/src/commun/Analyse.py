@@ -23,8 +23,8 @@ class Analyse:
             anExpTup.append((self.parent.num,item[self.NOM],item[self.VERBE],item[self.ADJECTIF],item[self.HANDLED]))
         return anExpTup
     
-    def addItem(self, nom, verbe, adjectif):
-        self.analyse.append({self.NOM:nom,self.VERBE:verbe,self.ADJECTIF:adjectif,self.HANDLED:0})
+    def addItem(self, nom, verbe, adjectif,handled=0):
+        self.analyse.append({self.NOM:nom,self.VERBE:verbe,self.ADJECTIF:adjectif,self.HANDLED:handled})
         
     def unicodize(self):
         for row in self.analyse:
