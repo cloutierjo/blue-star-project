@@ -22,8 +22,8 @@ class ModeleServeur:
         cur = self.con.cursor()     # Curseur
         
         cur.execute('''CREATE TABLE Projets(ID NUMBER(6) PRIMARY KEY, Nom VARCHAR2(50), Mandat LONG)''')
-        cur.execute('''CREATE TABLE AnalysesExp(ID NUMBER(6) REFERENCES Projets, nom VARCHAR2(30), verbe VARCHAR2(30), adjectif VARCHAR2(30))''')
-        cur.execute('''CREATE TABLE AnalysesImp(ID NUMBER(6) REFERENCES Projets, nom VARCHAR2(30), verbe VARCHAR2(30), adjectif VARCHAR2(30))''')
+        cur.execute('''CREATE TABLE AnalysesExp(ID NUMBER(6) REFERENCES Projets, nom VARCHAR2(30), verbe VARCHAR2(30), adjectif VARCHAR2(30), handled NUMBER(1))''')
+        cur.execute('''CREATE TABLE AnalysesImp(ID NUMBER(6) REFERENCES Projets, nom VARCHAR2(30), verbe VARCHAR2(30), adjectif VARCHAR2(30), handled NUMBER(1))''')
         # En attendant de trouver comment créer une séquence, cette table sert de
         # Générateur d'ID unique dans la méthode getNewID() (bonne pour 999 999 projets 
         cur.execute('''CREATE TABLE Seq(Val NUMBER(6))''')
@@ -46,11 +46,11 @@ class ModeleServeur:
         
         cur.execute('''SELECT * FROM AnalysesExp WHERE ID = (?)''', (projectID,))
         for row in cur:
-            p.analyseExplicite.addItem(row[1], row[2], row[3])
+            p.analyseExplicite.addItem(row[1], row[2], row[3], row[4])
         
         cur.execute('''SELECT * FROM AnalysesImp WHERE ID = (?)''', (projectID,))
         for row in cur:
-            p.analyseImplicite.addItem(row[1], row[2], row[3])
+            p.analyseImplicite.addItem(row[1], row[2], row[3], row[4])
                         
         cur.close()  
         return p 
@@ -92,8 +92,8 @@ class ModeleServeur:
         # Ajout du projet dans la table Projets
         entryTableProjets = (projet.num, projet.nom, projet.mandat) # Nouvelle entrée
         cur.execute('insert into Projets values(?, ?, ?)', entryTableProjets)
-        cur.executemany('insert into AnalysesExp values(?, ?, ?, ?)', projet.analyseExplicite.getForDB())
-        cur.executemany('insert into AnalysesImp values(?, ?, ?, ?)', projet.analyseImplicite.getForDB())
+        cur.executemany('insert into AnalysesExp values(?, ?, ?, ?, ?)', projet.analyseExplicite.getForDB())
+        cur.executemany('insert into AnalysesImp values(?, ?, ?, ?, ?)', projet.analyseImplicite.getForDB())
         
         self.con.commit()        
         cur.close()
@@ -110,8 +110,8 @@ class ModeleServeur:
         # Update table Analyses 
         cur.execute('DELETE FROM AnalysesExp WHERE ID = (?)', (projet.num,))
         cur.execute('DELETE FROM AnalysesImp WHERE ID = (?)', (projet.num,))
-        cur.executemany('insert into AnalysesExp values(?, ?, ?, ?)', projet.analyseExplicite.getForDB())
-        cur.executemany('insert into AnalysesImp values(?, ?, ?, ?)', projet.analyseImplicite.getForDB())
+        cur.executemany('insert into AnalysesExp values(?, ?, ?, ?, ?)', projet.analyseExplicite.getForDB())
+        cur.executemany('insert into AnalysesImp values(?, ?, ?, ?, ?)', projet.analyseImplicite.getForDB())
         
         self.con.commit()    
         cur.close()
@@ -161,7 +161,7 @@ if __name__ == "__main__":
 
     for i in range(10):
         p=Projet()
-        p.nom="Projet d'études"
+        p.nom="Projet d'études "+str(i)
         p.mandat="Utiliser les caractères spéciaux pour tester la classe ModeleServeur"
         p.analyseExplicite.addItem("des moules","mangé","juteuses")
         p.analyseExplicite.addItem("une huitre","grignoté","baveuse")
