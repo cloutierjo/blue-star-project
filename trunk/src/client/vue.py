@@ -99,9 +99,10 @@ class Vue(object):
             tkMessageBox.showwarning(
             "Attention",
             "Le champ texte mandat est vide")
-        elif self.etat==1:
+        else:
             self.parent.creerMandat(self.t.get(1.0,END))
-            tkMessageBox.showinfo("Mandat","Creation du nouveau mandat reussi")
+            tkMessageBox.showinfo("Mandat","Projet mis a jour avec le nouveau mandat")
+            self.parent.sauvegarder()
             #projet creeer et ouvert (fenetre mandat et analyse textuelle ouverte)
             self.etat=2
 #-----------------------------------------------------------------------------
@@ -192,15 +193,11 @@ class analyseTextuelle(object):
 
         
         def updateAnalyse():
-            listeDictionnaires=[]
             for row in self.rows:
-                dict={}
-                dict['nom']=row[0].get()
-                dict['verbe']=row[1].get()
-                dict['adjectif']=row[2].get()
-                listeDictionnaires.append(dict)
-                
-            self.master.parent.creerATExplicite(listeDictionnaires)
+                nom=row[0].get()
+                verbe=row[1].get()
+                adj=row[2].get()    
+                self.master.parent.creerATExplicite(nom,verbe,adj)
                 
             
         def addRow():

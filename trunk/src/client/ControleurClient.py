@@ -64,8 +64,8 @@ class ControleurClient:
         return self.m.projet.analyseImplicite.analyse
     
     
-    def creerATExplicite(self,analyseExplicite):
-        self.m.projet.analyseExplicite = analyseExplicite
+    def creerATExplicite(self,nom,verbe,adj):
+        self.m.projet.addItemAnalyseExplicite(nom,verbe,adj)
         
         
     def ouvrirATExplicite(self):
