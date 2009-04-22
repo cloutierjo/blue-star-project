@@ -18,7 +18,7 @@ print "Serveur crée"
 #Enregistrement des méthodes du serveur a partir d'une instance de ma classe externe
 server.register_instance(ServerMethods())
 
-print "Méthodes enregistrée"
+print "Méthodes enregistrées"
 print "Serveur demarré"
     
 server.serve_forever()# la main loop du serveur
