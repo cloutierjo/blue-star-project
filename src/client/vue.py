@@ -9,17 +9,25 @@ sys.path.append( "../commun" )
 import Projet
 
 class Vue(object):
-
+#initialisation
     def __init__(self,parent):
         self.parent=parent
-#0:free,1:projet en cour de creation,2:projet ouvert
+#0:Aucune Project loadé,1:Projet Loade
         self.etat=0
-#ce qui est affiche dans la fenetre
-#0:rien, 1:mandat et analyse,2:a venir...
-        self.fenOuverte=0
+
         self.root=Tk()
         self.root.title("Blue Star")
         self.root.geometry("1024x768")
+        
+# toute les composantes graphiques
+        
+#L'objet graphique Mandat
+        self.mandat = None
+        
+#L'objet graphique des  AT
+        self.ATImplicite = None
+        Self.ATExplicite = None
+
 
 
 #Haut    
@@ -45,11 +53,6 @@ class Vue(object):
         #quitter
         filemenu.add_command(label="Quitter", command=self.parent.quitter)
         
-        #commandes d'edition                                            
-        editmenu=Menu(menu)
-        menu.add_cascade(label="Edition",menu=editmenu)
-        editmenu.add_command(label="update",command=self.callback)
-        #...
         
         #commandes de l'affichage
         displaymenu=Menu(menu)
@@ -64,21 +67,16 @@ class Vue(object):
         menu.add_cascade(label="Aide", menu=helpmenu)
         helpmenu.add_command(label="Info", command=self.callback)
         
-#----------------------------------------------------------------------------
-#temporaire        
-    def callback(self):
-        pass
-#---------------------------------------------------------------------------
-#liste des projets en cour
-    def afficherProjet(self):
+
+#fonction sur l'ouverture projet
+    def OuvrirProjet(self):
         if self.etat==0:
             projets=ListeProjets(self.parent.getListeProjets(),self)
             #self.etat=2
-#---------------------------------------------------------------------------
-    def afficherCasUsage(self):
+    def chargerEnMemoireProjet(self):
         pass
-#---------------------------------------------------------------------------
-    def saisirNomProjet(self):
+    
+    def NouveauProjet(self):
          
         if self.etat==0:
             nom=tkSimpleDialog.askstring('Nom de projet',
@@ -90,7 +88,14 @@ class Vue(object):
                                 # etat 1:pret pour creation de mandat
                 self.afficherFenMandat()
                 
-#-----------------------------------------------------------------------------
+
+
+    def fermerProjet(self):
+        self.frame.destroy()
+        self.analyseGrid.effacerFrame()
+        self.etat=0
+            
+            
     def creationMandat(self):
         if self.etat==0:
             tkMessageBox.showwarning(
@@ -143,63 +148,65 @@ class Vue(object):
                 self.fenOuverte=1
         
 #----------------------------------------------------------------------------
-    def fermerProjet(self):
-        if(self.etat!=0):
-            if self.fenOuverte==1:
-                self.frame.destroy()
-                self.analyseGrid.effacerFrame()
-                self.fenOuverte=0
-            #elif...
-            self.etat=0
 #-----------------------------------------------------------------------------
 class analyseTextuelle(object):
-    def __init__(self,master,analyse):
-        #analyse->liste de dictionnaire
-        self.master=master
+    def __init__(self,vueParent,analyse,implicite=False,explicite=False):
+        self.vueParent=vueParent
         self.rows=[]
         self.cols=[]
-        #Analyse
-        self.frame2=Frame()
-                
-        self.frame2.pack(side=RIGHT,fill=Y)
-        Label(self.frame2,text = 'Analyse textuelle',width=100).pack()
-#ta->texte analyse
-        ta = Text(self.frame2)
-        ta.config(width=100)
-        sc = Scrollbar(self.frame2)
+        
+        
+        #Creation du Frame
+        self.frame = Frame()
+        
+        
+        #Ajout du Label Tite
+        titreImplicite = "Analyse Implicite"
+        titreExplicite = "Analyse Explicite"
+        if implicite:
+            lblTitre = Label(self.frame,text = titreImplicite,width=100)
+        elif explicite:
+            lblTitre = Label(self.frame,text = titreExplicite,width=100)
+        else:
+            lblTitre = Label(self.frame,text = titreExplicite,width=100)
+            print "Aucun type d'analyse spécifié, Explicite par défault"
+            
+        #Ajout du tableau C'est un textbox avec des entrée en grille 1x3
+        tableauAnalyse = Text(self.frame)
+        tableauAnalyse.config(width=100)
+        
+        
+        #ajout du scroll
+        scrollbar = Scrollbar(self.frame)
                                                                                                                         
-        c=0
-        for d in analyse:
-            c+=1
-        self.rows = []
-        for i in range(c):
+                                                                                                                        
+      # Insertion des données existante dans le tableauc                                                                                                                  
+        for i in range(len(analyse)):
+            
             cols = []
-            d=analyse[i]
+            laLigneAnalyse=analyse[i]
+            for j,champs in enumerate(laLigneAnalyse.keys()):
+                entree = Entry(tableauAnalyse,relief=RIDGE)
+                entree.grid(row=i, column=j, sticky=NSEW)
+                e.insert(END,laLigneAnalyse['champs'])
+                cols.append(e) # A koi ca sert?!?
+                self.rows.append(cols) # A koi ca sert?!? 
 
-            e = Entry(ta,relief=RIDGE)
-            e.grid(row=i, column=0, sticky=NSEW)
-            e.insert(END,d['nom'])
-            cols.append(e)
-            e = Entry(ta,relief=RIDGE)
-            e.grid(row=i, column=1, sticky=NSEW)
-            e.insert(END,d['verbe'])
-            cols.append(e)
-            e = Entry(ta,relief=RIDGE)
-            e.grid(row=i, column=2, sticky=NSEW)
-            e.insert(END,d['adjectif'])
-            cols.append(e)
-            self.rows.append(cols)
-
+## TODO CONTINUER LE REFACTOR D'ANALYSE ET FAIRE LE REFACTOR DE MANDAT##JAI FAIM JE VAIS MANGER
         sc.config(command=ta.yview)
         ta.config(yscrollcommand=sc.set)
 
         
         def updateAnalyse():
+            listeDictionnaires=[]
             for row in self.rows:
-                nom=row[0].get()
-                verbe=row[1].get()
-                adj=row[2].get()    
-                self.master.parent.creerATExplicite(nom,verbe,adj)
+                dict={}
+                dict['nom']=row[0].get()
+                dict['verbe']=row[1].get()
+                dict['adjectif']=row[2].get()
+                listeDictionnaires.append(dict)
+                
+            self.master.parent.creerATExplicite(listeDictionnaires)
                 
             
         def addRow():
