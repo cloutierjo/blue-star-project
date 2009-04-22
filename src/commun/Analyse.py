@@ -10,6 +10,7 @@ class Analyse:
     NOM="nom"
     VERBE="verbe"
     ADJECTIF="adjectif"
+    HANDLED="handled"
     
     def __init__(self,parent):
             
@@ -19,11 +20,11 @@ class Analyse:
     def getForDB(self):
         anExpTup=[]
         for item in self.analyse:
-            anExpTup.append((self.parent.num,item[self.NOM],item[self.VERBE],item[self.ADJECTIF]))
+            anExpTup.append((self.parent.num,item[self.NOM],item[self.VERBE],item[self.ADJECTIF],item[self.HANDLED]))
         return anExpTup
     
     def addItem(self, nom, verbe, adjectif):
-        self.analyse.append({self.NOM:nom,self.VERBE:verbe,self.ADJECTIF:adjectif})
+        self.analyse.append({self.NOM:nom,self.VERBE:verbe,self.ADJECTIF:adjectif,self.HANDLED:0})
         
     def unicodize(self):
         for row in self.analyse:
