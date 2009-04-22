@@ -1,6 +1,6 @@
 '''
 classe vue
-auteur Pascal Lemay
+auteur: Pascal Lemay
             '''
 from Tkinter import*
 import tkMessageBox, tkSimpleDialog
@@ -55,7 +55,7 @@ class Vue(object):
         displaymenu=Menu(menu)
         menu.add_cascade(label="Affichage",menu=displaymenu)
         displaymenu.add_command(label="Afficher le mandat",command=self.afficherFenMandat)
-        displaymenu.add_command(label="Afficher ...",command=self.callback)
+        displaymenu.add_command(label="Afficher cas d'usage",command=self.afficherCasUsage)
         #...
         
         
@@ -70,12 +70,14 @@ class Vue(object):
         pass
 #---------------------------------------------------------------------------
 #liste des projets en cour
-    #liste des projets en cour
     def afficherProjet(self):
         if self.etat==0:
             projets=ListeProjets(self.parent.getListeProjets(),self)
             #self.etat=2
-#-----------------------------------------------------------------------------
+#---------------------------------------------------------------------------
+    def afficherCasUsage(self):
+        pass
+#---------------------------------------------------------------------------
     def saisirNomProjet(self):
          
         if self.etat==0:
@@ -85,7 +87,7 @@ class Vue(object):
             if nom:
                 self.parent.creerProjet(nom)
                 self.etat=1
-                                # 1:pret pour creation de mandat
+                                # etat 1:pret pour creation de mandat
                 self.afficherFenMandat()
                 
 #-----------------------------------------------------------------------------
@@ -99,12 +101,12 @@ class Vue(object):
             tkMessageBox.showwarning(
             "Attention",
             "Le champ texte mandat est vide")
-        else:
-            self.parent.creerMandat(self.t.get(1.0,END))
-            tkMessageBox.showinfo("Mandat","Projet mis a jour avec le nouveau mandat")
-            self.parent.sauvegarder()
-            #projet creeer et ouvert (fenetre mandat et analyse textuelle ouverte)
-            self.etat=2
+        elif self.etat==1:
+                self.parent.creerMandat(self.t.get(1.0,END))
+                tkMessageBox.showinfo("Mandat","Projet mis a jour avec le nouveau mandat")
+                self.parent.sauvegarder()
+        #projet creeer et ouvert (fenetre mandat et analyse textuelle ouverte)
+                self.etat=2
 #-----------------------------------------------------------------------------
 #mandat->String et analyse ->liste de dictionnaire
     def afficherFenMandat(self):
@@ -131,13 +133,13 @@ class Vue(object):
                 else:
                     self.t.insert(END,self.parent.ouvrirMandat())
                 
-                #instance d'analyseTextuelle (vide si nouveau projet)
+    #instance d'analyseTextuelle (vide si nouveau projet)
                 if len(self.parent.ouvrirATExplicite()) != 0:
                     self.analyseGrid=analyseTextuelle(self,self.parent.ouvrirATExplicite())
                 else:
                     self.analyseGrid = analyseTextuelle(self,[])
                     
-                #1:fenetre mandat et analyse textuelle        
+                #1:fenetre mandat et analyse textuelle vide        
                 self.fenOuverte=1
         
 #----------------------------------------------------------------------------
@@ -225,6 +227,7 @@ class analyseTextuelle(object):
         self.frame2.destroy()        
 #---------------------------------------------------------------------------            
 class ListeProjets(object):
+#fenetre affichant les projets existants
     def __init__(self,data,parent):
         self.fen=Tk()
         self.parent = parent
@@ -259,6 +262,7 @@ class ListeProjets(object):
         
 #----------------------------------------------------------------------------
 class Liste(Listbox):
+    #liste des projets existants
     def __init__(self,parent,data=[],width=20,height=1):
         Listbox.__init__(self,parent)#,parent,width,height)
         self.fillListe(data)
@@ -271,5 +275,8 @@ class Liste(Listbox):
         ca=self.curselection()
         if ca:
             return int(ca[0])
+        
+#----------------------------------------------------------------------------
+
         
         
