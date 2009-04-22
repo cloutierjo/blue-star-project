@@ -1,28 +1,56 @@
-#labels Phase-Design
-CAS D'USAGE POUR LA PREMIERE PARTIE
+ #labels Phase-Design
+=Cas d'usage et scénario d'utilisation=
+==premiere partie==
 
-1) Ouvrir un projet
-- Demander liste des projets
-- Afficher la liste des projets
-- Selectionner le projet
-- Attendre action utilisateur
+* Ouvrir un projet
+ # Demander liste des projets
+ # Afficher la liste des projets
+ # Selectionner le projet
+ # Attendre action utilisateur
 
-2) Ouvrir le programme
-- Demarrer l'interface et le modèle côté client
+* Ouvrir le programme
+ # Demarrer l'interface et le modèle côté client
 
-3) Creer un projet
-- Demander un nom de projet
-- Verifier que ce nom n'existe pas
-- Le sauvegarder
+*) Creer un projet
+ # Demander un nom de projet
+ # Verifier que ce nom n'existe pas
+ # Le sauvegarder
 
-4) Sauvegarder le projet
-- Envoyer les données au serveur puis les sauvegarder dans la BD
+* Sauvegarder le projet
+ # Envoyer les données au serveur puis les sauvegarder dans la BD
 
-5) Ouvrir le mandat
-- Demander le lien du fichier contenant le mandat
-- Ouvrir le fichier
-- L'afficher dans l'interface
+* Ouvrir le mandat
+ # Demander le lien du fichier contenant le mandat
+ # Ouvrir le fichier
+ # L'afficher dans l'interface
 
-6) Remplir un champ
-- Copier le mot sélectionné par l'tilisateur
-- Ajouter le mot à la liste correspondante
+* Remplir un champ
+ # Copier le mot sélectionné par l'tilisateur
+ # Ajouter le mot à la liste correspondante
+
+==deuxieme étape==
+* ouvrir mode cas d'usage
+ # demandé les cas d'usage déja enregistré
+ # affiché les cas d'usage présent ordonné par priorité
+ # permettre a l'utilisateur d'entré de nouveau cas d'usage (cas suivant)
+ 
+* entré d'un nouveau cas d'usage
+ # entré le cas d'usage, 1 par ligne
+ # enregistré le cas
+ 
+* placé la priorité des cas d'usage
+ # écrir le chiffre de priorité a coté de chaque cas d'usage
+ # enregistré c'est priorité
+ # actualisé l'affichage
+ 
+* ouvrir le mode scénario d'utilisation
+ # demandé les scénarios d'utilisations déja enregistré
+ # affiché les scénarios d'utilisations présent
+ # permettre a l'utilisateur d'entré de nouveau scénarios d'utilisations (cas suivant)
+ 
+* entré les étapes d'un scénario d'utilisation
+ # entré le scénario d'usage, 1 par ligne
+ # indiqué l'ordre de procédure
+ # enregistré le scénario
+ 
+
