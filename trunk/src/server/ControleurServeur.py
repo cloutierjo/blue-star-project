@@ -12,8 +12,6 @@ from ServerMethods import *
 #serveur localhost sur le port 8000 (bidon le numéro de port)
 server = SimpleXMLRPCServer(("localhost", 8000), 
                             requestHandler=SimpleXMLRPCRequestHandler)
-
-server.register_introspection_functions()
         
 print "Serveur crée"
 
