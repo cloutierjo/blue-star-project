@@ -123,3 +123,55 @@ voici le model de scrum
   * intégré la vue avec le reste du projet
  ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
   * 
+
+=22/04/2009=
+
+==Mathieu L.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * intégré l'interface
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * amélioré l'utilisabilité de l'interface
+  * refactoré l'interface et la rendre modulaire pour facilité la réeutilisation et la partage des tache dans l'équipe
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * N/A
+
+==François L.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * terminé au propre le schéma de BDD
+  * mettre a jour la classe ModeleServeur en fonction des modification de Projet
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * préparation de l'étape 2
+  * début d'implémentation
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * N/A
+
+==Jonathan H.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * refactor de la classe ControleurServeur
+  * créé la méthode deleteProjet et overiteProjet
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * préparation de l'étape 2
+  * début d'implémentation
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * problème de l'envoie d'un projet par réseau (corrigé par François)
+
+==Jean-Philippe C.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * synchronisés l'état de chose avec la classe Vue de Pascal
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * refactoring de l'interface avec Mathieu
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * 
+
+==Jonatan C.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * analyse de la partie suivant
+  * légere restructuration du projet (architecture commune au client/serveur)
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * préparation de l'étape 2
+  * début d'implémentation  
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * N/A
+
+==Pascal L.==
+ absent
