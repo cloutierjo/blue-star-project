@@ -1,3 +1,4 @@
+#-*- coding: iso-8859-1 -*-
 import sys
 sys.path.append( "../commun" )
 import Projet
@@ -41,6 +42,8 @@ class ControleurClient:
     
     
     def sauvegarder(self):
+        self.i.ATExplicite.updateAnalyse()
+        self.i.ATImplicite.updateAnalyse()
         self.m.projet.unicodize()
         return self.server.sauvegarderProjet(self.m.projet.serialize())
     
@@ -101,10 +104,10 @@ class ControleurClient:
             
         return raw_input("Entrer votre choix")
             
-            
+         
 if __name__ == '__main__':
     c = ControleurClient()
-    choix = c.afficherMenu()
+''' choix = c.afficherMenu()
     while choix !="7":
         if choix =="1":
             print c.getListeProjets()
@@ -133,9 +136,9 @@ if __name__ == '__main__':
                 print c.ouvrirATImplicite()
             else:
                 c.creerATImplicite(raw_input("Entrer l'implicite"))
-            
+           
         elif choix =="6":
             c.sauvegarder()
             
         choix = c.afficherMenu()
-        
+ '''       
