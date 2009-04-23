@@ -1,5 +1,4 @@
 #-*- coding: iso-8859-1 -*-
-
 '''
 classe vue
 auteur: Pascal Lemay
@@ -9,12 +8,13 @@ import tkMessageBox, tkSimpleDialog
 import sys
 sys.path.append( "../commun" )
 import Projet
+from ScrolledFrame import *
 
 class Vue(object):
 #initialisation
     def __init__(self,parent):
         self.parent=parent
-#0:Aucune Project loadé,1:Projet Loade
+        #0:Aucune Project loade,1:Projet Loade
         self.etat=0
 
         self.root=Tk()
@@ -30,6 +30,8 @@ class Vue(object):
         self.ATImplicite = None
         self.ATExplicite = None
 
+
+
 #Haut    
     def menuPrincipal(self):
         #cree une barre de menu (qui est aussi un objet Menu)
@@ -41,9 +43,10 @@ class Vue(object):
         #menu 
         menu.add_cascade(label="Fichier", menu=filemenu)
         #Nouveau projet
-        filemenu.add_command(label="Nouveau projet", command=self.saisirNomProjet)
+        filemenu.add_command(label="Nouveau projet", command=self.NouveauProjet)
         #projet
-        filemenu.add_command(label="Ouvrir un projet", command=self.afficherProjet)
+        filemenu.add_command(label="Ouvrir Projet", command=self.OuvrirProjet)
+        
         filemenu.add_command(label="Creation d'un mandat", command=self.creationMandat)
         #?
         filemenu.add_command(label="Sauvegarder", command=self.parent.sauvegarder)
@@ -58,14 +61,13 @@ class Vue(object):
         displaymenu=Menu(menu)
         menu.add_cascade(label="Affichage",menu=displaymenu)
         displaymenu.add_command(label="Afficher le mandat",command=self.afficherFenMandat)
-        displaymenu.add_command(label="Afficher cas d'usage",command=self.afficherCasUsage)
+        displaymenu.add_command(label="Afficher ATEXPLICTITE",command=self.afficherAnalyse)
+        displaymenu.add_command(label="Cacher ATEXPLICTITE",command=self.cacherAnalyse)
         #...
-        
         
         #Aide
         helpmenu = Menu(menu)
         menu.add_cascade(label="Aide", menu=helpmenu)
-        helpmenu.add_command(label="Info", command=self.callback)
         
 
 #fonction sur l'ouverture projet
@@ -74,8 +76,8 @@ class Vue(object):
             projets=ListeProjets(self.parent.getListeProjets(),self)
             #self.etat=2
     def chargerEnMemoireProjet(self):
-        pass
-    
+        self.ATExplicite = analyseTextuelle(self,self.parent.ouvrirATExplicite(),explicite=True)
+        self.ATImplicite = analyseTextuelle(self,self.parent.ouvrirATImplicite(),implicite=True)
     def NouveauProjet(self):
          
         if self.etat==0:
@@ -88,8 +90,6 @@ class Vue(object):
                                 # etat 1:pret pour creation de mandat
                 self.afficherFenMandat()
                 
-
-
     def fermerProjet(self):
         self.frame.destroy()
         self.analyseGrid.effacerFrame()
@@ -146,92 +146,102 @@ class Vue(object):
                     
                 #1:fenetre mandat et analyse textuelle vide        
                 self.fenOuverte=1
-        
-#----------------------------------------------------------------------------
-#-----------------------------------------------------------------------------
+    def afficherAnalyse(self):
+        if self.ATExplicite != None:
+            self.ATExplicite.frame.pack()
+            
+    def cacherAnalyse(self):
+        self.ATExplicite.frame.pack_forget()  
+            
 class analyseTextuelle(object):
     def __init__(self,vueParent,analyse,implicite=False,explicite=False):
-        self.vueParent=vueParent
         self.rows=[]
-        self.cols=[]
+        self.vueParent=vueParent
+        self.implicite = implicite
+        self.explicite  = explicite
         
         
         #Creation du Frame
         self.frame = Frame()
+
         
         
         #Ajout du Label Tite
         titreImplicite = "Analyse Implicite"
         titreExplicite = "Analyse Explicite"
         if implicite:
-            lblTitre = Label(self.frame,text = titreImplicite,width=100)
+            lblTitre = Label(self.frame,text = titreImplicite)
         elif explicite:
-            lblTitre = Label(self.frame,text = titreExplicite,width=100)
+            lblTitre = Label(self.frame,text = titreExplicite)
         else:
-            lblTitre = Label(self.frame,text = titreExplicite,width=100)
+            lblTitre = Label(self.frame,text = titreExplicite)
             print "Aucun type d'analyse spécifié, Explicite par défault"
+        
+        lblTitre.pack()
             
         #Ajout du tableau C'est un textbox avec des entrée en grille 1x3
-        tableauAnalyse = Text(self.frame)
-        tableauAnalyse.config(width=100)
-        
-        
-        #ajout du scroll
         scrollbar = Scrollbar(self.frame)
+        self.tableauAnalyse = Text(self.frame, yscrollcommand=scrollbar.set)
+        
                                                                                                                         
                                                                                                                         
-      # Insertion des données existante dans le tableauc                                                                                                                  
+      # Insertion des données existante dans le tableau                                                                                                       
         for i in range(len(analyse)):
-            
-            cols = []
+            self.tableauAnalyse.insert(END, "\n2232")
             laLigneAnalyse=analyse[i]
-            for j,champs in enumerate(laLigneAnalyse.keys()):
-                entree = Entry(tableauAnalyse,relief=RIDGE)
+            col = []
+            for j in range(3):
+                entree = Entry(self.tableauAnalyse,relief=RIDGE)
                 entree.grid(row=i, column=j, sticky=NSEW)
-                e.insert(END,laLigneAnalyse['champs'])
-                cols.append(e) # A koi ca sert?!?
-                self.rows.append(cols) # A koi ca sert?!? 
-
-## TODO CONTINUER LE REFACTOR D'ANALYSE ET FAIRE LE REFACTOR DE MANDAT##JAI FAIM JE VAIS MANGER
-        sc.config(command=ta.yview)
-        ta.config(yscrollcommand=sc.set)
-
+                if j == 0:
+                    entree.insert(END,laLigneAnalyse['nom'])
+                elif j == 1:
+                    entree.insert(END,laLigneAnalyse['verbe'])
+                elif j == 2:
+                    entree.insert(END,laLigneAnalyse['adjectif'])
+                col.append(entree)
+            self.rows.append(col)
         
-        def updateAnalyse():
-            listeDictionnaires=[]
-            for row in self.rows:
-                dict={}
-                dict['nom']=row[0].get()
-                dict['verbe']=row[1].get()
-                dict['adjectif']=row[2].get()
-                listeDictionnaires.append(dict)
-                
-            self.master.parent.creerATExplicite(listeDictionnaires)
+        
+
+        self.boutonAddRow=Button(self.frame,text='Ajouter une ligne',command=self.addRow)
+        self.boutonAddRow.pack()
+        Label(self.frame,text = 'Noms: Verbe: Adjectifs:').pack()
+        
+        
+        scrollbar.pack(side=RIGHT, fill=Y)
+        scrollbar.config(command=self.tableauAnalyse.yview)
+        
+        
+        self.tableauAnalyse.pack(side=LEFT,fill=Y)
+        
+        
+    def updateAnalyse(self):
+        listeDictionnaires=[]
+        for row in self.rows:
+           dict={}
+           dict['nom']=row[0].get()
+           dict['verbe']=row[1].get()
+           dict['adjectif']=row[2].get()
+           listeDictionnaires.append(dict)
+
+            
+            
+        if self.implicite:
+           self.vueParent.parent.creerATImplicite(listeDictionnaires)
+        elif self.explicite:
+            self.vueParent.parent.creerATExplicite(listeDictionnaires)
                 
             
-        def addRow():
-            i=0
-            for r in self.rows:
-                i+=1
-            cols = []
-            for j in range(3):
-                e = Entry(ta,relief=RIDGE)
-                e.grid(row=i, column=j,sticky=NSEW)
-                cols.append(e)
-            self.rows.append(cols)
-        
-        self.boutonAddRow=Button(self.frame2,text='Ajouter une ligne',command=addRow)
-        self.boutonAddRow.pack()    
-        self.boutonUpdate=Button(self.frame2,text='Update Analyse',command=updateAnalyse)
-        self.boutonUpdate.pack()
-        Label(self.frame2,text = 'Noms: Verbe: Adjectifs:',width=100).pack()
-        sc.pack(side=RIGHT, fill=Y)
-        ta.pack(side=LEFT,fill=Y)
-        sc.config(command=ta.yview)
-        ta.config(yscrollcommand=sc.set)
+    def addRow(self):
+        nextRow = self.tableauAnalyse.grid_size()[1]
+        col = []
+        for j in range(3) :# Utilisation d'une entr
+            entree = Entry(self.tableauAnalyse,relief=RIDGE)
+            entree.grid(row=nextRow, column=j,sticky=NSEW)
+            col.append(entree)
+        self.rows.append(col)
 
-    def effacerFrame(self):
-        self.frame2.destroy()        
 #---------------------------------------------------------------------------            
 class ListeProjets(object):
 #fenetre affichant les projets existants
@@ -260,6 +270,7 @@ class ListeProjets(object):
             self.parent.parent.ouvrirProjet(self.data[self.maliste.getData()][0])
             #projet ouvert
             self.parent.etat=2
+            self.parent.chargerEnMemoireProjet()
             self.fen.destroy()
         else:
             tkMessageBox.showwarning(
