@@ -85,7 +85,6 @@ class ModeleServeur:
         return saved
     
     def saveNewProject(self, projet):
-        
         cur = self.con.cursor()         # Curseur
         projet.num = self.getNewID()    # Get a Unique ID for the project
             
@@ -99,8 +98,8 @@ class ModeleServeur:
         cur.close()
         return projet.num # To be modified for errors handlings
      
-    def updateProject(self, projet):
-        
+    def updateProject(self, projet):   
+             
         cur = self.con.cursor()     # Curseur
             
         # Update table Projets
@@ -115,7 +114,7 @@ class ModeleServeur:
         
         self.con.commit()    
         cur.close()
-        return projet.num # To be modified for errors handlings
+        return projet.num # To be modified for errors handlin    
      
     def deleteProject(self, projetID):
         
@@ -163,12 +162,12 @@ if __name__ == "__main__":
         p=Projet()
         p.nom="Projet d'études "+str(i)
         p.mandat="Utiliser les caractères spéciaux pour tester la classe ModeleServeur"
-        p.analyseExplicite.addItem("des moules","mangé","juteuses")
-        p.analyseExplicite.addItem("une huitre","grignoté","baveuse")
-        p.analyseExplicite.addItem("de la dentyne","maché","ice")
-        p.analyseExplicite.addItem("avec le feu","jongler","tranquillement")
-        p.analyseImplicite.addItem("l'analyse","tester","implicite")
-        p.analyseImplicite.addItem("le test","refaire","redondant")
+        p.analyseExplicite.addItem("des moules","mangé","juteuses", 0)
+        p.analyseExplicite.addItem("une huitre","grignoté","baveuse", 0)
+        p.analyseExplicite.addItem("de la dentyne","maché","ice", 0)
+        p.analyseExplicite.addItem("avec le feu","jongler","tranquillement", 0)
+        p.analyseImplicite.addItem("l'analyse","tester","implicite", 0)
+        p.analyseImplicite.addItem("le test","refaire","redondant", 0)
         ms.saveProject(p)
         
     p=ms.getProject(9)
