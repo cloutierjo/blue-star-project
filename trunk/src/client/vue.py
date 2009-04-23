@@ -8,7 +8,6 @@ import tkMessageBox, tkSimpleDialog
 import sys
 sys.path.append( "../commun" )
 import Projet
-from ScrolledFrame import *
 
 class Vue(object):
 #initialisation
