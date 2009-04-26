@@ -109,7 +109,7 @@ class Vue(object):
     #mandat et analyse explicite
     def afficherFenMandat(self):
         if self.etat==1:
-            #efface la fenetre avans affichage desiree
+            #efface la fenetre avant affichage desiree
             self.effacerFenetre()
                 
             self.mandat.frame.pack(side=LEFT,fill=Y)
@@ -124,7 +124,7 @@ class Vue(object):
     #analyse explicite et implicite       
     def afficherLesAnalyses(self):
         if self.etat==1:
-            #efface la fenetre avans affichage desiree
+            #efface la fenetre avant affichage desiree
             self.effacerFenetre()
                 
             if self.ATExplicite != None:
@@ -198,7 +198,7 @@ class analyseTextuelle(object):
       # Insertion des données existante dans le tableau si il y en a
         if len(analyse) !=0:                                                                                                       
             for i in range(len(analyse)):
-                self.tableauAnalyse.insert(END, "\n2232")
+#                self.tableauAnalyse.insert(END, "\n2232")
                 laLigneAnalyse=analyse[i]
                 col = []
                 for j in range(3):
@@ -262,6 +262,9 @@ class CasUsage(object):
         self.vueParent=vueParent
         
         self.frame=Frame()
+        
+        titre = Label(self.frame,text = "Les Cas d'Usage")
+        titre.pack()
         #...c'est la que chu rendu
 #---------------------------------------------------------------------------            
 class ListeProjets(object):
