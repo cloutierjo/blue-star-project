@@ -72,7 +72,7 @@ class Vue(object):
     def OuvrirProjet(self):
         if self.etat==0:
             projets=ListeProjets(self.parent.getListeProjets(),self)
-            self.etat=1
+
     def chargerEnMemoireProjet(self):
         self.mandat=Mandat(self,self.parent.ouvrirMandat())
         self.ATExplicite = analyseTextuelle(self,self.parent.ouvrirATExplicite(),explicite=True)
@@ -91,8 +91,13 @@ class Vue(object):
                 self.parent.creerProjet(nom)
                 self.etat=1
                 
+    def effacerFenetre(self):
+        for item in self.graphItems:
+                item.frame.pack_forget()
+                
     def fermerProjet(self):
-        pass
+        self.effacerFenetre()
+        self.etat=0
     
     def save(self):
         if self.etat !=0:
@@ -103,8 +108,7 @@ class Vue(object):
     def afficherFenMandat(self):
         if self.etat==1:
             #efface la fenetre avans affichage desiree
-            for item in self.graphItems:
-                item.frame.pack_forget()
+            self.effacerFenetre()
                 
             self.mandat.frame.pack(side=LEFT,fill=Y)
             self.afficherAnalyse()
@@ -117,8 +121,7 @@ class Vue(object):
     def afficherLesAnalyses(self):
         if self.etat==1:
             #efface la fenetre avans affichage desiree
-            for item in self.graphItems:
-                item.frame.pack_forget()
+            self.effacerFenetre()
                 
             if self.ATExplicite != None:
                 self.ATExplicite.frame.pack(padx=60,side=LEFT,fill=Y)
