@@ -77,7 +77,9 @@ class Vue(object):
         self.mandat=Mandat(self,self.parent.ouvrirMandat())
         self.ATExplicite = analyseTextuelle(self,self.parent.ouvrirATExplicite(),explicite=True)
         self.ATImplicite = analyseTextuelle(self,self.parent.ouvrirATImplicite(),implicite=True)
-        #test
+        
+        #reference a chaque objets graphiques ajoutes ici pour faciliter
+        #la permutation entre les affichage (voir methode effacerFenetre())
         self.graphItems.append(self.mandat)
         self.graphItems.append(self.ATExplicite)
         self.graphItems.append(self.ATImplicite)
@@ -112,7 +114,9 @@ class Vue(object):
                 
             self.mandat.frame.pack(side=LEFT,fill=Y)
             self.afficherAnalyse()
-          
+        else:
+            tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
+      
     def afficherAnalyse(self):
         if self.ATExplicite != None:
             self.ATExplicite.frame.pack()
@@ -127,6 +131,8 @@ class Vue(object):
                 self.ATExplicite.frame.pack(padx=60,side=LEFT,fill=Y)
             if self.ATImplicite != None:
                 self.ATImplicite.frame.pack()
+        else:
+            tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
 #--------------------------------------------------------------------------
 class Mandat(object):
     def __init__(self,vueParent,mandat):
@@ -250,6 +256,13 @@ class analyseTextuelle(object):
             col.append(entree)
         self.rows.append(col)
 
+#---------------------------------------------------------------------------
+class CasUsage(object):
+    def __init__(self,vueParent):
+        self.vueParent=vueParent
+        
+        self.frame=Frame()
+        #...c'est la que chu rendu
 #---------------------------------------------------------------------------            
 class ListeProjets(object):
 #fenetre affichant les projets existants
