@@ -21,6 +21,7 @@ class Vue(object):
         self.root.geometry("1024x768")
         
 # toute les composantes graphiques
+        self.graphItems=[]
         
 #L'objet graphique Mandat
         self.mandat = None
@@ -94,7 +95,7 @@ class Vue(object):
         if self.etat !=0:
             self.parent.sauvegarder()
             
-#mandat->String et analyse ->liste de dictionnaire
+#affichage
     def afficherFenMandat(self):
         self.mandat.frame.pack(side=LEFT,fill=Y)
         self.afficherAnalyse()
@@ -104,11 +105,14 @@ class Vue(object):
             self.ATExplicite.frame.pack()
             
     def afficherLesAnalyses(self):
-        if self.ATExplicite != None:
-            self.ATExplicite.frame.pack(side=LEFT)
-        if self.ATImplicite != None:
-            self.ATImplicite.frame.pack()
-####            
+        pass
+#        self.mandat.frame.pack_forget()
+#        self.ATExplicite.frame.pack_forget()
+#        if self.ATExplicite != None:
+#            self.ATExplicite.frame.pack(side=LEFT)
+#        if self.ATImplicite != None:
+#            self.ATImplicite.frame.pack()
+            
     def cacherAnalyse(self):
         self.ATExplicite.frame.pack_forget()
 #--------------------------------------------------------------------------
@@ -119,9 +123,6 @@ class Mandat(object):
         
         self.frame = Frame()
         
-#        if(self.etat==1 or self.etat==2):
-            #etat 1: affiche mandat vide pour en creer un pour un nouveau projet
-            #etat 2: affiche le mandat du projet ouvert
         self.frame.pack(side=LEFT,fill=Y)
         nom = Label(self.frame,text = 'Mandat :')
         nom.pack()
@@ -134,25 +135,19 @@ class Mandat(object):
         self.t.pack(side=LEFT, fill=Y)
         s.config(command=self.t.yview)
         self.t.config(yscrollcommand=s.set)
+        
+        #si pas de mandat en creer un vide
         if self.mandat == None:
             self.t.insert(END,"")
         else:
             self.t.insert(END,self.mandat)
-        
+            
+        #sauvegarde du mandat
         self.updateMandat()    
         self.frame.pack_forget()
         
     def updateMandat(self):
         self.vueParent.parent.creerMandat(self.t.get(1.0,END))
-                
-        #instance d'analyseTextuelle (vide si nouveau projet)
-#           if len(self.parent.ouvrirATExplicite()) != 0:
-#               self.analyseGrid=analyseTextuelle(self,self.parent.ouvrirATExplicite())
-#           else:
-#               self.analyseGrid = analyseTextuelle(self,[])
-                    
-                #1:fenetre mandat et analyse textuelle vide        
-            #self.fenOuverte=1
 #---------------------------------------------------------------------------           
 class analyseTextuelle(object):
     def __init__(self,vueParent,analyse,implicite=False,explicite=False):
@@ -161,12 +156,10 @@ class analyseTextuelle(object):
         self.implicite = implicite
         self.explicite  = explicite
         
-        
         #Creation du Frame
         self.frame = Frame()
+#        self.frame.config(height=80)
 
-        
-        
         #Ajout du Label Tite
         titreImplicite = "Analyse Implicite"
         titreExplicite = "Analyse Explicite"
@@ -186,7 +179,7 @@ class analyseTextuelle(object):
         
                                                                                                                         
                                                                                                                         
-      # Insertion des données existante dans le tableau
+      # Insertion des données existante dans le tableau si il y en a
         if len(analyse) !=0:                                                                                                       
             for i in range(len(analyse)):
                 self.tableauAnalyse.insert(END, "\n2232")
@@ -203,6 +196,7 @@ class analyseTextuelle(object):
                         entree.insert(END,laLigneAnalyse['adjectif'])
                     col.append(entree)
                 self.rows.append(col)
+        #sinon vide
         else:
             self.addRow()
         
