@@ -61,7 +61,6 @@ class Vue(object):
         menu.add_cascade(label="Affichage",menu=displaymenu)
         displaymenu.add_command(label="Afficher le mandat/analyse explicite",command=self.afficherFenMandat)
         displaymenu.add_command(label="Afficher analyse explicite/implicite",command=self.afficherLesAnalyses)
-        displaymenu.add_command(label="Cacher ATEXPLICTITE",command=self.cacherAnalyse)
         #...
         
         #Aide
@@ -78,6 +77,10 @@ class Vue(object):
         self.mandat=Mandat(self,self.parent.ouvrirMandat())
         self.ATExplicite = analyseTextuelle(self,self.parent.ouvrirATExplicite(),explicite=True)
         self.ATImplicite = analyseTextuelle(self,self.parent.ouvrirATImplicite(),implicite=True)
+        #test
+        self.graphItems.append(self.mandat)
+        self.graphItems.append(self.ATExplicite)
+        self.graphItems.append(self.ATImplicite)
         
     def NouveauProjet(self):
          if self.etat==0:
@@ -99,6 +102,10 @@ class Vue(object):
     #mandat et analyse explicite
     def afficherFenMandat(self):
         if self.etat==1:
+            #efface la fenetre avans affichage desiree
+            for item in self.graphItems:
+                item.frame.pack_forget()
+                
             self.mandat.frame.pack(side=LEFT,fill=Y)
             self.afficherAnalyse()
           
@@ -109,15 +116,14 @@ class Vue(object):
     #analyse explicite et implicite       
     def afficherLesAnalyses(self):
         if self.etat==1:
-            self.mandat.frame.pack_forget()
-            self.ATExplicite.frame.pack_forget()
+            #efface la fenetre avans affichage desiree
+            for item in self.graphItems:
+                item.frame.pack_forget()
+                
             if self.ATExplicite != None:
                 self.ATExplicite.frame.pack(padx=60,side=LEFT,fill=Y)
             if self.ATImplicite != None:
                 self.ATImplicite.frame.pack()
-            
-    def cacherAnalyse(self):
-        self.ATExplicite.frame.pack_forget()
 #--------------------------------------------------------------------------
 class Mandat(object):
     def __init__(self,vueParent,mandat):
