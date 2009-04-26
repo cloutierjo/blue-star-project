@@ -34,6 +34,7 @@ class ControleurClient:
         
     def creerProjet(self,nom):
         self.m.creerProjet(nom)
+        self.i.chargerEnMemoireProjet()
         self.m.projet.num = self.sauvegarder()
         
     
