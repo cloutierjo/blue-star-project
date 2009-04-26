@@ -28,6 +28,7 @@ class Vue(object):
 #L'objet graphique des  AT
         self.ATImplicite = None
         self.ATExplicite = None
+        self.casUsage = None
 
 
 
@@ -46,9 +47,7 @@ class Vue(object):
         #projet
         filemenu.add_command(label="Ouvrir Projet", command=self.OuvrirProjet)
         
-        filemenu.add_command(label="Creation d'un mandat", command=self.creationMandat)
-        #?
-        filemenu.add_command(label="Sauvegarder", command=self.parent.sauvegarder)
+        filemenu.add_command(label="Sauvegarder", command=self.save)
         
         filemenu.add_command(label="Fermer le projet", command=self.fermerProjet)
         filemenu.add_separator()
@@ -59,8 +58,8 @@ class Vue(object):
         #commandes de l'affichage
         displaymenu=Menu(menu)
         menu.add_cascade(label="Affichage",menu=displaymenu)
-        displaymenu.add_command(label="Afficher le mandat",command=self.afficherFenMandat)
-        displaymenu.add_command(label="Afficher ATEXPLICTITE",command=self.afficherAnalyse)
+        displaymenu.add_command(label="Afficher le mandat/analyse explicite",command=self.afficherFenMandat)
+        displaymenu.add_command(label="Afficher analyse explicite/implicite",command=self.afficherLesAnalyses)
         displaymenu.add_command(label="Cacher ATEXPLICTITE",command=self.cacherAnalyse)
         #...
         
@@ -73,85 +72,91 @@ class Vue(object):
     def OuvrirProjet(self):
         if self.etat==0:
             projets=ListeProjets(self.parent.getListeProjets(),self)
-            #self.etat=2
+            self.etat=1
     def chargerEnMemoireProjet(self):
+        self.mandat=Mandat(self,self.parent.ouvrirMandat())
         self.ATExplicite = analyseTextuelle(self,self.parent.ouvrirATExplicite(),explicite=True)
         self.ATImplicite = analyseTextuelle(self,self.parent.ouvrirATImplicite(),implicite=True)
+        
     def NouveauProjet(self):
-         
-        if self.etat==0:
+         if self.etat==0:
             nom=tkSimpleDialog.askstring('Nom de projet',
                                      'Entrez un nom pour le projet:', 
                                      parent=self.root)
             if nom:
                 self.parent.creerProjet(nom)
                 self.etat=1
-                                # etat 1:pret pour creation de mandat
                 self.afficherFenMandat()
                 
     def fermerProjet(self):
-        self.frame.destroy()
-        self.analyseGrid.effacerFrame()
-        self.etat=0
+        pass
+#        self.frame.destroy()
+#        self.analyseGrid.effacerFrame()
+#        self.etat=0
+    def save(self):
+        if self.etat !=0:
+            self.parent.sauvegarder()
             
-            
-    def creationMandat(self):
-        if self.etat==0:
-            tkMessageBox.showwarning(
-            "Attention",
-            "Vous devez creer un projet \navant le mandat")
-
-        elif self.t.get(1.0,1.99)=="":
-            tkMessageBox.showwarning(
-            "Attention",
-            "Le champ texte mandat est vide")
-        elif self.etat==1:
-                self.parent.creerMandat(self.t.get(1.0,END))
-                tkMessageBox.showinfo("Mandat","Projet mis a jour avec le nouveau mandat")
-                self.parent.sauvegarder()
-        #projet creeer et ouvert (fenetre mandat et analyse textuelle ouverte)
-                self.etat=2
-#-----------------------------------------------------------------------------
 #mandat->String et analyse ->liste de dictionnaire
     def afficherFenMandat(self):
-        self.frame=Frame(self.root)
-#Mandat
-#        if self.fenOuverte!=1:
-        if(self.etat==1 or self.etat==2):
-            #etat 1: affiche mandat vide pour en creer un pour un nouveau projet
-            #etat 2: affiche le mandat du projet ouvert
-            self.frame.pack(side=LEFT,fill=Y)
-            nom = Label(self.frame,text = 'Mandat :')
-            nom.pack()
-            s = Scrollbar(self.frame)
-        #t->texte mandat
-            self.t = Text(self.frame)
-            self.t.config(width=80)
-            self.t.focus_set()
-            s.pack(side=RIGHT, fill=Y)
-            self.t.pack(side=LEFT, fill=Y)
-            s.config(command=self.t.yview)
-            self.t.config(yscrollcommand=s.set)
-            if self.parent.ouvrirMandat() == None:
-                self.t.insert(END,"")
-            else:
-                self.t.insert(END,self.parent.ouvrirMandat())
-                
-    #instance d'analyseTextuelle (vide si nouveau projet)
-            if len(self.parent.ouvrirATExplicite()) != 0:
-                self.analyseGrid=analyseTextuelle(self,self.parent.ouvrirATExplicite())
-            else:
-                self.analyseGrid = analyseTextuelle(self,[])
-                    
-                #1:fenetre mandat et analyse textuelle vide        
-            #self.fenOuverte=1
+        self.mandat.frame.pack(side=LEFT,fill=Y)
+        self.afficherAnalyse()
+        
     def afficherAnalyse(self):
         if self.ATExplicite != None:
             self.ATExplicite.frame.pack()
             
+    def afficherLesAnalyses(self):
+        if self.ATExplicite != None:
+            self.ATExplicite.frame.pack(side=LEFT)
+        if self.ATImplicite != None:
+            self.ATImplicite.frame.pack()
+####            
     def cacherAnalyse(self):
-        self.ATExplicite.frame.pack_forget()  
-            
+        self.ATExplicite.frame.pack_forget()
+#--------------------------------------------------------------------------
+class Mandat(object):
+    def __init__(self,vueParent,mandat):
+        self.vueParent=vueParent
+        self.mandat=mandat
+        
+        self.frame = Frame()
+        
+#        if(self.etat==1 or self.etat==2):
+            #etat 1: affiche mandat vide pour en creer un pour un nouveau projet
+            #etat 2: affiche le mandat du projet ouvert
+        self.frame.pack(side=LEFT,fill=Y)
+        nom = Label(self.frame,text = 'Mandat :')
+        nom.pack()
+        s = Scrollbar(self.frame)
+        #t->texte mandat
+        self.t = Text(self.frame)
+        self.t.config(width=80)
+        self.t.focus_set()
+        s.pack(side=RIGHT, fill=Y)
+        self.t.pack(side=LEFT, fill=Y)
+        s.config(command=self.t.yview)
+        self.t.config(yscrollcommand=s.set)
+        if self.mandat == None:
+            self.t.insert(END,"")
+        else:
+            self.t.insert(END,self.mandat)
+        
+        self.updateMandat()    
+        self.frame.pack_forget()
+        
+    def updateMandat(self):
+        self.vueParent.parent.creerMandat(self.t.get(1.0,END))
+                
+        #instance d'analyseTextuelle (vide si nouveau projet)
+#           if len(self.parent.ouvrirATExplicite()) != 0:
+#               self.analyseGrid=analyseTextuelle(self,self.parent.ouvrirATExplicite())
+#           else:
+#               self.analyseGrid = analyseTextuelle(self,[])
+                    
+                #1:fenetre mandat et analyse textuelle vide        
+            #self.fenOuverte=1
+#---------------------------------------------------------------------------           
 class analyseTextuelle(object):
     def __init__(self,vueParent,analyse,implicite=False,explicite=False):
         self.rows=[]
