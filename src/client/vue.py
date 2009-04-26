@@ -86,13 +86,10 @@ class Vue(object):
             if nom:
                 self.parent.creerProjet(nom)
                 self.etat=1
-                self.afficherFenMandat()
                 
     def fermerProjet(self):
         pass
-#        self.frame.destroy()
-#        self.analyseGrid.effacerFrame()
-#        self.etat=0
+    
     def save(self):
         if self.etat !=0:
             self.parent.sauvegarder()
@@ -189,22 +186,25 @@ class analyseTextuelle(object):
         
                                                                                                                         
                                                                                                                         
-      # Insertion des données existante dans le tableau                                                                                                       
-        for i in range(len(analyse)):
-            self.tableauAnalyse.insert(END, "\n2232")
-            laLigneAnalyse=analyse[i]
-            col = []
-            for j in range(3):
-                entree = Entry(self.tableauAnalyse,relief=RIDGE)
-                entree.grid(row=i, column=j, sticky=NSEW)
-                if j == 0:
-                    entree.insert(END,laLigneAnalyse['nom'])
-                elif j == 1:
-                    entree.insert(END,laLigneAnalyse['verbe'])
-                elif j == 2:
-                    entree.insert(END,laLigneAnalyse['adjectif'])
-                col.append(entree)
-            self.rows.append(col)
+      # Insertion des données existante dans le tableau
+        if len(analyse) !=0:                                                                                                       
+            for i in range(len(analyse)):
+                self.tableauAnalyse.insert(END, "\n2232")
+                laLigneAnalyse=analyse[i]
+                col = []
+                for j in range(3):
+                    entree = Entry(self.tableauAnalyse,relief=RIDGE)
+                    entree.grid(row=i, column=j, sticky=NSEW)
+                    if j == 0:
+                        entree.insert(END,laLigneAnalyse['nom'])
+                    elif j == 1:
+                        entree.insert(END,laLigneAnalyse['verbe'])
+                    elif j == 2:
+                        entree.insert(END,laLigneAnalyse['adjectif'])
+                    col.append(entree)
+                self.rows.append(col)
+        else:
+            self.addRow()
         
         
 
@@ -273,7 +273,7 @@ class ListeProjets(object):
         if self.maliste.getData():
             self.parent.parent.ouvrirProjet(self.data[self.maliste.getData()][0])
             #projet ouvert
-            self.parent.etat=2
+            self.parent.etat=1
             self.parent.chargerEnMemoireProjet()
             self.fen.destroy()
         else:
