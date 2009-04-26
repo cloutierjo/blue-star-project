@@ -42,6 +42,7 @@ class ControleurClient:
     
     
     def sauvegarder(self):
+        self.i.mandat.updateMandat()
         self.i.ATExplicite.updateAnalyse()
         self.i.ATImplicite.updateAnalyse()
         self.m.projet.unicodize()
