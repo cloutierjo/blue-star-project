@@ -29,6 +29,7 @@ class Vue(object):
 #L'objet graphique des  AT
         self.ATImplicite = None
         self.ATExplicite = None
+#L'objet graphique cas d'usage
         self.casUsage = None
 
 
@@ -59,8 +60,8 @@ class Vue(object):
         #commandes de l'affichage
         displaymenu=Menu(menu)
         menu.add_cascade(label="Affichage",menu=displaymenu)
-        displaymenu.add_command(label="Afficher le mandat/analyse explicite",command=self.afficherFenMandat)
-        displaymenu.add_command(label="Afficher analyse explicite/implicite",command=self.afficherLesAnalyses)
+        displaymenu.add_command(label="Afficher le mandat / analyse explicite",command=self.afficherFenMandat)
+        displaymenu.add_command(label="Afficher analyse explicite / implicite",command=self.afficherLesAnalyses)
         #...
         
         #Aide
@@ -77,18 +78,20 @@ class Vue(object):
         self.mandat=Mandat(self,self.parent.ouvrirMandat())
         self.ATExplicite = analyseTextuelle(self,self.parent.ouvrirATExplicite(),explicite=True)
         self.ATImplicite = analyseTextuelle(self,self.parent.ouvrirATImplicite(),implicite=True)
-        
+#####charger autres widjet ici...
+
         #reference a chaque objets graphiques ajoutes ici pour faciliter
         #la permutation entre les affichage (voir methode effacerFenetre())
         self.graphItems.append(self.mandat)
         self.graphItems.append(self.ATExplicite)
         self.graphItems.append(self.ATImplicite)
+#####ajouter autres widgets dans graphItems ici...
         
     def NouveauProjet(self):
          if self.etat==0:
             nom=tkSimpleDialog.askstring('Nom de projet',
                                      'Entrez un nom pour le projet:', 
-                                     parent=self.root)
+                                                    parent=self.root)
             if nom:
                 self.parent.creerProjet(nom)
                 self.etat=1
@@ -105,7 +108,8 @@ class Vue(object):
         if self.etat !=0:
             self.parent.sauvegarder()
             
-#affichage
+#affichages
+
     #mandat et analyse explicite
     def afficherFenMandat(self):
         if self.etat==1:
@@ -198,7 +202,6 @@ class analyseTextuelle(object):
       # Insertion des données existante dans le tableau si il y en a
         if len(analyse) !=0:                                                                                                       
             for i in range(len(analyse)):
-#                self.tableauAnalyse.insert(END, "\n2232")
                 laLigneAnalyse=analyse[i]
                 col = []
                 for j in range(3):
