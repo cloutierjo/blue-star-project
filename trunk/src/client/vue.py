@@ -96,22 +96,25 @@ class Vue(object):
             self.parent.sauvegarder()
             
 #affichage
+    #mandat et analyse explicite
     def afficherFenMandat(self):
-        self.mandat.frame.pack(side=LEFT,fill=Y)
-        self.afficherAnalyse()
-        
+        if self.etat==1:
+            self.mandat.frame.pack(side=LEFT,fill=Y)
+            self.afficherAnalyse()
+          
     def afficherAnalyse(self):
         if self.ATExplicite != None:
             self.ATExplicite.frame.pack()
             
+    #analyse explicite et implicite       
     def afficherLesAnalyses(self):
-        pass
-#        self.mandat.frame.pack_forget()
-#        self.ATExplicite.frame.pack_forget()
-#        if self.ATExplicite != None:
-#            self.ATExplicite.frame.pack(side=LEFT)
-#        if self.ATImplicite != None:
-#            self.ATImplicite.frame.pack()
+        if self.etat==1:
+            self.mandat.frame.pack_forget()
+            self.ATExplicite.frame.pack_forget()
+            if self.ATExplicite != None:
+                self.ATExplicite.frame.pack(padx=60,side=LEFT,fill=Y)
+            if self.ATImplicite != None:
+                self.ATImplicite.frame.pack()
             
     def cacherAnalyse(self):
         self.ATExplicite.frame.pack_forget()
@@ -123,7 +126,6 @@ class Mandat(object):
         
         self.frame = Frame()
         
-        self.frame.pack(side=LEFT,fill=Y)
         nom = Label(self.frame,text = 'Mandat :')
         nom.pack()
         s = Scrollbar(self.frame)
@@ -136,7 +138,7 @@ class Mandat(object):
         s.config(command=self.t.yview)
         self.t.config(yscrollcommand=s.set)
         
-        #si pas de mandat en creer un vide
+        #si pas de mandat, creation d'un mandat vide
         if self.mandat == None:
             self.t.insert(END,"")
         else:
@@ -144,7 +146,6 @@ class Mandat(object):
             
         #sauvegarde du mandat
         self.updateMandat()    
-        self.frame.pack_forget()
         
     def updateMandat(self):
         self.vueParent.parent.creerMandat(self.t.get(1.0,END))
