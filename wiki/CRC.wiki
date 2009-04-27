@@ -40,7 +40,6 @@ voici le format a suivre pour les CRC, ne vous occup√© pas du HTML si sa vous m√
        <td>
            * serializedProject serialize()
            * void deserialize(serializedProject)
-           
        </td>
    </tr>
 </table>
