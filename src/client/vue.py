@@ -201,19 +201,14 @@ class analyseTextuelle(object):
                                                                                                                         
       # Insertion des données existante dans le tableau si il y en a
         if len(analyse) !=0:                                                                                                       
-            for i in range(len(analyse)):
-                laLigneAnalyse=analyse[i]
+            for i,laLigneAnalyse in enumerate(analyse):
                 col = []
-                for j in range(3):
+                for j,champ in enumerate(['nom','verbe','adjectif']):
                     entree = Entry(self.tableauAnalyse,relief=RIDGE)
                     entree.grid(row=i, column=j, sticky=NSEW)
-                    if j == 0:
-                        entree.insert(END,laLigneAnalyse['nom'])
-                    elif j == 1:
-                        entree.insert(END,laLigneAnalyse['verbe'])
-                    elif j == 2:
-                        entree.insert(END,laLigneAnalyse['adjectif'])
+                    entree.insert(END,laLigneAnalyse.get(champ))
                     col.append(entree)
+                
                 self.rows.append(col)
         #sinon vide
         else:
