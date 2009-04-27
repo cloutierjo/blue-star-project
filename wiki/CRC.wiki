@@ -40,6 +40,7 @@ voici le format a suivre pour les CRC, ne vous occupé pas du HTML si sa vous m�
        <td>
            * serializedProject serialize()
            * void deserialize(serializedProject)
+           
        </td>
    </tr>
 </table>
@@ -100,6 +101,7 @@ TODO
        <td rowspan=3>
                       * ControleurClient
                       * ModeleServeur
+                      * ServerMethods
        </td>
    </tr>
    <tr>
@@ -107,9 +109,26 @@ TODO
    </tr>
    <tr>
        <td>
-           * getListeProjets() // retourne une liste de string
-           * sauvegarderProjet(IdProjet) // save le projet dans la db
-           * getProjet(IdProjet) // retourne un projet
+           * Démarre le serveur
+       </td>
+   </tr>
+</table>
+
+<table border=1 width=70%>
+   <tr>
+       <td width=60% > ServerMethods </td>
+       <td rowspan=3> * ControleurServeur
+       </td>
+   </tr>
+   <tr>
+       <td align="right"> Jonathan H. </td>
+   </tr>
+   <tr>
+       <td>
+           * getListeProjets(self)
+           * sauvegarderProjet(self, serializedProjet)
+           * getProjet(self, idProjet)
+           * deleteProjet(self, idProjet)  
        </td>
    </tr>
 </table>
