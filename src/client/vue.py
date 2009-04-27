@@ -118,13 +118,8 @@ class Vue(object):
                 
             self.mandat.frame.pack(side=LEFT,fill=Y)
             self.ATExplicite.frame.pack(side=RIGHT,fill=Y)
-#            self.afficherAnalyse()
         else:
             tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
-      
-#    def afficherAnalyse(self):
-#        if self.ATExplicite != None:
-#            self.ATExplicite.frame.pack(side=RIGHT,fill=Y)
             
     #analyse explicite et implicite       
     def afficherLesAnalyses(self):
