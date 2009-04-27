@@ -13,7 +13,7 @@ class Vue(object):
 #initialisation
     def __init__(self,parent):
         self.parent=parent
-        #0:Aucune Project loade,    1:Projet Loade
+        #0:Aucun Project loade,    1:Projet Loade
         self.etat=0
 
         self.root=Tk()
@@ -147,7 +147,7 @@ class Mandat(object):
         s = Scrollbar(self.frame)
     #t->texte mandat
         self.t = Text(self.frame)
-        self.t.config(width=80)
+#        self.t.config(width=80)
         self.t.focus_set()
         s.pack(side=RIGHT, fill=Y)
         self.t.pack(side=LEFT, fill=Y)
@@ -200,7 +200,7 @@ class analyseTextuelle(object):
         if len(analyse) !=0:                                                                                                       
             for i,laLigneAnalyse in enumerate(analyse):
                 col = []
-                # ligne -> frame avec 3 Entry
+                # ligne -> frame avec 3 Entry (grille 1x3)
                 ligne=Frame(self.tableauAnalyse)
                 for j,champ in enumerate(['nom','verbe','adjectif']):
                     entree = Entry(ligne,relief=RIDGE)
