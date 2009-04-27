@@ -123,7 +123,7 @@ class Vue(object):
       
     def afficherAnalyse(self):
         if self.ATExplicite != None:
-            self.ATExplicite.frame.pack()
+            self.ATExplicite.frame.pack(side=RIGHT,fill=Y)
             
     #analyse explicite et implicite       
     def afficherLesAnalyses(self):
@@ -134,7 +134,7 @@ class Vue(object):
             if self.ATExplicite != None:
                 self.ATExplicite.frame.pack(padx=60,side=LEFT,fill=Y)
             if self.ATImplicite != None:
-                self.ATImplicite.frame.pack()
+                self.ATImplicite.frame.pack(padx=60,side=RIGHT,fill=Y)
         else:
             tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
 #--------------------------------------------------------------------------
