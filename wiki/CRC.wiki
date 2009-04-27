@@ -117,7 +117,8 @@ TODO
 <table border=1 width=70%>
    <tr>
        <td width=60% > ServerMethods </td>
-       <td rowspan=3> * ControleurServeur
+       <td rowspan=3> 
+                     * ControleurServeur
        </td>
    </tr>
    <tr>
