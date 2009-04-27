@@ -105,6 +105,7 @@ class Vue(object):
         self.etat=0
     
     def save(self):
+        #si projet ouvert
         if self.etat !=0:
             self.parent.sauvegarder()
             
@@ -144,7 +145,7 @@ class Mandat(object):
         nom = Label(self.frame,text = 'Mandat :')
         nom.pack()
         s = Scrollbar(self.frame)
-        #t->texte mandat
+    #t->texte mandat
         self.t = Text(self.frame)
         self.t.config(width=80)
         self.t.focus_set()
@@ -174,7 +175,6 @@ class analyseTextuelle(object):
         
         #Creation du Frame
         self.frame = Frame()
-#        self.frame.config(height=80)
 
         #Ajout du Label Tite
         titreImplicite = "Analyse Implicite"
@@ -200,11 +200,10 @@ class analyseTextuelle(object):
         if len(analyse) !=0:                                                                                                       
             for i,laLigneAnalyse in enumerate(analyse):
                 col = []
-                # ligne-> 3 Entry
+                # ligne -> frame avec 3 Entry
                 ligne=Frame(self.tableauAnalyse)
                 for j,champ in enumerate(['nom','verbe','adjectif']):
                     entree = Entry(ligne,relief=RIDGE)
-#                    entree.grid(row=i, column=j, sticky=NSEW)
                     entree.insert(END,laLigneAnalyse.get(champ))
                     entree.pack(side=LEFT)
                     col.append(entree)
@@ -250,14 +249,14 @@ class analyseTextuelle(object):
     def addRow(self):
         nextRow = self.tableauAnalyse.grid_size()[1]
         col = []
-        # ligne-> 3 Entry
+        # ligne -> frame avec 3 Entry
         ligne=Frame(self.tableauAnalyse)
         for j in range(3) :# Utilisation d'une entr
             entree = Entry(ligne,relief=RIDGE)
             entree.pack(side=LEFT)
-#            entree.grid(row=nextRow, column=j,sticky=NSEW)
             col.append(entree)
         self.rows.append(col)
+        #
         self.tableauAnalyse.window_create(INSERT,window=ligne)
 
 #---------------------------------------------------------------------------
