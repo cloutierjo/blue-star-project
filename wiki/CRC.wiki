@@ -48,10 +48,10 @@ voici le format a suivre pour les CRC, ne vous occup√© pas du HTML si sa vous m√
 
 <table border=1 width=70%>
    <tr>
-       <td width=60%> Analise </td>
+       <td width=60%> Analyse </td>
        <td rowspan=3> 
-                      * ModelClient
-                      * ModelServeur
+                      * ModeleClient
+                      * ModeleServeur
                       * Projet
        </td>
    </tr>
@@ -60,7 +60,7 @@ voici le format a suivre pour les CRC, ne vous occup√© pas du HTML si sa vous m√
    </tr>
    <tr>
        <td>
-           * listeAnaliseTuple getForDB(ProjectID)
+           * listeAnalyseTuple getForDB(ProjectID)
            * void addItem(string nom, string verbe, string adjectif)
        </td>
    </tr>
@@ -93,7 +93,7 @@ TODO
 =Controleur Client (Mathieu L)=
 TODO
 
-=Controleur Serveur (Jonathan H)=
+=Serveur (Jonathan H)=
 
 <table border=1 width=70%>
    <tr>
@@ -113,8 +113,6 @@ TODO
        </td>
    </tr>
 </table>
-
-=ServerMethods (Jonathan H)=
 
 <table border=1 width=70%>
    <tr>
