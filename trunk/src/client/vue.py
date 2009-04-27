@@ -117,13 +117,14 @@ class Vue(object):
             self.effacerFenetre()
                 
             self.mandat.frame.pack(side=LEFT,fill=Y)
-            self.afficherAnalyse()
+            self.ATExplicite.frame.pack(side=RIGHT,fill=Y)
+#            self.afficherAnalyse()
         else:
             tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
       
-    def afficherAnalyse(self):
-        if self.ATExplicite != None:
-            self.ATExplicite.frame.pack(side=RIGHT,fill=Y)
+#    def afficherAnalyse(self):
+#        if self.ATExplicite != None:
+#            self.ATExplicite.frame.pack(side=RIGHT,fill=Y)
             
     #analyse explicite et implicite       
     def afficherLesAnalyses(self):
@@ -134,7 +135,7 @@ class Vue(object):
             if self.ATExplicite != None:
                 self.ATExplicite.frame.pack(padx=60,side=LEFT,fill=Y)
             if self.ATImplicite != None:
-                self.ATImplicite.frame.pack(padx=60,side=RIGHT,fill=Y)
+                self.ATImplicite.frame.pack(side=RIGHT,padx=60,fill=Y)
         else:
             tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
 #--------------------------------------------------------------------------
@@ -196,6 +197,7 @@ class analyseTextuelle(object):
         #Ajout du tableau C'est un textbox avec des entrée en grille 1x3
         scrollbar = Scrollbar(self.frame)
         self.tableauAnalyse = Text(self.frame, yscrollcommand=scrollbar.set)
+        self.tableauAnalyse.config(width=45)
         
                                                                                                                         
                                                                                                                         
@@ -203,13 +205,18 @@ class analyseTextuelle(object):
         if len(analyse) !=0:                                                                                                       
             for i,laLigneAnalyse in enumerate(analyse):
                 col = []
+                # ligne-> 3 Entry
+                ligne=Frame(self.tableauAnalyse)
                 for j,champ in enumerate(['nom','verbe','adjectif']):
-                    entree = Entry(self.tableauAnalyse,relief=RIDGE)
-                    entree.grid(row=i, column=j, sticky=NSEW)
+                    entree = Entry(ligne,relief=RIDGE)
+#                    entree.grid(row=i, column=j, sticky=NSEW)
                     entree.insert(END,laLigneAnalyse.get(champ))
+                    entree.pack(side=LEFT)
                     col.append(entree)
                 
                 self.rows.append(col)
+                #
+                self.tableauAnalyse.window_create(INSERT,window=ligne)
         #sinon vide
         else:
             self.addRow()
@@ -248,11 +255,15 @@ class analyseTextuelle(object):
     def addRow(self):
         nextRow = self.tableauAnalyse.grid_size()[1]
         col = []
+        # ligne-> 3 Entry
+        ligne=Frame(self.tableauAnalyse)
         for j in range(3) :# Utilisation d'une entr
-            entree = Entry(self.tableauAnalyse,relief=RIDGE)
-            entree.grid(row=nextRow, column=j,sticky=NSEW)
+            entree = Entry(ligne,relief=RIDGE)
+            entree.pack(side=LEFT)
+#            entree.grid(row=nextRow, column=j,sticky=NSEW)
             col.append(entree)
         self.rows.append(col)
+        self.tableauAnalyse.window_create(INSERT,window=ligne)
 
 #---------------------------------------------------------------------------
 class CasUsage(object):
