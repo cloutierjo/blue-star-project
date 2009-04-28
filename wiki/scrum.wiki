@@ -175,3 +175,7 @@ voici le model de scrum
 
 ==Pascal L.==
  absent
+
+=27/04/2009=
+ ==Tout le monde==
+  *réorganisation des tâche dut à la fin du premier sprint (création du système de base et de tout les élément de la chaine Interface->BDD)
