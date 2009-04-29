@@ -20,17 +20,20 @@
 
  ==Jonathan H==
   * Interface Graphique module:
-   *
+   * Dictionnaire de Données
+
  ==Mathieu L==
   * Interface Graphique module:
-   *
+   * cas d'usage / scénario d'utilisation
 
  ==Pascal L==
   * intégration et test de l'interface graphique
+  * Interface Graphique module:
+   * analyse
 
  ==Jean-Philippe C==
   * Interface Graphique module:
-   *
+   * CRC
 
  ==Jonatan C==
   * analyse des module suivant
