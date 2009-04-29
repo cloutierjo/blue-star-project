@@ -10,7 +10,7 @@
  ==Pascal L & Jean-Philippe C==
   * Interface graphique
 
- ==Jonathan C==
+ ==Jonatan C==
   * Modèle côté client
 
  ==François L==
@@ -32,7 +32,7 @@
   * Interface Graphique module:
    *
 
- ==Jonathan C==
+ ==Jonatan C==
   * analyse des module suivant
   * planification générale de ceux-ci
 
