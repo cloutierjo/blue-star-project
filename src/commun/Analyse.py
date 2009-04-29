@@ -6,14 +6,12 @@ Created on 20 avr. 2009
 '''
 
 class Analyse:
-    
     NOM="nom"
     VERBE="verbe"
     ADJECTIF="adjectif"
     HANDLED="handled"
     
     def __init__(self,parent):
-            
         self.analyse = []
         self.parent = parent
     
@@ -31,3 +29,7 @@ class Analyse:
             row[self.NOM] = unicode(row[self.NOM])
             row[self.VERBE] = unicode(row[self.VERBE])
             row[self.ADJECTIF] = unicode(row[self.ADJECTIF])
+    
+            
+if __name__ == '__main__':
+    pass
