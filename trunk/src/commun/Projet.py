@@ -4,7 +4,8 @@ Created on 8 avr. 2009
 
 @author: Jonatan Cloutier
 '''
-from Analyse import *
+import Analyse
+import CasUsage
 class Projet(object):
     '''
     contient tout les informations d'un projet ainsi que des méthode 
@@ -16,6 +17,7 @@ class Projet(object):
     MANDAT="mandat"
     analyseIMPLICITE="analyseImplicite"
     analyseEXPLICITE="analyseExplicite"
+    CASETSCENARIO="casEtScenario"
 
     def __init__(self):
         '''
@@ -24,12 +26,13 @@ class Projet(object):
         self.nom = "" # Sinon j'ai plein d'erreur de Allow None en XMLRPC...(Mathieu)
         self.num = 0    # Vaut 0 pour nouveau projet et ID du projet lorsque loadé
         self.mandat = ""# Sinon j'ai plein d'erreur de Allow None en XMLRPC... (Mathieu)
-        self.analyseExplicite = Analyse(self)
-        self.analyseImplicite = Analyse(self)
+        self.analyseExplicite = Analyse.Analyse(self)
+        self.analyseImplicite = Analyse.Analyse(self)
+        self.casEtScenario=CasUsage.CasUsage()
         
     def serialize(self):
         self.unicodize()  #néscéssaire pour que les char unicode passe sur le réseau
-        return {self.NOMPJ:self.nom,self.NUMPJ:self.num,self.MANDAT:self.mandat,self.analyseEXPLICITE:self.analyseExplicite.analyse,self.analyseIMPLICITE:self.analyseImplicite.analyse}
+        return {self.NOMPJ:self.nom,self.NUMPJ:self.num,self.MANDAT:self.mandat,self.analyseEXPLICITE:self.analyseExplicite.analyse,self.analyseIMPLICITE:self.analyseImplicite.analyse,self.CASETSCENARIO:self.casEtScenario.serialize()}
     
     def deserialize(self, serializedProject):
         self.nom=serializedProject[self.NOMPJ]
@@ -37,22 +40,7 @@ class Projet(object):
         self.mandat=serializedProject[self.MANDAT]
         self.analyseExplicite.analyse=serializedProject[self.analyseEXPLICITE]
         self.analyseImplicite.analyse=serializedProject[self.analyseIMPLICITE]
-        
-    def getAnalyseExpliciteForDB(self):
-        print "deprecate getanalyseExpliciteForDB"
-        return self.analyseExplicite.getForDB(self.num)
-    
-    def addItemAnalyseExplicite(self, nom, verbe, adjectif):
-        print "deprecate addItemanalyseExplicite"
-        self.analyseExplicite.addItem(nom, verbe, adjectif)
-        
-    def getAnalyseImpliciteForDB(self):
-        print "deprecate getanalyseImpliciteForDB"
-        return self.analyseImplicite.getForDB(self.num)
-    
-    def addItemAnalyseImplicite(self, nom, verbe, adjectif):
-        print "deprecate addItemanalyseImplicite"
-        self.analyseImplicite.addItem(nom, verbe, adjectif)
+        self.casEtScenario.deserialize(serializedProject[self.CASETSCENARIO])
         
     def unicodize(self):
         if self.nom != None:
@@ -76,6 +64,15 @@ if __name__ == '__main__':
     pj.unicodize()
     pj.analyseExplicite.getForDB()
     pj.analyseImplicite.getForDB()
+    
+    cu=pj.casEtScenario
+    su=cu.addCasUsage("first cas", 1).scenario
+    su.addEtapeScenario("a first step", 1)
+    su.addEtapeScenario("a second step")
+    
+    su=cu.addCasUsage("second cas").scenario
+    su.addEtapeScenario("b first step", 1)
+    su.addEtapeScenario("b second step")
     print pj.serialize()
     pj.deserialize(pj.serialize())
     print pj.serialize()
