@@ -1,6 +1,7 @@
 #-*- coding: iso-8859-1 -*-
 import sys
 sys.path.append( "../commun" )
+sys.path.append( "Vue" )
 import Projet
 from ModeleClient import *
 import xmlrpclib
