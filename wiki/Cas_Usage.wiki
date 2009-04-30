@@ -32,7 +32,7 @@
   # demandé les cas d'usage déjà enregistré a la BD
   # demandé les scénarios d'utilisations déjà enregistré a la BD
   # affiché l'analyse implicite a gauche
-  # affiché les cas d'usage a droite & scénario d'utilisation
+  # affiché les cas d'usage & scénario d'utilisation a droite 
   # affiché les cas d'usage présent ordonné par priorité
   # affiché les scénarios d'utilisations présent
   # permettre a l'utilisateur d'entré de nouveau cas d'usage ou scénarios d'utilisations 

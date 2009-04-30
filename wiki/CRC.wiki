@@ -31,6 +31,8 @@ voici le format a suivre pour les CRC, ne vous occupé pas du HTML si sa vous m�
        <td rowspan=3> 
                       * ModelClient
                       * ModelServeur
+                      * ControleurClient
+                      * ControleurServeur
        </td>
    </tr>
    <tr>
@@ -48,10 +50,10 @@ voici le format a suivre pour les CRC, ne vous occupé pas du HTML si sa vous m�
 
 <table border=1 width=70%>
    <tr>
-       <td width=60%> Analyse </td>
+       <td width=60%> Analise </td>
        <td rowspan=3> 
-                      * ModeleClient
-                      * ModeleServeur
+                      * ModelClient
+                      * ModelServeur
                       * Projet
        </td>
    </tr>
@@ -60,8 +62,94 @@ voici le format a suivre pour les CRC, ne vous occupé pas du HTML si sa vous m�
    </tr>
    <tr>
        <td>
-           * listeAnalyseTuple getForDB(ProjectID)
+           * listeAnaliseTuple getForDB()
            * void addItem(string nom, string verbe, string adjectif)
+       </td>
+   </tr>
+</table>
+
+
+<table border=1 width=70%>
+   <tr>
+       <td width=60%> CasUsage </td>
+       <td rowspan=3> 
+                      * ModelServeur
+                      * Projet
+                      * CasUsageItem
+       </td>
+   </tr>
+   <tr>
+       <td align="right">Jonatan C.</td>
+   </tr>
+   <tr>
+       <td>
+            * CasUsage addCasUsage(nom,priorite=0)
+            * serializedCasUsage serialize()
+            * void deserialize(serializedCasUsage)
+       </td>
+   </tr>
+</table>
+
+
+<table border=1 width=70%>
+   <tr>
+       <td width=60%> CasUsageItem </td>
+       <td rowspan=3> 
+                      * CasUsage
+                      * ScenarioUtilisation
+                      * ModelServeur
+       </td>
+   </tr>
+   <tr>
+       <td align="right">Jonatan C.</td>
+   </tr>
+   <tr>
+       <td>
+            * serializedCasUsageItem serialize()
+            * void deserialize(serializedCasUsageItem)
+       </td>
+   </tr>
+</table>
+
+
+<table border=1 width=70%>
+   <tr>
+       <td width=60%> EtapeScenarioUtilisation </td>
+       <td rowspan=3> 
+                      * CasUsage
+                      * ScenarioUtilisation
+                      * ModelServeur
+       </td>
+   </tr>
+   <tr>
+       <td align="right">Jonatan C.</td>
+   </tr>
+   <tr>
+       <td>
+            * serializedEtapeScenario serialize()
+            * void deserialize(serializedEtapeScenario)
+       </td>
+   </tr>
+</table>
+
+
+<table border=1 width=70%>
+   <tr>
+       <td width=60%> ScenarioUtilisation </td>
+       <td rowspan=3> 
+                      * ModelServeur
+                      * CasUsageItem
+                      * EtapeScenarioUtilisation
+       </td>
+   </tr>
+   <tr>
+       <td align="right">Jonatan C.</td>
+   </tr>
+   <tr>
+       <td>
+            * ScenarioUtilisation addEtapeScenario(nom,ordre=0)
+            * serializedScenarioUtilisation serialize()
+            * void deserialize(serializedScenarioUtilisation)
        </td>
    </tr>
 </table>
@@ -93,7 +181,7 @@ TODO
 =Controleur Client (Mathieu L)=
 TODO
 
-=Serveur (Jonathan H)=
+=Controleur Serveur (Jonathan H)=
 
 <table border=1 width=70%>
    <tr>
@@ -101,7 +189,6 @@ TODO
        <td rowspan=3>
                       * ControleurClient
                       * ModeleServeur
-                      * ServerMethods
        </td>
    </tr>
    <tr>
@@ -109,33 +196,14 @@ TODO
    </tr>
    <tr>
        <td>
-           * Démarre le serveur
-       </td>
-   </tr>
-</table>
-
-<table border=1 width=70%>
-   <tr>
-       <td width=60% > ServerMethods </td>
-       <td rowspan=3> 
-                     * ControleurServeur
-       </td>
-   </tr>
-   <tr>
-       <td align="right"> Jonathan H. </td>
-   </tr>
-   <tr>
-       <td>
-           * getListeProjets(self)
-           * sauvegarderProjet(self, serializedProjet)
-           * getProjet(self, idProjet)
-           * deleteProjet(self, idProjet)  
+           * getListeProjets() // retourne une liste de string
+           * sauvegarderProjet(IdProjet) // save le projet dans la db
+           * getProjet(IdProjet) // retourne un projet
        </td>
    </tr>
 </table>
 
 =Modèle Serveur (François L)=
-
 <table border=1 width=70%>
    <tr>
        <td width=60%> ModeleServeur </td>
