@@ -39,12 +39,7 @@ class EtapeScenarioUtilisation:
     def __init__(self,nom="",ordre=0):
         self.ordre=ordre
         self.etapes=nom
-        
-    def ajouterEtape(self,lesEtapes):
-        self.etapes = [] # vider la liste
-        for i in range(len(lesEtapes)): # ajouter toutes les etape sous forme     1, etape1       2,Etape2 ....
-            self.etapes.append([i+1,lesEtapes[i]])
-        
+    
     def unicodize(self):
         self.ordre=unicode(self.ordre)
         self.etapes=unicode(self.etapes)
