@@ -34,8 +34,9 @@ class Vue(object):
         self.ATExplicite = None
 #L'objet graphique cas d'usage
         self.casUsage = None
-
-
+        
+#L'objet graphique dictionnaire de données
+        self.dictionnaireDonnee = None
 
 #Haut    
     def menuPrincipal(self):
