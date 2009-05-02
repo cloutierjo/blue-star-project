@@ -12,6 +12,9 @@ class AnalyseTextuelle(object):
         
         #Creation du Frame
         self.frame = Frame()
+        
+        #pour gestion (retour des CheckButtons)
+        self.retours=[]
 
         #Ajout du Label Tite
         titreImplicite = "Analyse Implicite"
@@ -31,18 +34,36 @@ class AnalyseTextuelle(object):
         self.tableauAnalyse = Text(self.frame, yscrollcommand=scrollbar.set)
         self.tableauAnalyse.config(width=45)
         
-                                                                                                                        
-                                                                                                                        
+                                                                                                                                                                                                                                       
       # Insertion des données existante dans le tableau si il y en a
         if len(analyse) !=0:                                                                                                       
             for i,laLigneAnalyse in enumerate(analyse):
                 col = []
                 # ligne -> frame avec 3 Entry (grille 1x3)
                 ligne=Frame(self.tableauAnalyse)
-                for j,champ in enumerate(['nom','verbe','adjectif']):
+                
+                #pour gestion
+                retour=IntVar()
+                check=Checkbutton(ligne,variable=retour,command=self.gestion)
+                check.var=retour
+                self.retours.append(check.var)
+                
+                check.pack(side=LEFT)
+                if analyse[i]['handled']==1:
+                    check.select()
+                    gere=True
+                else:
+                    gere=False
+                    
+                for j,champ in enumerate(['nom','verbe','adjectif','handled']):
                     entree = Entry(ligne,relief=RIDGE)
+                    if gere==True:
+                        entree.config(background="grey")
                     entree.insert(END,laLigneAnalyse.get(champ))
-                    entree.pack(side=LEFT)
+                    
+                    #ne pack pas le entry qui contient le handled
+                    if j<3:
+                        entree.pack(side=LEFT)
                     col.append(entree)
                 
                 self.rows.append(col)
@@ -58,7 +79,6 @@ class AnalyseTextuelle(object):
         self.boutonAddRow.pack()
         Label(self.frame,text = 'Noms: Verbe: Adjectifs:').pack()
         
-        
         scrollbar.pack(side=RIGHT, fill=Y)
         scrollbar.config(command=self.tableauAnalyse.yview)
         
@@ -73,6 +93,7 @@ class AnalyseTextuelle(object):
            dict['nom']=row[0].get()
            dict['verbe']=row[1].get()
            dict['adjectif']=row[2].get()
+           dict['handled']=int(row[3].get())
            listeDictionnaires.append(dict)
 
             
@@ -88,10 +109,41 @@ class AnalyseTextuelle(object):
         col = []
         # ligne -> frame avec 3 Entry
         ligne=Frame(self.tableauAnalyse)
-        for j in range(3) :# Utilisation d'une entr
+        retour=IntVar()
+        check=Checkbutton(ligne,variable=retour,command=self.gestion)
+        check.var=retour
+        self.retours.append(check.var)
+        check.pack(side=LEFT)
+        for j in range(4) :# Utilisation d'une entr
             entree = Entry(ligne,relief=RIDGE)
-            entree.pack(side=LEFT)
+            if j < 3:
+                entree.pack(side=LEFT)
+            else:
+                #le handled 0 par defaut (pas packé)
+                entree.insert(END,0)
             col.append(entree)
         self.rows.append(col)
         #
         self.tableauAnalyse.window_create(INSERT,window=ligne)
+        
+    def gestion(self):
+        i=0
+                #chaque retour associe a chaque checkButton
+        for r in self.retours:
+            #mettre a gere
+            if r.get()==1:
+                self.rows[i][0].config(background="grey")
+                self.rows[i][1].config(background="grey")
+                self.rows[i][2].config(background="grey")
+                
+                self.rows[i][3].delete(0, END) 
+                self.rows[i][3].insert(END,1)
+            #mettre a non gere
+            else:
+                self.rows[i][0].config(background="white")
+                self.rows[i][1].config(background="white")
+                self.rows[i][2].config(background="white")
+                
+                self.rows[i][3].delete(0, END)
+                self.rows[i][3].insert(END,0)
+            i+=1
