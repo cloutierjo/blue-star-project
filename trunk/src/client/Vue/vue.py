@@ -86,8 +86,6 @@ class Vue(object):
         self.ATImplicite = AnalyseTextuelle(self,self.parent.ouvrirATImplicite(),implicite=True)
 #####charger autres widjet ici...
 
-        #affichage des onglets
-        self.onglets.frame.pack()
         
         #reference a chaque objets graphiques ajoutes ici pour faciliter
         #la permutation entre les affichage (voir methode effacerFenetre())
@@ -104,6 +102,8 @@ class Vue(object):
             if nom:
                 self.parent.creerProjet(nom)
                 self.etat=1
+                #affichage des onglets
+                self.onglets.frame.pack()
                 
     def effacerFenetre(self):
         for item in self.graphItems:
@@ -138,35 +138,35 @@ class Vue(object):
         if self.etat==1:
             #efface la fenetre avant affichage desiree
             self.effacerFenetre()
-                
-            if self.ATExplicite != None:
-                self.ATExplicite.frame.pack(padx=60,side=LEFT,fill=Y)
-            if self.ATImplicite != None:
-                self.ATImplicite.frame.pack(side=RIGHT,padx=60,fill=Y)
+            self.ATExplicite.frame.pack(padx=60,side=LEFT,fill=Y)
+            self.ATImplicite.frame.pack(side=RIGHT,padx=60,fill=Y)
         else:
             tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
             
+    #analyse implicite/cas d'usage
     def afficherCasUsage(self):
         if self.etat==1:
             #efface la fenetre avant affichage desiree
             self.effacerFenetre()
-            self.ATExplicite.frame.pack(padx=60,side=LEFT,fill=Y)
+            self.ATImplicite.frame.pack(padx=60,side=LEFT,fill=Y)
             #code affichage cas usage a venir ici
         else:
             tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
-            
+    
+    #cas d'usage et scenario...        
     def afficherScenario(self):
         if self.etat==1:
             #efface la fenetre avant affichage desiree
             self.effacerFenetre()
-            #code a venir ici
-            #code a venir ici
+            #code affichage a venir ici
+            #code affichage a venir ici
         else:
             tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
             
 #---------------------------------------------------------------------------
 #classe Onglet 
 #auteur Pascal Lemay
+#p.s. Laissez cette classe ici (elle fait partie de la fenetre principale)
 
 class Onglets(object):
     def __init__(self,vueParent):
