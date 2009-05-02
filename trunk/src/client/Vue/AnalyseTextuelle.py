@@ -1,7 +1,9 @@
 #-*- coding: iso-8859-1 -*-
+#Classe AnalyseTextuelle
+#Auteurs Pascal Lemay / Mathieu Lavoie
 from Tkinter import*
 
-class analyseTextuelle(object):
+class AnalyseTextuelle(object):
     def __init__(self,vueParent,analyse,implicite=False,explicite=False):
         self.rows=[]
         self.vueParent=vueParent
