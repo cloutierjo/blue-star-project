@@ -1,4 +1,6 @@
 #-*- coding: iso-8859-1 -*-
+#classe Mandat
+#Auteur Pascal Lemay
 from Tkinter import*
 
 class Mandat(object):
