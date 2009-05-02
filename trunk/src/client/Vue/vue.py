@@ -140,8 +140,8 @@ class Vue(object):
         if self.etat==1:
             #efface la fenetre avant affichage desiree
             self.effacerFenetre()
-            self.ATExplicite.frame.pack(padx=60,side=LEFT,fill=Y)
-            self.ATImplicite.frame.pack(side=RIGHT,padx=60,fill=Y)
+            self.ATExplicite.frame.pack(padx=50,side=LEFT,fill=Y)
+            self.ATImplicite.frame.pack(side=RIGHT,padx=50,fill=Y)
         else:
             tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
             
@@ -150,7 +150,7 @@ class Vue(object):
         if self.etat==1:
             #efface la fenetre avant affichage desiree
             self.effacerFenetre()
-            self.ATImplicite.frame.pack(padx=60,side=LEFT,fill=Y)
+            self.ATImplicite.frame.pack(padx=50,side=LEFT,fill=Y)
             #code affichage cas usage a venir ici
         else:
             tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
