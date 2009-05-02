@@ -10,6 +10,8 @@ sys.path.append( "../../commun" )
 import Projet
 from Mandat import *
 from AnalyseTextuelle import *
+from CasUsage import *
+from DictionnaireDonnee import *
 from Liste import *
 
 class Vue(object):
