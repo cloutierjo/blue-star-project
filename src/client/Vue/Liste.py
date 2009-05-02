@@ -28,6 +28,8 @@ class ListeProjets(object):
             self.parent.parent.ouvrirProjet(self.data[self.maliste.getData()][0])
             #projet ouvert
             self.parent.etat=1
+            #affichage des onglets
+            self.parent.onglets.frame.pack()
             self.parent.chargerEnMemoireProjet()
             self.fen.destroy()
         else:
