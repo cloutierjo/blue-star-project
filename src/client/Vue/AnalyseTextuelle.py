@@ -32,7 +32,7 @@ class AnalyseTextuelle(object):
         #Ajout du tableau C'est un textbox avec des entrée en grille 1x3
         scrollbar = Scrollbar(self.frame)
         self.tableauAnalyse = Text(self.frame, yscrollcommand=scrollbar.set)
-        self.tableauAnalyse.config(width=45)
+        self.tableauAnalyse.config(width=50)
         
                                                                                                                                                                                                                                        
       # Insertion des données existante dans le tableau si il y en a
@@ -57,9 +57,9 @@ class AnalyseTextuelle(object):
                     
                 for j,champ in enumerate(['nom','verbe','adjectif','handled']):
                     entree = Entry(ligne,relief=RIDGE)
-                    if gere==True:
-                        entree.config(background="grey")
                     entree.insert(END,laLigneAnalyse.get(champ))
+                    if gere==True:
+                        entree.config(state=DISABLED)
                     
                     #ne pack pas le entry qui contient le handled
                     if j<3:
@@ -132,17 +132,18 @@ class AnalyseTextuelle(object):
         for r in self.retours:
             #mettre a gere
             if r.get()==1:
-                self.rows[i][0].config(background="grey")
-                self.rows[i][1].config(background="grey")
-                self.rows[i][2].config(background="grey")
-                
                 self.rows[i][3].delete(0, END) 
                 self.rows[i][3].insert(END,1)
+                
+                self.rows[i][0].config(state=DISABLED)
+                self.rows[i][1].config(state=DISABLED)
+                self.rows[i][2].config(state=DISABLED)
+                
             #mettre a non gere
             else:
-                self.rows[i][0].config(background="white")
-                self.rows[i][1].config(background="white")
-                self.rows[i][2].config(background="white")
+                self.rows[i][0].config(state=NORMAL)
+                self.rows[i][1].config(state=NORMAL)
+                self.rows[i][2].config(state=NORMAL)
                 
                 self.rows[i][3].delete(0, END)
                 self.rows[i][3].insert(END,0)
