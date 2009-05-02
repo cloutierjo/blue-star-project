@@ -63,7 +63,8 @@ class ControleurClient:
     def creerATImplicite(self,dictATImplicite):
         self.m.projet.analyseImplicite.analyse = []
         for i in dictATImplicite:
-            self.m.projet.addItemAnalyseImplicite(i['nom'],i['verbe'],i['adjectif'])
+            #self.m.projet.addItemAnalyseImplicite(i['nom'],i['verbe'],i['adjectif'])
+            self.m.projet.analyseImplicite.addItem(i['nom'],i['verbe'],i['adjectif'])
         
         
     def ouvrirATImplicite(self):
@@ -73,9 +74,8 @@ class ControleurClient:
     def creerATExplicite(self,dictATExplicite):
         self.m.projet.analyseExplicite.analyse = []
         for i in dictATExplicite:
-            self.m.projet.addItemAnalyseExplicite(i['nom'],i['verbe'],i['adjectif'])
-        
-        
+            #self.m.projet.addItemAnalyseExplicite(i['nom'],i['verbe'],i['adjectif'])
+            self.m.projet.analyseExplicite.addItem(i['nom'],i['verbe'],i['adjectif'])
     def ouvrirATExplicite(self):
         return self.m.projet.analyseExplicite.analyse
     
