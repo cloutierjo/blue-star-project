@@ -23,6 +23,9 @@ class Vue(object):
         self.root.title("Blue Star")
         self.root.geometry("1024x768")
         
+#Onglet pour affichage
+        self.onglets=Onglets(self)
+        
 # toute les composantes graphiques
         self.graphItems=[]
         
@@ -34,7 +37,6 @@ class Vue(object):
         self.ATExplicite = None
 #L'objet graphique cas d'usage
         self.casUsage = None
-        
 #L'objet graphique dictionnaire de données
         self.dictionnaireDonnee = None
 
@@ -64,8 +66,8 @@ class Vue(object):
         #commandes de l'affichage
         displaymenu=Menu(menu)
         menu.add_cascade(label="Affichage",menu=displaymenu)
-        displaymenu.add_command(label="Afficher le mandat / analyse explicite",command=self.afficherFenMandat)
-        displaymenu.add_command(label="Afficher analyse explicite / implicite",command=self.afficherLesAnalyses)
+        #displaymenu.add_command(label="Afficher le mandat / analyse explicite",command=self.afficherFenMandat)
+        #displaymenu.add_command(label="Afficher analyse explicite / implicite",command=self.afficherLesAnalyses)
         #...
         
         #Aide
@@ -80,10 +82,13 @@ class Vue(object):
 
     def chargerEnMemoireProjet(self):
         self.mandat=Mandat(self,self.parent.ouvrirMandat())
-        self.ATExplicite = analyseTextuelle(self,self.parent.ouvrirATExplicite(),explicite=True)
-        self.ATImplicite = analyseTextuelle(self,self.parent.ouvrirATImplicite(),implicite=True)
+        self.ATExplicite = AnalyseTextuelle(self,self.parent.ouvrirATExplicite(),explicite=True)
+        self.ATImplicite = AnalyseTextuelle(self,self.parent.ouvrirATImplicite(),implicite=True)
 #####charger autres widjet ici...
 
+        #affichage des onglets
+        self.onglets.frame.pack()
+        
         #reference a chaque objets graphiques ajoutes ici pour faciliter
         #la permutation entre les affichage (voir methode effacerFenetre())
         self.graphItems.append(self.mandat)
@@ -106,6 +111,8 @@ class Vue(object):
                 
     def fermerProjet(self):
         self.effacerFenetre()
+        self.onglets.v.set(0)
+        self.onglets.frame.pack_forget()
         self.etat=0
     
     def save(self):
@@ -138,5 +145,41 @@ class Vue(object):
                 self.ATImplicite.frame.pack(side=RIGHT,padx=60,fill=Y)
         else:
             tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
+            
+    def afficherCasUsage(self):
+        if self.etat==1:
+            #efface la fenetre avant affichage desiree
+            self.effacerFenetre()
+            self.ATExplicite.frame.pack(padx=60,side=LEFT,fill=Y)
+            #code affichage cas usage a venir ici
+        else:
+            tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
+            
+    def afficherScenario(self):
+        if self.etat==1:
+            #efface la fenetre avant affichage desiree
+            self.effacerFenetre()
+            #code a venir ici
+            #code a venir ici
+        else:
+            tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
+            
+#---------------------------------------------------------------------------
+#classe Onglet 
+#auteur Pascal Lemay
+
+class Onglets(object):
+    def __init__(self,vueParent):
+        self.vueParent=vueParent
+        
+        self.frame=Frame()
+        
+        self.v = IntVar()
+        Radiobutton(self.frame, text="Mandat/Analyse Explicite",variable=self.v, value=1,command=self.vueParent.afficherFenMandat).pack(side=LEFT)
+        Radiobutton(self.frame, text="Analyse Explicite/Implicite", variable=self.v, value=2,command=self.vueParent.afficherLesAnalyses).pack(side=LEFT)
+        Radiobutton(self.frame, text="Analyse Explicite/Cas d'usage", variable=self.v, value=3,command=self.vueParent.afficherCasUsage).pack(side=LEFT)
+        Radiobutton(self.frame, text="Cas d'usage/Scenario d'utilisation", variable=self.v, value=4,command=self.vueParent.afficherScenario).pack(side=LEFT)
+        #autres onglets a suivre...
+        self.v.set(0)
 
         
