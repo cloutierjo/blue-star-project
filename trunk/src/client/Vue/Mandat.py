@@ -15,7 +15,6 @@ class Mandat(object):
         s = Scrollbar(self.frame)
     #t->texte mandat
         self.t = Text(self.frame)
-#        self.t.config(width=80)
         self.t.focus_set()
         s.pack(side=RIGHT, fill=Y)
         self.t.pack(side=LEFT, fill=Y)
