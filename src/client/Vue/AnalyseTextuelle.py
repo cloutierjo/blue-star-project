@@ -44,7 +44,7 @@ class AnalyseTextuelle(object):
                 
                 #pour gestion
                 retour=IntVar()
-                check=Checkbutton(ligne,variable=retour,command=self.gestion)
+                check=Checkbutton(ligne,variable=retour,cursor="arrow",command=self.gestion)
                 check.var=retour
                 self.retours.append(check.var)
                 
@@ -110,7 +110,7 @@ class AnalyseTextuelle(object):
         # ligne -> frame avec 3 Entry
         ligne=Frame(self.tableauAnalyse)
         retour=IntVar()
-        check=Checkbutton(ligne,variable=retour,command=self.gestion)
+        check=Checkbutton(ligne,variable=retour,cursor="arrow",command=self.gestion)
         check.var=retour
         self.retours.append(check.var)
         check.pack(side=LEFT)
