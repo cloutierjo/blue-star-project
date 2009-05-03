@@ -13,7 +13,7 @@ class AnalyseTextuelle(object):
         #Creation du Frame
         self.frame = Frame()
         
-        #pour gestion (retour des CheckButtons)
+#pour gestion (retours des CheckButtons pour "handled")
         self.retours=[]
 
         #Ajout du Label Tite
@@ -119,7 +119,7 @@ class AnalyseTextuelle(object):
             if j < 3:
                 entree.pack(side=LEFT)
             else:
-                #le handled 0 par defaut (pas packé)
+                # si < 3 = le handled : 0 par defaut (pas packé)
                 entree.insert(END,0)
             col.append(entree)
         self.rows.append(col)
@@ -128,7 +128,7 @@ class AnalyseTextuelle(object):
         
     def gestion(self):
         i=0
-                #chaque retour associe a chaque checkButton
+            # self.retours contient chaque retour associe a chaque checkButton
         for r in self.retours:
             #mettre a gere
             if r.get()==1:
