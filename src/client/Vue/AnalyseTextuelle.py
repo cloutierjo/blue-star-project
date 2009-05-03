@@ -59,7 +59,7 @@ class AnalyseTextuelle(object):
                     entree = Entry(ligne,relief=RIDGE)
                     entree.insert(END,laLigneAnalyse.get(champ))
                     if gere==True:
-                        entree.config(background="grey")
+                        entree.config(state=DISABLED)
                     
                     #ne pack pas le entry qui contient le handled
                     if j<3:
@@ -133,19 +133,18 @@ class AnalyseTextuelle(object):
             #mettre a gere
             if r.get()==1:
                 self.rows[i][3].delete(0, END) 
-                self.rows[i][3].insert(END,1)
-                
-                self.rows[i][0].config(background="grey")
-                self.rows[i][1].config(background="grey")
-                self.rows[i][2].config(background="grey")
-                
+                self.rows[i][3].insert(END,1)                                  
+                                                    
+                self.rows[i][0].config(state=DISABLED)
+                self.rows[i][1].config(state=DISABLED)
+                self.rows[i][2].config(state=DISABLED)
                 
             #mettre a non gere
             else:
-                
-                self.rows[i][0].config(background="white")
-                self.rows[i][1].config(background="white")
-                self.rows[i][2].config(background="white")
+                self.rows[i][0].config(state=NORMAL)
+                self.rows[i][1].config(state=NORMAL)
+                self.rows[i][2].config(state=NORMAL)
+                self.rows[i][3].config(state=NORMAL) #le entry du handle mis a normal pour sauvegarde
                 
                 
                 self.rows[i][3].delete(0, END)
