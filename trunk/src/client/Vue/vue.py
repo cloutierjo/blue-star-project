@@ -131,7 +131,8 @@ class Vue(object):
             self.effacerFenetre()
                 
             self.mandat.frame.pack(side=LEFT,fill=Y)
-            self.ATExplicite.frame.pack(side=RIGHT,fill=Y)
+                                       #was right
+            self.ATExplicite.frame.pack(side=LEFT,fill=Y)
         else:
             tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
             
@@ -141,7 +142,8 @@ class Vue(object):
             #efface la fenetre avant affichage desiree
             self.effacerFenetre()
             self.ATExplicite.frame.pack(padx=50,side=LEFT,fill=Y)
-            self.ATImplicite.frame.pack(side=RIGHT,padx=50,fill=Y)
+                                        #was right
+            self.ATImplicite.frame.pack(side=LEFT,padx=50,fill=Y)
         else:
             tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
             
@@ -177,10 +179,19 @@ class Onglets(object):
         self.frame=Frame()
         
         self.v = IntVar()
-        Radiobutton(self.frame, text="Mandat/Analyse Explicite",variable=self.v, value=1,command=self.vueParent.afficherFenMandat).pack(side=LEFT)
-        Radiobutton(self.frame, text="Analyse Explicite/Implicite", variable=self.v, value=2,command=self.vueParent.afficherLesAnalyses).pack(side=LEFT)
-        Radiobutton(self.frame, text="Analyse Explicite/Cas d'usage", variable=self.v, value=3,command=self.vueParent.afficherCasUsage).pack(side=LEFT)
-        Radiobutton(self.frame, text="Cas d'usage/Scenario d'utilisation", variable=self.v, value=4,command=self.vueParent.afficherScenario).pack(side=LEFT)
+        r=Radiobutton(self.frame, text="Mandat/Analyse Explicite",variable=self.v, value=1,command=self.vueParent.afficherFenMandat)
+                        # config + indicatoron=0 (a determiner)
+        r.config(activeforeground="blue",relief=RIDGE)
+        r.pack(side=LEFT)
+        r=Radiobutton(self.frame, text="Analyse Explicite/Implicite", variable=self.v, value=2,command=self.vueParent.afficherLesAnalyses)
+        r.config(activeforeground="blue",relief=RIDGE)
+        r.pack(side=LEFT)
+        r=Radiobutton(self.frame, text="Analyse Explicite/Cas d'usage", variable=self.v, value=3,command=self.vueParent.afficherCasUsage)
+        r.config(activeforeground="blue",relief=RIDGE)
+        r.pack(side=LEFT)
+        r=Radiobutton(self.frame, text="Cas d'usage/Scenario d'utilisation", variable=self.v, value=4,command=self.vueParent.afficherScenario)
+        r.config(activeforeground="blue",relief=RIDGE)
+        r.pack(side=LEFT)
         #autres onglets a suivre...
         self.v.set(0)
 
