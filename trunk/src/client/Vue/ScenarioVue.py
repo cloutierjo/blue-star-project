@@ -72,10 +72,11 @@ class ScenarioVue(object):
               
               
               
-    def remplirListe(self):
+    def remplirListe(self, evt = None):
         self.lb.delete(0, END)
-        for item in self.vueParent.parent.ouvrirScenario():
-            self.lb.insert(END,item)
+        if self.vueParent.casUsage:
+            for item in self.vueParent.parent.ouvrirScenario():
+                self.lb.insert(END,item)
                   
     def updateCasUsage(self):
         return 0
