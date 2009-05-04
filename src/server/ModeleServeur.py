@@ -40,6 +40,7 @@ class ModeleServeur:
         
         p = Projet()
         cur = self.con.cursor()     # Curseur
+        cur2 = self.con.cursor()
         
         cur.execute('''SELECT * FROM Projets WHERE ID = (?)''', (projectID,))
         row = cur.fetchone()
@@ -57,7 +58,11 @@ class ModeleServeur:
             
         cur.execute('''SELECT * FROM CasUsages WHERE IDPROJ = (?)''', (projectID,))
         for row in cur:
-            p.casEtScenario.addCasUsage(row[2], row[3])
+            cas = p.casEtScenario.addCasUsage(row[2], row[3])
+            cur2.execute('''SELECT * FROM Senarios WHERE IDCAS = (?)''', (row[0],))
+            for row in cur2:
+                cas.scenario.addEtapeScenario(row[1], row[2])
+            
                         
         cur.close()  
         return p 
@@ -93,6 +98,7 @@ class ModeleServeur:
     
     def saveNewProject(self, projet):
         cur = self.con.cursor()             # Curseur
+        cur2 = self.con.cursor()
         projet.num = self.getNewIDProj()    # Get a Unique ID for the project
             
         # Ajout du projet dans la table Projets
@@ -105,6 +111,8 @@ class ModeleServeur:
         for cas in projet.casEtScenario.items:
             idCasUsage = self.getNewIDCasUsages()
             cur.execute('insert into CasUsages values(?, ?, ?, ?)', (idCasUsage, projet.num, cas.nom, cas.priorite))
+            for scen in cas.scenario.etapes:
+                cur2.execute('insert into Senarios values(?, ?, ?)', (idCasUsage, scen.etapes, scen.ordre,))
         
         self.con.commit()        
         cur.close()
@@ -195,17 +203,28 @@ if __name__ == "__main__":
         p.analyseExplicite.addItem("avec le feu","jongler","tranquillement", 0)
         p.analyseImplicite.addItem("l'analyse","tester","implicite", 0)
         p.analyseImplicite.addItem("le test","refaire","redondant", 0)
-        p.casEtScenario.addCasUsage("Je suis un cas éé", 1)
-        p.casEtScenario.addCasUsage("Je suis un autre cas éé", 2)
-        for item in p.casEtScenario.items:
-            item.scenario.addEtapeScenario("Je suis une étape tape tape")
-            item.scenario.addEtapeScenario("Je suis une autre étape")
+        
+        p.casEtScenario.addCasUsage("Je suis un cas éé")
+        p.casEtScenario.addCasUsage("Je suis un autre cas éé")
+        
+        for cas in p.casEtScenario.items:
+            cas.scenario.addEtapeScenario("Je suis une étape tape tape")
+            cas.scenario.addEtapeScenario("Je suis une autre étape")
+            
         ms.saveProject(p)
         
+    for cas in p.casEtScenario.items:
+        print "Je suis le cas : "+cas.nom+" "+str(cas.priorite)
+        for scenario in cas.scenario.etapes:
+            print scenario.etapes+" "+str(scenario.ordre)
+
     p2=ms.getProject(9)
+    
     print p2.analyseExplicite.getForDB()
     for cas in p2.casEtScenario.items:
-        print cas.nom +" "+str(cas.priorite)
+        print "Je suis le cas : "+cas.nom+" "+str(cas.priorite)
+        for scenario in cas.scenario.etapes:
+            print scenario.etapes+" "+str(scenario.ordre)
         
     print "Création DB DONE !!!"
         
