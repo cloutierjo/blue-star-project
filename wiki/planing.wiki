@@ -3,7 +3,7 @@
  * analyse de la partie 3 complété (Jonatan C.)
  
 =06/05/2009=
- * amélioration expérience utilisateur sur les étape 1 et 2 (Mathieu L., Pasal L.)
+ * amélioration expérience utilisateur sur les étape 1 et 2 (Mathieu L., Pascal L.)
  * intégration de la partie 3 coté Projet(Jonatan C.)
 
 =11/05/2009=
@@ -14,10 +14,10 @@
 =13/05/2009 (EUF)=
  * intégration de la partie 4 coté Projet et Serveur(Jonatan C., Francois L.)
  * interface étape 3 livrable (Jonathan H. Jean-Philippe C.)
- * interface utilisable étape 4(sans néscéssairement etre lié au model) (Mathieu L., Pasal L.)
+ * interface utilisable étape 4(sans néscéssairement etre lié au model) (Mathieu L., Pascal L.)
 
 =18/05/2009 (Patriote)=
- * interface étape 4 livrable (Mathieu L., Pasal L.)
+ * interface étape 4 livrable (Mathieu L., Pascal L.)
  * testing, correction, amélioration rapide en vue de la version finale (tous)
 
 =20/05/2009 (finale)=

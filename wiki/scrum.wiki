@@ -153,7 +153,7 @@ voici le model de scrum
   * préparation de l'étape 2
   * début d'implémentation
  ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
-  * problème de l'envoie d'un projet par réseau (corrigé par François)
+  * N/A
 
 ==Jean-Philippe C.==
  ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
@@ -184,50 +184,54 @@ voici le model de scrum
 
 ==Mathieu L.==
  ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
-  * intégré l'interface
+  * mudularisé l'interface
+  * fais l'interface cas d'usages
  ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
-  * amélioré l'utilisabilité de l'interface
-  * refactoré l'interface et la rendre modulaire pour facilité la réeutilisation et la partage des tache dans l'équipe
+  * ajouté supression ligne
+  * ajouté les scénario d'utilisation
  ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
   * N/A
 
 ==François L.==
  ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
-  * terminé au propre le schéma de BDD
-  * mettre a jour la classe ModeleServeur en fonction des modification de Projet
+  * N/A
  ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
-  * préparation de l'étape 2
-  * début d'implémentation
+  * implémentation de l'étape 2
  ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
   * N/A
 
 ==Jonathan H.==
  ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
-  * refactor de la classe ControleurServeur
-  * créé la méthode deleteProjet et overiteProjet
+  * début d'implémentation du frame Dictionnaire de donné
  ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
-  * préparation de l'étape 2
-  * début d'implémentation
+  * continué le frame  Dictionnaire de donné
  ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
-  * problème de l'envoie d'un projet par réseau (corrigé par François)
+  * N/A
 
 ==Jean-Philippe C.==
  ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
-  * synchronisés l'état de chose avec la classe Vue de Pascal
+  * commencé le frame CRC
  ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
-  * refactoring de l'interface avec Mathieu
+  * continué le frame CRC
  ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
-  * 
+  * difficulté avec tKinter (Pascal L.)
 
 ==Jonatan C.==
  ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
-  * analyse de la partie suivant
-  * légere restructuration du projet (architecture commune au client/serveur)
- ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
   * préparation de l'étape 2
-  * début d'implémentation  
+  * implémentation de l'étape 2
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * analise de l'étape 3
+  * début d'implémentation de l'étape 3
  ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
   * N/A
 
 ==Pascal L.==
- absent
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * ajout des scroll bar
+  * mise sous forme d'onglet
+  * ajout des case a coché dans l'analise
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * aidé Jean-Philippe C. avec tKinter et les CRC
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * N/A
