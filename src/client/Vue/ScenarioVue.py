@@ -7,9 +7,6 @@ class CasUsageVue(object):
         self.frame = Frame(pady=40)
         
         self.lb = Listbox(self.frame, selectmode=SINGLE, height=100, width=40)
-        '''for item in vueParent.parent.ouvrirCasUsages():
-            lb.insert(END,item[0])
-            '''
         
         self.lb.pack(side=RIGHT, anchor=N)
         self.btnUp= Button(self.frame, text="Monter", width=10, command=self.monter)
@@ -27,11 +24,10 @@ class CasUsageVue(object):
         
         
     def monter(self):
-        if self.lb.get(self.lb.curselection()[0]): # ! (est sélection ou est le premier element)
-            nomAMonter= self.lb.get(self.lb.curselection()[0])
-            nomADescendre = self.lb.get(int(self.lb.curselection()[0])-1)
-            self.vueParent.parent.monterPrioriteCas(nomAMonter)
-            self.vueParent.parent.descendrePrioriteCas(nomADescendre)
+        if self.lb.curselection()[0] != None and int(self.lb.curselection()[0]): # ! (est sélection ou est le premier element)
+            indexAMonter = int(self.lb.curselection()[0])
+            indexADescendre = indexAMonter-1
+            self.vueParent.parent.m.projet.casEtScenario.items
         else:
             tkMessageBox.showwarning("Veuillez sélectionner un élément dans la liste")
         
@@ -51,9 +47,9 @@ class CasUsageVue(object):
     def renommer(self):
         if self.lb.get(self.lb.curselection()[0])!= None:
             nomAncient = self.lb.get(self.lb.curselection()[0])
-            nouveauNom = tkSimpleDialog.askstring("Modifier "+nomAncient , "Veuillez entrer un nouveau nom pour le cas d'usage "+ nomAncient+" : ")
+            nouveauNom = tkSimpleDialog.askstring("Modifier "+nomAncient , "Veuillez entrer un nouveau nom pour Cette Etape "+ nomAncient+" : ")
             if nouveauNom != "":
-                self.vueParent.parent.renommerCasUsage(nomAncient, nouveauNom)
+                self.vueParent.parent.renommerEtapsScenario(int(self.lb.curselection()[0]), nouveauNom)
         else:
             tkMessageBox.showwarning("Veuillez sélectionner un élément dans la liste")    
         
@@ -62,27 +58,24 @@ class CasUsageVue(object):
         
     def ajouter(self):
         nouveauNom = tkSimpleDialog.askstring("Ajouter Cas Usage" , "Veuillez entrer un nom pour le nouveau cas d'usage : ")
-        retour = self.vueParent.parent.ajouterCasUsage(nouveauNom)
-        if not retour:
-            tkMessageBox.showwarning("Impossible d'ajouter le cas d'usage vérifier si un autre cas d'usage n'a pas le même nom") 
+        if nouveauNom != "":
+            self.vueParent.parent.ajouterCasUsage(nouveauNom)
+         
         self.remplirListe()
         
         
     def supprimer(self):
-          if self.lb.get(self.lb.curselection()[0])!= None:
-              nomSuppr = self.lb.get(self.lb.curselection()[0])
+          if self.lb.curselection()[0]!= None:
               index = int(self.lb.curselection()[0])
-              for i in range(index+1,self.lb.size()):
-                   self.vueParent.parent.monterPrioriteCas(self.lb.get(i))
-              self.vueParent.parent.supprimerCasUsage(nomSuppr)
+              self.vueParent.parent.supprimerEtapsScenario(index)
           self.remplirListe()
               
               
               
     def remplirListe(self):
         self.lb.delete(0, END)
-        for item in self.vueParent.parent.ouvrirCasUsages():
-            self.lb.insert(END,item[1])   
+        for item in self.vueParent.parent.ouvrirScenario():
+            self.lb.insert(END,item)
                   
     def updateCasUsage(self):
         return 0
