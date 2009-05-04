@@ -26,11 +26,12 @@ class DictionnaireDonnee(object):
         #Ajout du tableau C'est un textbox avec des entrée en grille 1x1
         scrollbar = Scrollbar(self.frameDonnee)
         self.text = Text(self.frameDonnee, yscrollcommand=scrollbar.set)
+        self.text.config(width=50)
         self.text.pack()
         
         self.frameDonnee.config(width=50)
         
-        self.boutonAddRow=Button(self.frameDonnee,text='Ajouter une donnée',command=self.addRow)
+        self.boutonAddRow=Button(self.frameDonnee,text='Ajouter une donnée',command=self.addRow(0))
         self.boutonAddRow.pack()
         
         Label(self.frameDonnee,text = 'Données').pack()
@@ -38,7 +39,7 @@ class DictionnaireDonnee(object):
         scrollbar.pack(side=RIGHT, fill=Y)
         scrollbar.config(command=self.text.yview)
         
-        self.frameDonnee.pack(side=LEFT,fill=Y)
+        self.frameDonnee.pack(side=LEFT, fill=Y)
     
     def initMethodes(self):
         self.frameMethodes = Frame(self.dictionnaireDonnee)
@@ -48,11 +49,12 @@ class DictionnaireDonnee(object):
         #Ajout du tableau C'est un textbox avec des entrée en grille 1x1
         scrollbar = Scrollbar(self.frameMethodes)
         self.text = Text(self.frameMethodes, yscrollcommand=scrollbar.set)
+        self.text.config(width=50)
         self.text.pack()
         
         self.frameMethodes.config(width=50)
         
-        self.boutonAddRow=Button(self.frameMethodes,text='Ajouter une action',command=self.addRow)
+        self.boutonAddRow=Button(self.frameMethodes,text='Ajouter une action',command=self.addRow(1))
         self.boutonAddRow.pack()
         
         Label(self.frameMethodes,text = 'Actions').pack()
@@ -60,22 +62,22 @@ class DictionnaireDonnee(object):
         scrollbar.pack(side=RIGHT, fill=Y)
         scrollbar.config(command=self.text.yview)
         
-        self.frameMethodes.pack(side=LEFT,fill=Y)
+        self.frameMethodes.pack(side=RIGHT, fill=Y)
         
-    def addRow(self):
-        #nextRow = self.dictionnaireDonnee.grid_size()[1]
-        self.col = []
-        # ligne -> frame avec 1 Entry
-        self.ligne=Frame(self.dictionnaireDonnee)
-        retour=IntVar()
-        check=Checkbutton(self.ligne,variable=retour,cursor="arrow",command=self.gestion)
-        check.var=retour
-        self.retours.append(check.var)
-        check.pack(side=LEFT)
-        self.addEntry()
-        self.rows.append(self.col)
-
-        self.dictionnaireDonnee.window_create(INSERT,window=self.ligne)
+    def addRow(self, valeur):
+        if valeur == 0: #on est dans les données
+            self.col = []
+            # ligne -> frame avec 1 Entry
+            self.ligne=Frame(self.frameDonnee)
+            retour=IntVar()
+            check=Checkbutton(self.ligne,variable=retour,cursor="arrow",command=self.gestion)
+            check.var=retour
+            self.retours.append(check.var)
+            check.pack(side=LEFT)
+            self.addEntry()
+            self.rows.append(self.col)
+        
+            self.text.window_create(INSERT,window=self.ligne)
         
     def gestion(self):
         i=0
@@ -87,8 +89,6 @@ class DictionnaireDonnee(object):
                 self.rows[i][1].insert(END,1)                                  
                                                     
                 self.rows[i][0].config(state=DISABLED)
-                self.rows[i][1].config(state=DISABLED)
-                
             #mettre a non gere
             else:
                 self.rows[i][0].config(state=NORMAL)
@@ -99,11 +99,11 @@ class DictionnaireDonnee(object):
             i+=1
             
     def addEntry(self):
-        for j in range(3) :# Création des deux entrées de ma ligne
+        for j in range(2) :# Création des deux entrées de ma ligne
             entree = Entry(self.ligne,relief=RIDGE)
-            entree.config(width=30)
+            entree.config(width=50)
             
-            if j < 2:
+            if j < 1:
                 entree.pack(side=LEFT)
             else:
                 # si < 3 = le handled : 0 par defaut (pas packé)
