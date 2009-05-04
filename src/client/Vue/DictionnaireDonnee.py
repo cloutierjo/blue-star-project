@@ -8,41 +8,70 @@ from Tkinter import *
 
 class DictionnaireDonnee(object):
     def __init__(self):
-    #def __init__(self, vueParent):
-        #self.vueParent = vueParent
-        self.frame = Frame()
+        self.dictionnaireDonnee = Frame()
+        
+        title = Label(self.dictionnaireDonnee, text = "Dictionnaire de données")
+        title.pack()
+        
+        self.dictionnaireDonnee.pack()
+        
+        self.initDonnee()
+        self.initMethodes()
+        
+    def initDonnee(self):
+        self.frameDonnee = Frame(self.dictionnaireDonnee)
         self.retours=[]
         self.rows=[]
         
-        title = Label(self.frame, text = "Dictionnaire de données")
-        title.pack()
+        #Ajout du tableau C'est un textbox avec des entrée en grille 1x1
+        scrollbar = Scrollbar(self.frameDonnee)
+        self.text = Text(self.frameDonnee, yscrollcommand=scrollbar.set)
+        self.text.pack()
         
-        #Ajout du tableau C'est un textbox avec des entrée en grille 1x3
-        scrollbar = Scrollbar(self.frame)
-        self.dictionnaireDonnee = Text(self.frame, yscrollcommand=scrollbar.set)
-        self.dictionnaireDonnee.config(width=50)
+        self.frameDonnee.config(width=50)
         
-        self.boutonAddRow=Button(self.frame,text='Ajouter une ligne',command=self.addRow)
+        self.boutonAddRow=Button(self.frameDonnee,text='Ajouter une donnée',command=self.addRow)
         self.boutonAddRow.pack()
         
-        Label(self.frame,text = 'Données / Méthodes').pack()
+        Label(self.frameDonnee,text = 'Données').pack()
         
         scrollbar.pack(side=RIGHT, fill=Y)
-        scrollbar.config(command=self.dictionnaireDonnee.yview)
+        scrollbar.config(command=self.text.yview)
         
-        self.dictionnaireDonnee.pack(side=LEFT,fill=Y)
+        self.frameDonnee.pack(side=LEFT,fill=Y)
+    
+    def initMethodes(self):
+        self.frameMethodes = Frame(self.dictionnaireDonnee)
+        self.retours=[]
+        self.rows=[]
+        
+        #Ajout du tableau C'est un textbox avec des entrée en grille 1x1
+        scrollbar = Scrollbar(self.frameMethodes)
+        self.text = Text(self.frameMethodes, yscrollcommand=scrollbar.set)
+        self.text.pack()
+        
+        self.frameMethodes.config(width=50)
+        
+        self.boutonAddRow=Button(self.frameMethodes,text='Ajouter une action',command=self.addRow)
+        self.boutonAddRow.pack()
+        
+        Label(self.frameMethodes,text = 'Actions').pack()
+        
+        scrollbar.pack(side=RIGHT, fill=Y)
+        scrollbar.config(command=self.text.yview)
+        
+        self.frameMethodes.pack(side=LEFT,fill=Y)
         
     def addRow(self):
         #nextRow = self.dictionnaireDonnee.grid_size()[1]
         self.col = []
+        # ligne -> frame avec 1 Entry
         self.ligne=Frame(self.dictionnaireDonnee)
         retour=IntVar()
-        
         check=Checkbutton(self.ligne,variable=retour,cursor="arrow",command=self.gestion)
         check.var=retour
         self.retours.append(check.var)
         check.pack(side=LEFT)
-        
         self.addEntry()
         self.rows.append(self.col)
 
@@ -54,8 +83,8 @@ class DictionnaireDonnee(object):
         for r in self.retours:
             #mettre a gere
             if r.get()==1:
-                self.rows[i][2].delete(0, END) 
-                self.rows[i][2].insert(END,1)                                  
+                self.rows[i][1].delete(0, END) 
+                self.rows[i][1].insert(END,1)                                  
                                                     
                 self.rows[i][0].config(state=DISABLED)
                 self.rows[i][1].config(state=DISABLED)
@@ -64,10 +93,9 @@ class DictionnaireDonnee(object):
             else:
                 self.rows[i][0].config(state=NORMAL)
                 self.rows[i][1].config(state=NORMAL)
-                self.rows[i][2].config(state=NORMAL)
                   
-                self.rows[i][2].delete(0, END)
-                self.rows[i][2].insert(END,0)
+                self.rows[i][1].delete(0, END)
+                self.rows[i][1].insert(END,0)
             i+=1
             
     def addEntry(self):
@@ -92,6 +120,5 @@ if __name__ == '__main__':
     
     v = Vue()
     d = DictionnaireDonnee()
-    d.frame.pack()
     
     v.root.mainloop()
