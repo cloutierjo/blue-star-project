@@ -86,7 +86,6 @@ class ControleurClient:
         for unCas in self.m.projet.casEtScenario.items:
             lesCasEtPriorite.append([unCas.priorite, unCas.nom])
         lesCasEtPriorite = sorted(lesCasEtPriorite, key=operator.itemgetter(0))
-        lesCasEtPriorite.reverse()
         return lesCasEtPriorite
     
     def ouvrirScenario(self,strCasUsage): # retourne une liste de scenario d'utilisation avec leur priorité en fonction du cas d'usage entrée
@@ -95,7 +94,7 @@ class ControleurClient:
     def monterPrioriteCas(self,nomCas):
          for unCas in self.m.projet.casEtScenario.items:
             if unCas.nom == nomCas:
-                unCas.priorite +=1
+                unCas.priorite -=1
                 break
          else:
              print nomCas," non-trouvé"
@@ -103,7 +102,7 @@ class ControleurClient:
     def descendrePrioriteCas(self,nomCas):
          for unCas in self.m.projet.casEtScenario.items:
             if unCas.nom == nomCas:
-                unCas.priorite -=1
+                unCas.priorite +=1
                 break
          else:
              print nomCas," non-trouvé"
@@ -112,6 +111,6 @@ class ControleurClient:
         for unCas in self.m.projet.casEtScenario.items:
             if unCas.nom == ancienNom:
                 unCas.nom = nouveauNom
-
+    
 if __name__ == '__main__':
     c = ControleurClient()
