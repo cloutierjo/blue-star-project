@@ -81,7 +81,9 @@ class ControleurClient:
     
     
     
-    def ouvrirScenario(self,strCasUsage = self.getCurrentNomCasUsage()): # retourne une liste de scenario d'utilisation avec leur priorité en fonction du cas d'usage entrée
+    def ouvrirScenario(self, strCasUsage = ""): # retourne une liste de scenario d'utilisation avec leur priorité en fonction du cas d'usage entrée
+            if strCasUsage =="":
+                self.getCurrentNomCasUsage()
             for unCas in self.m.projet.casEtScenario.items:
                 if unCas.nom == strCasUsage:
                     lesEtapes = []

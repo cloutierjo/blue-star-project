@@ -39,6 +39,7 @@ class Vue(object):
         self.ATExplicite = None
 #L'objet graphique cas d'usage
         self.casUsage = None
+        self.scenario = None
 #L'objet graphique dictionnaire de données
         self.dictionnaireDonnee = None
 
@@ -87,6 +88,7 @@ class Vue(object):
         self.ATExplicite = AnalyseTextuelle(self,self.parent.ouvrirATExplicite(),explicite=True)
         self.ATImplicite = AnalyseTextuelle(self,self.parent.ouvrirATImplicite(),implicite=True)
         self.casUsage = CasUsageVue(self)
+        self.scenario = ScenarioVue(self)
 #####charger autres widjet ici...
 
         
@@ -165,8 +167,8 @@ class Vue(object):
         if self.etat==1:
             #efface la fenetre avant affichage desiree
             self.effacerFenetre()
-            #code affichage a venir ici
-            #code affichage a venir ici
+            self.casUsage.frame.pack(side=LEFT,padx=50,fill=Y)
+            self.scenario.frame.pack(side=LEFT,padx=50,fill=Y)
         else:
             tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
             

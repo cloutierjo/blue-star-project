@@ -1,7 +1,7 @@
 #-*- coding: iso-8859-1 -*-
 from Tkinter import *
 import tkMessageBox, tkSimpleDialog
-class CasUsageVue(object):
+class ScenarioVue(object):
     def __init__(self,vueParent):
         self.vueParent = vueParent
         self.frame = Frame(pady=40)

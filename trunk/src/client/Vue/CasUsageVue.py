@@ -23,6 +23,8 @@ class CasUsageVue(object):
         self.btnDel.pack(pady=50)
         self.btnDown.pack()
         
+        self.lb.bind("<Button-1>", command=self.vueParent.scenario.remplirListe)
+        
         self.remplirListe()
         
         
