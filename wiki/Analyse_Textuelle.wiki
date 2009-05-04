@@ -19,3 +19,11 @@ CREER UN LOGICIEL DE GESTION DE PROJET
  * dérivée les scénario d'utilisation des cas d'usage
  * entré les étapes des scénarios d'utilisations
  * les étapes des scénarios d'utilisations doivent etre ordonée
+ 
+ =Etape 3 (Dictionnaire de données + CRC)=
+  *
+  
+ =Etape 4 (planing + sprint)=
+  *
+  
+  
