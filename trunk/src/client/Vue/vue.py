@@ -86,6 +86,7 @@ class Vue(object):
         self.mandat=Mandat(self,self.parent.ouvrirMandat())
         self.ATExplicite = AnalyseTextuelle(self,self.parent.ouvrirATExplicite(),explicite=True)
         self.ATImplicite = AnalyseTextuelle(self,self.parent.ouvrirATImplicite(),implicite=True)
+        self.casUsage = CasUsageVue(self)
 #####charger autres widjet ici...
 
         
@@ -154,6 +155,7 @@ class Vue(object):
             self.effacerFenetre()
             self.ATImplicite.frame.pack(padx=50,side=LEFT,fill=Y)
             #code affichage cas usage a venir ici
+            self.casUsage.frame.pack(side=LEFT,padx=50,fill=Y)
         else:
             tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
     
