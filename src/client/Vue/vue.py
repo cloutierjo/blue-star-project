@@ -10,7 +10,7 @@ sys.path.append( "../../commun" )
 import Projet
 from Mandat import *
 from AnalyseTextuelle import *
-from CasUsage import *
+from CasUsageVue import *
 from DictionnaireDonnee import *
 from Liste import *
 
@@ -95,6 +95,7 @@ class Vue(object):
         self.graphItems.append(self.mandat)
         self.graphItems.append(self.ATExplicite)
         self.graphItems.append(self.ATImplicite)
+        self.graphItems.append(self.casUsage)
 #####ajouter autres widgets dans graphItems ici...
         
     def NouveauProjet(self):
