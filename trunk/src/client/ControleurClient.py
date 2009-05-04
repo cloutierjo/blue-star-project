@@ -81,15 +81,59 @@ class ControleurClient:
     
     
     
+    def ouvrirScenario(self,strCasUsage = self.getCurrentNomCasUsage()): # retourne une liste de scenario d'utilisation avec leur priorité en fonction du cas d'usage entrée
+            for unCas in self.m.projet.casEtScenario.items:
+                if unCas.nom == strCasUsage:
+                    lesEtapes = []
+                    for uneEtape in unCas.scenario.etapes:
+                        lesEtapes.append(uneEtape.etapes)
+                    return lesEtapes
+                
+    def monterEtapeScenario(self,indexAMonter):
+        if self.getCurrentNomCasUsage() != "":
+            self.getCurrentCasUsage().scenario.etapes[indexAMonter].ordre -=1
+            self.getCurrentCasUsage().scenario.etapes[indexAMonter-1].ordre +=1
+            self.getCurrentCasUsage().scenario.refaireOrdreNumerique()
+    def descendreEtapeScenario(self,indexADescendre):
+        if self.getCurrentNomCasUsage() != "":
+            self.getCurrentCasUsage().scenario.etapes[indexADescendre].ordre +=1
+            self.getCurrentCasUsage().scenario.etapes[indexAMonter+1].ordre -=1
+            self.getCurrentCasUsage().scenario.refaireOrdreNumerique()
+    
+    def supprimerEtapsScenario(self,indexASupprimer):
+        if self.getCurrentNomCasUsage() != "":
+            lesEtapes = self.getCurrentCasUsage().scenario.etapes
+            lesEtapes.remove(lesEtapes[indexASupprimer])
+            self.getCurrentCasUsage().scenario.refaireOrdreNumerique()
+            
+    def renommerEtapsScenario(self,indexARenommer,nouveauNom):
+        if self.getCurrentNomCasUsage() != "":
+            lesEtapes = self.getCurrentCasUsage().scenario.etapes
+            lesEtapes[indexARenommer].nom = nouveauNom
+            self.getCurrentCasUsage().scenario.refaireOrdreNumerique()
+    
+    def ajouterEtapeScenario(self,nomNouveau):
+        self.getCurrentCasUsage().scenario.addEtapeScenario(nomNouveau)
+        self.getCurrentCasUsage().scenario.refaireOrdreNumerique()
+    
+    
+    def getCurrentNomCasUsage(self):
+        if self.i.casUsage.lb.curselection()[0] !=None:  
+            return self.i.casUsage.lb.get(self.i.casUsage.lb.curselection()[0])
+        else:
+            return ""
+        
+    def getCurrentCasUsage(self):
+        for unCas in self.m.projet.casEtScenario.items:
+            if unCas.nom == self.getCurrentNomCasUsage():
+                return unCas
+            
     def ouvrirCasUsages(self): # Retourne une liste de cas d'usage avec leur prioritié
         lesCasEtPriorite = []
         for unCas in self.m.projet.casEtScenario.items:
             lesCasEtPriorite.append([unCas.priorite, unCas.nom])
         lesCasEtPriorite = sorted(lesCasEtPriorite, key=operator.itemgetter(0))
         return lesCasEtPriorite
-    
-    def ouvrirScenario(self,strCasUsage): # retourne une liste de scenario d'utilisation avec leur priorité en fonction du cas d'usage entrée
-        return
         
     def monterPrioriteCas(self,nomCas):
          for unCas in self.m.projet.casEtScenario.items:
@@ -106,11 +150,25 @@ class ControleurClient:
                 break
          else:
              print nomCas," non-trouvé"
-    
+
     def renommerCasUsage(self,ancienNom,nouveauNom):
         for unCas in self.m.projet.casEtScenario.items:
             if unCas.nom == ancienNom:
                 unCas.nom = nouveauNom
-    
+                
+    def supprimerCasUsage(self,nomSuppression):
+        for unCas in self.m.projet.casEtScenario.items:
+            if unCas.nom == nomSuppression:
+                self.m.projet.casEtScenario.items.remove(unCas)
+                
+    def ajouterCasUsage(self,nomNouveau):     
+        for unCas in self.m.projet.casEtScenario.items:
+            if unCas.nom == nomNouveau:
+                return False;
+        else:
+            self.m.projet.casEtScenario.addCasUsage(nomNouveau)
+            return True;
+        
+        
 if __name__ == '__main__':
     c = ControleurClient()

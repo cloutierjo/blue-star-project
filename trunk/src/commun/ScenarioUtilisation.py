@@ -4,6 +4,8 @@ Created on 23 avr. 2009
 
 @author: Jonatan Cloutier
 '''
+import operator
+
 class ScenarioUtilisation:
     def __init__(self):
         self.etapes = []
@@ -13,7 +15,23 @@ class ScenarioUtilisation:
             ordre=len(self.etapes)+1
         self.etapes.append(EtapeScenarioUtilisation(nom,ordre))
         return self.etapes[len(self.etapes)-1]
-
+    
+    
+    def refaireOrdreNumerique(self):
+        temp = []
+        for uneEtape in self.etapes:
+            temp.append([uneEtape.ordre,uneEtape])
+        temp = sorted(temp, key=operator.itemgetter(0))
+        
+        self.etapes = []
+        for tempEtape in temp:
+            self.etapes.append(tempEtape[1])
+    
+    
+        for i in range(len(self.etapes)):
+            self.etapes[i].ordre = i+1
+            
+        
     def unicodize(self):
         for e in self.etapes:
             e.unicodize()
