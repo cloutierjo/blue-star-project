@@ -11,6 +11,7 @@ import Projet
 from Mandat import *
 from AnalyseTextuelle import *
 from CasUsageVue import *
+from ScenarioVue import *
 from DictionnaireDonnee import *
 from Liste import *
 
@@ -87,8 +88,8 @@ class Vue(object):
         self.mandat=Mandat(self,self.parent.ouvrirMandat())
         self.ATExplicite = AnalyseTextuelle(self,self.parent.ouvrirATExplicite(),explicite=True)
         self.ATImplicite = AnalyseTextuelle(self,self.parent.ouvrirATImplicite(),implicite=True)
-        self.casUsage = CasUsageVue(self)
         self.scenario = ScenarioVue(self)
+        self.casUsage = CasUsageVue(self)
 #####charger autres widjet ici...
 
         
