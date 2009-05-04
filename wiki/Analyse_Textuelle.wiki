@@ -27,7 +27,6 @@ CREER UN LOGICIEL DE GESTION DE PROJET
 
   * ouvrir le mode CRC
   * entré nom de classe, propriétaire, la "signature" de méthode
-  * affichage ???
   * dérive du dictionnaire et des cas d'usage/scénario
   
  =Etape 4 (planing + sprint)=

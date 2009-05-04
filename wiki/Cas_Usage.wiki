@@ -72,7 +72,7 @@
   
  * ouvrir le mode CRC
   # demandé les CRC déjà enregistré a la BD
-  # affiché ????? à gauche
+  # affiché à gauche les dictionnaire de donné et les cas/scénario dans une "tabbed pane"
   # affiché les CRC à droite 
   # permettre à l'utilisateur d'entré de nouveau élément des CRC 
   
@@ -81,4 +81,5 @@
  
  * dérive du dictionnaire et des cas d'usage/scénario
   # comment ????? 
+  
 ==Etape 4 (planing + sprint)==
