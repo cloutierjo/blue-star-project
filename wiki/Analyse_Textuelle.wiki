@@ -1,7 +1,7 @@
 #labels Phase-Design
 CREER UN LOGICIEL DE GESTION DE PROJET
 
-=Etape 1 (base+analyse):=
+=Etape 1 (base+analyse)=
  * Creer une interface
  * Fenêtre de champs textes
  * Fenêtre tableau (nom, verbe, adjectif)
@@ -21,7 +21,14 @@ CREER UN LOGICIEL DE GESTION DE PROJET
  * les étapes des scénarios d'utilisations doivent etre ordonée
  
  =Etape 3 (Dictionnaire de données + CRC)=
-  *
+  * ouvrir le mode dictionnaire de données
+  * entré les variables et les fonction néscéssaire
+  * affichage ??????? (de quoi dérive le dictionnaire ????)
+
+  * ouvrir le mode CRC
+  * entré nom de classe, propriétaire, la "signature" de méthode
+  * affichage ???
+  * dérive du dictionnaire et des cas d'usage/scénario
   
  =Etape 4 (planing + sprint)=
   *

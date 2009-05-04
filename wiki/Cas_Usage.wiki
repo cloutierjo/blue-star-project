@@ -1,5 +1,5 @@
 =Cas d'usage et scénario d'utilisation=
-==première partie==
+==Etape 1 (base+analyse)==
 
  * Ouvrir un projet
   # Demander liste des projets
@@ -27,7 +27,7 @@
   # Copier le mot sélectionné par l'utilisateur
   # Ajouter le mot à la liste correspondante
  
-==deuxième étape==
+==Etape 2 (cas d'usage+scénario d'utilisation)==
  * ouvrir mode cas d'usage & scénario d'utilisation
   # demandé les cas d'usage déjà enregistré a la BD
   # demandé les scénarios d'utilisations déjà enregistré a la BD
@@ -59,3 +59,26 @@
    * les analyses désactivés
    * les scénarios d'utilisations
    * leur ordres 
+
+==Etape 3 (Dictionnaire de données + CRC)==
+ * ouvrir le mode dictionnaire de données
+  # demandé les dictionnaires déjà enregistré a la BD
+  # affiché ????? à gauche
+  # affiché le dictionnaire de données à droite 
+  # permettre à l'utilisateur d'entré de nouveau élément du dictionnaire 
+  
+ * entré les élément des dictionnaire (variables et les fonctions)
+  #entré chaque élément de dictionnarie, 1 par ligne
+  
+ * ouvrir le mode CRC
+  # demandé les CRC déjà enregistré a la BD
+  # affiché ????? à gauche
+  # affiché les CRC à droite 
+  # permettre à l'utilisateur d'entré de nouveau élément des CRC 
+  
+ * entré nom de classe, propriétaire, la "signature" de méthode
+  # entré chaque élément de CRC selon le format CRC
+ 
+ * dérive du dictionnaire et des cas d'usage/scénario
+  # comment ????? 
+==Etape 4 (planing + sprint)==
