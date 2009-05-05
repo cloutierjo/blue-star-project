@@ -20,27 +20,27 @@ class DictionnaireDonnee(object):
         
     def initDonnee(self):
         self.frameDonnee = Frame(self.dictionnaireDonnee)
-        self.retours=[]
-        self.rows=[]
+        self.retoursData=[]
+        self.rowsData=[]
         
         #Ajout du tableau C'est un textbox avec des entrée en grille 1x1
-        scrollbar = Scrollbar(self.frameDonnee)
-        self.text = Text(self.frameDonnee, yscrollcommand=scrollbar.set)
-        self.text.config(width=50)
-        self.text.pack()
+        scrollbarData = Scrollbar(self.frameDonnee)
+        self.textData = Text(self.frameDonnee, yscrollcommand=scrollbarData.set)
+        self.textData.config(width=50)
         
         self.frameDonnee.config(width=50)
         
-        self.boutonAddRow=Button(self.frameDonnee,text='Ajouter une donnée',command=self.addRow(0))
-        self.boutonAddRow.pack()
-        
         Label(self.frameDonnee,text = 'Données').pack()
         
-        scrollbar.pack(side=RIGHT, fill=Y)
-        scrollbar.config(command=self.text.yview)
+        self.boutonAddRowData=Button(self.frameDonnee,text='Ajouter une donnée',command=self.addRow(0))
+        self.boutonAddRowData.pack()
+           
+        scrollbarData.pack(side=RIGHT, fill=Y)
+        scrollbarData.config(command=self.textData.yview)
         
+        self.textData.pack()
         self.frameDonnee.pack(side=LEFT, fill=Y)
-    
+          
     def initMethodes(self):
         self.frameMethodes = Frame(self.dictionnaireDonnee)
         self.retours=[]
@@ -50,65 +50,68 @@ class DictionnaireDonnee(object):
         scrollbar = Scrollbar(self.frameMethodes)
         self.text = Text(self.frameMethodes, yscrollcommand=scrollbar.set)
         self.text.config(width=50)
-        self.text.pack()
-        
+            
         self.frameMethodes.config(width=50)
-        
-        self.boutonAddRow=Button(self.frameMethodes,text='Ajouter une action',command=self.addRow(1))
-        self.boutonAddRow.pack()
         
         Label(self.frameMethodes,text = 'Actions').pack()
         
+        self.boutonAddRow=Button(self.frameMethodes,text='Ajouter une action',command=self.addRow(1))
+        self.boutonAddRow.pack()
+         
         scrollbar.pack(side=RIGHT, fill=Y)
         scrollbar.config(command=self.text.yview)
         
+        self.text.pack()
         self.frameMethodes.pack(side=RIGHT, fill=Y)
         
     def addRow(self, valeur):
         if valeur == 0: #on est dans les données
-            self.col = []
+            self.colData = []
             # ligne -> frame avec 1 Entry
-            self.ligne=Frame(self.frameDonnee)
-            retour=IntVar()
-            check=Checkbutton(self.ligne,variable=retour,cursor="arrow",command=self.gestion)
-            check.var=retour
-            self.retours.append(check.var)
-            check.pack(side=LEFT)
-            self.addEntry()
-            self.rows.append(self.col)
+            self.ligneData=Frame(self.frameDonnee)
+            retourData=IntVar()
+            checkData=Checkbutton(self.ligneData,variable=retourData,cursor="arrow",command=self.gestion(valeur))
+            checkData.var=retourData
+            self.retoursData.append(checkData.var)
+            checkData.pack(side=LEFT)
+            self.addEntry(0)
+            self.rowsData.append(self.colData)
         
-            self.text.window_create(INSERT,window=self.ligne)
+            self.textData.window_create(INSERT,window=self.ligneData)
         
-    def gestion(self):
+    def gestion(self, value):
         i=0
+        
+        if value == 0:
             # self.retours contient chaque retour associe a chaque checkButton
-        for r in self.retours:
-            #mettre a gere
-            if r.get()==1:
-                self.rows[i][1].delete(0, END) 
-                self.rows[i][1].insert(END,1)                                  
-                                                    
-                self.rows[i][0].config(state=DISABLED)
-            #mettre a non gere
-            else:
-                self.rows[i][0].config(state=NORMAL)
-                self.rows[i][1].config(state=NORMAL)
-                  
-                self.rows[i][1].delete(0, END)
-                self.rows[i][1].insert(END,0)
-            i+=1
+            for r in self.retoursData:
+                #mettre a gere
+                if r.get()==1:
+                    self.rows[i][1].delete(0, END) 
+                    self.rows[i][1].insert(END,1)                                  
+                                                        
+                    self.rows[i][0].config(state=DISABLED)
+                #mettre a non gere
+                else:
+                    self.rows[i][0].config(state=NORMAL)
+                    self.rows[i][1].config(state=NORMAL)
+                      
+                    self.rows[i][1].delete(0, END)
+                    self.rows[i][1].insert(END,0)
+                i+=1
             
-    def addEntry(self):
-        for j in range(2) :# Création des deux entrées de ma ligne
-            entree = Entry(self.ligne,relief=RIDGE)
-            entree.config(width=50)
-            
-            if j < 1:
-                entree.pack(side=LEFT)
-            else:
-                # si < 3 = le handled : 0 par defaut (pas packé)
-                entree.insert(END,0)
-            self.col.append(entree)
+    def addEntry(self, valeur):
+        if valeur == 0:
+            for j in range(2) :# Création des deux entrées de ma ligne
+                entreeData = Entry(self.ligneData,relief=RIDGE)
+                entreeData.config(width=50)
+                
+                if j < 1:
+                    entreeData.pack(side=LEFT)
+                else:
+                    # si < 3 = le handled : 0 par defaut (pas packé)
+                    entreeData.insert(END,0)
+                self.colData.append(entreeData)
         
 if __name__ == '__main__':
     #TESTING DE MA VUE EN LOCAL
