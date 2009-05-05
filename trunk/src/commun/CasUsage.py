@@ -14,7 +14,7 @@ class CasUsage:
     def addCasUsage(self,nom,priorite=0):
         if priorite==0:
             priorite=len(self.items)+1
-        self.items.append(CasUsageItem(nom,priorite))
+        self.items.append(CasUsageItem(nom,int(priorite)))
         return self.items[len(self.items)-1]
         
     def unicodize(self):
@@ -56,7 +56,7 @@ class CasUsageItem:
     
     def deserialize(self, serializedCasUsageItem):
         self.nom=serializedCasUsageItem[self.NOM]
-        self.priorite=serializedCasUsageItem[self.PRIORITE]
+        self.priorite=int(serializedCasUsageItem[self.PRIORITE]) #La priorité est une string apres le deserialize sinon
         self.scenario=ScenarioUtilisation.ScenarioUtilisation()
         self.scenario.deserialize(serializedCasUsageItem[self.SCENARIO])
     
