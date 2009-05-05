@@ -20,12 +20,12 @@ class ScenarioUtilisation:
     def refaireOrdreNumerique(self):
         temp = []
         for uneEtape in self.etapes:
-            temp.append([uneEtape.ordre,uneEtape])
+            temp.append([int(uneEtape.ordre),uneEtape])
         temp = sorted(temp, key=operator.itemgetter(0))
         
         self.etapes = []
-        for tempEtape in temp:
-            self.etapes.append(tempEtape[1])
+        for i  in range(len(temp)):
+            self.etapes.append(temp[i][1])
     
     
         for i in range(len(self.etapes)):
@@ -67,7 +67,7 @@ class EtapeScenarioUtilisation:
         return {self.ORDRE:self.ordre,self.ETAPE:self.etapes}
     
     def deserialize(self, serializedEtapeScenario):
-        self.ordre=serializedEtapeScenario[self.ORDRE]
+        self.ordre=int(serializedEtapeScenario[self.ORDRE])
         self.etapes=serializedEtapeScenario[self.ETAPE]
         
 if __name__ == '__main__':

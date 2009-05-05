@@ -5,7 +5,7 @@ class CasUsageVue(object):
     def __init__(self,vueParent):
         self.vueParent = vueParent
         self.frame = Frame(pady=40)
-        
+        self.DerniereSelection = None
         self.lb = Listbox(self.frame, selectmode=SINGLE, height=100, width=40)
         '''for item in vueParent.parent.ouvrirCasUsages():
             lb.insert(END,item[0])
@@ -23,7 +23,7 @@ class CasUsageVue(object):
         self.btnDel.pack(pady=50)
         self.btnDown.pack()
         
-        self.lb.bind("<ButtonRelease-1>", self.vueParent.scenario.remplirListe)
+        self.lb.bind("<ButtonRelease-1>", self.updateScenarioAssocie)
         
         self.remplirListe()
         
@@ -85,7 +85,10 @@ class CasUsageVue(object):
         self.lb.delete(0, END)
         for item in self.vueParent.parent.ouvrirCasUsages():
             self.lb.insert(END,item[1])   
-                  
+     
+    def updateScenarioAssocie(self,evt=None):
+        self.DerniereSelection = self.lb.get(self.lb.curselection()[0])
+        self.vueParent.scenario.remplirListe()             
     def updateCasUsage(self):
         return 0
     

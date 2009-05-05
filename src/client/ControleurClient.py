@@ -96,10 +96,11 @@ class ControleurClient:
             self.getCurrentCasUsage().scenario.etapes[indexAMonter].ordre -=1
             self.getCurrentCasUsage().scenario.etapes[indexAMonter-1].ordre +=1
             self.getCurrentCasUsage().scenario.refaireOrdreNumerique()
+            
     def descendreEtapeScenario(self,indexADescendre):
         if self.getCurrentNomCasUsage() != "":
             self.getCurrentCasUsage().scenario.etapes[indexADescendre].ordre +=1
-            self.getCurrentCasUsage().scenario.etapes[indexAMonter+1].ordre -=1
+            self.getCurrentCasUsage().scenario.etapes[indexADescendre+1].ordre -=1
             self.getCurrentCasUsage().scenario.refaireOrdreNumerique()
     
     def supprimerEtapsScenario(self,indexASupprimer):
@@ -111,7 +112,7 @@ class ControleurClient:
     def renommerEtapsScenario(self,indexARenommer,nouveauNom):
         if self.getCurrentNomCasUsage() != "":
             lesEtapes = self.getCurrentCasUsage().scenario.etapes
-            lesEtapes[indexARenommer].nom = nouveauNom
+            lesEtapes[indexARenommer].etapes = nouveauNom
             self.getCurrentCasUsage().scenario.refaireOrdreNumerique()
     
     def ajouterEtapeScenario(self,nomNouveau):
@@ -120,11 +121,8 @@ class ControleurClient:
     
     
     def getCurrentNomCasUsage(self):
-        if self.i.casUsage !=None:
-            if self.i.casUsage.lb.curselection():  
-                return self.i.casUsage.lb.get(int(self.i.casUsage.lb.curselection()[0]))
-            else:
-                return None
+        if self.i.casUsage !=None:  
+            return self.i.casUsage.DerniereSelection
         
     def getCurrentCasUsage(self):
         for unCas in self.m.projet.casEtScenario.items:

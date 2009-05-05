@@ -26,22 +26,19 @@ class ScenarioVue(object):
     def monter(self):
         if self.lb.curselection()[0] != None and int(self.lb.curselection()[0]): # ! (est sélection ou est le premier element)
             indexAMonter = int(self.lb.curselection()[0])
-            indexADescendre = indexAMonter-1
-            self.vueParent.parent.m.projet.casEtScenario.items
+            self.vueParent.parent.monterEtapeScenario(indexAMonter)
         else:
-            tkMessageBox.showwarning("Veuillez sélectionner un élément dans la liste")
+            tkMessageBox.showwarning("Veuillez sélectionner un élément dans la liste différent du Premier")
         
         self.remplirListe()
         
         
     def descendre(self):
-        if self.lb.get(self.lb.curselection()[0])!= None and self.lb.curselection()[0] != self.lb.size()-1: # ! (est sélection ou est le dernier element)
-            nomAMonter= self.lb.get(int(self.lb.curselection()[0])+1)
-            nomADescendre = self.lb.get(self.lb.curselection()[0])
-            self.vueParent.parent.monterPrioriteCas(nomAMonter)
-            self.vueParent.parent.descendrePrioriteCas(nomADescendre)
+        if self.lb.get(self.lb.curselection()[0])!= None and int(self.lb.curselection()[0]) != self.lb.size()-1: # ! (est sélection ou est le dernier element)
+            indexADescendre = int(self.lb.curselection()[0])
+            self.vueParent.parent.descendreEtapeScenario(indexADescendre)
         else:
-            tkMessageBox.showwarning("Veuillez sélectionner un élément dans la liste")
+            tkMessageBox.showwarning("Selection Invalide", "Veuillez sélectionner un élément dans la liste différent du Dernier")
         self.remplirListe()
     
     def renommer(self):
@@ -51,7 +48,7 @@ class ScenarioVue(object):
             if nouveauNom != "":
                 self.vueParent.parent.renommerEtapsScenario(int(self.lb.curselection()[0]), nouveauNom)
         else:
-            tkMessageBox.showwarning("Veuillez sélectionner un élément dans la liste")    
+            tkMessageBox.showwarning("Selection Invalide", "Veuillez sélectionner un élément dans la liste")    
         
         self.remplirListe()
         
@@ -59,7 +56,7 @@ class ScenarioVue(object):
     def ajouter(self):
         nouveauNom = tkSimpleDialog.askstring("Ajouter Cas Usage" , "Veuillez entrer un nom pour le nouveau cas d'usage : ")
         if nouveauNom != "":
-            self.vueParent.parent.ajouterCasUsage(nouveauNom)
+            self.vueParent.parent.ajouterEtapeScenario(nouveauNom)
          
         self.remplirListe()
         
@@ -75,8 +72,9 @@ class ScenarioVue(object):
     def remplirListe(self, evt = None):
         self.lb.delete(0, END)
         if self.vueParent.casUsage:
-            for item in self.vueParent.parent.ouvrirScenario():
-                self.lb.insert(END,item)
+            if self.vueParent.parent.ouvrirScenario():
+                for item in self.vueParent.parent.ouvrirScenario():
+                    self.lb.insert(END,item)
                   
     def updateCasUsage(self):
         return 0
