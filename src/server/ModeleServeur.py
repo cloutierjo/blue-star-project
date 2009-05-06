@@ -241,8 +241,6 @@ if __name__ == "__main__":
         print "Je suis le cas : "+cas.nom+" "+str(cas.priorite)
         for scenario in cas.scenario.etapes:
             print scenario.etapes+" "+str(scenario.ordre)
-            
-    ms.deleteProject(p2.num)
         
     print "Création DB DONE !!!"
         
