@@ -119,34 +119,50 @@ class ModeleServeur:
         return projet.num # To be modified for errors handlings
      
     def updateProject(self, projet):   
-             
-        cur = self.con.cursor()     # Curseur
+          
+        self.deleteProject(projet.num)   
+        
+        cur = self.con.cursor()             # Curseur
+        cur2 = self.con.cursor()
+        projet.num = self.getNewIDProj()    # Get a Unique ID for the project
             
-        # Update table Projets
+        # Ajout du projet dans la table Projets
         entryTableProjets = (projet.num, projet.nom, projet.mandat) # Nouvelle entrée
-        cur.execute('DELETE FROM Projets WHERE ID = (?)', (projet.num,))
         cur.execute('insert into Projets values(?, ?, ?)', entryTableProjets)
-        # Update table Analyses 
-        cur.execute('DELETE FROM AnalysesExp WHERE ID = (?)', (projet.num,))
-        cur.execute('DELETE FROM AnalysesImp WHERE ID = (?)', (projet.num,))
         cur.executemany('insert into AnalysesExp values(?, ?, ?, ?, ?)', projet.analyseExplicite.getForDB())
         cur.executemany('insert into AnalysesImp values(?, ?, ?, ?, ?)', projet.analyseImplicite.getForDB())
-        # Update table CasUsages et Senarios
         
-        self.con.commit()    
+        projet.casEtScenario.unicodize()
+        for cas in projet.casEtScenario.items:
+            idCasUsage = self.getNewIDCasUsages()
+            cur.execute('insert into CasUsages values(?, ?, ?, ?)', (idCasUsage, projet.num, cas.nom, cas.priorite))
+            for scen in cas.scenario.etapes:
+                cur2.execute('insert into Senarios values(?, ?, ?)', (idCasUsage, scen.etapes, scen.ordre,))
+        
+        self.con.commit()        
         cur.close()
-        return projet.num # To be modified for errors handlin    
+        return projet.num # To be modified for errors handlings
      
     def deleteProject(self, projetID):
         
         cur = self.con.cursor()     # Curseur
+        cur2 = self.con.cursor()
         
         cur.execute('DELETE FROM Projets WHERE ID = (?)', (projetID,))
         cur.execute('DELETE FROM AnalysesExp WHERE ID = (?)', (projetID,))
         cur.execute('DELETE FROM AnalysesImp WHERE ID = (?)', (projetID,))
         
+        # Deleting CasUsages
+        cur.execute('''SELECT ID FROM CasUsages WHERE IDPROJ = (?)''', (projetID,))
+        for row in cur:
+            cur2.execute('DELETE FROM Senarios WHERE IDCAS = (?)', (row[0],))
+        # Deleting Scenario
+        cur.execute('DELETE FROM CasUsages WHERE ID = (?)', (projetID,))   
+        
+        
         self.con.commit()
         cur.close()
+        cur2.close()
         return True # To be modified for errors handlings
         
     # Sert de séquence de nombre pour l'ID des projet en attendant de trouver comment faire une séquence
@@ -225,6 +241,8 @@ if __name__ == "__main__":
         print "Je suis le cas : "+cas.nom+" "+str(cas.priorite)
         for scenario in cas.scenario.etapes:
             print scenario.etapes+" "+str(scenario.ordre)
+            
+    ms.deleteProject(p2.num)
         
     print "Création DB DONE !!!"
         
