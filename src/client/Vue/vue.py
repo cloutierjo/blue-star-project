@@ -99,6 +99,7 @@ class Vue(object):
         self.graphItems.append(self.ATExplicite)
         self.graphItems.append(self.ATImplicite)
         self.graphItems.append(self.casUsage)
+        self.graphItems.append(self.scenario)
 #####ajouter autres widgets dans graphItems ici...
         
     def NouveauProjet(self):
