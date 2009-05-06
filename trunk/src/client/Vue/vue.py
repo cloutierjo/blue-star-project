@@ -91,11 +91,11 @@ class Vue(object):
         self.scenario = ScenarioVue(self)
         self.casUsage = CasUsageVue(self)
         self.dictionnaireDonnee = DictionnaireDonnee(self)
-#####charger autres widjet ici...
+#####charger autres objets graphiques ici...
 
         
         #reference a chaque objets graphiques ajoutes ici pour faciliter
-        #la permutation entre les affichage (voir methode effacerFenetre())
+        #la permutation entre les affichages (voir methode effacerFenetre())
         self.graphItems.append(self.mandat)
         self.graphItems.append(self.ATExplicite)
         self.graphItems.append(self.ATImplicite)
@@ -123,6 +123,7 @@ class Vue(object):
         self.effacerFenetre()
         self.onglets.v.set(0)
         self.onglets.frame.pack_forget()
+        self.root.title("Blue Star")
         self.etat=0
     
     def save(self):
@@ -139,7 +140,6 @@ class Vue(object):
             self.effacerFenetre()
                 
             self.mandat.frame.pack(side=LEFT,fill=Y)
-                                       #was right
             self.ATExplicite.frame.pack(side=LEFT,fill=Y)
         else:
             tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
