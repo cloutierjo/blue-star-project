@@ -107,10 +107,11 @@ class Vue(object):
     def NouveauProjet(self):
          if self.etat==0:
             nom=tkSimpleDialog.askstring('Nom de projet',
-                                     'Entrez un nom pour le projet:', 
+                                         'Entrez un nom pour le projet:', 
                                                     parent=self.root)
             if nom:
                 self.parent.creerProjet(nom)
+                self.root.title("Blue Star        "+nom)
                 self.etat=1
                 #affichage des onglets
                 self.onglets.frame.pack()
