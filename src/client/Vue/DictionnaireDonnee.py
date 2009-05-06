@@ -15,11 +15,15 @@ class DictionnaireDonnee(object):
         
         self.dictionnaireDonnee.pack()
         
+        d = Donnee()
+        a = Action()
+
+class Donnee(object):
+    def __init__(self):
         self.initDonnee()
-        self.initMethodes()
         
     def initDonnee(self):
-        self.frameDonnee = Frame(self.dictionnaireDonnee)
+        self.frameDonnee = Frame()
         self.retoursData=[]
         self.rowsData=[]
         
@@ -32,7 +36,7 @@ class DictionnaireDonnee(object):
         
         Label(self.frameDonnee,text = 'Données').pack()
         
-        self.boutonAddRowData=Button(self.frameDonnee,text='Ajouter une donnée',command=self.addRow(0))
+        self.boutonAddRowData=Button(self.frameDonnee,text='Ajouter une ligne',command=self.addRow)
         self.boutonAddRowData.pack()
            
         scrollbarData.pack(side=RIGHT, fill=Y)
@@ -40,9 +44,62 @@ class DictionnaireDonnee(object):
         
         self.textData.pack()
         self.frameDonnee.pack(side=LEFT, fill=Y)
-          
+        
+    def addRow(self):
+        retour=IntVar()
+        self.col = []
+        
+        # ligne -> frame avec 1 Entry
+        self.ligneData=Frame(self.textData)
+            
+        check=Checkbutton(self.ligneData,variable=retour,cursor="arrow",command=self.gestion)
+        check.var=retour
+            
+        self.retoursData.append(check.var)
+            
+        check.pack(side=LEFT)
+        self.addEntry()
+        self.rowsData.append(self.col)
+                
+        self.textData.window_create(INSERT,window=self.ligneData)
+            
+    def gestion(self):
+        i=0
+            # self.retours contient chaque retour associe a chaque checkButton
+        for r in self.retoursData:
+            #mettre a gere
+            if r.get()==1:
+                self.rowsData[i][1].delete(0, END) 
+                self.rowsData[i][1].insert(END,1)                                  
+                                                            
+                self.rowsData[i][0].config(state=DISABLED)
+            #mettre a non gere
+            else:
+                self.rowsData[i][0].config(state=NORMAL)
+                self.rowsData[i][1].config(state=NORMAL)
+                          
+                self.rowsData[i][1].delete(0, END)
+                self.rowsData[i][1].insert(END,0)
+            i+=1
+            
+    def addEntry(self):
+        for j in range(2) :# Création des deux entrées de ma ligne
+            entree = Entry(self.ligneData,relief=RIDGE)
+            entree.config(width=50)
+                
+            if j < 1:
+                entree.pack(side=LEFT)
+            else:
+                # si < 3 = le handled : 0 par defaut (pas packé)
+                entree.insert(END,0)
+            self.col.append(entree)
+            
+class Action(object):
+    def __init__(self):
+        self.initMethodes()
+        
     def initMethodes(self):
-        self.frameMethodes = Frame(self.dictionnaireDonnee)
+        self.frameMethodes = Frame()
         self.retours=[]
         self.rows=[]
         
@@ -55,7 +112,7 @@ class DictionnaireDonnee(object):
         
         Label(self.frameMethodes,text = 'Actions').pack()
         
-        self.boutonAddRow=Button(self.frameMethodes,text='Ajouter une action',command=self.addRow(1))
+        self.boutonAddRow=Button(self.frameMethodes,text='Ajouter une action',command=self.addRow)
         self.boutonAddRow.pack()
          
         scrollbar.pack(side=RIGHT, fill=Y)
@@ -64,54 +121,54 @@ class DictionnaireDonnee(object):
         self.text.pack()
         self.frameMethodes.pack(side=RIGHT, fill=Y)
         
-    def addRow(self, valeur):
-        if valeur == 0: #on est dans les données
-            self.colData = []
-            # ligne -> frame avec 1 Entry
-            self.ligneData=Frame(self.frameDonnee)
-            retourData=IntVar()
-            checkData=Checkbutton(self.ligneData,variable=retourData,cursor="arrow",command=self.gestion(valeur))
-            checkData.var=retourData
-            self.retoursData.append(checkData.var)
-            checkData.pack(side=LEFT)
-            self.addEntry(0)
-            self.rowsData.append(self.colData)
+    def addRow(self):
+        retour=IntVar()
+        self.col = []
         
-            self.textData.window_create(INSERT,window=self.ligneData)
-        
-    def gestion(self, value):
-        i=0
-        
-        if value == 0:
-            # self.retours contient chaque retour associe a chaque checkButton
-            for r in self.retoursData:
-                #mettre a gere
-                if r.get()==1:
-                    self.rows[i][1].delete(0, END) 
-                    self.rows[i][1].insert(END,1)                                  
-                                                        
-                    self.rows[i][0].config(state=DISABLED)
-                #mettre a non gere
-                else:
-                    self.rows[i][0].config(state=NORMAL)
-                    self.rows[i][1].config(state=NORMAL)
-                      
-                    self.rows[i][1].delete(0, END)
-                    self.rows[i][1].insert(END,0)
-                i+=1
+        # ligne -> frame avec 1 Entry
+        self.ligne=Frame(self.text)
             
-    def addEntry(self, valeur):
-        if valeur == 0:
-            for j in range(2) :# Création des deux entrées de ma ligne
-                entreeData = Entry(self.ligneData,relief=RIDGE)
-                entreeData.config(width=50)
+        check=Checkbutton(self.ligne,variable=retour,cursor="arrow",command=self.gestion)
+        check.var=retour
+            
+        self.retours.append(check.var)
+            
+        check.pack(side=LEFT)
+        self.addEntry()
+        self.rows.append(self.col)
                 
-                if j < 1:
-                    entreeData.pack(side=LEFT)
-                else:
-                    # si < 3 = le handled : 0 par defaut (pas packé)
-                    entreeData.insert(END,0)
-                self.colData.append(entreeData)
+        self.text.window_create(INSERT,window=self.ligne)
+        
+    def gestion(self):
+        i=0
+            # self.retours contient chaque retour associe a chaque checkButton
+        for r in self.retours:
+            #mettre a gere
+            if r.get()==1:
+                self.rows[i][1].delete(0, END) 
+                self.rows[i][1].insert(END,1)                                  
+                                                            
+                self.rows[i][0].config(state=DISABLED)
+            #mettre a non gere
+            else:
+                self.rows[i][0].config(state=NORMAL)
+                self.rows[i][1].config(state=NORMAL)
+                          
+                self.rows[i][1].delete(0, END)
+                self.rows[i][1].insert(END,0)
+            i+=1
+             
+    def addEntry(self):
+        for j in range(2) :# Création des deux entrées de ma ligne
+            entree = Entry(self.ligne,relief=RIDGE)
+            entree.config(width=50)
+                
+            if j < 1:
+                entree.pack(side=LEFT)
+            else:
+                # si < 3 = le handled : 0 par defaut (pas packé)
+                entree.insert(END,0)
+            self.col.append(entree)
         
 if __name__ == '__main__':
     #TESTING DE MA VUE EN LOCAL
