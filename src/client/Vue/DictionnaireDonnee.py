@@ -7,7 +7,8 @@
 from Tkinter import *
 
 class DictionnaireDonnee(object):
-    def __init__(self):
+    def __init__(self, vueParent):
+        self.vueParent = vueParent
         self.dictionnaireDonnee = Frame()
         
         title = Label(self.dictionnaireDonnee, text = "Dictionnaire de données")
@@ -30,7 +31,7 @@ class Donnee(object):
         #Ajout du tableau C'est un textbox avec des entrée en grille 1x1
         scrollbarData = Scrollbar(self.frameDonnee)
         self.textData = Text(self.frameDonnee, yscrollcommand=scrollbarData.set)
-        self.textData.config(width=50)
+        self.textData.config(width=40)
         
         self.frameDonnee.config(width=50)
         
@@ -42,7 +43,7 @@ class Donnee(object):
         scrollbarData.pack(side=RIGHT, fill=Y)
         scrollbarData.config(command=self.textData.yview)
         
-        self.textData.pack()
+        self.textData.pack(side=LEFT, fill=Y)
         self.frameDonnee.pack(side=LEFT, fill=Y)
         
     def addRow(self):
@@ -107,18 +108,16 @@ class Action(object):
         scrollbar = Scrollbar(self.frameMethodes)
         self.text = Text(self.frameMethodes, yscrollcommand=scrollbar.set)
         self.text.config(width=50)
-            
-        self.frameMethodes.config(width=50)
+         
+        self.boutonAddRow=Button(self.frameMethodes,text='Ajouter une action',command=self.addRow)
+        self.boutonAddRow.pack()
         
         Label(self.frameMethodes,text = 'Actions').pack()
         
-        self.boutonAddRow=Button(self.frameMethodes,text='Ajouter une action',command=self.addRow)
-        self.boutonAddRow.pack()
-         
         scrollbar.pack(side=RIGHT, fill=Y)
         scrollbar.config(command=self.text.yview)
         
-        self.text.pack()
+        self.text.pack(side=LEFT, fill=Y)
         self.frameMethodes.pack(side=RIGHT, fill=Y)
         
     def addRow(self):
