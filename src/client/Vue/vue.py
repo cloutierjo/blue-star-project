@@ -90,6 +90,7 @@ class Vue(object):
         self.ATImplicite = AnalyseTextuelle(self,self.parent.ouvrirATImplicite(),implicite=True)
         self.scenario = ScenarioVue(self)
         self.casUsage = CasUsageVue(self)
+        self.dictionnaireDonnee = DictionnaireDonnee(self)
 #####charger autres widjet ici...
 
         
@@ -100,6 +101,7 @@ class Vue(object):
         self.graphItems.append(self.ATImplicite)
         self.graphItems.append(self.casUsage)
         self.graphItems.append(self.scenario)
+        self.graphItems.append(self.dictionnaireDonnee)
 #####ajouter autres widgets dans graphItems ici...
         
     def NouveauProjet(self):
@@ -173,6 +175,17 @@ class Vue(object):
             self.scenario.frame.pack(side=LEFT,padx=50,fill=Y)
         else:
             tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
+    
+    #dictionnaire de données
+    #cas d'usage et scenario...        
+    def afficherDictionnaire(self):
+        if self.etat==1:
+            #efface la fenetre avant affichage desiree
+            self.effacerFenetre()
+            self.scenario.frame.pack(side=LEFT,padx=50,fill=Y)
+            self.dictionnaireDonnee.frame.pack(side=LEFT, pady=30)
+        else:
+            tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
             
 #---------------------------------------------------------------------------
 #classe Onglet 
@@ -197,6 +210,9 @@ class Onglets(object):
         r.config(activeforeground="blue",relief=RIDGE)
         r.pack(side=LEFT)
         r=Radiobutton(self.frame, text="Cas d'usage/Scenario d'utilisation", variable=self.v, value=4,command=self.vueParent.afficherScenario)
+        r.config(activeforeground="blue",relief=RIDGE)
+        r.pack(side=LEFT)
+        r=Radiobutton(self.frame, text="Dictionnaire de donnée", variable=self.v, value=5,command=self.vueParent.afficherDictionnaire)
         r.config(activeforeground="blue",relief=RIDGE)
         r.pack(side=LEFT)
         #autres onglets a suivre...

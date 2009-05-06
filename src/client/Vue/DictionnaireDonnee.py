@@ -9,31 +9,30 @@ from Tkinter import *
 class DictionnaireDonnee(object):
     def __init__(self, vueParent):
         self.vueParent = vueParent
-        self.dictionnaireDonnee = Frame()
+        self.frame = Frame()
         
-        title = Label(self.dictionnaireDonnee, text = "Dictionnaire de données")
+        title = Label(self.frame, text = "Dictionnaire de données")
         title.pack()
         
-        self.dictionnaireDonnee.pack()
+        #self.frame.pack()
         
-        d = Donnee()
-        a = Action()
+        d = Donnee(self)
+        a = Action(self)
 
 class Donnee(object):
-    def __init__(self):
+    def __init__(self, vueParent):
+        self.vueParent=vueParent
         self.initDonnee()
         
     def initDonnee(self):
-        self.frameDonnee = Frame()
+        self.frameDonnee = Frame(self.vueParent.frame)
         self.retoursData=[]
         self.rowsData=[]
         
         #Ajout du tableau C'est un textbox avec des entrée en grille 1x1
         scrollbarData = Scrollbar(self.frameDonnee)
         self.textData = Text(self.frameDonnee, yscrollcommand=scrollbarData.set)
-        self.textData.config(width=40)
-        
-        self.frameDonnee.config(width=50)
+        self.textData.config(width=30, height=60)
         
         Label(self.frameDonnee,text = 'Données').pack()
         
@@ -43,8 +42,8 @@ class Donnee(object):
         scrollbarData.pack(side=RIGHT, fill=Y)
         scrollbarData.config(command=self.textData.yview)
         
-        self.textData.pack(side=LEFT, fill=Y)
-        self.frameDonnee.pack(side=LEFT, fill=Y)
+        self.textData.pack(side=LEFT)
+        self.frameDonnee.pack(side=LEFT)
         
     def addRow(self):
         retour=IntVar()
@@ -96,29 +95,30 @@ class Donnee(object):
             self.col.append(entree)
             
 class Action(object):
-    def __init__(self):
+    def __init__(self, vueParent):
+        self.vueParent=vueParent
         self.initMethodes()
         
     def initMethodes(self):
-        self.frameMethodes = Frame()
+        self.frameMethodes = Frame(self.vueParent.frame)
         self.retours=[]
         self.rows=[]
         
         #Ajout du tableau C'est un textbox avec des entrée en grille 1x1
         scrollbar = Scrollbar(self.frameMethodes)
         self.text = Text(self.frameMethodes, yscrollcommand=scrollbar.set)
-        self.text.config(width=50)
+        self.text.config(width=30, height=60)
+        
+        Label(self.frameMethodes,text = 'Actions').pack()
          
         self.boutonAddRow=Button(self.frameMethodes,text='Ajouter une action',command=self.addRow)
         self.boutonAddRow.pack()
-        
-        Label(self.frameMethodes,text = 'Actions').pack()
-        
+         
         scrollbar.pack(side=RIGHT, fill=Y)
         scrollbar.config(command=self.text.yview)
         
-        self.text.pack(side=LEFT, fill=Y)
-        self.frameMethodes.pack(side=RIGHT, fill=Y)
+        self.text.pack(side=LEFT)
+        self.frameMethodes.pack(side=RIGHT)
         
     def addRow(self):
         retour=IntVar()
@@ -168,16 +168,3 @@ class Action(object):
                 # si < 3 = le handled : 0 par defaut (pas packé)
                 entree.insert(END,0)
             self.col.append(entree)
-        
-if __name__ == '__main__':
-    #TESTING DE MA VUE EN LOCAL
-    class Vue(object):
-        def __init__(self):
-            self.root=Tk()
-            self.root.title("Blue Star")
-            self.root.geometry("1024x768")
-    
-    v = Vue()
-    d = DictionnaireDonnee()
-    
-    v.root.mainloop()
