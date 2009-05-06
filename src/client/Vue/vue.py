@@ -186,7 +186,10 @@ class Vue(object):
             self.dictionnaireDonnee.frame.pack(side=LEFT, pady=30)
         else:
             tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
-            
+
+
+    def afficherUnMessage(self,Texte,erreur="ERREUR!!!"):
+        tkMessageBox.showerror(erreur, Texte)
 #---------------------------------------------------------------------------
 #classe Onglet 
 #auteur Pascal Lemay

@@ -96,33 +96,44 @@ class ControleurClient:
             self.getCurrentCasUsage().scenario.etapes[indexAMonter].ordre -=1
             self.getCurrentCasUsage().scenario.etapes[indexAMonter-1].ordre +=1
             self.getCurrentCasUsage().scenario.refaireOrdreNumerique()
+        else:
+            self.i.afficherUnMessage("Veuillez svp Selectionner un cas d'usage")
             
     def descendreEtapeScenario(self,indexADescendre):
         if self.getCurrentNomCasUsage() != "":
             self.getCurrentCasUsage().scenario.etapes[indexADescendre].ordre +=1
             self.getCurrentCasUsage().scenario.etapes[indexADescendre+1].ordre -=1
             self.getCurrentCasUsage().scenario.refaireOrdreNumerique()
+        else:
+            self.i.afficherUnMessage("Veuillez svp Selectionner un cas d'usage")
     
     def supprimerEtapsScenario(self,indexASupprimer):
         if self.getCurrentNomCasUsage() != "":
             lesEtapes = self.getCurrentCasUsage().scenario.etapes
             lesEtapes.remove(lesEtapes[indexASupprimer])
             self.getCurrentCasUsage().scenario.refaireOrdreNumerique()
-            
+        else:
+            self.i.afficherUnMessage("Veuillez svp Selectionner un cas d'usage")  
+              
     def renommerEtapsScenario(self,indexARenommer,nouveauNom):
         if self.getCurrentNomCasUsage() != "":
             lesEtapes = self.getCurrentCasUsage().scenario.etapes
             lesEtapes[indexARenommer].etapes = nouveauNom
             self.getCurrentCasUsage().scenario.refaireOrdreNumerique()
+        else:
+            self.i.afficherUnMessage("Veuillez svp Selectionner un cas d'usage")
     
     def ajouterEtapeScenario(self,nomNouveau):
-        self.getCurrentCasUsage().scenario.addEtapeScenario(nomNouveau)
-        self.getCurrentCasUsage().scenario.refaireOrdreNumerique()
+        if self.getCurrentNomCasUsage() != "":
+            self.getCurrentCasUsage().scenario.addEtapeScenario(nomNouveau)
+            self.getCurrentCasUsage().scenario.refaireOrdreNumerique()
     
     
     def getCurrentNomCasUsage(self):
         if self.i.casUsage !=None:  
             return self.i.casUsage.DerniereSelection
+        
+        return ""
         
     def getCurrentCasUsage(self):
         for unCas in self.m.projet.casEtScenario.items:
@@ -161,6 +172,7 @@ class ControleurClient:
         for unCas in self.m.projet.casEtScenario.items:
             if unCas.nom == nomSuppression:
                 self.m.projet.casEtScenario.items.remove(unCas)
+                self.i.scenario.remplirListe()
                 
     def ajouterCasUsage(self,nomNouveau):     
         for unCas in self.m.projet.casEtScenario.items:
@@ -168,8 +180,6 @@ class ControleurClient:
                 return False;
         else:
             self.m.projet.casEtScenario.addCasUsage(nomNouveau)
-            return True;
-        
-        
+            return True;     
 if __name__ == '__main__':
     c = ControleurClient()
