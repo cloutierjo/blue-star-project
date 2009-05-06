@@ -1,6 +1,6 @@
 #-*- coding: iso-8859-1 -*-
 #Classe AnalyseTextuelle
-#Auteurs Pascal Lemay / Mathieu Lavoie
+#Auteur Pascal Lemay
 from Tkinter import*
 
 class AnalyseTextuelle(object):
@@ -145,6 +145,7 @@ class AnalyseTextuelle(object):
                 self.rows[i][1].config(state=NORMAL)
                 self.rows[i][2].config(state=NORMAL)
                 self.rows[i][3].config(state=NORMAL) #le entry du handle mis a normal pour sauvegarde
+                                                    #sinon delete et insert ne fonctionne pas
                 
                 
                 self.rows[i][3].delete(0, END)
