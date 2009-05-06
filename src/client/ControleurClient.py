@@ -92,7 +92,7 @@ class ControleurClient:
                     return lesEtapes
                 
     def monterEtapeScenario(self,indexAMonter):
-        if self.getCurrentNomCasUsage() != "":
+        if self.getCurrentNomCasUsage() != None:
             self.getCurrentCasUsage().scenario.etapes[indexAMonter].ordre -=1
             self.getCurrentCasUsage().scenario.etapes[indexAMonter-1].ordre +=1
             self.getCurrentCasUsage().scenario.refaireOrdreNumerique()
@@ -100,7 +100,7 @@ class ControleurClient:
             self.i.afficherUnMessage("Veuillez svp Selectionner un cas d'usage")
             
     def descendreEtapeScenario(self,indexADescendre):
-        if self.getCurrentNomCasUsage() != "":
+        if self.getCurrentNomCasUsage() != None:
             self.getCurrentCasUsage().scenario.etapes[indexADescendre].ordre +=1
             self.getCurrentCasUsage().scenario.etapes[indexADescendre+1].ordre -=1
             self.getCurrentCasUsage().scenario.refaireOrdreNumerique()
@@ -108,7 +108,7 @@ class ControleurClient:
             self.i.afficherUnMessage("Veuillez svp Selectionner un cas d'usage")
     
     def supprimerEtapsScenario(self,indexASupprimer):
-        if self.getCurrentNomCasUsage() != "":
+        if self.getCurrentNomCasUsage() != None:
             lesEtapes = self.getCurrentCasUsage().scenario.etapes
             lesEtapes.remove(lesEtapes[indexASupprimer])
             self.getCurrentCasUsage().scenario.refaireOrdreNumerique()
@@ -116,7 +116,7 @@ class ControleurClient:
             self.i.afficherUnMessage("Veuillez svp Selectionner un cas d'usage")  
               
     def renommerEtapsScenario(self,indexARenommer,nouveauNom):
-        if self.getCurrentNomCasUsage() != "":
+        if self.getCurrentNomCasUsage() != None:
             lesEtapes = self.getCurrentCasUsage().scenario.etapes
             lesEtapes[indexARenommer].etapes = nouveauNom
             self.getCurrentCasUsage().scenario.refaireOrdreNumerique()
@@ -124,10 +124,11 @@ class ControleurClient:
             self.i.afficherUnMessage("Veuillez svp Selectionner un cas d'usage")
     
     def ajouterEtapeScenario(self,nomNouveau):
-        if self.getCurrentNomCasUsage() != "":
+        if self.getCurrentNomCasUsage() != None:
             self.getCurrentCasUsage().scenario.addEtapeScenario(nomNouveau)
             self.getCurrentCasUsage().scenario.refaireOrdreNumerique()
-    
+        else:
+            self.i.afficherUnMessage("Veuillez svp Selectionner un cas d'usage")    
     
     def getCurrentNomCasUsage(self):
         if self.i.casUsage !=None:  
