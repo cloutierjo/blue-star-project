@@ -31,6 +31,7 @@ class ListeProjets(object):
             #affichage des onglets
             self.parent.onglets.frame.pack()
             self.parent.chargerEnMemoireProjet()
+            self.parent.root.title("Blue Star        "+self.parent.parent.m.projet.nom)
             self.fen.destroy()
         else:
             tkMessageBox.showwarning(
