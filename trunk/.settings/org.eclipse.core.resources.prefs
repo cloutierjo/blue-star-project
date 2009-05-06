@@ -1,3 +1,11 @@
-#Thu Apr 30 17:44:02 EDT 2009
+#Wed May 06 16:15:51 GMT 2009
 eclipse.preferences.version=1
+encoding//src/client/ControleurClient.py=iso-8859-1
+encoding//src/client/Vue/CasUsageVue.py=iso-8859-1
+encoding//src/client/Vue/ScenarioVue.py=iso-8859-1
+encoding//src/client/Vue/vue.py=iso-8859-1
+encoding//src/commun/Analyse.py=iso-8859-1
+encoding//src/commun/CasUsage.py=iso-8859-1
+encoding//src/commun/Projet.py=iso-8859-1
+encoding//src/commun/ScenarioUtilisation.py=iso-8859-1
 encoding/<project>=ISO-8859-1
