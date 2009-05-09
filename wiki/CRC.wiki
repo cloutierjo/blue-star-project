@@ -154,6 +154,45 @@ voici le format a suivre pour les CRC, ne vous occup√© pas du HTML si sa vous m√
    </tr>
 </table>
 
+<table border=1 width=70%>
+   <tr>
+       <td width=60%> DictDonne </td>
+       <td rowspan=3> 
+                      * ModelClient
+                      * ModelServeur
+                      * Projet
+       </td>
+   </tr>
+   <tr>
+       <td align="right">Jonatan C.</td>
+   </tr>
+   <tr>
+       <td>
+            * serializedDictDonne serialize()
+            * void deserialize(serializedDictDonne)
+       </td>
+   </tr>
+</table>
+
+<table border=1 width=70%>
+   <tr>
+       <td width=60%> Crc </td>
+       <td rowspan=3> 
+                      * ModelClient
+                      * ModelServeur
+                      * Projet
+       </td>
+   </tr>
+   <tr>
+       <td align="right">Jonatan C.</td>
+   </tr>
+   <tr>
+       <td>
+            * serializedCrc serialize()
+            * void deserialize(serializedCrc)
+       </td>
+   </tr>
+</table>
 
 <table border=1 width=70%>
    <tr>
