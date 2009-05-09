@@ -16,6 +16,21 @@ class DictionnaireDonnee(object):
         
         d = Donnee(self)
         a = Action(self)
+        
+    def updateDictionnaire(self):
+        listeDic = []
+        
+        for row in d.rowsData:
+            dic = {}
+            dic['Donnee']=row[0].get()
+            
+        listeDic.append(dic)
+        
+        for row in a.rows:
+            dicAc = {}
+            dicAc['Actions']=row[0].get()
+        
+        listeDic.append(dicAc)
 
 class Donnee(object):
     def __init__(self, vueParent):
