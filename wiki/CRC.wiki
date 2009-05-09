@@ -260,6 +260,26 @@ TODO
    </tr>
 </table>
 
+<table border=1 width=70%>
+   <tr>
+       <td width=60%> Actions </td>
+       <td rowspan=3>
+                      * Dictionnaire de donnée
+       </td>
+   </tr>
+   <tr>
+       <td align="right"> Jonathan H </td>
+   </tr>
+   <tr>
+       <td>
+           * initActions(self)
+           * addRow(self)
+           * gestion(self)
+           * addEntry(self)
+       </td>
+   </tr>
+</table>
+
 =Modèle Serveur (François L)=
 <table border=1 width=70%>
    <tr>
