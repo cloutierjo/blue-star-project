@@ -221,6 +221,25 @@ TODO
    </tr>
 </table>
 
+<table border=1 width=70%>
+   <tr>
+       <td width=60%> Dictionnaire de donnée </td>
+       <td rowspan=3>
+                      * Vue
+                      * ControleurClient
+       </td>
+   </tr>
+   <tr>
+       <td align="right"> Jonathan H </td>
+   </tr>
+   <tr>
+       <td>
+           * Intialise mes deux frames secondaires de données et actions
+           * updateDictionnaire(self) // va chercher l'info de mes tableaux
+       </td>
+   </tr>
+</table>
+
 =Modèle Serveur (François L)=
 <table border=1 width=70%>
    <tr>
