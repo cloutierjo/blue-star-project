@@ -235,3 +235,61 @@ voici le model de scrum
   * aidé Jean-Philippe C. avec tKinter et les CRC
  ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
   * N/A
+=06/05/2009=
+
+==Mathieu L.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * finalisé l'interface cas/scénario
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * ajouté sauvergarde
+  * ajouté des scrollbar
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * string->int dans le passage par réseau (Jonatan C.)
+
+==François L.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * débuté l'implémentation de l'étape 2
+   * saveProjet
+   * getProjet
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * deleteProjet
+  * updateProjet
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * N/A
+
+==Jonathan H.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * refactor du dictionnaire de donné (interface)
+  * debugage de l'affichage
+  * ajout des crochet (handled)
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * ajout de scroll bar
+  * lié l'interface avecla main windows
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * N/A
+
+==Jean-Philippe C.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * avancé frame CRC
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * continué le frame CRC
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * difficulté général (Pascal L.)
+
+==Jonatan C.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * terminé l'analise de l'étape 3
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * implémentation de l'étape 3
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * N/A
+
+==Pascal L.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * travaillé sur le CRC avec Jean-Philippe C.
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * aidé Jean-Philippe C. avec tKinter et les CRC
+  * aidé Jonathan H. pour intégré le dictionnaire de donné dans la main windows
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * N/A
+  
