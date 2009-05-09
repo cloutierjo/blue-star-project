@@ -6,6 +6,7 @@ Created on 8 avr. 2009
 '''
 import Analyse
 import CasUsage
+import DictDonne
 class Projet(object):
     '''
     contient tout les informations d'un projet ainsi que des méthode 
@@ -18,7 +19,8 @@ class Projet(object):
     analyseIMPLICITE="analyseImplicite"
     analyseEXPLICITE="analyseExplicite"
     CASETSCENARIO="casEtScenario"
-
+    DICTDONNE="dictDonne"
+    
     def __init__(self):
         '''
         Constructor
@@ -29,10 +31,11 @@ class Projet(object):
         self.analyseExplicite = Analyse.Analyse(self)
         self.analyseImplicite = Analyse.Analyse(self)
         self.casEtScenario=CasUsage.CasUsage()
+        self.dictDonne=DictDonne.DictDonne()
         
     def serialize(self):
         self.unicodize()  #néscéssaire pour que les char unicode passe sur le réseau
-        return {self.NOMPJ:self.nom,self.NUMPJ:self.num,self.MANDAT:self.mandat,self.analyseEXPLICITE:self.analyseExplicite.analyse,self.analyseIMPLICITE:self.analyseImplicite.analyse,self.CASETSCENARIO:self.casEtScenario.serialize()}
+        return {self.NOMPJ:self.nom,self.NUMPJ:self.num,self.MANDAT:self.mandat,self.analyseEXPLICITE:self.analyseExplicite.analyse,self.analyseIMPLICITE:self.analyseImplicite.analyse,self.CASETSCENARIO:self.casEtScenario.serialize(),self.DICTDONNE:self.dictDonne.serialize()}
     
     def deserialize(self, serializedProject):
         self.nom=serializedProject[self.NOMPJ]
@@ -41,6 +44,7 @@ class Projet(object):
         self.analyseExplicite.analyse=serializedProject[self.analyseEXPLICITE]
         self.analyseImplicite.analyse=serializedProject[self.analyseIMPLICITE]
         self.casEtScenario.deserialize(serializedProject[self.CASETSCENARIO])
+        self.dictDonne.deserialize(serializedProject[self.DICTDONNE])
         
     def unicodize(self):
         if self.nom != None:
@@ -73,6 +77,13 @@ if __name__ == '__main__':
     su=cu.addCasUsage("second cas").scenario
     su.addEtapeScenario("b first step", 1)
     su.addEtapeScenario("b second step")
+    
+    dd=pj.dictDonne
+    dd.variable.append("fisrtVar")
+    dd.variable.append("secvar")
+    dd.fonction.append("firstFonct")
+    dd.fonction.append("secFonct")
+    
     print pj.serialize()
     pj.deserialize(pj.serialize())
     print pj.serialize()
