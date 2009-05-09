@@ -23,9 +23,18 @@ class DictDonne:
         self.unicodize()
         return {self.VARIABLE:self.variable,self.FONCTION:self.fonction}
     
-    def deserialize(self, serializedScenario):
-        self.variable=serializedScenario[self.VARIABLE]
-        self.fonction=serializedScenario[self.FONCTION]
+    def deserialize(self, serializedDict):
+        self.variable=serializedDict[self.VARIABLE]
+        self.fonction=serializedDict[self.FONCTION]
 
 if __name__ == '__main__':
     dd=DictDonne()
+    dd.variable.append("fisrtVar")
+    dd.variable.append("secvar")
+    dd.fonction.append("firstFonct")
+    dd.fonction.append("secFonct")
+    
+    print dd.serialize()
+    dd.deserialize(dd.serialize())
+    print dd.serialize()
+    
