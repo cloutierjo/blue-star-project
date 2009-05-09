@@ -14,8 +14,6 @@ class DictionnaireDonnee(object):
         title = Label(self.frame, text = "Dictionnaire de données")
         title.pack()
         
-        #self.frame.pack()
-        
         d = Donnee(self)
         a = Action(self)
 
