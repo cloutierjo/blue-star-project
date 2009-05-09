@@ -110,9 +110,9 @@ class Donnee(object):
 class Action(object):
     def __init__(self, vueParent):
         self.vueParent=vueParent
-        self.initMethodes()
+        self.initActions()
         
-    def initMethodes(self):
+    def initActions(self):
         self.frameMethodes = Frame(self.vueParent.frame)
         self.retours=[]
         self.rows=[]
