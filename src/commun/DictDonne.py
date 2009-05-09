@@ -2,7 +2,7 @@
 '''
 Created on 8 mai 2009
 
-@author: djo
+@author: Jonatan Cloutier
 '''
 
 class DictDonne:
