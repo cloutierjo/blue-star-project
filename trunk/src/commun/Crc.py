@@ -36,16 +36,17 @@ class Crc:
     def __init__(self):
         self.nomClasse = ""
         self.proprio = ""
-        self.responsabilite = []
-        self.collaboration = []
-    
+        self.responsabilite = []    # Liste de liste [String, Handled]
+        self.collaboration = []     
+        self.handled = 0
+        
     def unicodize(self):
         self.nomClasse=unicode(self.nomClasse)
         self.proprio=unicode(self.proprio)
         for row in self.responsabilite:
-            row = unicode(row)
+            row[0] = unicode(row[0])
         for row in self.collaboration:
-            row = unicode(row)
+            row[0] = unicode(row[0])
             
     def serialize(self):
         self.unicodize()
@@ -63,20 +64,20 @@ if __name__ == '__main__':
     crc=Crc()
     crc.nomClasse="uneClasse"
     crc.proprio="quelqu'un"
-    crc.responsabilite.append("fisrtResp")
-    crc.responsabilite.append("secResp")
-    crc.collaboration.append("firstColl")
-    crc.collaboration.append("secColl")
+    crc.responsabilite.append(["fisrtResp", 0])
+    crc.responsabilite.append(["secResp", 1])
+    crc.collaboration.append(["firstColl", 1])
+    crc.collaboration.append(["secColl", 1])
     
     crcs.crcs.append(crc)
     
     crc=Crc()
     crc.nomClasse="uneAutreClasse"
     crc.proprio="quelqu'un d'autre"
-    crc.responsabilite.append("fisrtResp")
-    crc.responsabilite.append("secResp")
-    crc.collaboration.append("firstColl")
-    crc.collaboration.append("secColl")
+    crc.responsabilite.append(["fisrtResp", 0])
+    crc.responsabilite.append(["secResp", 1])
+    crc.collaboration.append(["firstColl", 0])
+    crc.collaboration.append(["secColl", 1])
     
     crcs.crcs.append(crc)
     
