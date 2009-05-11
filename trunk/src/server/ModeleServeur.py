@@ -26,8 +26,8 @@ class ModeleServeur:
         cur.execute('''CREATE TABLE AnalysesImp(ID NUMBER(6) REFERENCES Projets, nom VARCHAR2(30), verbe VARCHAR2(30), adjectif VARCHAR2(30), handled NUMBER(1))''')
         cur.execute('''CREATE TABLE CasUsages(ID NUMBER(6) PRIMARY KEY, IDPROJ NUMBER(6) REFERENCES Projets, cas LONG, priorite NUMBER(6))''')
         cur.execute('''CREATE TABLE Senarios(IDCAS NUMBER(6) REFERENCES Projets, senario LONG, ordreexec NUMBER(6))''')
-        cur.execute('''CREATE TABLE Variables(IDPROJ NUMBER(6) REFERENCES Projets, Var VARCHAR2(30))''')
-        cur.execute('''CREATE TABLE Fonctions(IDPROJ NUMBER(6) REFERENCES Projets, Fon VARCHAR2(30))''')
+        cur.execute('''CREATE TABLE Variables(IDPROJ NUMBER(6) REFERENCES Projets, Var VARCHAR2(30), handled NUMBER(1))''')
+        cur.execute('''CREATE TABLE Fonctions(IDPROJ NUMBER(6) REFERENCES Projets, Fon VARCHAR2(30), handled NUMBER(1))''')
         # Générateur d'ID unique dans la méthode getNewID() (bonne pour 999 999 projets 
         cur.execute('''CREATE TABLE SeqProj(Val NUMBER(6))''')
         cur.execute('insert into SeqProj values(?)', (1,))
@@ -67,11 +67,11 @@ class ModeleServeur:
                 
         cur.execute('''SELECT * FROM Variables WHERE IDPROJ = (?)''', (projectID,))
         for row in cur:
-            p.dictDonne.variable.append(row[1])
+            p.dictDonne.variable.append([row[1], row[2]])
             
         cur.execute('''SELECT * FROM Fonctions WHERE IDPROJ = (?)''', (projectID,))
         for row in cur:
-            p.dictDonne.fonction.append(row[1])
+            p.dictDonne.fonction.append([row[1], row[2]])
                           
         cur.close()  
         return p 
@@ -124,10 +124,10 @@ class ModeleServeur:
                 cur2.execute('insert into Senarios values(?, ?, ?)', (idCasUsage, scen.etapes, scen.ordre,))
         
         for var in projet.dictDonne.variable:
-            cur.execute('insert into Variables values(?, ?)', (projet.num, var))
+            cur.execute('insert into Variables values(?, ?, ?)', (projet.num, var[0], var[1]))
             
         for fon in projet.dictDonne.fonction:
-            cur.execute('insert into Fonctions values(?, ?)', (projet.num, fon))
+            cur.execute('insert into Fonctions values(?, ?, ?)', (projet.num, fon[0], fon[1]))
         
         self.con.commit()        
         cur.close()
@@ -155,10 +155,10 @@ class ModeleServeur:
                 cur2.execute('insert into Senarios values(?, ?, ?)', (idCasUsage, scen.etapes, scen.ordre,))
         
         for var in projet.dictDonne.variable:
-            cur.execute('insert into Variables values(?, ?)', (projet.num, var))
+            cur.execute('insert into Variables values(?, ?, ?)', (projet.num, var[0], var[1]))
             
         for fon in projet.dictDonne.fonction:
-            cur.execute('insert into Fonctions values(?, ?)', (projet.num, fon))
+            cur.execute('insert into Fonctions values(?, ?, ?)', (projet.num, fon[0], fon[1]))
             
         self.con.commit()        
         cur.close()
@@ -251,10 +251,10 @@ if __name__ == "__main__":
             cas.scenario.addEtapeScenario("Je suis une étape tape tape")
             cas.scenario.addEtapeScenario("Je suis une autre étape")
            
-        p.dictDonne.variable.append("fisrtVar")
-        p.dictDonne.variable.append("secvar")
-        p.dictDonne.fonction.append("firstFonct")
-        p.dictDonne.fonction.append("secFonct")
+        p.dictDonne.variable.append(["fisrtVar", 0])
+        p.dictDonne.variable.append(["fisrtVar", 1])
+        p.dictDonne.fonction.append(["fisrtVar", 0])
+        p.dictDonne.fonction.append(["fisrtVar", 1])
      
         ms.saveProject(p)
         
@@ -272,10 +272,10 @@ if __name__ == "__main__":
             print scenario.etapes+" "+str(scenario.ordre)
             
     for var in p2.dictDonne.variable:
-        print var
+        print var[0]+" "+str(var[1])
         
     for fon in p2.dictDonne.fonction:
-        print fon
+        print fon[0]+" "+str(fon[1])
         
     print "Création DB DONE !!!"
         
