@@ -34,7 +34,7 @@ class Projet(object):
         self.analyseImplicite = Analyse.Analyse(self)
         self.casEtScenario=CasUsage.CasUsage()
         self.dictDonne=DictDonne.DictDonne()
-        self.crc=Crc.Crc()
+        self.crc=Crc.LstCrc()
         
     def serialize(self):
         self.unicodize()  #néscéssaire pour que les char unicode passe sur le réseau
@@ -88,13 +88,27 @@ if __name__ == '__main__':
     dd.fonction.append("firstFonct")
     dd.fonction.append("secFonct")
     
-    crc=pj.crc
+    crcs=pj.crc
+    
+    crc=Crc.Crc()
     crc.nomClasse="uneClasse"
     crc.proprio="quelqu'un"
     crc.responsabilite.append("fisrtResp")
     crc.responsabilite.append("secResp")
     crc.collaboration.append("firstColl")
     crc.collaboration.append("secColl")
+    
+    crcs.crcs.append(crc)
+    
+    crc=Crc.Crc()
+    crc.nomClasse="uneAutreClasse"
+    crc.proprio="quelqu'un d'autre"
+    crc.responsabilite.append("fisrtResp")
+    crc.responsabilite.append("secResp")
+    crc.collaboration.append("firstColl")
+    crc.collaboration.append("secColl")
+    
+    crcs.crcs.append(crc)
     
     print pj.serialize()
     pj.deserialize(pj.serialize())
