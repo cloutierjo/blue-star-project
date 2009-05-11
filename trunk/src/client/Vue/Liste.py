@@ -22,7 +22,7 @@ class ListeProjets(object):
         self.scroll.config(command=self.maliste.yview)
         self.maliste.config(yscrollcommand=self.scroll.set)
         
-        self.choix=Entry(self.fen)
+        self.choix=Entry(self.fen,width=40)
         self.choix.pack()
         self.b = Button(self.fen,text="   OK   ",command=self.choisirProjet)
         self.b.pack()
