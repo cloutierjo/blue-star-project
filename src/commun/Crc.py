@@ -9,6 +9,18 @@ class LstCrc:
     def __init__(self):
         self.crcs=[]
         
+    def getClassName(self):
+        name=[]
+        for i in self.crcs:
+            name.append(i.nomClasse)
+        return name
+    
+    def getClass(self,className):
+        for i in self.crcs:
+            if(i.nomClasse==className):
+                return i
+        return None                
+        
     def unicodize(self):
         for i in self.crcs:
             i.unicodize()
@@ -84,4 +96,12 @@ if __name__ == '__main__':
     print crcs.serialize()
     crcs.deserialize(crcs.serialize())
     print crcs.serialize()
+    
+    print crcs.getClassName()
+    print crcs.getClass("uneAutreClasse").serialize()
+    
+    crc=crcs.getClass("uneAutreClasse")
+    crc.proprio="un nouveau"
+    
+    print crcs.getClass("uneAutreClasse").serialize()
     
