@@ -2,34 +2,34 @@
 CREER UN LOGICIEL DE GESTION DE PROJET
 
 =Etape 1 (base+analyse)=
- * Creer une interface
- * Fenêtre de champs textes
- * Fenêtre tableau (nom, verbe, adjectif)
- * Sauvegarder le tableau dans la bd
- * Envoyer le tableau au serveur
- * Sauvegarder le mandat original dans la BD
- * Creer un projet
- * Ouvrir un projet
- * Sauvegarder un projet
+ * x Creer une interface
+ * x Fenêtre de champs textes
+ * x Fenêtre tableau (nom, verbe, adjectif)
+ * x Sauvegarder le tableau dans la bd
+ * x Envoyer le tableau au serveur
+ * x Sauvegarder le mandat original dans la BD
+ * x Creer un projet
+ * x Ouvrir un projet
+ * x Sauvegarder un projet
 
 =Etape 2 (cas d'usage+scénario d'utilisation)=
- * ouvrire le mode cas d'usage
- * entré une liste de cas d'usage
- * les cas d'usage doivent etre prioritisé
+ * x ouvrire le mode cas d'usage
+ * x entré une liste de cas d'usage
+ * x les cas d'usage doivent etre prioritisé
  * dérivée les scénario d'utilisation des cas d'usage
  * entré les étapes des scénarios d'utilisations
  * les étapes des scénarios d'utilisations doivent etre ordonée
  
- =Etape 3 (Dictionnaire de données + CRC)=
-  * ouvrir le mode dictionnaire de données
-  * entré les variables et les fonction néscéssaire
-  * affichage ??????? (de quoi dérive le dictionnaire ????)
+=Etape 3 (Dictionnaire de données + CRC)=
+ * ouvrir le mode dictionnaire de données
+ * entré les variables et les fonction néscéssaire
+ * affichage ??????? (de quoi dérive le dictionnaire ????)
 
-  * ouvrir le mode CRC
-  * entré nom de classe, propriétaire, la "signature" de méthode
-  * dérive du dictionnaire et des cas d'usage/scénario
+ * ouvrir le mode CRC
+ * entré nom de classe, propriétaire, la "signature" de méthode
+ * dérive du dictionnaire et des cas d'usage/scénario
   
- =Etape 4 (planing + sprint)=
-  *
+=Etape 4 (planing + sprint)=
+ *
   
   
