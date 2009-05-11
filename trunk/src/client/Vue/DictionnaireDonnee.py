@@ -89,6 +89,7 @@ class Donnee(object):
                 entree.pack(side=LEFT)
                 
                 col.append(entree)
+                #entrer les ligneVariable ???
                 self.rowsData.append(col)
                 
                 self.textData.window_create(INSERT,window=ligne)
