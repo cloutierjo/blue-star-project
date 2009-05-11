@@ -29,10 +29,10 @@ class DictDonne:
 
 if __name__ == '__main__':
     dd=DictDonne()
-    dd.variable.append("fisrtVar")
-    dd.variable.append("secvar")
-    dd.fonction.append("firstFonct")
-    dd.fonction.append("secFonct")
+    dd.variable.append(["fisrtVar", 0])
+    dd.variable.append(["secvar", 1])
+    dd.fonction.append(["firstFonct", 0])
+    dd.fonction.append(["secFonct", 1])
     
     print dd.serialize()
     dd.deserialize(dd.serialize())
