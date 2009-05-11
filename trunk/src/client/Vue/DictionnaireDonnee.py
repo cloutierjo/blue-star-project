@@ -64,25 +64,27 @@ class Donnee(object):
         #self.vueParent.dict.variable.append("lol")
         
         if len(self.variables) != 0:
-            for i,ligneVariable in enumerate(variables):
-                print "Iterated"
-                col=[]
+            for ligneVariable in self.variables:
+                print ligneVariable[0] + " " + str(ligneVariable[1])
                 
                 ligne=Frame(self.textData)
                 
-                #pour gestion
-                retour=IntVar()
-                check=Checkbutton(ligne,variable=retour,cursor="arrow",command=self.gestion)
+                self.rowsData.append(ligneVariable[0])
                 
+                retour = ligneVariable[1]
+                check=Checkbutton(ligne,variable=retour,cursor="arrow",command=self.gestion)
                 check.var=retour
+                
                 self.retoursData.append(check.var)
                 check.pack(side=LEFT)
                 
-                if self.vueParent.dict.variable[i]['handled']==1:
+                if ligneVariable[1] == 1:
                     check.select()
                     gere=True
                 else:
                     gere=False
+                    
+                entree=Entry(ligne,relief=RIDGE)
    
         scrollbarData.pack(side=RIGHT, fill=Y)
         scrollbarData.config(command=self.textData.yview)
@@ -110,19 +112,20 @@ class Donnee(object):
             
     def gestion(self):
         i=0
-            # self.retours contient chaque retour associe a chaque checkButton
+                # self.retours contient chaque retour associe a chaque checkButton
         for r in self.retoursData:
-            #mettre a gere
-            if r.get()==1:
+                #mettre a gere
+                #if r.get()==1:
+            if r == 1:
                 self.rowsData[i][1].delete(0, END) 
                 self.rowsData[i][1].insert(END,1)                                  
-                                                            
+                                                                
                 self.rowsData[i][0].config(state=DISABLED)
             #mettre a non gere
             else:
                 self.rowsData[i][0].config(state=NORMAL)
                 self.rowsData[i][1].config(state=NORMAL)
-                          
+                              
                 self.rowsData[i][1].delete(0, END)
                 self.rowsData[i][1].insert(END,0)
             i+=1
