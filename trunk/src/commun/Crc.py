@@ -5,6 +5,28 @@ Created on 9 mai 2009
 @author: Jonatan Cloutier
 '''
 
+class LstCrc:
+    def __init__(self):
+        self.crcs=[]
+        
+    def unicodize(self):
+        for i in self.crcs:
+            i.unicodize()
+    
+    def serialize(self):
+        self.unicodize()
+        serCrc=[]
+        for i in self.crcs:
+            serCrc.append(i.serialize())
+        return serCrc
+    
+    def deserialize(self, serializedCrcs):
+        self.crcs=[]
+        for i in serializedCrcs:
+            crc=Crc()
+            crc.deserialize(i)
+            self.crcs.append(crc)
+    
 class Crc:
     NOMCLASS="nomClasse"
     PROPRIO="proprio"
@@ -29,13 +51,15 @@ class Crc:
         self.unicodize()
         return {self.NOMCLASS:self.nomClasse,self.PROPRIO:self.proprio,self.RESPONSABILITE:self.responsabilite,self.COLLABORATION:self.collaboration}
     
-    def deserialize(self, serializedDict):
-        self.nomClasse=serializedDict[self.NOMCLASS]
-        self.proprio=serializedDict[self.PROPRIO]
-        self.responsabilite=serializedDict[self.RESPONSABILITE]
-        self.collaboration=serializedDict[self.COLLABORATION]
+    def deserialize(self, serializedCrc):
+        self.nomClasse=serializedCrc[self.NOMCLASS]
+        self.proprio=serializedCrc[self.PROPRIO]
+        self.responsabilite=serializedCrc[self.RESPONSABILITE]
+        self.collaboration=serializedCrc[self.COLLABORATION]
 
 if __name__ == '__main__':
+    crcs=LstCrc()
+    
     crc=Crc()
     crc.nomClasse="uneClasse"
     crc.proprio="quelqu'un"
@@ -44,7 +68,19 @@ if __name__ == '__main__':
     crc.collaboration.append("firstColl")
     crc.collaboration.append("secColl")
     
-    print crc.serialize()
-    crc.deserialize(crc.serialize())
-    print crc.serialize()
+    crcs.crcs.append(crc)
+    
+    crc=Crc()
+    crc.nomClasse="uneAutreClasse"
+    crc.proprio="quelqu'un d'autre"
+    crc.responsabilite.append("fisrtResp")
+    crc.responsabilite.append("secResp")
+    crc.collaboration.append("firstColl")
+    crc.collaboration.append("secColl")
+    
+    crcs.crcs.append(crc)
+    
+    print crcs.serialize()
+    crcs.deserialize(crcs.serialize())
+    print crcs.serialize()
     
