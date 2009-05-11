@@ -26,6 +26,8 @@ class ModeleServeur:
         cur.execute('''CREATE TABLE AnalysesImp(ID NUMBER(6) REFERENCES Projets, nom VARCHAR2(30), verbe VARCHAR2(30), adjectif VARCHAR2(30), handled NUMBER(1))''')
         cur.execute('''CREATE TABLE CasUsages(ID NUMBER(6) PRIMARY KEY, IDPROJ NUMBER(6) REFERENCES Projets, cas LONG, priorite NUMBER(6))''')
         cur.execute('''CREATE TABLE Senarios(IDCAS NUMBER(6) REFERENCES Projets, senario LONG, ordreexec NUMBER(6))''')
+        cur.execute('''CREATE TABLE Variables(IDPROJ NUMBER(6) REFERENCES Projets, Var VARCHAR2(30))''')
+        cur.execute('''CREATE TABLE Fonctions(IDPROJ NUMBER(6) REFERENCES Projets, Fon VARCHAR2(30))''')
         # Générateur d'ID unique dans la méthode getNewID() (bonne pour 999 999 projets 
         cur.execute('''CREATE TABLE SeqProj(Val NUMBER(6))''')
         cur.execute('insert into SeqProj values(?)', (1,))
@@ -62,8 +64,15 @@ class ModeleServeur:
             cur2.execute('''SELECT * FROM Senarios WHERE IDCAS = (?)''', (row[0],))
             for row in cur2:
                 cas.scenario.addEtapeScenario(row[1], row[2])
+                
+        cur.execute('''SELECT * FROM Variables WHERE IDPROJ = (?)''', (projectID,))
+        for row in cur:
+            p.dictDonne.variable.append(row[1])
             
-                        
+        cur.execute('''SELECT * FROM Fonctions WHERE IDPROJ = (?)''', (projectID,))
+        for row in cur:
+            p.dictDonne.fonction.append(row[1])
+                          
         cur.close()  
         return p 
     
@@ -114,6 +123,12 @@ class ModeleServeur:
             for scen in cas.scenario.etapes:
                 cur2.execute('insert into Senarios values(?, ?, ?)', (idCasUsage, scen.etapes, scen.ordre,))
         
+        for var in projet.dictDonne.variable:
+            cur.execute('insert into Variables values(?, ?)', (projet.num, var))
+            
+        for fon in projet.dictDonne.fonction:
+            cur.execute('insert into Fonctions values(?, ?)', (projet.num, fon))
+        
         self.con.commit()        
         cur.close()
         return projet.num # To be modified for errors handlings
@@ -123,7 +138,7 @@ class ModeleServeur:
         self.deleteProject(projet.num)   
         
         cur = self.con.cursor()             # Curseur
-        cur2 = self.con.cursor()
+        cur2 = self.con.cursor()            # Curseur 2 (boucle)
         projet.num = self.getNewIDProj()    # Get a Unique ID for the project
             
         # Ajout du projet dans la table Projets
@@ -139,6 +154,12 @@ class ModeleServeur:
             for scen in cas.scenario.etapes:
                 cur2.execute('insert into Senarios values(?, ?, ?)', (idCasUsage, scen.etapes, scen.ordre,))
         
+        for var in projet.dictDonne.variable:
+            cur.execute('insert into Variables values(?, ?)', (projet.num, var))
+            
+        for fon in projet.dictDonne.fonction:
+            cur.execute('insert into Fonctions values(?, ?)', (projet.num, fon))
+            
         self.con.commit()        
         cur.close()
         return projet.num # To be modified for errors handlings
@@ -159,6 +180,9 @@ class ModeleServeur:
         # Deleting Scenario
         cur.execute('DELETE FROM CasUsages WHERE ID = (?)', (projetID,))   
         
+        # Deleting Dictionnaire de données
+        cur.execute('DELETE FROM Variables WHERE IDPROJ = (?)', (projetID,))
+        cur.execute('DELETE FROM Fonctions WHERE IDPROJ = (?)', (projetID,))
         
         self.con.commit()
         cur.close()
@@ -226,7 +250,12 @@ if __name__ == "__main__":
         for cas in p.casEtScenario.items:
             cas.scenario.addEtapeScenario("Je suis une étape tape tape")
             cas.scenario.addEtapeScenario("Je suis une autre étape")
-            
+           
+        p.dictDonne.variable.append("fisrtVar")
+        p.dictDonne.variable.append("secvar")
+        p.dictDonne.fonction.append("firstFonct")
+        p.dictDonne.fonction.append("secFonct")
+     
         ms.saveProject(p)
         
     for cas in p.casEtScenario.items:
@@ -241,6 +270,12 @@ if __name__ == "__main__":
         print "Je suis le cas : "+cas.nom+" "+str(cas.priorite)
         for scenario in cas.scenario.etapes:
             print scenario.etapes+" "+str(scenario.ordre)
+            
+    for var in p2.dictDonne.variable:
+        print var
+        
+    for fon in p2.dictDonne.fonction:
+        print fon
         
     print "Création DB DONE !!!"
         
