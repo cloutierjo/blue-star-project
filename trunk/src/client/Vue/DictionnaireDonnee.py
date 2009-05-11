@@ -61,15 +61,12 @@ class Donnee(object):
         self.boutonAddRowData=Button(self.frameDonnee,text='Ajouter une ligne',command=self.addRow)
         self.boutonAddRowData.pack()
         
-        #self.vueParent.dict.variable.append("lol")
-        
         if len(self.variables) != 0:
             for ligneVariable in self.variables:
-                print ligneVariable[0] + " " + str(ligneVariable[1])
-                
+                col = []              
                 ligne=Frame(self.textData)
                 
-                self.rowsData.append(ligneVariable[0])
+                #self.rowsData.append(ligneVariable[0])
                 
                 retour = ligneVariable[1]
                 check=Checkbutton(ligne,variable=retour,cursor="arrow",command=self.gestion)
@@ -78,13 +75,23 @@ class Donnee(object):
                 self.retoursData.append(check.var)
                 check.pack(side=LEFT)
                 
+                entree=Entry(ligne,relief=RIDGE)
+                entree.insert(END,ligneVariable[0])
+                entree.insert(END,ligneVariable[1])
+                
                 if ligneVariable[1] == 1:
                     check.select()
+                    entree.config(state=DISABLED)
                     gere=True
                 else:
                     gere=False
-                    
-                entree=Entry(ligne,relief=RIDGE)
+
+                entree.pack(side=LEFT)
+                
+                col.append(entree)
+                self.rowsData.append(col)
+                
+                self.textData.window_create(INSERT,window=ligne)
    
         scrollbarData.pack(side=RIGHT, fill=Y)
         scrollbarData.config(command=self.textData.yview)
@@ -114,8 +121,6 @@ class Donnee(object):
         i=0
                 # self.retours contient chaque retour associe a chaque checkButton
         for r in self.retoursData:
-                #mettre a gere
-                #if r.get()==1:
             if r == 1:
                 self.rowsData[i][1].delete(0, END) 
                 self.rowsData[i][1].insert(END,1)                                  
@@ -124,7 +129,6 @@ class Donnee(object):
             #mettre a non gere
             else:
                 self.rowsData[i][0].config(state=NORMAL)
-                self.rowsData[i][1].config(state=NORMAL)
                               
                 self.rowsData[i][1].delete(0, END)
                 self.rowsData[i][1].insert(END,0)
