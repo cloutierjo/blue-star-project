@@ -4,18 +4,26 @@
 # Projet : blue-star-project
 # Auteur : Jonathan Hallée
 
+import sys
+
+sys.path.append( "../../commun" )
+
+from DictDonne import *
 from Tkinter import *
 
 class DictionnaireDonnee(object):
-    def __init__(self, vueParent):
+    def __init__(self, vueParent, variables, fonctions):
         self.vueParent = vueParent
         self.frame = Frame()
+        
+        self.variables = variables
+        self.fonctions = fonctions
         
         title = Label(self.frame, text = "Dictionnaire de données")
         title.pack()
         
-        d = Donnee(self)
-        a = Action(self)
+        d = Donnee(self, self.variables)
+        a = Action(self, self.fonctions)
         
     def updateDictionnaire(self):
         listeDic = []
@@ -33,8 +41,9 @@ class DictionnaireDonnee(object):
         listeDic.append(dicAc)
 
 class Donnee(object):
-    def __init__(self, vueParent):
+    def __init__(self, vueParent, variables):
         self.vueParent=vueParent
+        self.variables=variables
         self.initDonnee()
         
     def initDonnee(self):
@@ -51,7 +60,30 @@ class Donnee(object):
         
         self.boutonAddRowData=Button(self.frameDonnee,text='Ajouter une ligne',command=self.addRow)
         self.boutonAddRowData.pack()
-           
+        
+        #self.vueParent.dict.variable.append("lol")
+        
+        if len(self.variables) != 0:
+            for i,ligneVariable in enumerate(variables):
+                print "Iterated"
+                col=[]
+                
+                ligne=Frame(self.textData)
+                
+                #pour gestion
+                retour=IntVar()
+                check=Checkbutton(ligne,variable=retour,cursor="arrow",command=self.gestion)
+                
+                check.var=retour
+                self.retoursData.append(check.var)
+                check.pack(side=LEFT)
+                
+                if self.vueParent.dict.variable[i]['handled']==1:
+                    check.select()
+                    gere=True
+                else:
+                    gere=False
+   
         scrollbarData.pack(side=RIGHT, fill=Y)
         scrollbarData.config(command=self.textData.yview)
         
@@ -108,8 +140,9 @@ class Donnee(object):
             self.col.append(entree)
             
 class Action(object):
-    def __init__(self, vueParent):
+    def __init__(self, vueParent, fonctions):
         self.vueParent=vueParent
+        self.fonctions=fonctions
         self.initActions()
         
     def initActions(self):
