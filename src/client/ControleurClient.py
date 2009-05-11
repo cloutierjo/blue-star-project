@@ -26,9 +26,7 @@ class ControleurClient:
        
     def quitter(self):
         sys.exit(0) 
-     
-     
-        
+      
     def getListeProjets(self):
         return  self.server.getListeProjets()
         
@@ -40,9 +38,7 @@ class ControleurClient:
         self.m.creerProjet(nom)
         self.i.chargerEnMemoireProjet()
         self.m.projet.num = self.sauvegarder()
-        
-    
-    
+         
     def sauvegarder(self):
         self.i.mandat.updateMandat()
         self.i.ATExplicite.updateAnalyse()
@@ -50,17 +46,12 @@ class ControleurClient:
         self.m.projet.unicodize()
         return self.server.sauvegarderProjet(self.m.projet.serialize())
     
-    
-    
     def creerMandat(self, mandat):
         self.m.projet.mandat = mandat
-        
-        
+            
     def ouvrirMandat(self):
         return self.m.projet.mandat
     
-    
-       
     def creerATImplicite(self, dictATImplicite):
         self.m.projet.analyseImplicite.analyse = []
         for i in dictATImplicite:
@@ -77,9 +68,6 @@ class ControleurClient:
             self.m.projet.analyseExplicite.addItem(i['nom'], i['verbe'], i['adjectif'], i['handled'])
     def ouvrirATExplicite(self):
         return self.m.projet.analyseExplicite.analyse
-    
-    
-    
     
     def ouvrirScenario(self, strCasUsage = ""): # retourne une liste de scenario d'utilisation avec leur priorité en fonction du cas d'usage entrée
             if strCasUsage =="":
@@ -181,6 +169,13 @@ class ControleurClient:
                 return False;
         else:
             self.m.projet.casEtScenario.addCasUsage(nomNouveau)
-            return True;     
+            return True;
+        
+    def ouvrirDicDonneeVar(self):
+        return self.m.projet.dictDonne.variable
+    
+    def ouvrirDicDonneeFonc(self):
+        return self.m.projet.dictDonne.fonction
+             
 if __name__ == '__main__':
     c = ControleurClient()

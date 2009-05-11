@@ -90,7 +90,7 @@ class Vue(object):
         self.ATImplicite = AnalyseTextuelle(self,self.parent.ouvrirATImplicite(),implicite=True)
         self.scenario = ScenarioVue(self)
         self.casUsage = CasUsageVue(self)
-        self.dictionnaireDonnee = DictionnaireDonnee(self)
+        self.dictionnaireDonnee = DictionnaireDonnee(self, self.parent.ouvrirDicDonneeVar(), self.parent.ouvrirDicDonneeFonc())
 #####charger autres objets graphiques ici...
 
         
