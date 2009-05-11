@@ -15,9 +15,9 @@ class DictDonne:
     
     def unicodize(self):
         for row in self.variable:
-            row = unicode(row)
+            row[0] = unicode(row[0])
         for row in self.fonction:
-            row = unicode(row)
+            row[0] = unicode(row[0])
             
     def serialize(self):
         self.unicodize()
