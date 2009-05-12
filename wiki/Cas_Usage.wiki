@@ -80,6 +80,36 @@
   # entré chaque élément de CRC selon le format CRC
  
  * dérive du dictionnaire et des cas d'usage/scénario
-  # comment ????? 
+  # comment ????? (résolue directement par l'équipe d'interface)
   
 ==Etape 4 (planing + sprint)==
+  * ouvrir le mode planing
+   # voir exempleVuePlaning
+   
+  * permetre d'ajouté des taches GÉNÉRALE à chaque sprint
+   # ajouté une tache général par ligne dans la case du sprint
+   
+  * avoir une vue général de l'ensemble du projet (tout les sprint)
+   # montré tout les sprint un a coté de l'autre avec leur tache associé ( voir exempleVuePlaning )
+   
+  * permettre d'ajouté les tache détaillé a chacun des sprint
+   # ajouté une tache détaillé par ligne dans la vue du sprint détaillé
+   
+  * avoir une checkbox pour montré ce qui est fais dans la vue détaillé
+   # passé au vert les taches faites
+   
+
+  * ouvrir le mode scrum
+   # voir exempleVueScrum
+   
+  * permettre de créé un nouveau scrum en date d'aujourd'hui
+   # crée un scrum avec toute les user du projet
+   # met dans les tache faite tout les tache qui était a faire dans le scrum précédent (précédé d'un ? pour demandé un vérification)
+   # permettre a l'utilisateur de vérifié ce qui a été réellement fait, se qui sera fait, et les problème
+   
+  * permettre de voir les anciens scrum par date
+   # affiché l'ancien scrum
+   
+  * voir les scrum par user
+   # affiché le scrum de l'utilisateur sélectionné
+   

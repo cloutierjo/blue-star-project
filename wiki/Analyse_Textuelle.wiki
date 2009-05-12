@@ -20,16 +20,27 @@ CREER UN LOGICIEL DE GESTION DE PROJET
  * entré les étapes des scénarios d'utilisations
  * les étapes des scénarios d'utilisations doivent etre ordonée
  
-=Etape 3 (Dictionnaire de données + CRC)=
- * ouvrir le mode dictionnaire de données
- * entré les variables et les fonction néscéssaire
- * affichage ??????? (de quoi dérive le dictionnaire ????)
+ =Etape 3 (Dictionnaire de données + CRC)=
+  * ouvrir le mode dictionnaire de données
+  * entré les variables et les fonction néscéssaire
+  * affichage ??????? (de quoi dérive le dictionnaire ????)
 
- * ouvrir le mode CRC
- * entré nom de classe, propriétaire, la "signature" de méthode
- * dérive du dictionnaire et des cas d'usage/scénario
+  * ouvrir le mode CRC
+  * entré nom de classe, propriétaire, la "signature" de méthode
+  * dérive du dictionnaire et des cas d'usage/scénario
   
-=Etape 4 (planing + sprint)=
- *
+ =Etape 4 (planing + sprint)=
+  * ouvrir le mode planing
+  * permetre d'ajouté des taches GÉNÉRALE à chaque sprint
+  * avoir une vue général de l'ensemble du projet (tout les sprint)
+  * avoir une vue détaillé de chacun des sprint (un a la fois)
+  * permettre d'ajouté les teache détaillé a chacun des sprint
+  * avoir une checkbox pour montré ce qui est fais dans la vue détaillé
+  * vue détaillé doit contenir les colonne: checkbox - tache - priorité - user
   
+  * ouvrir le mode scrum
+  * permettre de créé un nouveau scrum en date d'aujourd'hui
+  * permettre de voir les anciens scrum par date
+  * scrum séparé par user
+  * montre les taches faites, à faire et les problemes pour chaques users/dates
   
