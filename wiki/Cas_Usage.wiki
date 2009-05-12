@@ -84,13 +84,13 @@
   
 ==Etape 4 (planing + sprint)==
   * ouvrir le mode planing
-   # voir exempleVuePlaning
+   [http://blue-star-project.googlecode.com/svn/wiki/planing.jpg]
    
   * permetre d'ajouté des taches GÉNÉRALE à chaque sprint
    # ajouté une tache général par ligne dans la case du sprint
    
   * avoir une vue général de l'ensemble du projet (tout les sprint)
-   # montré tout les sprint un a coté de l'autre avec leur tache associé ( voir exempleVuePlaning )
+   # montré tout les sprint un a coté de l'autre avec leur tache associé 
    
   * permettre d'ajouté les tache détaillé a chacun des sprint
    # ajouté une tache détaillé par ligne dans la vue du sprint détaillé
@@ -100,7 +100,7 @@
    
 
   * ouvrir le mode scrum
-   # voir exempleVueScrum
+   [http://blue-star-project.googlecode.com/svn/wiki/scrum.jpg]
    
   * permettre de créé un nouveau scrum en date d'aujourd'hui
    # crée un scrum avec toute les user du projet
