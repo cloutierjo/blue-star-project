@@ -293,3 +293,56 @@ voici le model de scrum
  ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
   * N/A
   
+=11/05/2009=
+
+==Mathieu L.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * finalisé l'intégration des cas/scénario
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * analyse étape 4
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * N/A
+
+==François L.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * fini les cas d'usage coté base de donné
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * ajouté le dictionnaire de données
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * N/A
+
+==Jonathan H.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * terminé l'intégration visuel du frame dictionnaire de données
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * intégré les donné avec l'interface
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * N/A
+
+==Jean-Philippe C.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * continué frame CRC
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * terminé le frame CRC
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * difficulté général (Pascal L.)
+
+==Jonatan C.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * terminé l'implémentation dans projet de l'étape 3
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * analyse de l'étape 4 avec Mathieu L.
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * N/A
+
+==Pascal L.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * travaillé sur le CRC avec Jean-Philippe C.
+  * mettre la fenetre choix de projet modal
+  * voire le nom du projet en tout temp (dans le titre de la fenetre)
+  * aide a l'intégration du frame dictionnaire de données
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  *terminé CRC avec Jean-Philippe C.
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * N/A
+  
