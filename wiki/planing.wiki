@@ -11,12 +11,12 @@
  * interface utilisable étape 3(sans néscéssairement etre lié au model) (Jonathan H. Jean-Philippe C.)
  * analyse partie 4 (Jonatan C.)
 
-=13/05/2009 (EUF)=
+=14/05/2009=
  * intégration de la partie 4 coté Projet et Serveur(Jonatan C., Francois L.)
  * interface étape 3 livrable (Jonathan H. Jean-Philippe C.)
  * interface utilisable étape 4(sans néscéssairement etre lié au model) (Mathieu L., Pascal L.)
 
-=18/05/2009 (Patriote)=
+=19/05/2009=
  * interface étape 4 livrable (Mathieu L., Pascal L.)
  * testing, correction, amélioration rapide en vue de la version finale (tous)
 
