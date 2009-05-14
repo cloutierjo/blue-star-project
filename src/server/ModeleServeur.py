@@ -28,12 +28,16 @@ class ModeleServeur:
         cur.execute('''CREATE TABLE Senarios(IDCAS NUMBER(6) REFERENCES Projets, senario LONG, ordreexec NUMBER(6))''')
         cur.execute('''CREATE TABLE Variables(IDPROJ NUMBER(6) REFERENCES Projets, Var VARCHAR2(30), handled NUMBER(1))''')
         cur.execute('''CREATE TABLE Fonctions(IDPROJ NUMBER(6) REFERENCES Projets, Fon VARCHAR2(30), handled NUMBER(1))''')
+        cur.execute('''CREATE TABLE Usagers(IDUSER NUMBER(9), IDPROJ NUMBER(6) REFERENCES Projets, VARCHAR2(30))''')
         # Générateur d'ID unique dans la méthode getNewID() (bonne pour 999 999 projets 
         cur.execute('''CREATE TABLE SeqProj(Val NUMBER(6))''')
         cur.execute('insert into SeqProj values(?)', (1,))
-        # Générateur d'ID unique dans la méthode getNewID() (bonne pour 999 999 projets 
+        # Générateur d'ID unique pour CasUsages 
         cur.execute('''CREATE TABLE SeqCasUsages(Val NUMBER(6))''')
         cur.execute('insert into SeqCasUsages values(?)', (1,))
+        # Générateur d'ID unique pour Usagers 
+        cur.execute('''CREATE TABLE SeqUsagers(Val NUMBER(9))''')
+        cur.execute('insert into SeqUsagers values(?)', (1,))
         self.con.commit()
         cur.close()
         
