@@ -82,31 +82,31 @@ if __name__ == '__main__':
     su.addEtapeScenario("b first step", 1)
     su.addEtapeScenario("b second step")
     
-    dd=pj.dictDonne
-    dd.variable.append("fisrtVar")
-    dd.variable.append("secvar")
-    dd.fonction.append("firstFonct")
-    dd.fonction.append("secFonct")
+    dd=pj.dictDonne   
+    dd.variable.append(["fisrtVar", 0])
+    dd.variable.append(["secvar", 1])
+    dd.fonction.append(["firstFonct", 0])
+    dd.fonction.append(["secFonct", 1])
     
     crcs=pj.crc
     
     crc=Crc.Crc()
     crc.nomClasse="uneClasse"
     crc.proprio="quelqu'un"
-    crc.responsabilite.append("fisrtResp")
-    crc.responsabilite.append("secResp")
-    crc.collaboration.append("firstColl")
-    crc.collaboration.append("secColl")
+    crc.responsabilite.append(["fisrtResp", 0])
+    crc.responsabilite.append(["secResp", 1])
+    crc.collaboration.append(["firstColl", 1])
+    crc.collaboration.append(["secColl", 1])
     
     crcs.crcs.append(crc)
     
     crc=Crc.Crc()
     crc.nomClasse="uneAutreClasse"
     crc.proprio="quelqu'un d'autre"
-    crc.responsabilite.append("fisrtResp")
-    crc.responsabilite.append("secResp")
-    crc.collaboration.append("firstColl")
-    crc.collaboration.append("secColl")
+    crc.responsabilite.append(["fisrtResp", 0])
+    crc.responsabilite.append(["secResp", 1])
+    crc.collaboration.append(["firstColl", 0])
+    crc.collaboration.append(["secColl", 1])
     
     crcs.crcs.append(crc)
     
