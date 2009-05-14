@@ -14,6 +14,7 @@ from CasUsageVue import *
 from ScenarioVue import *
 from DictionnaireDonnee import *
 from Liste import *
+import Tix
 
 class Vue(object):
 #initialisation
@@ -22,9 +23,10 @@ class Vue(object):
         #0:Aucun Project loade,    1:Projet Loade
         self.etat=0
 
-        self.root=Tk()
+        self.root=Tix.Tk()
         self.root.title("Blue Star")
         self.root.geometry("1024x768")
+        
         
 #Onglet pour affichage
         self.onglets=Onglets(self)
