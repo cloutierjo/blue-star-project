@@ -8,6 +8,17 @@ Created on 9 mai 2009
 class LstCrc:
     def __init__(self):
         self.crcs=[]
+        #dummy
+        crc=Crc()
+        crc.nomClasse="dummyClasse"
+        crc.proprio="dummyquelqu'un"
+        crc.responsabilite.append(["dummyfisrtResp", 0])
+        crc.responsabilite.append(["dummysecResp", 1])
+        crc.collaboration.append(["dummyfirstColl", 1])
+        crc.collaboration.append(["dummysecColl", 1])
+    
+        self.crcs.append(crc)
+
         
     def getClassName(self):
         name=[]
