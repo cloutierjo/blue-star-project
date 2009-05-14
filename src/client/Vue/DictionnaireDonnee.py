@@ -61,9 +61,17 @@ class Donnee(object):
         self.boutonAddRowData=Button(self.frameDonnee,text='Ajouter une ligne',command=self.addRow)
         self.boutonAddRowData.pack()
         
+        self.readDataFromProject()
+   
+        scrollbarData.pack(side=RIGHT, fill=Y)
+        scrollbarData.config(command=self.textData.yview)
+        
+        self.textData.pack(side=LEFT)
+        self.frameDonnee.pack(side=LEFT)
+        
+    def readDataFromProject(self):
         if len(self.variables) != 0:
-            for ligneVariable in self.variables:
-                col = []              
+            for ligneVariable in self.variables:       
                 ligne=Frame(self.textData)
                 
                 #self.rowsData.append(ligneVariable[0])
@@ -88,17 +96,11 @@ class Donnee(object):
 
                 entree.pack(side=LEFT)
                 
-                col.append(entree)
                 #entrer les ligneVariable ???
-                self.rowsData.append(col)
+                self.rowsData.append([ligneVariable[0], ligneVariable[1]])
+                
                 self.textData.window_create(INSERT,window=ligne)
-   
-        scrollbarData.pack(side=RIGHT, fill=Y)
-        scrollbarData.config(command=self.textData.yview)
-        
-        self.textData.pack(side=LEFT)
-        self.frameDonnee.pack(side=LEFT)
-        
+                 
     def addRow(self):
         retour=IntVar()
         self.col = []
@@ -118,22 +120,54 @@ class Donnee(object):
         self.textData.window_create(INSERT,window=self.ligneData)
             
     def gestion(self):
-        i=0
-                # self.retours contient chaque retour associe a chaque checkButton
+        
+        i = 0
+        
         for r in self.retoursData:
-            if r == 1:
-                self.rowsData[i][1].delete(0, END) 
-                self.rowsData[i][1].insert(END,1)                                  
-                                                                
-                self.rowsData[i][0].config(state=DISABLED)
-            #mettre a non gere
+            if r == 0:
+                self.rowsData[i][1] = 1
+                self.retoursData[i] = 1
             else:
-                self.rowsData[i][0].config(state=NORMAL)
-                              
-                self.rowsData[i][1].delete(0, END)
-                self.rowsData[i][1].insert(END,0)
-            i+=1
+                self.rowsData[i][1] = 0
+                self.retoursData[i] = 0
             
+            i+=1
+        
+        self.readDataFromTemp()
+    
+    def readDataFromTemp(self):
+        #self.textData.delete(0, END)
+        
+        if len(self.rowsData) != 0:
+            for row in self.rowsData:       
+                ligne=Frame(self.textData)
+                
+                #self.rowsData.append(ligneVariable[0])
+                
+                retour = self.rowsData[1]
+                checkData=Checkbutton(ligne,variable=retour,cursor="arrow",command=self.gestion)
+                checkData.var=retour
+                
+                checkData.pack(side=LEFT)
+                
+                entree=Entry(ligne,relief=RIDGE)
+                entree.insert(END,row[0])
+                entree.insert(END,row[1])
+                
+                print row[1]
+                
+                if row[1] == 1:
+                    checkData.select()
+                    entree.config(state=DISABLED)
+                    gere=True
+                else:
+                    gere=False
+
+                entree.pack(side=LEFT)
+                
+                #entrer les ligneVariable ???               
+                self.textData.window_create(INSERT,window=ligne)
+                
     def addEntry(self):
         for j in range(2) :# Création des deux entrées de ma ligne
             entree = Entry(self.ligneData,relief=RIDGE)
@@ -168,8 +202,7 @@ class Action(object):
         self.boutonAddRow.pack()
         
         if(len(self.fonctions)) != 0:
-           for ligneFonction in self.fonctions:
-               col = []              
+           for ligneFonction in self.fonctions:          
                ligne=Frame(self.text)
                 
                #self.rowsData.append(ligneVariable[0])
@@ -194,9 +227,8 @@ class Action(object):
 
                entree.pack(side=LEFT)
                 
-               col.append(entree)
                #entrer les ligneVariable ???
-               self.rows.append(col)
+               self.rows.append([ligneFonction[0], ligneFonction[1]])
                self.text.window_create(INSERT,window=ligne)
                
         scrollbar.pack(side=RIGHT, fill=Y)
