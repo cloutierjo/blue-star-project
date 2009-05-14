@@ -1,4 +1,4 @@
-#Sat May 09 18:03:15 EDT 2009
+#Thu May 14 18:19:00 GMT 2009
 eclipse.preferences.version=1
 encoding//src/client/ControleurClient.py=iso-8859-1
 encoding//src/client/Vue/CasUsageVue.py=iso-8859-1
@@ -10,4 +10,7 @@ encoding//src/commun/Crc.py=iso-8859-1
 encoding//src/commun/DictDonne.py=iso-8859-1
 encoding//src/commun/Projet.py=iso-8859-1
 encoding//src/commun/ScenarioUtilisation.py=iso-8859-1
+encoding//src/commun/Scrum.py=iso-8859-1
+encoding//src/commun/Sprint.py=iso-8859-1
+encoding//src/commun/planing.py=iso-8859-1
 encoding/<project>=ISO-8859-1
