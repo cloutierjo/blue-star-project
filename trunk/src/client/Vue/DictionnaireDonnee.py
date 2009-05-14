@@ -69,18 +69,18 @@ class Donnee(object):
                 #self.rowsData.append(ligneVariable[0])
                 
                 retour = ligneVariable[1]
-                check=Checkbutton(ligne,variable=retour,cursor="arrow",command=self.gestion)
-                check.var=retour
+                checkData=Checkbutton(ligne,variable=retour,cursor="arrow",command=self.gestion)
+                checkData.var=retour
                 
-                self.retoursData.append(check.var)
-                check.pack(side=LEFT)
+                self.retoursData.append(checkData.var)
+                checkData.pack(side=LEFT)
                 
                 entree=Entry(ligne,relief=RIDGE)
                 entree.insert(END,ligneVariable[0])
                 entree.insert(END,ligneVariable[1])
                 
                 if ligneVariable[1] == 1:
-                    check.select()
+                    checkData.select()
                     entree.config(state=DISABLED)
                     gere=True
                 else:
@@ -91,7 +91,6 @@ class Donnee(object):
                 col.append(entree)
                 #entrer les ligneVariable ???
                 self.rowsData.append(col)
-                
                 self.textData.window_create(INSERT,window=ligne)
    
         scrollbarData.pack(side=RIGHT, fill=Y)
@@ -107,12 +106,12 @@ class Donnee(object):
         # ligne -> frame avec 1 Entry
         self.ligneData=Frame(self.textData)
             
-        check=Checkbutton(self.ligneData,variable=retour,cursor="arrow",command=self.gestion)
-        check.var=retour
+        checkData=Checkbutton(self.ligneData,variable=retour,cursor="arrow",command=self.gestion)
+        checkData.var=retour
             
-        self.retoursData.append(check.var)
+        self.retoursData.append(checkData.var)
             
-        check.pack(side=LEFT)
+        checkData.pack(side=LEFT)
         self.addEntry()
         self.rowsData.append(self.col)
                 
@@ -167,7 +166,39 @@ class Action(object):
          
         self.boutonAddRow=Button(self.frameMethodes,text='Ajouter une action',command=self.addRow)
         self.boutonAddRow.pack()
-         
+        
+        if(len(self.fonctions)) != 0:
+           for ligneFonction in self.fonctions:
+               col = []              
+               ligne=Frame(self.text)
+                
+               #self.rowsData.append(ligneVariable[0])
+                
+               retour = ligneFonction[1]
+               check=Checkbutton(ligne,variable=retour,cursor="arrow",command=self.gestion)
+               check.var=retour
+                
+               self.retours.append(check.var) 
+               check.pack(side=LEFT)
+               
+               entree=Entry(ligne,relief=RIDGE)
+               entree.insert(END,ligneFonction[0])
+               entree.insert(END,ligneFonction[1])
+                
+               if ligneFonction[1] == 1:
+                   check.select()
+                   entree.config(state=DISABLED)
+                   gere=True
+               else:
+                   gere=False
+
+               entree.pack(side=LEFT)
+                
+               col.append(entree)
+               #entrer les ligneVariable ???
+               self.rows.append(col)
+               self.text.window_create(INSERT,window=ligne)
+               
         scrollbar.pack(side=RIGHT, fill=Y)
         scrollbar.config(command=self.text.yview)
         
@@ -197,7 +228,7 @@ class Action(object):
             # self.retours contient chaque retour associe a chaque checkButton
         for r in self.retours:
             #mettre a gere
-            if r.get()==1:
+            if r == 1:
                 self.rows[i][1].delete(0, END) 
                 self.rows[i][1].insert(END,1)                                  
                                                             
