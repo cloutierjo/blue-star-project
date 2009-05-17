@@ -13,8 +13,10 @@ class AnalyseTextuelle(object):
         #Creation du Frame
         self.frame = Frame()
         
-#pour gestion (retours des CheckButtons pour "handled")
+#pour gestion (retours des Checkbuttons pour "handled")
         self.retours=[]
+#pour deleteRow (retours des Radiobuttons pour deleteRow)
+        self.etats=[]
 
         #Ajout du Label Tite
         titreImplicite = "Analyse Implicite"
@@ -36,9 +38,10 @@ class AnalyseTextuelle(object):
         
                                                                                                                                                                                                                                        
       # Insertion des données existante dans le tableau si il y en a
-        if len(analyse) !=0:                                                                                                       
+        if len(analyse) !=0:                                                                                                      
             for i,laLigneAnalyse in enumerate(analyse):
                 col = []
+                
                 # ligne -> frame avec 3 Entry (grille 1x3)
                 ligne=Frame(self.tableauAnalyse)
                 
@@ -49,11 +52,19 @@ class AnalyseTextuelle(object):
                 self.retours.append(check.var)
                 
                 check.pack(side=LEFT)
+                
                 if analyse[i]['handled']==1:
                     check.select()
                     gere=True
                 else:
                     gere=False
+                
+        #pour deleteRow 
+                etat=IntVar()
+                delRow=Radiobutton(ligne,text='x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
+                delRow.var=etat
+                self.etats.append(delRow.var)
+                delRow.pack(side=LEFT)
                     
                 for j,champ in enumerate(['nom','verbe','adjectif','handled']):
                     entree = Entry(ligne,relief=RIDGE)
@@ -87,14 +98,15 @@ class AnalyseTextuelle(object):
         
         
     def updateAnalyse(self):
+
         listeDictionnaires=[]
         for row in self.rows:
-           dict={}
-           dict['nom']=row[0].get()
-           dict['verbe']=row[1].get()
-           dict['adjectif']=row[2].get()
-           dict['handled']=int(row[3].get())
-           listeDictionnaires.append(dict)
+            dict={}
+            dict['nom']=row[0].get()
+            dict['verbe']=row[1].get()
+            dict['adjectif']=row[2].get()
+            dict['handled']=int(row[3].get())
+            listeDictionnaires.append(dict)
 
             
             
@@ -105,7 +117,7 @@ class AnalyseTextuelle(object):
                 
             
     def addRow(self):
-        nextRow = self.tableauAnalyse.grid_size()[1]
+        #nextRow = self.tableauAnalyse.grid_size()[1]
         col = []
         # ligne -> frame avec 3 Entry
         ligne=Frame(self.tableauAnalyse)
@@ -114,6 +126,13 @@ class AnalyseTextuelle(object):
         check.var=retour
         self.retours.append(check.var)
         check.pack(side=LEFT)
+        
+        etat=IntVar()
+        delRow=Radiobutton(ligne,text='x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
+        delRow.var=etat
+        self.etats.append(delRow.var)
+        delRow.pack(side=LEFT)
+        
         for j in range(4) :# Utilisation d'une entr
             entree = Entry(ligne,relief=RIDGE)
             if j < 3:
@@ -151,3 +170,66 @@ class AnalyseTextuelle(object):
                 self.rows[i][3].delete(0, END)
                 self.rows[i][3].insert(END,0)
             i+=1
+            
+            
+            
+    def deleteRow(self):
+        
+        i=0;
+        while self.etats[i].get()!=1:  #donne l'indice de la row a deleter
+            i=i+1
+         
+        reste=[]   
+        for row in self.rows:    #transfert des donnees des rows dans reste
+            col=[]
+            for c in range(3):
+                col.append(row[c].get())
+            col.append(int(row[3].get()))  # int le handled
+            reste.append(col)
+            
+        reste.remove(reste[i]) #delete les donnees non voulues
+        
+        #update  # re-creation de l'analyse avec les donnees restantes
+        self.tableauAnalyse.delete(0.0,END)
+        self.retours=[]        
+        self.etats=[]
+        self.rows=[]
+        
+        for row in reste:
+            
+            col = []
+            ligne=Frame(self.tableauAnalyse)
+            
+            retour=IntVar()
+            check=Checkbutton(ligne,variable=retour,cursor="arrow",command=self.gestion)
+            check.var=retour
+            self.retours.append(check.var)
+            check.pack(side=LEFT)
+            
+            if row[3]==1:
+                check.select()
+                gere=True
+            else:
+                gere=False
+               
+            etat=IntVar()
+            delRow=Radiobutton(ligne,text='x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
+            delRow.var=etat
+            self.etats.append(delRow.var)
+            delRow.pack(side=LEFT)
+            
+            for j in range(4):
+                    entree = Entry(ligne,relief=RIDGE)
+                    entree.insert(END,row[j])
+                    if gere==True:
+                        entree.config(state=DISABLED)
+                    #ne pack pas le entry qui contient le handled
+                    if j<3:
+                        entree.pack(side=LEFT)
+                    col.append(entree)
+                
+            self.rows.append(col)   
+                
+            self.tableauAnalyse.window_create(INSERT,window=ligne)
+            
+            
