@@ -167,9 +167,6 @@ class CrcVUE(object):
         for r in self.retours:
             #mettre a gere
             if r.get()==1:
-                print len(self.rows)
-                print len(self.rows[0])
-                print "OSTIE"
                 
                 self.rows[i][1].delete(0, END) 
                 self.rows[i][1].insert(END,1)                                  
