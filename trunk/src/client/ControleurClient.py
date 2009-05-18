@@ -176,6 +176,12 @@ class ControleurClient:
     
     def ouvrirDicDonneeFonc(self):
         return self.m.projet.dictDonne.fonction
+    
+    def getListeCRC(self):
+        return self.m.projet.crc.getClassName()
+    
+    def getCRC(self,nom):
+        return self.m.projet.crc.getClass(nom)
              
 if __name__ == '__main__':
     c = ControleurClient()
