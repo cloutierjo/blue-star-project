@@ -13,6 +13,7 @@ from AnalyseTextuelle import *
 from CasUsageVue import *
 from ScenarioVue import *
 from DictionnaireDonnee import *
+from CRCVue import *
 from Liste import *
 import Tix
 
@@ -45,6 +46,8 @@ class Vue(object):
         self.scenario = None
 #L'objet graphique dictionnaire de données
         self.dictionnaireDonnee = None
+#Lobjet graphique CRC
+        self.crc = None
 
 #Haut    
     def menuPrincipal(self):
@@ -93,6 +96,7 @@ class Vue(object):
         self.scenario = ScenarioVue(self)
         self.casUsage = CasUsageVue(self)
         self.dictionnaireDonnee = DictionnaireDonnee(self, self.parent.ouvrirDicDonneeVar(), self.parent.ouvrirDicDonneeFonc())
+        self.crc = CrcVUE(self,self.parent.getListeCRC())  
 #####charger autres objets graphiques ici...
 
         
@@ -104,6 +108,7 @@ class Vue(object):
         self.graphItems.append(self.casUsage)
         self.graphItems.append(self.scenario)
         self.graphItems.append(self.dictionnaireDonnee)
+        self.graphItems.append(self.crc)
 #####ajouter autres widgets dans graphItems ici...
         
     def NouveauProjet(self):
@@ -189,6 +194,13 @@ class Vue(object):
             self.dictionnaireDonnee.frame.pack(side=LEFT, pady=30)
         else:
             tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
+            
+    def afficherCRC(self):
+        if self.etat==1:
+            self.effacerFenetre()
+            self.crc.frame.pack(side=LEFT)
+        else:
+            tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
 
 
     def afficherUnMessage(self,Texte,erreur="ERREUR!!!"):
@@ -221,6 +233,12 @@ class Onglets(object):
         r=Radiobutton(self.frame, text="Dictionnaire de donnée", variable=self.v, value=5,command=self.vueParent.afficherDictionnaire)
         r.config(activeforeground="blue",relief=RIDGE)
         r.pack(side=LEFT)
+        
+        #tempo
+        r=Radiobutton(self.frame, text="CRC", variable=self.v, value=7,command=self.vueParent.afficherCRC)
+        r.config(activeforeground="blue",relief=RIDGE)
+        r.pack(side=LEFT)
+        
         #autres onglets a suivre...
         self.v.set(0)
 
