@@ -133,7 +133,7 @@ class CrcVUE(object):
         pass
         #nextRow = self.tableauAnalyse.grid_size()[1]
         col = []
-        # ligne -> frame avec 3 Entry
+        # ligne -> frame avec 1 Entry
         ligne=Frame(self.infoDonnee)
         retour=IntVar()
         check=Checkbutton(ligne,variable=retour,cursor="arrow",command=self.gestion)
@@ -159,6 +159,8 @@ class CrcVUE(object):
         self.rows.append(col)
         #
         self.infoDonnee.window_create(INSERT,window=ligne)
+        
+        
 
     def gestion(self):
         
@@ -186,7 +188,65 @@ class CrcVUE(object):
                 self.rows[i][1].insert(END,0)
             i+=1
             
+            
+            
     def deleteRow(self):
-        pass
+        i=0;
+        while self.etats[i].get()!=1:  #donne l'indice de la row a deleter
+            i=i+1
+         
+        reste=[]   
+        for row in self.rows:    #transfert des donnees des rows dans reste
+            col=[]
+            for c in range(1):
+                col.append(row[c].get())
+            col.append(int(row[1].get()))  # int le handled
+            reste.append(col)
+            
+        reste.remove(reste[i]) #delete les donnees non voulues
+        
+        #update  # re-creation de l'analyse avec les donnees restantes
+        self.infoDonnee.delete(0.0,END)
+        self.retours=[]        
+        self.etats=[]
+        self.rows=[]
+        
+        for row in reste:
+            
+            col = []
+            ligne=Frame(self.infoDonnee)
+            
+            retour=IntVar()
+            check=Checkbutton(ligne,variable=retour,cursor="arrow",command=self.gestion)
+            check.var=retour
+            self.retours.append(check.var)
+            check.pack(side=LEFT)
+            
+            if row[1]==1:
+                check.select()
+                gere=True
+            else:
+                gere=False
+               
+            etat=IntVar()
+            delRow=Radiobutton(ligne,text='x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
+            delRow.var=etat
+            self.etats.append(delRow.var)
+            delRow.pack(side=LEFT)
+            
+            for j in range(2):
+                    entree = Entry(ligne,relief=RIDGE)
+                    entree.config(width=35)
+                    entree.insert(END,row[j])
+                    if gere==True:
+                        entree.config(state=DISABLED)
+                    #ne pack pas le entry qui contient le handled
+                    if j<1:
+                        entree.pack(side=LEFT)
+                    col.append(entree)
+                
+            self.rows.append(col)   
+                
+            self.infoDonnee.window_create(INSERT,window=ligne)
         
             
