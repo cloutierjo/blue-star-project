@@ -43,6 +43,7 @@ class ControleurClient:
         self.i.mandat.updateMandat()
         self.i.ATExplicite.updateAnalyse()
         self.i.ATImplicite.updateAnalyse()
+        self.i.crc.updateCRC()
         self.m.projet.unicodize()
         return self.server.sauvegarderProjet(self.m.projet.serialize())
     
@@ -177,11 +178,20 @@ class ControleurClient:
     def ouvrirDicDonneeFonc(self):
         return self.m.projet.dictDonne.fonction
     
+#---------------------------------------------------------------------    
+    def createNewCrc(self,nom):
+        if self.m.projet.crc.addCrc(nom):
+            return 0
+        else:
+            return 1
+    def updateCrc(self,crc):
+        self.m.projet.crc.updateCrc(crc)
+    
     def getListeCRC(self):
         return self.m.projet.crc.getClassName()
     
     def getCRC(self,nom):
         return self.m.projet.crc.getClass(nom)
-             
+#-----------------------------------------------------------------------             
 if __name__ == '__main__':
     c = ControleurClient()
