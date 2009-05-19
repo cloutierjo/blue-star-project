@@ -48,7 +48,6 @@ class Vue(object):
         self.dictionnaireDonnee = None
 #Lobjet graphique CRC
         self.crc = None
-
 #Haut    
     def menuPrincipal(self):
         #cree une barre de menu (qui est aussi un objet Menu)
@@ -56,20 +55,26 @@ class Vue(object):
         #assigne cette barre a la fenetre
         self.root.config(menu=menu)
         
-        filemenu = Menu(menu)
+        self.filemenu = Menu(menu)
         #menu 
-        menu.add_cascade(label="Fichier", menu=filemenu)
+        menu.add_cascade(label="Fichier", menu=self.filemenu)
         #Nouveau projet
-        filemenu.add_command(label="Nouveau projet", command=self.NouveauProjet)
+        self.filemenu.add_command(label="Nouveau projet", command=self.NouveauProjet)
         #projet
-        filemenu.add_command(label="Ouvrir Projet", command=self.OuvrirProjet)
+        self.filemenu.add_command(label="Ouvrir Projet", command=self.OuvrirProjet)
         
-        filemenu.add_command(label="Sauvegarder", command=self.save)
+        self.filemenu.add_command(label="Sauvegarder", command=self.save)
         
-        filemenu.add_command(label="Fermer le projet", command=self.fermerProjet)
-        filemenu.add_separator()
+        self.filemenu.add_command(label="Fermer le projet", command=self.fermerProjet)
+        self.filemenu.add_separator()
+        
+        self.filemenu.add_command(label="Nouvel utilisateur", command=self.users)
+        
+        self.filemenu.entryconfig(6,state=DISABLED)
+        
+        self.filemenu.add_separator()
         #quitter
-        filemenu.add_command(label="Quitter", command=self.parent.quitter)
+        self.filemenu.add_command(label="Quitter", command=self.parent.quitter)
         
         
         #commandes de l'affichage
@@ -96,7 +101,7 @@ class Vue(object):
         self.scenario = ScenarioVue(self)
         self.casUsage = CasUsageVue(self)
         self.dictionnaireDonnee = DictionnaireDonnee(self, self.parent.ouvrirDicDonneeVar(), self.parent.ouvrirDicDonneeFonc())
-        self.crc = CrcVUE(self,self.parent.getListeCRC())  
+        self.crc = CrcVUE(self,self.parent.getListeCRC())
 #####charger autres objets graphiques ici...
 
         
@@ -122,6 +127,13 @@ class Vue(object):
                 self.etat=1
                 #affichage des onglets
                 self.onglets.frame.pack()
+                self.filemenu.entryconfig(6,state=NORMAL)
+                
+    def users(self):
+        nom=tkSimpleDialog.askstring('Nouvel utilisateur',
+                                     'Entrez le nom:',parent=self.root)
+        if nom:
+            self.parent.createNewUser(nom)
                 
     def effacerFenetre(self):
         for item in self.graphItems:
@@ -133,6 +145,7 @@ class Vue(object):
         self.onglets.frame.pack_forget()
         self.root.title("Blue Star")
         self.etat=0
+        self.filemenu.entryconfig(6,state=DISABLED)
     
     def save(self):
         #si projet ouvert
