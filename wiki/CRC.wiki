@@ -547,7 +547,78 @@ voici le format a suivre pour les CRC, ne vous occupé pas du HTML si sa vous m�
 </table>
 
 =Controleur Client (Mathieu L)=
-TODO
+
+<table border=1 width=70%>
+   <tr>
+       <td width=60%> ControleurClient </td>
+       <td rowspan=3> 
+                      * ModelClient
+                      * ControleurServeur
+                      * Vue
+                      * AnalyseTextuelle
+                      * CasUsageVue
+                      * CRCVue
+                      * DictionnaireDonnee
+                      * Liste
+                      * Mandat
+                      * ScenarioVue
+                      * Vue
+                      * Analyse (côté modèle)
+                      * CasUsage (côté modèle)
+                      * Crc (côté modèle)
+                      * DictDonnee (côté modèle)
+                      * Planning (côté modèle)
+                      * Projet (côté modèle)
+                      * ScenarionUtilisation (côté modèle)
+                      * Scrum (côté modèle)
+                      * Sprint (côté modèle)
+                      * User (côté modèle)
+       </td>
+   </tr>
+   <tr>
+       <td align="right">Mathieu L.</td>
+   </tr>
+   <tr>
+       <td>
+           * __init__(self)
+           * connecter(self)
+           * afficherInterface(self)
+           * quitter(self)
+           * getListeProjets(self)
+           * ouvrirProjet(self, projetId)
+           * creerProjet(self, nom)
+           * sauvegarder(self)
+           * creerMandat(self, mandat)
+           * ouvrirMandat(self)
+           * creerATImplicite(self, dictATImplicite)
+           * ouvrirATImplicite(self)
+           * creerATExplicite(self, dictATExplicite)
+           * ouvrirATExplicite(self)
+           * ouvrirScenario(self, strCasUsage = "")
+           * monterEtapeScenario(self,indexAMonter)
+           * descendreEtapeScenario(self,indexADescendre)
+           * supprimerEtapsScenario(self,indexASupprimer)
+           * renommerEtapsScenario(self,indexARenommer,nouveauNom)
+           * ajouterEtapeScenario(self,nomNouveau)
+           * getCurrentNomCasUsage(self)
+           * getCurrentCasUsage(self)
+           * ouvrirCasUsages(self)
+           * monterPrioriteCas(self,nomCas)
+           * descendrePrioriteCas(self,nomCas)
+           * renommerCasUsage(self,ancienNom,nouveauNom)
+           * supprimerCasUsage(self,nomSuppression)
+           * ajouterCasUsage(self,nomNouveau)
+           * ouvrirDicDonneeVar(self)
+           * ouvrirDicDonneeFonc(self)
+           * updateDictionnaireDonnee(self, variables, fonctions)
+           * createNewCrc(self,nom)
+           * updateCrc(self,crc)
+           * getListeCRC(self)
+           * getCRC(self,nom)
+           * createNewUser(self,nom)           
+       </td>
+   </tr>
+</table>
 
 =Serveur (Jonathan H)=
 
