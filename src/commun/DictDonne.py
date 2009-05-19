@@ -12,6 +12,12 @@ class DictDonne:
     def __init__(self):
         self.variable = []
         self.fonction = []
+        
+    def updateDictionnaire(self,variables,fonctions):
+        self.variable = []
+        self.fonction = []
+        self.variable=variables
+        self.fonction=fonctions
     
     def unicodize(self):
         for row in self.variable:
@@ -27,28 +33,7 @@ class DictDonne:
         self.variable=serializedDict[self.VARIABLE]
         self.fonction=serializedDict[self.FONCTION]
         
-    def getVarDict(self):
-        varRet=[]
-        for elem in self.variable:
-            varRet.append({"name":elem[0],"handled":elem[1]})
-        return varRet
-        
-    def getFonctDict(self):
-        fonctRet=[]
-        for elem in self.fonction:
-            varRet.append({"name":elem[0],"handled":elem[1]})
-        return fonctRet
     
-    def setVarDict(self,varDict):
-        self.variable=[]
-        for elem in self.variable:
-            self.variable.append([varDict["name"],varDict["handled"]])
-    
-    def setFonctDict(self,fonctDict):
-        self.fonction=[]
-        for elem in self.fonction:
-            self.variable.append([fonctDict["name"],fonctDict["handled"]])
-
 if __name__ == '__main__':
     dd=DictDonne()
     dd.variable.append(["fisrtVar", 0])
