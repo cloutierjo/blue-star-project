@@ -1,6 +1,8 @@
 #-*- coding: iso-8859-1 -*-
-#Classe AnalyseTextuelle
-#Auteur Pascal Lemay
+'''
+Classe AnalyseTextuelle
+Auteur: Pascal Lemay
+'''
 from Tkinter import*
 
 class AnalyseTextuelle(object):
@@ -33,7 +35,7 @@ class AnalyseTextuelle(object):
             
         #Ajout du tableau C'est un textbox avec des entrée en grille 1x3
         scrollbar = Scrollbar(self.frame)
-        self.tableauAnalyse = Text(self.frame, yscrollcommand=scrollbar.set)
+        self.tableauAnalyse = Text(self.frame,yscrollcommand=scrollbar.set)
         self.tableauAnalyse.config(width=50)
         
                                                                                                                                                                                                                                        
@@ -80,9 +82,11 @@ class AnalyseTextuelle(object):
                 self.rows.append(col)
                 #
                 self.tableauAnalyse.window_create(INSERT,window=ligne)
+                self.tableauAnalyse.config(state=DISABLED)
         #sinon vide
         else:
             self.addRow()
+            self.tableauAnalyse.config(state=DISABLED)
         
         
 
@@ -118,6 +122,7 @@ class AnalyseTextuelle(object):
             
     def addRow(self):
         #nextRow = self.tableauAnalyse.grid_size()[1]
+        self.tableauAnalyse.config(state=NORMAL)
         col = []
         # ligne -> frame avec 3 Entry
         ligne=Frame(self.tableauAnalyse)
@@ -144,8 +149,10 @@ class AnalyseTextuelle(object):
         self.rows.append(col)
         #
         self.tableauAnalyse.window_create(INSERT,window=ligne)
+        self.tableauAnalyse.config(state=DISABLED)
         
     def gestion(self):
+        self.tableauAnalyse.config(state=NORMAL)
         i=0
             # self.retours contient chaque retour associe a chaque checkButton
         for r in self.retours:
@@ -171,10 +178,12 @@ class AnalyseTextuelle(object):
                 self.rows[i][3].insert(END,0)
             i+=1
             
+        self.tableauAnalyse.config(state=DISABLED)
+            
             
             
     def deleteRow(self):
-        
+        self.tableauAnalyse.config(state=NORMAL)
         i=0;
         while self.etats[i].get()!=1:  #donne l'indice de la row a deleter
             i=i+1
@@ -231,5 +240,7 @@ class AnalyseTextuelle(object):
             self.rows.append(col)   
                 
             self.tableauAnalyse.window_create(INSERT,window=ligne)
+            
+        self.tableauAnalyse.config(state=DISABLED)
             
             
