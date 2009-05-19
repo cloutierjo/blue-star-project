@@ -52,16 +52,16 @@ class CrcVUE(object):
         
 
         self.frameCollabo = Frame(self.frame)############################################
+        self.boutonNewCrc=Button(self.frameCollabo,text='Creer nouveau CRC',command=self.nouveauCrc)
+        self.boutonNewCrc.pack()
         
         self.titreCollabo = Label(self.frameCollabo,text="Les collaborateurs")
         self.titreCollabo.pack()
         
-        self.boutonNewCrc=Button(self.frameCollabo,text='Nouveau CRC',command=self.nouveauCrc)
-        self.boutonNewCrc.pack()
         
 #######collaborateur dans combobox déroulé
         self.col = Tix.StringVar()
-        self.comboCollabo=Tix.ComboBox(self.frameCollabo,editable=1,variable=self.col,dropdown=0,options='listbox.width 30 listbox.height 35')
+        self.comboCollabo=Tix.ComboBox(self.frameCollabo,editable=1,variable=self.col,dropdown=0,options='listbox.width 30 listbox.height 38')
         self.comboCollabo.pack()
 ######pas terminé
         
