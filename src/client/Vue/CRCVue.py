@@ -1,5 +1,9 @@
 #-*- coding: iso-8859-1 -*-
+'''
+ Auteurs: Jean-Philippe Chan et Pascal Lemay
+ '''
 from Tkinter import *
+import tkMessageBox, tkSimpleDialog
 import Tix
 
 class CrcVUE(object):
@@ -8,9 +12,10 @@ class CrcVUE(object):
         self.listeDeCRC=listeDeCRC
         self.crcCourant=None # objet crc qui est affiché et qui provient du projet
 
-        self.rows=[]
+        self.rows=[]    # section Rôles (données fonctions)
         self.retours=[]
         self.etats=[]
+        
         
         self.frame = Frame()        
         
@@ -20,7 +25,8 @@ class CrcVUE(object):
         self.comboClasse=Tix.ComboBox(self.frameNom,label='Classe:',editable=0,variable=self.varcombo,dropdown=1,command=self.getCrc,options='listbox.width 30')
         self.comboClasse.pack()
         
-        for crc in listeDeCRC:  #load la liste des crc du projet dans le combobox
+        
+        for crc in self.listeDeCRC:  #load la liste des crc du projet dans le combobox
             self.comboClasse.insert(END,crc)
             
         titreProp = Label(self.frameNom,text="Propriétaire")
@@ -33,15 +39,16 @@ class CrcVUE(object):
         
         titreInfo = Label(self.frameInfo,text="Données et Fonctions")
         titreInfo.pack()
-        self.boutonAddRow=Button(self.frameInfo,text='+',command=self.addRow)
+        self.boutonAddRow=Button(self.frameInfo,text='ajouter une ligne',command=self.addRow)
         self.boutonAddRow.pack()
         
-        self.infoDonnee = Text(self.frameInfo, width=30,height=30)#height=20    
+        self.infoDonnee = Text(self.frameInfo, width=30,height=32)    
         self.scrollbarInfo = Scrollbar(self.frameInfo)
         self.scrollbarInfo.pack(side=RIGHT, fill=Y)
         self.infoDonnee.pack(side=LEFT, fill=Y)
         self.scrollbarInfo.config(command=self.infoDonnee.yview)
         self.infoDonnee.config(yscrollcommand=self.scrollbarInfo.set)
+        
         
 
         self.frameCollabo = Frame(self.frame)############################################
@@ -49,30 +56,54 @@ class CrcVUE(object):
         self.titreCollabo = Label(self.frameCollabo,text="Les collaborateurs")
         self.titreCollabo.pack()
         
-        self.collaboration = Text(self.frameCollabo, width=30,height=35)#height=22
-        self.scrollbarCol=Scrollbar(self.frameCollabo)
-        self.scrollbarCol.pack(side=RIGHT, fill=Y)
-        self.collaboration.pack(side=LEFT, fill=Y)
-        self.scrollbarCol.config(command=self.collaboration.yview)
-        self.collaboration.config(yscrollcommand=self.scrollbarCol.set)
+        self.boutonNewCrc=Button(self.frameCollabo,text='Nouveau CRC',command=self.nouveauCrc)
+        self.boutonNewCrc.pack()
+        
+#######collaborateur dans combobox déroulé
+        self.col = Tix.StringVar()
+        self.comboCollabo=Tix.ComboBox(self.frameCollabo,editable=1,variable=self.col,dropdown=0,options='listbox.width 30 listbox.height 35')
+        self.comboCollabo.pack()
+######pas terminé
+        
+#######collaborateur dans text...grid...?
+        
+        #self.collaboration = Text(self.frameCollabo, width=30,height=35)
+        #self.scrollbarCol=Scrollbar(self.frameCollabo)
+        #self.scrollbarCol.pack(side=RIGHT, fill=Y)
+        #self.collaboration.pack(side=LEFT, fill=Y)
+        #self.scrollbarCol.config(command=self.collaboration.yview)
+        #self.collaboration.config(yscrollcommand=self.scrollbarCol.set)
    
 
         self.frameNom.grid(padx=20,pady=10,row=1,column=1)
         self.frameInfo.grid(row=2,column=1)
         self.frameCollabo.grid(padx =20,pady=10,row=1,rowspan=4,column=3)
         
+        self.infoDonnee.config(state=DISABLED)
         
-#-----------------------------------------------------------------fin du init        
+        
+#-----------------------------------------------------------------fin du init
+    def nouveauCrc(self):
+        nom=tkSimpleDialog.askstring('Nouveau CRC',
+                                         'Entrez le nom de la classe :',parent=self.vueParent.root)
+        if nom:
+            if self.vueParent.parent.createNewCrc(nom):
+                self.comboClasse.subwidget_list['slistbox'].subwidget_list['listbox'].delete(0,END)
+                self.listeDeCRC=self.vueParent.parent.getListeCRC()
+                for crc in self.listeDeCRC:  #load la liste des crc du projet dans le combobox
+                    self.comboClasse.insert(END,crc)
+            else:
+                self.vueParent.afficherUnMessage("Un Crc porte ce nom",erreur="ERREUR!!!")        
     
     def getCrc(self,evt):
         nom = self.varcombo.get()
         if nom:
-            print "test"
             self.crcCourant=self.vueParent.parent.getCRC(nom)
-            self.afficherCRC()
+            self.afficherRoles()
+            self.afficherCollabo()
         
-    def afficherCRC(self):
-        
+    def afficherRoles(self):
+        self.infoDonnee.config(state=NORMAL)
         if self.crcCourant != None:
             self.retours=[]        
             self.etats=[]
@@ -125,12 +156,31 @@ class CrcVUE(object):
                 self.rows.append(col)
                 #
                 self.infoDonnee.window_create(INSERT,window=ligne)
+            self.infoDonnee.config(state=DISABLED)
         #sinon vide
         else:
             self.addRow()
+            self.infoDonnee.config(state=DISABLED)
+            
+    def afficherCollabo(self):
+        self.comboCollabo.subwidget_list['slistbox'].subwidget_list['listbox'].delete(0,END)
+        for collabo in self.crcCourant.collaboration:
+            self.comboCollabo.insert(END,collabo[0])
+    
+    def updateCRC(self):
+        if self.crcCourant!=None:
+            self.crcCourant.reponsabilite=[]
+            for row in self.rows:
+                unRole=[]
+                unRole.append(row[0].get())
+                unRole.append(int(row[1].get()))
+                self.crcCourant.reponsabilite.append(unRole)
+            #......autres opérations ici.....à suivre
+            self.vueParent.parent.updateCrc(self.crcCourant)
+        
        
     def addRow(self):
-        pass
+        self.infoDonnee.config(state=NORMAL)
         #nextRow = self.tableauAnalyse.grid_size()[1]
         col = []
         # ligne -> frame avec 1 Entry
@@ -160,10 +210,12 @@ class CrcVUE(object):
         #
         self.infoDonnee.window_create(INSERT,window=ligne)
         
+        self.infoDonnee.config(state=DISABLED)
+        
         
 
     def gestion(self):
-        
+        self.infoDonnee.config(state=NORMAL)
         i=0
             # self.retours contient chaque retour associe a chaque checkButton
         for r in self.retours:
@@ -188,9 +240,12 @@ class CrcVUE(object):
                 self.rows[i][1].insert(END,0)
             i+=1
             
+        self.infoDonnee.config(state=DISABLED)
+            
             
             
     def deleteRow(self):
+        self.infoDonnee.config(state=NORMAL)
         i=0;
         while self.etats[i].get()!=1:  #donne l'indice de la row a deleter
             i=i+1
@@ -205,7 +260,7 @@ class CrcVUE(object):
             
         reste.remove(reste[i]) #delete les donnees non voulues
         
-        #update  # re-creation de l'analyse avec les donnees restantes
+        #update  # re-creation du crc avec les donnees restantes
         self.infoDonnee.delete(0.0,END)
         self.retours=[]        
         self.etats=[]
@@ -248,5 +303,7 @@ class CrcVUE(object):
             self.rows.append(col)   
                 
             self.infoDonnee.window_create(INSERT,window=ligne)
+            
+        self.infoDonnee.config(state=DISABLED)
         
             
