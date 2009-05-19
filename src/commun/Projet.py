@@ -8,6 +8,8 @@ import Analyse
 import CasUsage
 import DictDonne
 import Crc
+import User
+
 class Projet(object):
     '''
     contient tout les informations d'un projet ainsi que des méthode 
@@ -22,6 +24,7 @@ class Projet(object):
     CASETSCENARIO="casEtScenario"
     DICTDONNE="dictDonne"
     CRC="CRC"
+    USER="User"
     
     def __init__(self):
         '''
@@ -35,10 +38,11 @@ class Projet(object):
         self.casEtScenario=CasUsage.CasUsage()
         self.dictDonne=DictDonne.DictDonne()
         self.crc=Crc.LstCrc()
+        self.user=User.User()
         
     def serialize(self):
         self.unicodize()  #néscéssaire pour que les char unicode passe sur le réseau
-        return {self.NOMPJ:self.nom,self.NUMPJ:self.num,self.MANDAT:self.mandat,self.analyseEXPLICITE:self.analyseExplicite.analyse,self.analyseIMPLICITE:self.analyseImplicite.analyse,self.CASETSCENARIO:self.casEtScenario.serialize(),self.DICTDONNE:self.dictDonne.serialize(),self.CRC:self.crc.serialize()}
+        return {self.NOMPJ:self.nom,self.NUMPJ:self.num,self.USER:self.user.serialize(),self.MANDAT:self.mandat,self.analyseEXPLICITE:self.analyseExplicite.analyse,self.analyseIMPLICITE:self.analyseImplicite.analyse,self.CASETSCENARIO:self.casEtScenario.serialize(),self.DICTDONNE:self.dictDonne.serialize(),self.CRC:self.crc.serialize()}
     
     def deserialize(self, serializedProject):
         self.nom=serializedProject[self.NOMPJ]
@@ -49,6 +53,7 @@ class Projet(object):
         self.casEtScenario.deserialize(serializedProject[self.CASETSCENARIO])
         self.dictDonne.deserialize(serializedProject[self.DICTDONNE])
         self.crc.deserialize(serializedProject[self.CRC])
+        self.user.deserialize(serializedProject[self.USER])
         
     def unicodize(self):
         if self.nom != None:
@@ -72,6 +77,8 @@ if __name__ == '__main__':
     pj.unicodize()
     pj.analyseExplicite.getForDB()
     pj.analyseImplicite.getForDB()
+    
+    pj.user.user.append("user1")
     
     cu=pj.casEtScenario
     su=cu.addCasUsage("first cas", 1).scenario
