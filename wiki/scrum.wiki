@@ -345,4 +345,57 @@ voici le model de scrum
   *terminé CRC avec Jean-Philippe C.
  ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
   * N/A
+
+=19/05/2009=
+
+==Jonathan H.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * ajouts de colonnes
+  * refactor des méthodes du dictionnaire
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * demander a pascal pour la gestion des check avec les listes
+  * finir l'intégration du dictionnaire de donnée (en sauvegarde)
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * gestion des checkBox avec les listes vs dictionnaires
+
+==Mathieu L.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * changer certains composants de l'interface au type Tix
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * implémentation du planning game (Vue)
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * N/A
+
+==Jonathan C.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * résolution de divers bugs ici et la
+  * Planning général du projet pour la dernière semaine
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * planning général du scrum
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * N/A
+
+==Pascal L.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * CRC (non lié avec le modèle)
+  * On peut supprimer des lignes dans les analyses, dictionnaire donnée etc...
+  * Réglé certains bug d'affichage
+  * Lié les données au CRC (début)
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * fin de la liaison des données dans le CRC
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * N/A
+
+==François L==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * Modélisation des prochaines database (User, Crc)
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * Implémentation des base de données User et Crc
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * N/A
+
+
+
+
+
   
