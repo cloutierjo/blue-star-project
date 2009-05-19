@@ -18,7 +18,23 @@ class LstCrc:
         crc.collaboration.append(["dummysecColl", 1])
     
         self.crcs.append(crc)
-
+        
+### à voir avec Jonatan C   ####################    
+    def addCrc(self,nom):
+        if self.getClass(nom)==None:
+            crc=Crc()
+            crc.nomClasse=nom
+            self.crcs.append(crc)
+            return 0
+        else:
+            return 1
+        
+    def updateCrc(self,crc):
+        for i in self.crcs:
+            if(i.nomClasse==crc.nomClasse):
+                self.crcs.remove(i)
+        self.crcs.append(crc)
+################################################
         
     def getClassName(self):
         name=[]
