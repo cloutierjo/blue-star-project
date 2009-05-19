@@ -8,8 +8,7 @@ Created on 9 mai 2009
 class LstCrc:
     def __init__(self):
         self.crcs=[]
-        
-### à voir avec Jonatan C   ####################    
+           
     def addCrc(self,nom):
         if self.getClass(nom)==None:
             crc=Crc()
@@ -24,7 +23,6 @@ class LstCrc:
             if(i.nomClasse==crc.nomClasse):
                 self.crcs.remove(i)
         self.crcs.append(crc)
-################################################
         
     def getClassName(self):
         name=[]
