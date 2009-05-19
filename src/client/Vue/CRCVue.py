@@ -165,7 +165,7 @@ class CrcVUE(object):
     def afficherCollabo(self):
         self.comboCollabo.subwidget_list['slistbox'].subwidget_list['listbox'].delete(0,END)
         for collabo in self.crcCourant.collaboration:
-            self.comboCollabo.insert(END,collabo[0])
+            self.comboCollabo.insert(END,collabo)
     
     def updateCRC(self):
         if self.crcCourant!=None:
