@@ -334,7 +334,7 @@ TODO
    <tr>
        <td>
            * Intialise mes deux frames secondaires de données et actions
-           * updateDictionnaire(self) // va chercher l'info de mes tableaux
+           * updateListes(self) // va chercher l'info de mes tableaux
        </td>
    </tr>
 </table>
@@ -355,6 +355,7 @@ TODO
            * addRow(self)
            * gestion(self)
            * addEntry(self)
+           * deleteRow(self)
        </td>
    </tr>
 </table>
@@ -375,6 +376,7 @@ TODO
            * addRow(self)
            * gestion(self)
            * addEntry(self)
+           * deleteRow(self)
        </td>
    </tr>
 </table>
