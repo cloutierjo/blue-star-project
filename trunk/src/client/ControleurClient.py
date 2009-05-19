@@ -178,7 +178,6 @@ class ControleurClient:
     def ouvrirDicDonneeFonc(self):
         return self.m.projet.dictDonne.fonction
     
-#---------------------------------------------------------------------    
     def createNewCrc(self,nom):
         if self.m.projet.crc.addCrc(nom):
             return 0
@@ -192,6 +191,9 @@ class ControleurClient:
     
     def getCRC(self,nom):
         return self.m.projet.crc.getClass(nom)
-#-----------------------------------------------------------------------             
+    
+    def createNewUser(self,nom):
+        self.m.projet.user.user.append(nom)
+                 
 if __name__ == '__main__':
     c = ControleurClient()
