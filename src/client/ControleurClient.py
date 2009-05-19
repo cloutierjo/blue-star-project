@@ -44,8 +44,11 @@ class ControleurClient:
         self.i.ATExplicite.updateAnalyse()
         self.i.ATImplicite.updateAnalyse()
         self.i.crc.updateCRC()
+        self.i.dictionnaireDonnee.updateListes()
         self.m.projet.unicodize()
-        return self.server.sauvegarderProjet(self.m.projet.serialize())
+        pjser=self.m.projet.serialize()
+        print pjser["dictDonne"]
+        return self.server.sauvegarderProjet(pjser)
     
     def creerMandat(self, mandat):
         self.m.projet.mandat = mandat
@@ -177,6 +180,9 @@ class ControleurClient:
     
     def ouvrirDicDonneeFonc(self):
         return self.m.projet.dictDonne.fonction
+    
+    def updateDictionnaireDonnee(self, variables, fonctions):
+        self.m.projet.dictDonne.updateDictionnaire(variables, fonctions)
     
     def createNewCrc(self,nom):
         if self.m.projet.crc.addCrc(nom):
