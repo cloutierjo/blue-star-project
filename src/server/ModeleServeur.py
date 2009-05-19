@@ -28,7 +28,11 @@ class ModeleServeur:
         cur.execute('''CREATE TABLE Senarios(IDCAS NUMBER(6) REFERENCES Projets, senario LONG, ordreexec NUMBER(6))''')
         cur.execute('''CREATE TABLE Variables(IDPROJ NUMBER(6) REFERENCES Projets, Var VARCHAR2(30), handled NUMBER(1))''')
         cur.execute('''CREATE TABLE Fonctions(IDPROJ NUMBER(6) REFERENCES Projets, Fon VARCHAR2(30), handled NUMBER(1))''')
-        cur.execute('''CREATE TABLE Usagers(IDUSER NUMBER(9), IDPROJ NUMBER(6) REFERENCES Projets, Nom VARCHAR2(30))''')
+        cur.execute('''CREATE TABLE Usagers(IDUSER NUMBER(9) PRIMARY KEY, IDPROJ NUMBER(6) REFERENCES Projets, Nom VARCHAR2(30))''')
+        cur.execute('''CREATE TABLE CRC(IDPROJ NUMBER(6) REFERENCES Projets, IDCRC NUMBER(6) PRIMARY KEY, Nom VARCHAR2(50), Usager varchar2(30), Handle NUMBER(1))''')
+        cur.execute('''CREATE TABLE Responsabilite(IDCRC NUMBER(6) REFERENCES CRC, Nom VARCHAR(50), Handle NUMBER(1))''')
+        cur.execute('''CREATE TABLE Collaboration(IDCRC NUMBER(6) REFERENCES CRC, Nom VARCHAR(50))''')
+        
         # Générateur d'ID unique dans la méthode getNewID() (bonne pour 999 999 projets 
         cur.execute('''CREATE TABLE SeqProj(Val NUMBER(6))''')
         cur.execute('insert into SeqProj values(?)', (1,))
@@ -38,6 +42,10 @@ class ModeleServeur:
         # Générateur d'ID unique pour Usagers 
         cur.execute('''CREATE TABLE SeqUsagers(Val NUMBER(9))''')
         cur.execute('insert into SeqUsagers values(?)', (1,))
+        # Générateur d'ID unique pour CRC 
+        cur.execute('''CREATE TABLE SeqCRC(Val NUMBER(9))''')
+        cur.execute('insert into SeqCRC values(?)', (1,))
+        
         self.con.commit()
         cur.close()
         
@@ -80,7 +88,23 @@ class ModeleServeur:
         cur.execute('''SELECT Nom FROM Usagers WHERE IDPROJ = (?)''', (projectID,))
         for row in cur:
             p.user.user.append(row[0])
-                          
+
+        cur.execute('''SELECT * FROM CRC WHERE IDPROJ = (?)''', (projectID,))
+        for row in cur:
+            crc=Crc.Crc()
+            crc.nomClasse=row[2]
+            crc.proprio=row[3]
+            crc.handled=row[4]
+        
+            cur2.execute('''SELECT * FROM Responsabilite WHERE IDCRC = (?)''', (row[1],))
+            for row2 in cur2:
+                crc.responsabilite.append([row2[1], row2[2]])
+                
+            cur2.execute('''SELECT * FROM Collaboration WHERE IDCRC = (?)''', (row[1],))
+            for row2 in cur2:
+                crc.collaboration.append(row2[1])
+            p.crc.crcs.append(crc)
+                                 
         cur.close()  
         return p 
     
@@ -141,6 +165,14 @@ class ModeleServeur:
             idUsager = self.getNewIDUsager()
             cur.execute('insert into Usagers values(?, ?, ?)', (idUsager, projet.num, usager))
         
+        for eachcrc in projet.crc.crcs:
+            idcrc = self.getNewIDCRC()
+            cur.execute('insert into CRC values(?, ?, ?, ?, ?)', (projet.num, idcrc, eachcrc.nomClasse, eachcrc.proprio, eachcrc.handled))
+            for eachResp in eachcrc.responsabilite:
+                cur2.execute('insert into Responsabilite values(?, ?, ?)', (idcrc, eachResp[0], eachResp[1]))
+            for eachCol in eachcrc.collaboration:
+                cur2.execute('insert into Collaboration values(?, ?)', (idcrc, eachCol))
+                
         self.con.commit()        
         cur.close()
         return projet.num # To be modified for errors handlings
@@ -176,6 +208,14 @@ class ModeleServeur:
             idUsager = self.getNewIDUsager()
             cur.execute('insert into Usagers values(?, ?, ?)', (idUsager, projet.num, usager))
             
+        for eachcrc in projet.crc.crcs:
+            idcrc = self.getNewIDCRC()
+            cur.execute('insert into CRC values(?, ?, ?, ?, ?)', (projet.num, idcrc, eachcrc.nomClasse, eachcrc.proprio, eachcrc.handled))
+            for eachResp in eachcrc.responsabilite:
+                cur2.execute('insert into Responsabilite values(?, ?, ?)', (idcrc, eachResp[0], eachResp[1]))
+            for eachCol in eachcrc.collaboration:
+                cur2.execute('insert into Collaboration values(?, ?)', (idcrc, eachCol))
+                
         self.con.commit()        
         cur.close()
         return projet.num # To be modified for errors handlings
@@ -203,6 +243,17 @@ class ModeleServeur:
         # Deleting Usagers
         cur.execute('DELETE FROM Usagers WHERE IDPROJ = (?)', (projetID,))
         
+        # Deleting CRCs
+        cur.execute('''SELECT IDCRC FROM CRC WHERE IDPROJ = (?)''', (projetID,))
+        for row in cur:
+            cur2.execute('DELETE FROM Responsabilite WHERE IDCRC = (?)', (row[0],))
+            
+        cur.execute('''SELECT IDCRC FROM CRC WHERE IDPROJ = (?)''', (projetID,))
+        for row in cur:
+            cur2.execute('DELETE FROM Collaboration WHERE IDCRC = (?)', (row[0],))
+            
+        cur.execute('DELETE FROM CRC WHERE IDPROJ = (?)', (projetID,))
+            
         self.con.commit()
         cur.close()
         cur2.close()
@@ -245,6 +296,20 @@ class ModeleServeur:
         row = cur.fetchone()
         val = row[0]
         cur.execute('UPDATE SeqUsagers SET Val = (?)', (val+1,))
+        
+        self.con.commit()
+        cur.close()
+        return val
+    
+    # Sert de séquence de nombre pour l'ID des CRC en attendant de trouver comment faire une séquence
+    def getNewIDCRC(self):
+        
+        cur = self.con.cursor()    # Curseur
+        
+        cur.execute('''Select Val from SeqCRC''')
+        row = cur.fetchone()
+        val = row[0]
+        cur.execute('UPDATE SeqCRC SET Val = (?)', (val+1,))
         
         self.con.commit()
         cur.close()
@@ -296,6 +361,26 @@ if __name__ == "__main__":
         p.user.user.append("Pascal")
         p.user.user.append("Chan")
         
+        crc=Crc.Crc()
+        crc.nomClasse="dummyClasse"
+        crc.proprio="dummyquelqu'un"
+        crc.responsabilite.append(["dummyfisrtResp", 0])
+        crc.responsabilite.append(["dummysecResp", 1])
+        crc.collaboration.append("dummyfirstColl")
+        crc.collaboration.append("dummysecColl")
+    
+        p.crc.crcs.append(crc)
+        
+        '''
+        for eachcrc in p.crc.crcs:
+            print eachcrc.nomClasse
+            print eachcrc.proprio
+            for eachResp in eachcrc.responsabilite:
+                print eachResp[0]+" "+str(eachResp[1])
+            for eachCol in eachcrc.collaboration:
+                print eachCol[0]+" "+str(eachCol[1])
+        '''
+        
         ms.saveProject(p)
 
     '''        
@@ -321,6 +406,14 @@ if __name__ == "__main__":
         
     for usager in p2.user.user:
         print usager
+        
+    for eachcrc in p2.crc.crcs:
+        print eachcrc.nomClasse
+        print eachcrc.proprio
+        for eachResp in eachcrc.responsabilite:
+            print eachResp[0]+" "+str(eachResp[1])
+        for eachCol in eachcrc.collaboration:
+            print eachCol
         
     print "Création DB DONE !!!"
         
