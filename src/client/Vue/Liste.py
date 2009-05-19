@@ -31,6 +31,7 @@ class ListeProjets(object):
             self.parent.parent.ouvrirProjet(self.data[self.maliste.getData()][0])
             #projet ouvert
             self.parent.etat=1
+            self.parent.filemenu.entryconfig(6,state=NORMAL)
             #affichage des onglets
             self.parent.onglets.frame.pack()
             self.parent.chargerEnMemoireProjet()
