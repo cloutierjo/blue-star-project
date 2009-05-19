@@ -14,8 +14,8 @@ class LstCrc:
         crc.proprio="dummyquelqu'un"
         crc.responsabilite.append(["dummyfisrtResp", 0])
         crc.responsabilite.append(["dummysecResp", 1])
-        crc.collaboration.append(["dummyfirstColl", 1])
-        crc.collaboration.append(["dummysecColl", 1])
+        crc.collaboration.append("dummyfirstColl")
+        crc.collaboration.append("dummysecColl")
     
         self.crcs.append(crc)
         
@@ -85,7 +85,7 @@ class Crc:
         for row in self.responsabilite:
             row[0] = unicode(row[0])
         for row in self.collaboration:
-            row[0] = unicode(row[0])
+            row = unicode(row)
             
     def serialize(self):
         self.unicodize()
@@ -105,8 +105,8 @@ if __name__ == '__main__':
     crc.proprio="quelqu'un"
     crc.responsabilite.append(["fisrtResp", 0])
     crc.responsabilite.append(["secResp", 1])
-    crc.collaboration.append(["firstColl", 1])
-    crc.collaboration.append(["secColl", 1])
+    crc.collaboration.append("firstColl")
+    crc.collaboration.append("secColl")
     
     crcs.crcs.append(crc)
     
@@ -115,8 +115,8 @@ if __name__ == '__main__':
     crc.proprio="quelqu'un d'autre"
     crc.responsabilite.append(["fisrtResp", 0])
     crc.responsabilite.append(["secResp", 1])
-    crc.collaboration.append(["firstColl", 0])
-    crc.collaboration.append(["secColl", 1])
+    crc.collaboration.append("firstColl")
+    crc.collaboration.append("secColl")
     
     crcs.crcs.append(crc)
     
