@@ -22,19 +22,27 @@ class DictionnaireDonnee(object):
         title = Label(self.frame, text = "Dictionnaire de données")
         title.pack()
         
-        d = Donnee(self, self.variables)
-        a = Action(self, self.fonctions)
+        self.d = Donnee(self, self.variables)
+        self.a = Action(self, self.fonctions)
         
     def updateListes(self):
         self.variables = []
         
         for row in self.d.rowsData:
-            self.variables.append(row)
+            col=[]
+            col.append(row[0].get())
+            col.append(int(row[1].get()))
+            self.variables.append(col)
             
         self.fonctions = []
         
-        for row in self.a.rowsData:
-            self.fonctions.append(row)
+        for row in self.a.rows:
+            col=[]
+            col.append(row[0].get())
+            col.append(int(row[1].get()))
+            self.fonctions.append(col)
+        
+        self.vueParent.parent.updateDictionnaireDonnee(self.variables, self.fonctions)
 
 class Donnee(object):
     def __init__(self, vueParent, variables):
