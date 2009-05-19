@@ -28,7 +28,7 @@ class ModeleServeur:
         cur.execute('''CREATE TABLE Senarios(IDCAS NUMBER(6) REFERENCES Projets, senario LONG, ordreexec NUMBER(6))''')
         cur.execute('''CREATE TABLE Variables(IDPROJ NUMBER(6) REFERENCES Projets, Var VARCHAR2(30), handled NUMBER(1))''')
         cur.execute('''CREATE TABLE Fonctions(IDPROJ NUMBER(6) REFERENCES Projets, Fon VARCHAR2(30), handled NUMBER(1))''')
-        cur.execute('''CREATE TABLE Usagers(IDUSER NUMBER(9), IDPROJ NUMBER(6) REFERENCES Projets, VARCHAR2(30))''')
+        cur.execute('''CREATE TABLE Usagers(IDUSER NUMBER(9), IDPROJ NUMBER(6) REFERENCES Projets, Nom VARCHAR2(30))''')
         # Générateur d'ID unique dans la méthode getNewID() (bonne pour 999 999 projets 
         cur.execute('''CREATE TABLE SeqProj(Val NUMBER(6))''')
         cur.execute('insert into SeqProj values(?)', (1,))
@@ -76,6 +76,10 @@ class ModeleServeur:
         cur.execute('''SELECT * FROM Fonctions WHERE IDPROJ = (?)''', (projectID,))
         for row in cur:
             p.dictDonne.fonction.append([row[1], row[2]])
+            
+        cur.execute('''SELECT Nom FROM Usagers WHERE IDPROJ = (?)''', (projectID,))
+        for row in cur:
+            p.user.user.append(row[0])
                           
         cur.close()  
         return p 
@@ -132,6 +136,10 @@ class ModeleServeur:
             
         for fon in projet.dictDonne.fonction:
             cur.execute('insert into Fonctions values(?, ?, ?)', (projet.num, fon[0], fon[1]))
+            
+        for usager in projet.user.user:
+            idUsager = self.getNewIDUsager()
+            cur.execute('insert into Usagers values(?, ?, ?)', (idUsager, projet.num, usager))
         
         self.con.commit()        
         cur.close()
@@ -164,6 +172,10 @@ class ModeleServeur:
         for fon in projet.dictDonne.fonction:
             cur.execute('insert into Fonctions values(?, ?, ?)', (projet.num, fon[0], fon[1]))
             
+        for usager in projet.user.user:
+            idUsager = self.getNewIDUsager()
+            cur.execute('insert into Usagers values(?, ?, ?)', (idUsager, projet.num, usager))
+            
         self.con.commit()        
         cur.close()
         return projet.num # To be modified for errors handlings
@@ -187,6 +199,9 @@ class ModeleServeur:
         # Deleting Dictionnaire de données
         cur.execute('DELETE FROM Variables WHERE IDPROJ = (?)', (projetID,))
         cur.execute('DELETE FROM Fonctions WHERE IDPROJ = (?)', (projetID,))
+        
+        # Deleting Usagers
+        cur.execute('DELETE FROM Usagers WHERE IDPROJ = (?)', (projetID,))
         
         self.con.commit()
         cur.close()
@@ -216,6 +231,20 @@ class ModeleServeur:
         row = cur.fetchone()
         val = row[0]
         cur.execute('UPDATE SeqCasUsages SET Val = (?)', (val+1,))
+        
+        self.con.commit()
+        cur.close()
+        return val
+    
+    # Sert de séquence de nombre pour l'ID des Usagers en attendant de trouver comment faire une séquence
+    def getNewIDUsager(self):
+        
+        cur = self.con.cursor()    # Curseur
+        
+        cur.execute('''Select Val from SeqUsagers''')
+        row = cur.fetchone()
+        val = row[0]
+        cur.execute('UPDATE SeqUsagers SET Val = (?)', (val+1,))
         
         self.con.commit()
         cur.close()
@@ -259,14 +288,23 @@ if __name__ == "__main__":
         p.dictDonne.variable.append(["fisrtVar", 1])
         p.dictDonne.fonction.append(["fisrtVar", 0])
         p.dictDonne.fonction.append(["fisrtVar", 1])
-     
-        ms.saveProject(p)
         
+        p.user.user.append("Frank")
+        p.user.user.append("Math")
+        p.user.user.append("Jo")
+        p.user.user.append("Kovy")
+        p.user.user.append("Pascal")
+        p.user.user.append("Chan")
+        
+        ms.saveProject(p)
+
+    '''        
     for cas in p.casEtScenario.items:
         print "Je suis le cas : "+cas.nom+" "+str(cas.priorite)
         for scenario in cas.scenario.etapes:
             print scenario.etapes+" "+str(scenario.ordre)
-
+    '''
+    
     p2=ms.getProject(9)
     
     print p2.analyseExplicite.getForDB()
@@ -280,6 +318,9 @@ if __name__ == "__main__":
         
     for fon in p2.dictDonne.fonction:
         print fon[0]+" "+str(fon[1])
+        
+    for usager in p2.user.user:
+        print usager
         
     print "Création DB DONE !!!"
         
