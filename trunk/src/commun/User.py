@@ -9,6 +9,9 @@ class User:
     
     def __init__(self):
         self.user = []
+    
+    def getUsersList(self):
+        return self.user
           
     def unicodize(self):
         for row in self.user:
