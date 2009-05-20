@@ -63,7 +63,7 @@
 ==Etape 3 (Dictionnaire de données + CRC)==
  * ouvrir le mode dictionnaire de données
   # demandé les dictionnaires déjà enregistré a la BD
-  # affiché ????? à gauche
+  # affiché les scénarios d'utilisations à gauche
   # affiché le dictionnaire de données à droite 
   # permettre à l'utilisateur d'entré de nouveau élément du dictionnaire 
   
