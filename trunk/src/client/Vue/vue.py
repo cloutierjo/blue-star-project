@@ -211,7 +211,7 @@ class Vue(object):
     def afficherCRC(self):
         if self.etat==1:
             self.effacerFenetre()
-            self.crc.frame.pack(side=LEFT)
+            self.crc.frame.pack(side=LEFT,padx=30)
         else:
             tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
 
