@@ -110,7 +110,7 @@ class Donnee(object):
             #sinon vide
         else:
             self.addRow()
-            self.infoDonnee.config(state=DISABLED)
+            self.textData.config(state=DISABLED)
         
         ##############################
         
@@ -323,7 +323,7 @@ class Action(object):
             #sinon vide
         else:
             self.addRow()
-            self.infoDonnee.config(state=DISABLED)
+            self.text.config(state=DISABLED)
                
         scrollbar.pack(side=RIGHT, fill=Y)
         scrollbar.config(command=self.text.yview)
