@@ -23,7 +23,7 @@ class TaskList:
     def deserialize(self, sertasklist):
         self.tasklist=[]
         for i in sertasklist:
-            tasklist=Planing()
+            tasklist=Task()
             tasklist.deserialize(i)
             self.tasklist.append(tasklist)
             
@@ -47,11 +47,11 @@ class Task:
         self.unicodize()
         return {self.NAME:self.name,self.PRIORITE:self.priorite,self.USER:self.user,self.HANDLED:self.handled}
     
-    def deserialize(self, serializedCasUsageItem):
-        self.nom=serializedCasUsageItem[self.NAME]
-        self.priorite=serializedCasUsageItem[self.PRIORITE]
-        self.user=serializedCasUsageItem[self.USER]
-        self.handled=serializedCasUsageItem[self.HANDLED]
+    def deserialize(self, serializedTask):
+        self.name=serializedTask[self.NAME]
+        self.priorite=serializedTask[self.PRIORITE]
+        self.user=serializedTask[self.USER]
+        self.handled=serializedTask[self.HANDLED]
                 
 if __name__ == '__main__':
     tl=TaskList()
