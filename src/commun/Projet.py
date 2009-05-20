@@ -9,6 +9,9 @@ import CasUsage
 import DictDonne
 import Crc
 import User
+import Sprint
+import Scrum
+import TaskList
 
 class Projet(object):
     '''
@@ -25,6 +28,8 @@ class Projet(object):
     DICTDONNE="dictDonne"
     CRC="CRC"
     USER="User"
+    SPRINT="sprint"
+    SCRUM="scrum"
     
     def __init__(self):
         '''
@@ -39,10 +44,12 @@ class Projet(object):
         self.dictDonne=DictDonne.DictDonne()
         self.crc=Crc.LstCrc()
         self.user=User.User()
+        self.sprint=Sprint.LstSprint()
+        self.scrum=Scrum.ScrumList()
         
     def serialize(self):
         self.unicodize()  #néscéssaire pour que les char unicode passe sur le réseau
-        return {self.NOMPJ:self.nom,self.NUMPJ:self.num,self.USER:self.user.serialize(),self.MANDAT:self.mandat,self.analyseEXPLICITE:self.analyseExplicite.analyse,self.analyseIMPLICITE:self.analyseImplicite.analyse,self.CASETSCENARIO:self.casEtScenario.serialize(),self.DICTDONNE:self.dictDonne.serialize(),self.CRC:self.crc.serialize()}
+        return {self.NOMPJ:self.nom,self.NUMPJ:self.num,self.USER:self.user.serialize(),self.MANDAT:self.mandat,self.analyseEXPLICITE:self.analyseExplicite.analyse,self.analyseIMPLICITE:self.analyseImplicite.analyse,self.CASETSCENARIO:self.casEtScenario.serialize(),self.DICTDONNE:self.dictDonne.serialize(),self.CRC:self.crc.serialize(),self.SPRINT:self.sprint.serialize(),self.SCRUM:self.scrum.serialize()}
     
     def deserialize(self, serializedProject):
         self.nom=serializedProject[self.NOMPJ]
@@ -54,6 +61,8 @@ class Projet(object):
         self.dictDonne.deserialize(serializedProject[self.DICTDONNE])
         self.crc.deserialize(serializedProject[self.CRC])
         self.user.deserialize(serializedProject[self.USER])
+        self.sprint.deserialize(serializedProject[self.SPRINT])
+        self.scrum.deserialize(serializedProject[self.SCRUM])
         
     def unicodize(self):
         if self.nom != None:
@@ -116,6 +125,77 @@ if __name__ == '__main__':
     crc.collaboration.append(["secColl", 1])
     
     crcs.crcs.append(crc)
+    
+    lsp=Sprint.LstSprint()
+    
+    sp=Sprint.Sprint()
+    sp.dateFin="29 avr"
+    
+    tlg=TaskList.TaskList()
+    
+    ta=TaskList.Task()
+    ta.name="task1"
+    ta.priorite=1
+    ta.user = "moi"
+    tlg.tasklist.append(ta)
+    
+    ta=TaskList.Task()
+    ta.name="task2"
+    ta.priorite=2
+    ta.user = "301"
+    tlg.tasklist.append(ta)
+    
+    sp.taskGeneral=tlg
+    
+    tlf=TaskList.TaskList()
+    
+    tb=TaskList.Task()
+    tb.name="task1b"
+    tb.priorite=1
+    tb.user = "moib"
+    tlf.tasklist.append(tb)
+    
+    tb=TaskList.Task()
+    tb.name="task2b"
+    tb.priorite=2
+    tb.user = "301b"
+    tlf.tasklist.append(tb)
+    
+    sp.taskFull=tlf
+    
+    lsp.sprints.append(sp)
+    
+    pj.sprint=lsp
+    
+    scl=Scrum.ScrumList()
+    
+    sc=Scrum.Scrum()
+    
+    sc.date="19 mai"
+    sc.user="moi"
+    sc.done.append(["fais1",0])
+    sc.done.append(["fais2",0])
+    sc.todo.append(["afaire1",0])
+    sc.todo.append(["afaire2",0])
+    sc.probleme.append(["prob1",0])
+    sc.probleme.append(["prob2",0])
+    
+    scl.scrums.append(sc)
+    
+    sc=Scrum.Scrum()
+    
+    sc.date="20 mai"
+    sc.user="s01"
+    sc.done.append(["fais1",0])
+    sc.done.append(["fais2",0])
+    sc.todo.append(["afaire1",0])
+    sc.todo.append(["afaire2",0])
+    sc.probleme.append(["prob1",0])
+    sc.probleme.append(["prob2",0])
+    
+    scl.scrums.append(sc)
+    
+    pj.scrum=scl
     
     print pj.serialize()
     pj.deserialize(pj.serialize())
