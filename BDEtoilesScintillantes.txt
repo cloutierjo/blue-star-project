@@ -130,7 +130,29 @@ Tables :
 
 ############################################################## TO BE CONTINUED ##################################################
 
+|=====================================================================================|
+| Sprint                                                                              |
+|=====================================================================================|
+| IDPROJ NUMBER(6) REFERENCES Projets | IDSPRINT NUMBER(6) PRIMARY KEY | DateFin DATE |
+|=====================================================================================|
+| La table Sprint contient tout les sprint d'un projet
+| Elle contient une référence au projet, un IDSPRINT et une date de fin
 
 
+|========================================================|
+| TaskGen                                                |
+|========================================================|
+| IDSPRINT NUMBER(6) REFERENCES Sprint | Nom VARCHAR(30) | 
+|========================================================|
+| La table TaskGen contient les taches générales d'un sprint
+| Elle contient une référence à l'IDSPRINT et un nom.
 
+
+|====================================================================================================================|
+| TaskFull                                                                                                           |
+|====================================================================================================================|
+| IDSPRINT NUMBER(6) REFERENCES Sprint | Nom VARCHAR(30) | User VARCHAR(30) | Priorite NUMBER(6) | Handled NUMBER(1) |
+|====================================================================================================================|
+| La table TaskFull contient les tâches détaillées d'un sprint
+| Elle contient une référence à l'IDSPRINT, un nom, l'usager responsable, sa priorité, et si elle est fini ou non.
 
