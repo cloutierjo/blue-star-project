@@ -131,22 +131,9 @@ if __name__ == '__main__':
     sp=Sprint.Sprint()
     sp.dateFin="29 avr"
     
-    tlg=TaskList.TaskList()
-    
-    ta=TaskList.Task()
-    ta.name="task1"
-    ta.priorite=1
-    ta.user = "moi"
-    tlg.tasklist.append(ta)
-    
-    ta=TaskList.Task()
-    ta.name="task2"
-    ta.priorite=2
-    ta.user = "301"
-    tlg.tasklist.append(ta)
-    
-    sp.taskGeneral=tlg
-    
+    sp.taskGeneral.append("gentask1")
+    sp.taskGeneral.append("gentask2")
+        
     tlf=TaskList.TaskList()
     
     tb=TaskList.Task()
