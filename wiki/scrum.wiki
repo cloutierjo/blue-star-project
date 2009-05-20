@@ -394,8 +394,57 @@ voici le model de scrum
  ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
   * N/A
 
+==Jean-Philippe C.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * Travail avec pascal pour la fin de l'intégration des CRC
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * Début de l'interface de création d'utilisateur
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * N/A
 
+=20/05/2009=
 
+==Jonathan H.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * fini l'intégration du dictionnaire de donnée avec l'aide de pascal
+  * update des CRC dans le wiki
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * entrée du scrum dans le wiki
+  * terminer l'update du CRC dans le wiki
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * gestion des checkBox avec des listes, réglé avec pascal
 
+==François L.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * Inétgration des CRC dans la db
+  * Intégration des Users dans la db
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * Intégration du planning dans la db
+  * Intégration des scrums dans la db (Si il a le temps)
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * N/A
 
-  
+==Mathieu L.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * Design de l'interface du planning général avec Tix
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * Fin du design de planning général et intégration avec les données
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * Pròblème avec l'intégration des grids et Tix
+
+==Pascal L.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * Aidé a l'intégration du dictionnaire de donnée
+  * Fin de l'intégration du CRC (retouches visuelles)
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * Aide mathieu pour le planning général
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * N/A
+
+==Jean-Philippe C.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * Interface pour la création des utilisateurs
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * N/A (Fin de l'examen de Java de Éric)
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * N/A
