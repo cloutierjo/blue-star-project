@@ -1,6 +1,6 @@
 #-*- coding: iso-8859-1 -*-
 '''
-Created on 9 mai 2009
+Created on 19 mai 2009
 
 @author: Jonatan Cloutier
 '''
