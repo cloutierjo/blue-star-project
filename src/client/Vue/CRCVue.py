@@ -169,12 +169,12 @@ class CrcVUE(object):
     
     def updateCRC(self):
         if self.crcCourant!=None:
-            self.crcCourant.reponsabilite=[]
+            self.crcCourant.responsabilite=[]
             for row in self.rows:
                 unRole=[]
                 unRole.append(row[0].get())
                 unRole.append(int(row[1].get()))
-                self.crcCourant.reponsabilite.append(unRole)
+                self.crcCourant.responsabilite.append(unRole)
             #......autres opérations ici.....à suivre
             self.vueParent.parent.updateCrc(self.crcCourant)
         
