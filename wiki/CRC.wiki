@@ -674,11 +674,19 @@ voici le format a suivre pour les CRC, ne vous occupé pas du HTML si sa vous m�
    </tr>
    <tr>
        <td>
-           * void initDB()
-           * Projet getProjet(projetID)
-           * liste[id, nom] getListeProjet()
-           * bool saveProject(Projet projet)
-           * bool deleteProjet(String nomProjet)
+           * __init__(self)
+           * initDB(self)
+           * getProject(self, projectID)
+           * getListeProjet(self)
+           * saveProject(self, projet)
+           * saveNewProject(self, projet)
+           * updateProject(self, projet)
+           * deleteProject(self, projetID)
+           * getNewIDProj(self)
+           * getNewIDCasUsages(self)
+           * getNewIDUsager(self)
+           * getNewIDCRC(self)
+           * test(self) //méthodes de tests interne a la classe
        </td>
    </tr>
 </table>
