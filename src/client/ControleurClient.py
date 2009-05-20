@@ -200,6 +200,9 @@ class ControleurClient:
     
     def createNewUser(self,nom):
         self.m.projet.user.user.append(nom)
+        
+    def getUsers(self):
+        return self.m.projet.user.getUsersList()
                  
 if __name__ == '__main__':
     c = ControleurClient()
