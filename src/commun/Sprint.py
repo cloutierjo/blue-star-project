@@ -32,12 +32,12 @@ class LstSprint:
     
 class Sprint:
     DATEFIN="dateFin"
-    TASKGEN="proprio"
-    TASKFULL="responsabilite"
+    TASKGEN="taskGen"
+    TASKFULL="taskFull"
     
     def __init__(self):
         self.dateFin = ""
-        self.taskGeneral = TaskList.TaskList()
+        self.taskGeneral = []
         self.taskFull = TaskList.TaskList()   
         
     def unicodize(self):
@@ -45,11 +45,11 @@ class Sprint:
             
     def serialize(self):
         self.unicodize()
-        return {self.DATEFIN:self.dateFin,self.TASKGEN:self.taskGeneral.serialize(),self.TASKFULL:self.taskFull.serialize()}
+        return {self.DATEFIN:self.dateFin,self.TASKGEN:self.taskGeneral,self.TASKFULL:self.taskFull.serialize()}
     
     def deserialize(self, serializedSprint):
         self.dateFin=serializedSprint[self.DATEFIN]
-        self.taskGeneral.deserialize(serializedSprint[self.TASKGEN])
+        self.taskGeneral=serializedSprint[self.TASKGEN]
         self.taskFull.deserialize(serializedSprint[self.TASKFULL])
         
                     
@@ -59,22 +59,9 @@ if __name__ == '__main__':
     sp=Sprint()
     sp.dateFin="29 avr"
     
-    tlg=TaskList.TaskList()
-    
-    ta=TaskList.Task()
-    ta.name="task1"
-    ta.priorite=1
-    ta.user = "moi"
-    tlg.tasklist.append(ta)
-    
-    ta=TaskList.Task()
-    ta.name="task2"
-    ta.priorite=2
-    ta.user = "301"
-    tlg.tasklist.append(ta)
-    
-    sp.taskGeneral=tlg
-    
+    sp.taskGeneral.append("gentask1")
+    sp.taskGeneral.append("gentask2")
+        
     tlf=TaskList.TaskList()
     
     tb=TaskList.Task()
