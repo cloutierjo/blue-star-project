@@ -40,16 +40,17 @@ voici le format a suivre pour les CRC, ne vous occup√© pas du HTML si sa vous m√
    </tr>
    <tr>
        <td>
-           * serializedProject serialize()
-           * void deserialize(serializedProject)
-           
+           * __init__(self)
+           * projetSerialized serialize(self)
+           * deserialize(self, serializedProject)
+           * unicodize(self)
        </td>
    </tr>
 </table>
 
 <table border=1 width=70%>
    <tr>
-       <td width=60%> Analise </td>
+       <td width=60%> Analyse </td>
        <td rowspan=3> 
                       * ModelClient
                       * ModelServeur
@@ -61,8 +62,10 @@ voici le format a suivre pour les CRC, ne vous occup√© pas du HTML si sa vous m√
    </tr>
    <tr>
        <td>
+           * __init__(self,parent)
            * listeAnaliseTuple getForDB()
-           * void addItem(string nom, string verbe, string adjectif)
+           * addItem(self, nom, verbe, adjectif,handled=0)
+           * unicodize(self)
        </td>
    </tr>
 </table>
@@ -81,9 +84,11 @@ voici le format a suivre pour les CRC, ne vous occup√© pas du HTML si sa vous m√
    </tr>
    <tr>
        <td>
+            * __init__(self)
             * CasUsage addCasUsage(nom,priorite=0)
             * serializedCasUsage serialize()
             * void deserialize(serializedCasUsage)
+            * unicodize(self)
        </td>
    </tr>
 </table>
@@ -102,6 +107,8 @@ voici le format a suivre pour les CRC, ne vous occup√© pas du HTML si sa vous m√
    </tr>
    <tr>
        <td>
+            * __init__(self,nom="",priorite=0)
+            * unicodize(self)
             * serializedCasUsageItem serialize()
             * void deserialize(serializedCasUsageItem)
        </td>
@@ -122,6 +129,8 @@ voici le format a suivre pour les CRC, ne vous occup√© pas du HTML si sa vous m√
    </tr>
    <tr>
        <td>
+            * __init__(self,nom="",ordre=0)
+            * unicodize(self)
             * serializedEtapeScenario serialize()
             * void deserialize(serializedEtapeScenario)
        </td>
@@ -144,6 +153,8 @@ voici le format a suivre pour les CRC, ne vous occup√© pas du HTML si sa vous m√
        <td>
             * ScenarioUtilisation addEtapeScenario(nom,ordre=0)
             * serializedScenarioUtilisation serialize()
+            * refaireOrdreNumerique(self)
+            * unicodize(self)
             * void deserialize(serializedScenarioUtilisation)
        </td>
    </tr>
@@ -163,6 +174,9 @@ voici le format a suivre pour les CRC, ne vous occup√© pas du HTML si sa vous m√
    </tr>
    <tr>
        <td>
+            * __init__(self)
+            * updateDictionnaire(self,variables,fonctions)
+            * unicodize(self)
             * serializedDictDonne serialize()
             * void deserialize(serializedDictDonne)
        </td>
@@ -183,8 +197,34 @@ voici le format a suivre pour les CRC, ne vous occup√© pas du HTML si sa vous m√
    </tr>
    <tr>
        <td>
+            * __init__(self)
+            * unicodize(self)
             * serializedCrc serialize()
             * void deserialize(serializedCrc)
+       </td>
+   </tr>
+</table>
+
+<table border=1 width=70%>
+   <tr>
+       <td width=60%> LstCrc </td>
+       <td rowspan=3> 
+                      * Crc
+       </td>
+   </tr>
+   <tr>
+       <td align="right">Jonatan C.</td>
+   </tr>
+   <tr>
+       <td>
+            * __init__(self)
+            * unicodize(self)
+            * serializedCrc serialize()
+            * void deserialize(serializedCrc)
+            * addCrc(self,nom)
+            * updateCrc(self,crc)
+            * getClassName(self)
+            * getClass(self,className)
        </td>
    </tr>
 </table>
@@ -223,6 +263,28 @@ voici le format a suivre pour les CRC, ne vous occup√© pas du HTML si sa vous m√
    </tr>
    <tr>
        <td>
+            * __init__(self)
+            * unicodize(self)
+            * serializedSprint serialize()
+            * void deserialize(serializedSprint)
+       </td>
+   </tr>
+</table>
+
+<table border=1 width=70%>
+   <tr>
+       <td width=60%> LstSprint </td>
+       <td rowspan=3> 
+                      * Sprint
+       </td>
+   </tr>
+   <tr>
+       <td align="right">Jonatan C.</td>
+   </tr>
+   <tr>
+       <td>
+            * __init__(self)
+            * unicodize(self)
             * serializedSprint serialize()
             * void deserialize(serializedSprint)
        </td>
@@ -236,6 +298,7 @@ voici le format a suivre pour les CRC, ne vous occup√© pas du HTML si sa vous m√
                       * ModelClient
                       * ModelServeur
                       * Projet
+                      * ScrumList
        </td>
    </tr>
    <tr>
@@ -243,8 +306,95 @@ voici le format a suivre pour les CRC, ne vous occup√© pas du HTML si sa vous m√
    </tr>
    <tr>
        <td>
+            * __init__(self)
+            * unicodize(self)
+            * serializedScrum serialize()
+            * void deserialize(serializedTask)
+       </td>
+   </tr>
+</table>
+
+<table border=1 width=70%>
+   <tr>
+       <td width=60%> ScrumList </td>
+       <td rowspan=3> 
+                      * Scrum
+       </td>
+   </tr>
+   <tr>
+       <td align="right">Jonatan C.</td>
+   </tr>
+   <tr>
+       <td>
+            * __init__(self)
+            * unicodize(self)
             * serializedScrum serialize()
             * void deserialize(serializedScrum)
+       </td>
+   </tr>
+</table>
+
+<table border=1 width=70%>
+   <tr>
+       <td width=60%> Task </td>
+       <td rowspan=3> 
+                      * ModelClient
+                      * ModelServeur
+                      * Projet
+                      * TaskList
+       </td>
+   </tr>
+   <tr>
+       <td align="right">Jonatan C.</td>
+   </tr>
+   <tr>
+       <td>
+            * __init__(self)
+            * unicodize(self)
+            * serialize(self)
+            * deserialize(self, serializedTask)
+       </td>
+   </tr>
+</table>
+
+<table border=1 width=70%>
+   <tr>
+       <td width=60%> TaskList </td>
+       <td rowspan=3> 
+                      * Task
+       </td>
+   </tr>
+   <tr>
+       <td align="right">Jonatan C.</td>
+   </tr>
+   <tr>
+       <td>
+            * __init__(self)
+            * unicodize(self)
+            * serialize(self)
+            * deserialize(self, sertasklist)
+       </td>
+   </tr>
+</table>
+
+<table border=1 width=70%>
+   <tr>
+       <td width=60%> User </td>
+       <td rowspan=3> 
+                      * ModelClient
+                      * ModelServeur
+                      * Projet
+       </td>
+   </tr>
+   <tr>
+       <td align="right">Jonatan C.</td>
+   </tr>
+   <tr>
+       <td>
+            * __init__(self)
+            * unicodize(self)
+            * serialize(self)
+            * deserialize(self, serializedUser)
        </td>
    </tr>
 </table>
@@ -635,7 +785,7 @@ voici le format a suivre pour les CRC, ne vous occup√© pas du HTML si sa vous m√
    </tr>
    <tr>
        <td>
-           * Initialise la connection avec le serveur
+           * Initialisation du serveur
        </td>
    </tr>
 </table>
