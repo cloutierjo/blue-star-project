@@ -39,72 +39,72 @@
   # désactivé la ligne de l'analyse
  
  * placer la priorité des cas d'usages
-  # écrire le chiffre de priorité a coté de chaque cas d'usage
-  # vérifié l'unicité des priorité
+  # écrire le chiffre de priorité à côté de chacun des cas d'usages
+  # vérifier l'unicité des priorités
   # actualiser l'affichage (réordonner les cas)
 
- * entré les étapes d'un scénario d'utilisation
-  # entré le scénario d'usage
-  # indiqué l'ordre de procédure
+ * entrer les étapes d'un scénario d'utilisation
+  # entrer le scénario du cas d'usage
+  # indiquer l'ordre de procédure (car le scénario peut avoir plusieurs étapes bien entendu)
   
- * enregistré les cas d'usage & scénario d'utilisation
+ * enregistrer les cas d'usages & scénarios d'utilisations
   # envoyer a la BD 
    * les cas d'usages
    * les priorités
-   * les analyses désactivés
+   * les analyses désactivées
    * les scénarios d'utilisations
    * leur ordres 
 
-==Etape 3 (Dictionnaire de données + CRC)==
+==Étape 3 (Dictionnaire de données + CRC)==
  * ouvrir le mode dictionnaire de données
-  # demandé les dictionnaires déjà enregistré a la BD
-  # affiché les scénarios d'utilisations à gauche
-  # affiché le dictionnaire de données à droite 
-  # permettre à l'utilisateur d'entré de nouveau élément du dictionnaire 
+  # demander les dictionnaires déjà enregistrés à la BD
+  # afficher les scénarios d'utilisations à gauche
+  # afficher le dictionnaire de données à droite 
+  # permettre à l'utilisateur d'entrer des nouveaux éléments au dictionnaire 
   
- * entré les élément des dictionnaire (variables et les fonctions)
-  #entré chaque élément de dictionnarie, 1 par ligne
+ * entrer les éléments des dictionnaires (variables et les fonctions)
+  #entrer chaque élément des listes de variables et fonctions, 1 par ligne
   
  * ouvrir le mode CRC
-  # demandé les CRC déjà enregistré a la BD
-  # affiché à gauche les dictionnaire de donné et les cas/scénario dans une "tabbed pane"
-  # affiché les CRC à droite 
-  # permettre à l'utilisateur d'entré de nouveau élément des CRC 
+  # demander les CRC déjà enregistrés à la BD
+  # afficher à gauche les dictionnaires de données et les cas/scénarios dans une "tabbed pane"
+  # afficher les CRC à droite 
+  # permettre à l'utilisateur d'entrer des nouveaux éléments dans les CRC 
   
- * entré nom de classe, propriétaire, la "signature" de méthode
-  # entré chaque élément de CRC selon le format CRC
+ * entrer nom de classe, propriétaire, la "signature" de méthode
+  # entrer chaque élément de CRC selon le format CRC
  
  * dérive du dictionnaire et des cas d'usage/scénario
   # comment ????? (résolue directement par l'équipe d'interface)
   
-==Etape 4 (planing + sprint)==
-  * ouvrir le mode planing
+==Étape 4 (planning + sprint)==
+  * ouvrir le mode planning
    [http://blue-star-project.googlecode.com/svn/wiki/planing.jpg]
    
-  * permetre d'ajouté des taches GÉNÉRALE à chaque sprint
-   # ajouté une tache général par ligne dans la case du sprint
+  * permettre d'ajouter des tâches GÉNÉRALES à chaque sprint
+   # ajouté une tache générale par ligne dans la case du sprint
    
-  * avoir une vue général de l'ensemble du projet (tout les sprint)
-   # montré tout les sprint un a coté de l'autre avec leur tache associé 
+  * avoir une vue générale de l'ensemble du projet (tout les sprint)
+   # montrer tout les sprint un a coté de l'autre avec leurs tâches associées 
    
-  * permettre d'ajouté les tache détaillé a chacun des sprint
-   # ajouté une tache détaillé par ligne dans la vue du sprint détaillé
+  * permettre d'ajouter les tâches détaillées à chacun des sprints
+   # ajouter une tache détaillée par ligne dans la vue du sprint détaillé
    
-  * avoir une checkbox pour montré ce qui est fais dans la vue détaillé
-   # passé au vert les taches faites
+  * avoir une checkbox pour montrer ce qui est fait dans la vue détaillée
+   # passer au vert les tâches faites
    
 
   * ouvrir le mode scrum
    [http://blue-star-project.googlecode.com/svn/wiki/scrum.jpg]
    
-  * permettre de créé un nouveau scrum en date d'aujourd'hui
-   # crée un scrum avec toute les user du projet
-   # met dans les tache faite tout les tache qui était a faire dans le scrum précédent (précédé d'un ? pour demandé un vérification)
-   # permettre a l'utilisateur de vérifié ce qui a été réellement fait, se qui sera fait, et les problème
+  * permettre de crée un nouveau scrum en date d'aujourd'hui
+   # créer un scrum avec tout les usagers du projet
+   # mettre dans les tâches faites toutes les tâches qui étaient à faire dans le scrum précédent (précédé d'un ? pour demandé un vérification)
+   # permettre à l'utilisateur de vérifier ce qui a été réellement fait, ce qui sera fait, et les problèmes
    
   * permettre de voir les anciens scrum par date
-   # affiché l'ancien scrum
+   # afficher l'ancien scrum
    
-  * voir les scrum par user
-   # affiché le scrum de l'utilisateur sélectionné
+  * voir les scrum par usager
+   # afficher le scrum de l'utilisateur sélectionné
    
