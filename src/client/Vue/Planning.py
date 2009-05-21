@@ -2,8 +2,15 @@
 from  Tix import *
 import Tkinter as tk
 from PlanningDetail import *
+from PlanningGeneral import *
 
-
+class ButtonCallback(object):
+    def __init__(self, method, bouton):
+        self.method = method
+        self.bouton = bouton
+        
+    def invoke(self):
+        self.method(self.bouton)
 
 class Planning:
     def __init__(self, parent):
@@ -12,7 +19,7 @@ class Planning:
         self.parent = parent
         self.listeSprint = []
         #Timeline
-        hauteurTxtBox = 100
+        hauteurTxtBox = 200
         largeurTxtBox = 300
         padxGen = 15
         #Creation du Frame
@@ -20,40 +27,41 @@ class Planning:
         self.windows = ScrolledWindow(self.frameGenTotal, scrollbar='auto', width=(largeurTxtBox+padxGen)*4)
         self.windows.pack(pady=15)
         
-        
             
-        for i in range(10):
+        for i in range(6):
             frameGen = Frame(self.windows.window)
-            frameTempo = Frame()
             titre = "Date" + str(i+1)
-            Label(frameGen, text=titre).pack(side=TOP)
+            #Label(frameGen, text=titre).pack(side=TOP)
             txtGenTempo = ScrolledText(frameGen, scrollbar='y', height=hauteurTxtBox, width=largeurTxtBox)
-            
+            listeDonne = []
+            listeDonne.append(i)
+            self.pg = PlanningGeneral(frameGen, txtGenTempo.text, titre,[1,2,3,0])
             txtGenTempo.pack()
-            self.listeSprint.append(txtGenTempo.text)
+            
+            callback = ButtonCallback(self.retournerFocus, i)
+            
+            self.boutonAddRow=Button(frameGen, text='Afficher Les Détails',
+                                     command = callback.invoke)
+            self.boutonAddRow.pack(side=BOTTOM)
+            self.listeSprint.append("test" + str(i))
+            
             frameGen.pack(side=LEFT, padx=padxGen)
-       
-        self.listeSprint[0].focus_set()
-        
-                  
-        Button(self.frameGenTotal, text="Afficher Les Détails Du Sprint Séléctionné", width=40, command=self.retournerFocus).pack()
         self.frameGenTotal.pack()
         
-        self.frameDetail = Frame()
-        scrollbar = Scrollbar(self.frameDetail)
-        self.textDetail = Text(self.frameDetail, width=52, height=35, yscrollcommand=scrollbar.set)
-        self.plandet = PlanningDetail(self.frameDetail, self.textDetail, "Tache Priorité User",scrollbar)
-        
-        self.frameDetail.pack(side=BOTTOM, anchor=E)
+                  
+
+        listeDonneDetail = []
+        listeDonneDetail.append([1,2,3,4])
+        self.plandet = PlanningDetail(listeDonneDetail)
+        self.plandet.frameDetail.pack(side=RIGHT)
         
         
        
-    def retournerFocus(self, evt=None):
-        monobjet=root.focus_get()
-        print self.listeSprint.index(monobjet)
+    def retournerFocus(self, index):
+        print self.listeSprint[index]
         #print monobjet.get(1.0, END)    
             
-            
+        
 
             
              

@@ -5,8 +5,8 @@ import Tkinter as tk
 class PlanningDetail:
 
  #Debut Detaillé#
-    def __init__(self,FrameParent, txtParent,lblText,scrollBar= None):
-        self.frameParent = FrameParent       
+    def __init__(self,uneListeDeListe):
+        self.frameDetail = Frame()       
         #pour gestion (retours des Checkbuttons pour "handled")
         self.retours=[]
         #pour deleteRow (retours des Radiobuttons pour deleteRow)
@@ -14,9 +14,11 @@ class PlanningDetail:
 
         self.rows = []
         
-        self.grille = txtParent  #
+        scrollbar = Scrollbar(self.frameDetail)
+        
+        self.grille = Text(self.frameDetail, width=52, height=35, yscrollcommand=scrollbar.set)  #
         if True: 
-                for i in range(10):
+                for i in uneListeDeListe:
                     col = []
                     ligne=Frame(self.grille)
                     
@@ -28,36 +30,19 @@ class PlanningDetail:
                     
                     check.pack(side=LEFT)
                     
-                    ''' if analyse[i]['handled']==1:
-                        check.select()
-                        gere=True
-                    else:
-                        gere=False
-                    '''
                     #pour deleteRow 
                     etat=IntVar()
                     delRow=Radiobutton(ligne,text='x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
                     delRow.var=etat
                     self.etats.append(delRow.var)
                     delRow.pack(side=LEFT)
-                    for j in range(4):
+                    for j in i:
                         entree = Entry(ligne,relief=RIDGE)
                         entree.insert(END,j)
-                        if j<3:
+                        if j< 4:
                             entree.pack(side=LEFT)
                         col.append(entree)
                     self.rows.append(col)
-                    '''for j,champ in enumerate(['nom','verbe','adjectif','handled']):
-                        entree = Entry(ligne,relief=RIDGE)
-                        entree.insert(END,laLigneAnalyse.get(champ))
-                        if gere==True:
-                            entree.config(state=DISABLED)
-                        
-                        #ne pack pas le entry qui contient le handled
-                        if j<3:
-                            entree.pack(side=LEFT)
-                        col.append(entree)
-                    '''
                     
                     #
                     self.grille.window_create(INSERT,window=ligne)
@@ -69,15 +54,14 @@ class PlanningDetail:
     
     
 
-        self.boutonAddRow=Button(self.frameParent,text='Ajouter',command=self.addRow)
+        self.boutonAddRow=Button(self.frameDetail,text='Ajouter',command=self.addRow)
         self.boutonAddRow.pack()
-        Label(self.frameParent,text = lblText).pack()
+        Label(self.frameDetail,text = "Taches   -  Priorité -  User").pack()
     
-        
+        scrollbar.pack(side=RIGHT, fill=Y)
+        scrollbar.config(command=self.grille.yview)
         self.grille.pack(side=TOP,fill=Y)
-        if scrollBar != None:
-            scrollBar.pack(side=RIGHT, fill=Y)
-            scrollBar.config(command=self.grille.yview)
+ 
         
     def addRow(self):
         #nextRow = self.grille.grid_size()[1]
