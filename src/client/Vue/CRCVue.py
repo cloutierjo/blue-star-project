@@ -16,6 +16,9 @@ class CrcVUE(object):
         self.retours=[]
         self.etats=[]
         
+        self.rowsCollabo=[] # section collaboratiion
+        self.etatsCollabo=[]
+        
         
         self.frame = Frame()        
         self.frameInfo = Frame(self.frame)
@@ -53,7 +56,7 @@ class CrcVUE(object):
         self.infoDonnee.config(yscrollcommand=self.scrollbarInfo.set)
         
         
-        self.boutonNewCrc=Button(self.frameCollabo,text='Creer nouveau CRC',command=self.nouveauCrc)
+        self.boutonNewCrc=Button(self.frameCollabo,text='Créer nouveau CRC',command=self.nouveauCrc)
         self.boutonNewCrc.pack()
         
         self.titreCollabo = Label(self.frameCollabo,text="Les collaborateurs")
@@ -61,19 +64,19 @@ class CrcVUE(object):
         
         
 #######collaborateur dans combobox déroulé
-        self.col = Tix.StringVar()
-        self.comboCollabo=Tix.ComboBox(self.frameCollabo,editable=1,variable=self.col,dropdown=0,options='listbox.width 30 listbox.height 38')
-        self.comboCollabo.pack()
+        #self.col = Tix.StringVar()
+        #self.comboCollabo=Tix.ComboBox(self.frameCollabo,editable=1,variable=self.col,dropdown=0,options='listbox.width 30 listbox.height 38')
+        #self.comboCollabo.pack()
 ######pas terminé
         
 #######collaborateur dans text...grid...?
         
-        #self.collaboration = Text(self.frameCollabo, width=30,height=35)
-        #self.scrollbarCol=Scrollbar(self.frameCollabo)
-        #self.scrollbarCol.pack(side=RIGHT, fill=Y)
-        #self.collaboration.pack(side=LEFT, fill=Y)
-        #self.scrollbarCol.config(command=self.collaboration.yview)
-        #self.collaboration.config(yscrollcommand=self.scrollbarCol.set)
+        self.collaboration = Text(self.frameCollabo, width=30,height=35)
+        self.scrollbarCol=Scrollbar(self.frameCollabo)
+        self.scrollbarCol.pack(side=RIGHT, fill=Y)
+        self.collaboration.pack(side=LEFT, fill=Y)
+        self.scrollbarCol.config(command=self.collaboration.yview)
+        self.collaboration.config(yscrollcommand=self.scrollbarCol.set)
    
 
         self.frameInfo.pack(side=LEFT)
@@ -84,6 +87,7 @@ class CrcVUE(object):
         #self.frameCollabo.grid(padx =20,pady=10,row=1,rowspan=4,column=3)
         
         self.infoDonnee.config(state=DISABLED)
+        self.collaboration.config(state=DISABLED)
         
         
 #-----------------------------------------------------------------fin du init
@@ -165,18 +169,51 @@ class CrcVUE(object):
             self.infoDonnee.config(state=DISABLED)
             
     def afficherCollabo(self):
-        self.comboCollabo.subwidget_list['slistbox'].subwidget_list['listbox'].delete(0,END)
-        for collabo in self.crcCourant.collaboration:
-            self.comboCollabo.insert(END,collabo)
+        self.collaboration.config(state=NORMAL)
+        if self.crcCourant != None:
+            self.etatsCollabo=[]        
+            self.rowsCollabo=[]
+            
+            self.collaboration.delete(0.0,END)
+                                                                                                                  
+            #for i,laLigneAnalyse in enumerate(analyse):
+            for collaborateur in self.crcCourant.collaboration:
+                #col = []
+                
+            # ligne -> frame
+                ligne=Frame(self.collaboration)
+            #pour deleteRow 
+                state=IntVar()
+                delRowCol=Radiobutton(ligne,text='x',variable=state,value=1,cursor="arrow",indicatoron=False,command=self.deleteRowCollabo)
+                delRowCol.var=state
+                self.etatsCollabo.append(delRowCol.var)
+                delRowCol.pack(side=LEFT)
+                    
+                entree = Entry(ligne,relief=RIDGE)
+                entree.config(width=38)
+                entree.insert(END,collaborateur)
+        
+                entree.pack(side=LEFT)
+                #col.append(entree)
+                self.rowsCollabo.append(collaborateur)
+                #
+                self.collaboration.window_create(INSERT,window=ligne)
+        self.collaboration.config(state=DISABLED)
+        
     
     def updateCRC(self):
         if self.crcCourant!=None:
             self.crcCourant.responsabilite=[]
+            self.crcCourant.collaboration=[]
+            
             for row in self.rows:
                 unRole=[]
                 unRole.append(row[0].get())
                 unRole.append(int(row[1].get()))
                 self.crcCourant.responsabilite.append(unRole)
+                
+            for collaborateur in self.rowsCollabo:
+                self.crcCourant.collaboration.append(collaborateur)
             #......autres opérations ici.....à suivre
             self.vueParent.parent.updateCrc(self.crcCourant)
         
@@ -308,4 +345,39 @@ class CrcVUE(object):
             
         self.infoDonnee.config(state=DISABLED)
         
+    def deleteRowCollabo(self):
+        self.collaboration.config(state=NORMAL)
+        i=0
+        while self.etatsCollabo[i].get()!=1:  #donne l'indice de la row a deleter
+            i=i+1
+         
+        reste=[]   
+        for row in self.rowsCollabo:    #transfert des donnees des rows dans reste
+            reste.append(row)
+    
+        reste.remove(reste[i]) #delete les donnees non voulues
+        
+        self.collaboration.delete(0.0,END)        
+        self.etatsCollabo=[]
+        self.rowsCollabo=[]
+        
+        for row in reste:
+
+            ligne=Frame(self.collaboration)
             
+            state=IntVar()
+            delRowCol=Radiobutton(ligne,text='x',variable=state,value=1,cursor="arrow",indicatoron=False,command=self.deleteRowCollabo)
+            delRowCol.var=state
+            self.etatsCollabo.append(delRowCol.var)
+            delRowCol.pack(side=LEFT)
+            
+            entree = Entry(ligne,relief=RIDGE)
+            entree.config(width=38)
+            entree.insert(END,row)
+            entree.pack(side=LEFT)
+
+            self.rowsCollabo.append(row)
+            
+            self.collaboration.window_create(INSERT,window=ligne)
+            
+        self.collaboration.config(state=DISABLED)   
