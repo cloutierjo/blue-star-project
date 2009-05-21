@@ -448,3 +448,55 @@ voici le model de scrum
   * N/A (Fin de l'examen de Java de Éric)
  ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
   * N/A
+
+=21/05/2009=
+
+==Jean-Philippe C.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * Non présent, Examen de Java
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * Fenêtre "About". Amélioration rapide
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * N/A
+
+==Mathieu L.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * Fin de l'interface livrable pour la planning général
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * Liaison des données à cette interface qui contient (Sprint, taskList, scrum)
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * N/A
+
+==Jonathan H.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * Fin de la mise à jour des CRC dans la documentation
+  * Mise à jour des scrums
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * Mise à jour des scrums
+  * Corrections des fautes d'orthographes dans la doc
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * N/A
+
+==François L.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * Modélisation du planning général côté database (sprint, taskLists, scrum)
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * Implémentation du planning général (sprint, taskList, scrums) dans la db
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * N/A
+
+==Jonathan C.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * Implémentation du planning général côté projet
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * Faire l'interface du scrum
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * N/A
+
+==Pascal L.==
+ ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
+  * ... 
+ ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
+  * ... 
+ ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
+  * ...
