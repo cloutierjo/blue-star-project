@@ -1,3 +1,4 @@
+#labels ANALYSE
 =04/05/2009=
  * x étape 2 complètement livrable (tous)
  * x analyse de la partie 3 complétée (Jonatan C.)
