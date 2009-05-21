@@ -1,0 +1,16 @@
+#labels DOCUMENTATION
+PROJECT NAME :
+	- Blue-Star Project
+
+PROJECT OWNERS :
+	- Jonathan Hallée
+	- François Lahey
+	- Jonathan Cloutier
+	- Mathieu Lavoie
+	- Pascal Lemay
+	- Jean-Philippe Chan
+	
+HOW TO :
+	1. Partir le contrôleur serveur. Le serveur sera démarrée
+	2. Partir le contrôleur client L'interface sera démarrée
+	x. De la il faut ouvrir un projet et naviguer dans le projet par les onglets
