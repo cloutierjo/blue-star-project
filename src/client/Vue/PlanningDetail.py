@@ -1,7 +1,9 @@
 #-*- coding: iso-8859-1 -*-
 from  Tix import *
 import Tkinter as tk
-
+sys.path.append( "../../commun" )
+import Sprint
+import TaskList
 class PlanningDetail:
 
  #Debut Detaillé#
@@ -22,11 +24,16 @@ class PlanningDetail:
                     col = []
                     ligne=Frame(self.grille)
                     
-                    #pour gestion
                     retour=IntVar()
                     check=Checkbutton(ligne,variable=retour,cursor="arrow",command=self.gestion)
                     check.var=retour
                     self.retours.append(check.var)
+                    #pour gestion
+                    if i.handled == 1:
+                        check.select()
+                        gere=True
+                    else:
+                        gere=False
                     
                     check.pack(side=LEFT)
                     
@@ -36,12 +43,33 @@ class PlanningDetail:
                     delRow.var=etat
                     self.etats.append(delRow.var)
                     delRow.pack(side=LEFT)
-                    for j in i:
-                        entree = Entry(ligne,relief=RIDGE)
-                        entree.insert(END,j)
-                        if j< 4:
-                            entree.pack(side=LEFT)
-                        col.append(entree)
+                    
+                    entreeNom = Entry(ligne,relief=RIDGE, width=50)
+                    entreeNom.insert(END,i.name)
+                    entreeNom.pack(side=LEFT)
+                    
+                    entreePriorite = Entry(ligne,relief=RIDGE)
+                    entreePriorite.insert(END,i.priorite)
+                    entreePriorite.pack(side=LEFT)
+                    
+                    entreeUser = Entry(ligne,relief=RIDGE)
+                    entreeUser.insert(END,i.user)
+                    entreeUser.pack(side=LEFT)
+                    
+                    entreeHandle = Entry(ligne,relief=RIDGE)
+                    entreeHandle.insert(END,i.handled)
+                    
+                    if gere==True:
+                        entreeHandle.config(state=DISABLED)
+                        entreeUser.config(state=DISABLED)
+                        entreePriorite.config(state=DISABLED)
+                        entreeNom.config(state=DISABLED)
+                    
+                    col.append(entreeNom)
+                    col.append(entreePriorite)
+                    col.append(entreeUser)
+                    col.append(entreeHandle)
+                    
                     self.rows.append(col)
                     
                     #
@@ -185,4 +213,12 @@ class PlanningDetail:
             self.grille.window_create(INSERT,window=ligne)
             
         self.grille.config(state=DISABLED)
-         
+    def update(self):
+        listeTacheDetaille = []
+        for  row in self.rows:
+            uneTache = TaskList.Task 
+            uneTache.name = row[0].get()
+            uneTache.priorite = row[1].get()
+            uneTache.user = row[2].get()
+            listeTacheDetaille.append(uneTache)
+        return listeTacheDetaille

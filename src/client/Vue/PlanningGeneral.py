@@ -4,7 +4,6 @@ import Tkinter as tk
 
 class PlanningGeneral:
     def __init__(self, frameParent, txtParent, lblText, uneListe=[]):
-        self.retours=[]
         #pour deleteRow (retours des Radiobuttons pour deleteRow)
         self.etats=[]
 
@@ -20,7 +19,7 @@ class PlanningGeneral:
                 self.etats.append(delRow.var)
                 delRow.pack(side=LEFT)
                 entree = Entry(ligne, relief=RIDGE, width=42)
-                entree.insert(END, str(i))
+                entree.insert(END, i[0])
                 entree.pack(side=LEFT)
                 txtParent.window_create(INSERT, window=ligne)
                 self.rows.append(i)
@@ -85,3 +84,7 @@ class PlanningGeneral:
             self.grille.window_create(INSERT, window=ligne)
              
         self.grille.config(state=DISABLED)
+    def update(self):
+        listeTacheGen = []
+        for i in self.rows:
+            listeTacheGen.append(i.get())
