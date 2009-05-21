@@ -4,7 +4,7 @@ PROJECT NAME :
 PROJECT OWNERS :
 	- Jonathan Hallée
 	- François Lahey
-	- Jonathan Cloutier
+	- Jonatan Cloutier St-Jean
 	- Mathieu Lavoie
 	- Pascal Lemay
 	- Jean-Philippe Chan
