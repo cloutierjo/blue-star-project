@@ -3,7 +3,8 @@
 classe vue
 auteur: Pascal Lemay
             '''
-from Tkinter import*
+from Tkinter import *
+import tkFont
 import tkMessageBox, tkSimpleDialog
 import sys
 sys.path.append( "../../commun" )
@@ -87,6 +88,7 @@ class Vue(object):
         #Aide
         helpmenu = Menu(menu)
         menu.add_cascade(label="Aide", menu=helpmenu)
+        helpmenu.add_command(label="À propos de ...", command = self.propos)
         
 
 #fonction sur l'ouverture projet
@@ -134,7 +136,23 @@ class Vue(object):
                                      'Entrez le nom:',parent=self.root)
         if nom:
             self.parent.createNewUser(nom)
-                
+    
+    def propos(self):
+        self.root = Tk()
+        self.root.title("This is...")
+        
+        self.frame2 = Frame(self.root);
+        txtFont = tkFont.Font(size=25)
+        titre = Label(self.frame2, 
+                      text="Blue Star Project",
+                      font=txtFont)
+        titre.pack()
+        doByPeople = Label(self.frame2, text= "\nFait par: Jonathan Hallée, François Lahey, \n\tJonathan Cloutier St-Jean, Mathieu Lavoie, \nPascal Lemay, Jean-Philippe Chan")
+        doByPeople.pack()
+        texteCours = Label(self.frame2, text="\nPour le cour B41")
+        texteCours.pack()
+        self.frame2.pack()
+    
     def effacerFenetre(self):
         for item in self.graphItems:
                 item.frame.pack_forget()
