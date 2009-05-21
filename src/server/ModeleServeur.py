@@ -24,8 +24,8 @@ class ModeleServeur:
         cur.execute('''CREATE TABLE Projets(ID NUMBER(6) PRIMARY KEY, Nom VARCHAR2(50), Mandat LONG)''')
         cur.execute('''CREATE TABLE AnalysesExp(ID NUMBER(6) REFERENCES Projets, nom VARCHAR2(30), verbe VARCHAR2(30), adjectif VARCHAR2(30), handled NUMBER(1))''')
         cur.execute('''CREATE TABLE AnalysesImp(ID NUMBER(6) REFERENCES Projets, nom VARCHAR2(30), verbe VARCHAR2(30), adjectif VARCHAR2(30), handled NUMBER(1))''')
-        cur.execute('''CREATE TABLE CasUsages(ID NUMBER(6) PRIMARY KEY, IDPROJ NUMBER(6) REFERENCES Projets, cas LONG, priorite NUMBER(6))''')
-        cur.execute('''CREATE TABLE Senarios(IDCAS NUMBER(6) REFERENCES Projets, senario LONG, ordreexec NUMBER(6))''')
+        cur.execute('''CREATE TABLE CasUsages(IDCAS NUMBER(6) PRIMARY KEY, IDPROJ NUMBER(6) REFERENCES Projets, cas LONG, priorite NUMBER(6))''')
+        cur.execute('''CREATE TABLE Senarios(IDCAS NUMBER(6) REFERENCES CasUsages, senario LONG, ordreexec NUMBER(6))''')
         cur.execute('''CREATE TABLE Variables(IDPROJ NUMBER(6) REFERENCES Projets, Var VARCHAR2(30), handled NUMBER(1))''')
         cur.execute('''CREATE TABLE Fonctions(IDPROJ NUMBER(6) REFERENCES Projets, Fon VARCHAR2(30), handled NUMBER(1))''')
         cur.execute('''CREATE TABLE Usagers(IDUSER NUMBER(9) PRIMARY KEY, IDPROJ NUMBER(6) REFERENCES Projets, Nom VARCHAR2(30))''')
@@ -84,9 +84,9 @@ class ModeleServeur:
         for row in cur:
             cas = p.casEtScenario.addCasUsage(row[2], row[3])
             cur2.execute('''SELECT * FROM Senarios WHERE IDCAS = (?)''', (row[0],))
-            for row in cur2:
-                cas.scenario.addEtapeScenario(row[1], row[2])
-                
+            for row2 in cur2:
+                cas.scenario.addEtapeScenario(row2[1], row2[2])
+               
         cur.execute('''SELECT * FROM Variables WHERE IDPROJ = (?)''', (projectID,))
         for row in cur:
             p.dictDonne.variable.append([row[1], row[2]])
@@ -280,11 +280,10 @@ class ModeleServeur:
         cur.execute('DELETE FROM AnalysesImp WHERE ID = (?)', (projetID,))
         
         # Deleting CasUsages
-        cur.execute('''SELECT ID FROM CasUsages WHERE IDPROJ = (?)''', (projetID,))
+        cur.execute('''SELECT IDCAS FROM CasUsages WHERE IDPROJ = (?)''', (projetID,))
         for row in cur:
             cur2.execute('DELETE FROM Senarios WHERE IDCAS = (?)', (row[0],))
-        # Deleting Scenario
-        cur.execute('DELETE FROM CasUsages WHERE ID = (?)', (projetID,))   
+        cur.execute('DELETE FROM CasUsages WHERE IDPROJ = (?)', (projetID,))   
         
         # Deleting Dictionnaire de données
         cur.execute('DELETE FROM Variables WHERE IDPROJ = (?)', (projetID,))
@@ -481,12 +480,6 @@ if __name__ == "__main__":
     
     # Test de get projet...
     p2=ms.getProject(9)
-    number = ms.saveProject(p2)
-    print str(number)
-    p2=ms.getProject(number)
-    number = ms.saveProject(p2)
-    print str(number)
-    p2=ms.getProject(number)
     
     print p2.analyseExplicite.getForDB()
     for cas in p2.casEtScenario.items:
