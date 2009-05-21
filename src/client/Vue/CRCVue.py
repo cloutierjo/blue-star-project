@@ -18,28 +18,31 @@ class CrcVUE(object):
         
         
         self.frame = Frame()        
+        self.frameInfo = Frame(self.frame)
+        self.frameCollabo = Frame(self.frame)#les frames
         
-        self.frameNom = Frame(self.frame)#########################################
-        self.entreeProp = Entry(self.frameNom,width=40)
+        #self.entreeProp = Entry(self.frameNom,width=40)
+        self.varUser = Tix.StringVar()
+        self.comboProprio = Tix.ComboBox(self.frameInfo,label='Propriétaire :',editable=0,variable=self.varUser,dropdown=1,options='listbox.width 30')
+        
         self.varcombo = Tix.StringVar()
-        self.comboClasse=Tix.ComboBox(self.frameNom,label='Classe:',editable=0,variable=self.varcombo,dropdown=1,command=self.getCrc,options='listbox.width 30')
+        self.comboClasse=Tix.ComboBox(self.frameInfo,label='Liste des CRC:',editable=0,variable=self.varcombo,dropdown=1,command=self.getCrc,options='listbox.width 30')
         self.comboClasse.pack()
         
         
         for crc in self.listeDeCRC:  #load la liste des crc du projet dans le combobox
             self.comboClasse.insert(END,crc)
-            
-        titreProp = Label(self.frameNom,text="Propriétaire")
-        titreProp.pack()
         
-        self.entreeProp.pack()
+        user=self.vueParent.parent.getUsers()
+        for proprio in user:
+            self.comboProprio.insert(END,proprio)
+        
+        self.comboProprio.pack(pady=5)
 
         
-        self.frameInfo = Frame(self.frame)##############################################
-        
-        titreInfo = Label(self.frameInfo,text="Données et Fonctions")
+        titreInfo = Label(self.frameInfo,text="Rôles:(Données et Fonctions)")
         titreInfo.pack()
-        self.boutonAddRow=Button(self.frameInfo,text='ajouter une ligne',command=self.addRow)
+        self.boutonAddRow=Button(self.frameInfo,text='ajouter un rôle',command=self.addRow)
         self.boutonAddRow.pack()
         
         self.infoDonnee = Text(self.frameInfo, width=30,height=32)    
@@ -50,8 +53,6 @@ class CrcVUE(object):
         self.infoDonnee.config(yscrollcommand=self.scrollbarInfo.set)
         
         
-
-        self.frameCollabo = Frame(self.frame)############################################
         self.boutonNewCrc=Button(self.frameCollabo,text='Creer nouveau CRC',command=self.nouveauCrc)
         self.boutonNewCrc.pack()
         
@@ -75,9 +76,12 @@ class CrcVUE(object):
         #self.collaboration.config(yscrollcommand=self.scrollbarCol.set)
    
 
-        self.frameNom.grid(padx=20,pady=10,row=1,column=1)
-        self.frameInfo.grid(row=2,column=1)
-        self.frameCollabo.grid(padx =20,pady=10,row=1,rowspan=4,column=3)
+        self.frameInfo.pack(side=LEFT)
+        self.frameCollabo.pack(side=LEFT)
+        
+        #self.frameNom.grid(padx=20,pady=10,row=1,column=1)
+        #self.frameInfo.grid(row=2,column=1)
+        #self.frameCollabo.grid(padx =20,pady=10,row=1,rowspan=4,column=3)
         
         self.infoDonnee.config(state=DISABLED)
         
@@ -109,8 +113,6 @@ class CrcVUE(object):
             self.etats=[]
             self.rows=[]
             
-            self.entreeProp.delete(0,END)
-            self.entreeProp.insert(0, self.crcCourant.proprio)
             self.infoDonnee.delete(0.0,END)
                                                                                                                   
             #for i,laLigneAnalyse in enumerate(analyse):
