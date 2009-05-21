@@ -28,17 +28,13 @@ class CrcVUE(object):
         self.varUser = Tix.StringVar()
         self.comboProprio = Tix.ComboBox(self.frameInfo,label='Propriétaire :',editable=0,variable=self.varUser,dropdown=1,options='listbox.width 30')
         
-        self.varcombo = Tix.StringVar()
+        self.varcombo = Tix.StringVar()#comboClasse->liste des crc du projet
         self.comboClasse=Tix.ComboBox(self.frameInfo,label='Liste des CRC:',editable=0,variable=self.varcombo,dropdown=1,command=self.getCrc,options='listbox.width 30')
         self.comboClasse.pack()
         
+        self.updateListeCRC()#load la liste des crc du projet dans le combobox
         
-        for crc in self.listeDeCRC:  #load la liste des crc du projet dans le combobox
-            self.comboClasse.insert(END,crc)
-        
-        user=self.vueParent.parent.getUsers()
-        for proprio in user:
-            self.comboProprio.insert(END,proprio)
+        self.updateListeUser()#load la liste des users du projet dans le combo de users
         
         self.comboProprio.pack(pady=5)
 
@@ -63,13 +59,13 @@ class CrcVUE(object):
         self.titreCollabo.pack()
         
         
-#######collaborateur dans combobox déroulé
-        #self.col = Tix.StringVar()
-        #self.comboCollabo=Tix.ComboBox(self.frameCollabo,editable=1,variable=self.col,dropdown=0,options='listbox.width 30 listbox.height 38')
-        #self.comboCollabo.pack()
+#######collaborateur potentiel dans combobox
+        self.col = Tix.StringVar()
+        self.comboCRC=Tix.ComboBox(self.frameCollabo,editable=0,variable=self.col,dropdown=1,options='listbox.width 30')
+        self.comboCRC.pack()
 ######pas terminé
         
-#######collaborateur dans text...grid...?
+#######collaborateurs
         
         self.collaboration = Text(self.frameCollabo, width=30,height=35)
         self.scrollbarCol=Scrollbar(self.frameCollabo)
@@ -82,10 +78,6 @@ class CrcVUE(object):
         self.frameInfo.pack(side=LEFT)
         self.frameCollabo.pack(side=LEFT)
         
-        #self.frameNom.grid(padx=20,pady=10,row=1,column=1)
-        #self.frameInfo.grid(row=2,column=1)
-        #self.frameCollabo.grid(padx =20,pady=10,row=1,rowspan=4,column=3)
-        
         self.infoDonnee.config(state=DISABLED)
         self.collaboration.config(state=DISABLED)
         
@@ -96,10 +88,7 @@ class CrcVUE(object):
                                          'Entrez le nom de la classe :',parent=self.vueParent.root)
         if nom:
             if self.vueParent.parent.createNewCrc(nom):
-                self.comboClasse.subwidget_list['slistbox'].subwidget_list['listbox'].delete(0,END)
-                self.listeDeCRC=self.vueParent.parent.getListeCRC()
-                for crc in self.listeDeCRC:  #load la liste des crc du projet dans le combobox
-                    self.comboClasse.insert(END,crc)
+                self.updateListeCRC()
             else:
                 self.vueParent.afficherUnMessage("Un Crc porte ce nom",erreur="ERREUR!!!")        
     
@@ -109,6 +98,19 @@ class CrcVUE(object):
             self.crcCourant=self.vueParent.parent.getCRC(nom)
             self.afficherRoles()
             self.afficherCollabo()
+            
+    def updateListeCRC(self):
+        self.comboClasse.subwidget_list['slistbox'].subwidget_list['listbox'].delete(0,END)
+        self.listeDeCRC=self.vueParent.parent.getListeCRC()
+        for crc in self.listeDeCRC:  #load la liste des crc du projet dans le combobox
+            self.comboClasse.insert(END,crc)
+            
+    def updateListeUser(self):
+        self.comboProprio.subwidget_list['slistbox'].subwidget_list['listbox'].delete(0,END)
+        user=self.vueParent.parent.getUsers()
+        for proprio in user:
+            self.comboProprio.insert(END,proprio)
+        
         
     def afficherRoles(self):
         self.infoDonnee.config(state=NORMAL)
@@ -176,13 +178,11 @@ class CrcVUE(object):
             
             self.collaboration.delete(0.0,END)
                                                                                                                   
-            #for i,laLigneAnalyse in enumerate(analyse):
             for collaborateur in self.crcCourant.collaboration:
-                #col = []
                 
             # ligne -> frame
                 ligne=Frame(self.collaboration)
-            #pour deleteRow 
+            #pour delete 
                 state=IntVar()
                 delRowCol=Radiobutton(ligne,text='x',variable=state,value=1,cursor="arrow",indicatoron=False,command=self.deleteRowCollabo)
                 delRowCol.var=state
@@ -194,9 +194,7 @@ class CrcVUE(object):
                 entree.insert(END,collaborateur)
         
                 entree.pack(side=LEFT)
-                #col.append(entree)
                 self.rowsCollabo.append(collaborateur)
-                #
                 self.collaboration.window_create(INSERT,window=ligne)
         self.collaboration.config(state=DISABLED)
         
@@ -214,7 +212,7 @@ class CrcVUE(object):
                 
             for collaborateur in self.rowsCollabo:
                 self.crcCourant.collaboration.append(collaborateur)
-            #......autres opérations ici.....à suivre
+
             self.vueParent.parent.updateCrc(self.crcCourant)
         
        
