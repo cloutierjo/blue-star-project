@@ -37,11 +37,14 @@ class Sprint:
     
     def __init__(self):
         self.dateFin = ""
-        self.taskGeneral = []
+        self.taskGeneral = []       # doit etre de format ["name",handled]
         self.taskFull = TaskList.TaskList()   
         
     def unicodize(self):
         self.dateFin=unicode(self.dateFin)
+        for i in self.taskGeneral:
+            i[0]=unicode(i[0])
+        
             
     def serialize(self):
         self.unicodize()
@@ -59,8 +62,8 @@ if __name__ == '__main__':
     sp=Sprint()
     sp.dateFin="29 avr"
     
-    sp.taskGeneral.append("gentask1")
-    sp.taskGeneral.append("gentask2")
+    sp.taskGeneral.append(["gentask1",0])
+    sp.taskGeneral.append(["gentask2",1])
         
     tlf=TaskList.TaskList()
     
