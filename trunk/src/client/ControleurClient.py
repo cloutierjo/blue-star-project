@@ -47,7 +47,6 @@ class ControleurClient:
         self.i.dictionnaireDonnee.updateListes()
         self.m.projet.unicodize()
         pjser=self.m.projet.serialize()
-        print pjser["dictDonne"]
         return self.server.sauvegarderProjet(pjser)
     
     def creerMandat(self, mandat):
