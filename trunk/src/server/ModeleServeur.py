@@ -33,6 +33,12 @@ class ModeleServeur:
         cur.execute('''CREATE TABLE Responsabilite(IDCRC NUMBER(6) REFERENCES CRC, Nom VARCHAR(50), Handle NUMBER(1))''')
         cur.execute('''CREATE TABLE Collaboration(IDCRC NUMBER(6) REFERENCES CRC, Nom VARCHAR(50))''')
         
+        # DEVEL
+        cur.execute('''CREATE TABLE Sprint(IDPROJ NUMBER(6) REFERENCES Projets, IDSPRINT NUMBER(6) PRIMARY KEY, DateFin DATE)''')
+        cur.execute('''CREATE TABLE TaskGen(IDSPRINT NUMBER(6) REFERENCES Sprint, Nom VARCHAR(30), Handled NUMBER(1))''')
+        cur.execute('''CREATE TABLE TaskFull(IDSPRINT NUMBER(6) REFERENCES Sprint, Nom VARCHAR(30), User VARCHAR(30), Priorite NUMBER(6), Handled NUMBER(1))''')   
+        # END DEVEL
+        
         # Générateur d'ID unique dans la méthode getNewID() (bonne pour 999 999 projets 
         cur.execute('''CREATE TABLE SeqProj(Val NUMBER(6))''')
         cur.execute('insert into SeqProj values(?)', (1,))
@@ -45,6 +51,9 @@ class ModeleServeur:
         # Générateur d'ID unique pour CRC 
         cur.execute('''CREATE TABLE SeqCRC(Val NUMBER(9))''')
         cur.execute('insert into SeqCRC values(?)', (1,))
+        # Générateur d'ID unique pour Sprint 
+        cur.execute('''CREATE TABLE SeqSprint(Val NUMBER(9))''')
+        cur.execute('insert into SeqSprint values(?)', (1,))
         
         self.con.commit()
         cur.close()
@@ -53,8 +62,9 @@ class ModeleServeur:
     def getProject(self, projectID):
         
         p = Projet()
+        
         cur = self.con.cursor()     # Curseur
-        cur2 = self.con.cursor()
+        cur2 = self.con.cursor()    # Curseur 2 pour boucles
         
         cur.execute('''SELECT * FROM Projets WHERE ID = (?)''', (projectID,))
         row = cur.fetchone()
@@ -104,7 +114,29 @@ class ModeleServeur:
             for row2 in cur2:
                 crc.collaboration.append(row2[1])
             p.crc.crcs.append(crc)
-                                 
+          
+        # Loading Sprints
+        cur.execute('''SELECT * FROM Sprint WHERE IDPROJ = (?)''', (projectID,))
+        for row in cur:
+            sprint=Sprint.Sprint()
+            sprint.dateFin = row[2]
+            
+            cur2.execute('''SELECT * FROM TaskGen WHERE IDSPRINT = (?)''', (row[0],))
+            for row2 in cur2:
+                sprint.taskGeneral.append([row2[1], row2[2]])
+                
+            cur2.execute('''SELECT * FROM TaskFull WHERE IDSPRINT = (?)''', (row[0],))
+            for row2 in cur2:
+                task=TaskList.Task()
+                task.name = row2[1]
+                task.user = row2[2]
+                task.priorite = row2[3]
+                task.handled = row2[4]
+                
+                sprint.taskFull.tasklist.append(task)
+                
+            p.sprint.sprints.append(sprint)
+            
         cur.close()  
         return p 
     
@@ -172,6 +204,15 @@ class ModeleServeur:
                 cur2.execute('insert into Responsabilite values(?, ?, ?)', (idcrc, eachResp[0], eachResp[1]))
             for eachCol in eachcrc.collaboration:
                 cur2.execute('insert into Collaboration values(?, ?)', (idcrc, eachCol))
+        
+        # SAVE SPRINT    
+        for eachsprint in projet.sprint.sprints:
+            idSprint = self.getNewIDSprint()
+            cur.execute('insert into Sprint values(?, ?, ?)', (projet.num, idSprint, eachsprint.dateFin))
+            for eachtaskgen in sprint.taskGeneral:
+                cur2.execute('insert into TaskGen values(?, ?, ?)', (idSprint, eachtaskgen[0], eachtaskgen[1]))
+            for eachtaskfull in sprint.taskFull.tasklist:
+                cur2.execute('insert into TaskFull values(?, ?, ?, ?, ?)',(idSprint, eachtaskfull.name, eachtaskfull.user, eachtaskfull.priorite, eachtaskfull.handled))
                 
         self.con.commit()        
         cur.close()
@@ -183,7 +224,7 @@ class ModeleServeur:
         
         cur = self.con.cursor()             # Curseur
         cur2 = self.con.cursor()            # Curseur 2 (boucle)
-        projet.num = self.getNewIDProj()    # Get a Unique ID for the project
+        #projet.num = self.getNewIDProj()    # Get a Unique ID for the project
             
         # Ajout du projet dans la table Projets
         entryTableProjets = (projet.num, projet.nom, projet.mandat) # Nouvelle entrée
@@ -215,7 +256,16 @@ class ModeleServeur:
                 cur2.execute('insert into Responsabilite values(?, ?, ?)', (idcrc, eachResp[0], eachResp[1]))
             for eachCol in eachcrc.collaboration:
                 cur2.execute('insert into Collaboration values(?, ?)', (idcrc, eachCol))
-                
+           
+        # SAVE SPRINT    
+        for eachsprint in projet.sprint.sprints:
+            idSprint = self.getNewIDSprint()
+            cur.execute('insert into Sprint values(?, ?, ?)', (projet.num, idSprint, eachsprint.dateFin))
+            for eachtaskgen in sprint.taskGeneral:
+                cur2.execute('insert into TaskGen values(?, ?, ?)', (idSprint, eachtaskgen[0], eachtaskgen[1]))
+            for eachtaskfull in sprint.taskFull.tasklist:
+                cur2.execute('insert into TaskFull values(?, ?, ?, ?, ?)',(idSprint, eachtaskfull.name, eachtaskfull.user, eachtaskfull.priorite, eachtaskfull.handled))
+                     
         self.con.commit()        
         cur.close()
         return projet.num # To be modified for errors handlings
@@ -254,6 +304,17 @@ class ModeleServeur:
             
         cur.execute('DELETE FROM CRC WHERE IDPROJ = (?)', (projetID,))
             
+        # Deleting Sprints
+        cur.execute('''SELECT IDSPRINT FROM Sprint WHERE IDPROJ = (?)''', (projetID,))
+        for row in cur:
+            cur2.execute('DELETE FROM TaskGen WHERE IDSPRINT = (?)', (row[0],))
+            
+        cur.execute('''SELECT IDSPRINT FROM Sprint WHERE IDPROJ = (?)''', (projetID,))
+        for row in cur:
+            cur2.execute('DELETE FROM TaskFull WHERE IDSPRINT = (?)', (row[0],))
+            
+        cur.execute('DELETE FROM Sprint WHERE IDPROJ = (?)', (projetID,))
+        
         self.con.commit()
         cur.close()
         cur2.close()
@@ -314,6 +375,20 @@ class ModeleServeur:
         self.con.commit()
         cur.close()
         return val
+    
+    # Sert de séquence de nombre pour l'ID des Sprints en attendant de trouver comment faire une séquence
+    def getNewIDSprint(self):
+        
+        cur = self.con.cursor()    # Curseur
+        
+        cur.execute('''Select Val from SeqSprint''')
+        row = cur.fetchone()
+        val = row[0]
+        cur.execute('UPDATE SeqSprint SET Val = (?)', (val+1,))
+        
+        self.con.commit()
+        cur.close()
+        return val
  
 # Fin de ModeleServeur
 # Ne pas effacer la suite qui sert à initialiser une BD
@@ -367,10 +442,31 @@ if __name__ == "__main__":
         crc.responsabilite.append(["dummyfisrtResp", 0])
         crc.responsabilite.append(["dummysecResp", 1])
         crc.collaboration.append("dummyfirstColl")
-        crc.collaboration.append("dummysecColl")
-    
+        crc.collaboration.append("dummysecColl")   
         p.crc.crcs.append(crc)
         
+        #DEVEL
+        sprint=Sprint.Sprint()
+        sprint.dateFin = "1979-05-25"
+        sprint.taskGeneral.append(["dummyfisrttaskGen", 0])
+        sprint.taskGeneral.append(["dummysectaskGen", 1])
+        
+        task=TaskList.Task()
+        task.name="task1b"
+        task.priorite=1
+        task.user = "moib"
+        sprint.taskFull.tasklist.append(task)
+    
+        task=TaskList.Task()
+        task.name="task2b"
+        task.priorite=2
+        task.user = "301b"
+        sprint.taskFull.tasklist.append(task)
+        
+        p.sprint.sprints.append(sprint)
+        # END DEVEL
+        
+        # TEST CRCs
         '''
         for eachcrc in p.crc.crcs:
             print eachcrc.nomClasse
@@ -382,15 +478,15 @@ if __name__ == "__main__":
         '''
         
         ms.saveProject(p)
-
-    '''        
-    for cas in p.casEtScenario.items:
-        print "Je suis le cas : "+cas.nom+" "+str(cas.priorite)
-        for scenario in cas.scenario.etapes:
-            print scenario.etapes+" "+str(scenario.ordre)
-    '''
     
+    # Test de get projet...
     p2=ms.getProject(9)
+    number = ms.saveProject(p2)
+    print str(number)
+    p2=ms.getProject(number)
+    number = ms.saveProject(p2)
+    print str(number)
+    p2=ms.getProject(number)
     
     print p2.analyseExplicite.getForDB()
     for cas in p2.casEtScenario.items:
@@ -414,6 +510,17 @@ if __name__ == "__main__":
             print eachResp[0]+" "+str(eachResp[1])
         for eachCol in eachcrc.collaboration:
             print eachCol
-        
+    
+    for eachsprint in p2.sprint.sprints:
+        print eachsprint.dateFin
+        for eachtaskgen in sprint.taskGeneral:
+            print eachtaskgen[0]+" "+str(eachtaskgen[1])
+        for eachtaskfull in sprint.taskFull.tasklist:
+            print eachtaskfull.name
+            print eachtaskfull.user
+            print str(eachtaskfull.priorite)
+            print str(eachtaskfull.handled) 
+            
+               
     print "Création DB DONE !!!"
         
