@@ -264,7 +264,7 @@ class CrcVUE(object):
                 if present==False:
                     self.crcCourant.collaboration.append(nouveauCollabo)
                     
-                self.afficherCollabo()
+            self.afficherCollabo()
 
     def gestion(self):
         self.infoDonnee.config(state=NORMAL)
@@ -370,7 +370,10 @@ class CrcVUE(object):
     
         reste.remove(reste[i]) #delete les donnees non voulues
         
-        self.collaboration.delete(0.0,END)        
+        self.collaboration.delete(0.0,END)
+        #test
+        self.crcCourant.collaboration=[]
+        #        
         self.etatsCollabo=[]
         self.rowsCollabo=[]
         
