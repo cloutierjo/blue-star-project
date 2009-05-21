@@ -12,20 +12,16 @@ import Scrum
 from Tkinter import *
 
 class ScrumView(object):
-    def __init__(self, vueParent, done, todo, problem):
+    def __init__(self, vueParent, scrumLst):
         self.vueParent = vueParent
         self.frame = Frame()
-        
-        self.done = done
-        self.todo = todo
-        self.problem = problem
-        
+                
         title = Label(self.frame, text = "Scrum")
         title.pack()
         
-        self.d = Donnee(self, self.done)
-        self.t = Action(self, self.todo)
-        self.p = Action(self, self.problem)
+        self.d = GridView(self, self.done)
+        self.t = GridView(self, self.todo)
+        self.p = GridView(self, self.problem)
         
     def updateListes(self):
         self.done = self.d.getData
@@ -254,3 +250,38 @@ class GridView(object):
             
         self.textData.config(state=DISABLED)
             
+
+if __name__ == '__main__':
+    
+    scl=Scrum.ScrumList()
+    
+    sc=Scrum.Scrum()
+    
+    sc.date="19 mai"
+    sc.user="moi"
+    sc.done.append(["fais1",0])
+    sc.done.append(["fais2",0])
+    sc.todo.append(["afaire1",0])
+    sc.todo.append(["afaire2",0])
+    sc.probleme.append(["prob1",0])
+    sc.probleme.append(["prob2",0])
+    
+    scl.scrums.append(sc)
+    
+    sc=Scrum.Scrum()
+    
+    sc.date="20 mai"
+    sc.user="s01"
+    sc.done.append(["bfais1",0])
+    sc.done.append(["bfais2",0])
+    sc.todo.append(["bafaire1",0])
+    sc.todo.append(["bafaire2",0])
+    sc.probleme.append(["bprob1",0])
+    sc.probleme.append(["bprob2",0])
+    
+    scl.scrums.append(sc)
+    
+    root = Tk()
+    c = ScrumView(None,scl)
+    c.frame.pack()
+    root.mainloop()

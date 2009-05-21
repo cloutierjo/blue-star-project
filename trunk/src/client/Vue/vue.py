@@ -16,6 +16,7 @@ from ScenarioVue import *
 from DictionnaireDonnee import *
 from CRCVue import *
 from Liste import *
+from ScrumView import *
 import Tix
 
 class Vue(object):
@@ -49,6 +50,8 @@ class Vue(object):
         self.dictionnaireDonnee = None
 #Lobjet graphique CRC
         self.crc = None
+#Lobjet graphique scrum
+        self.scrum = None
 #Haut    
     def menuPrincipal(self):
         #cree une barre de menu (qui est aussi un objet Menu)
@@ -104,6 +107,7 @@ class Vue(object):
         self.casUsage = CasUsageVue(self)
         self.dictionnaireDonnee = DictionnaireDonnee(self, self.parent.ouvrirDicDonneeVar(), self.parent.ouvrirDicDonneeFonc())
         self.crc = CrcVUE(self,self.parent.getListeCRC())
+       # self.scrum = ScrumView(self,self.parent.getListeCRC())
 #####charger autres objets graphiques ici...
 
         
@@ -116,6 +120,8 @@ class Vue(object):
         self.graphItems.append(self.scenario)
         self.graphItems.append(self.dictionnaireDonnee)
         self.graphItems.append(self.crc)
+        self.graphItems.append(self.scrum)
+        
 #####ajouter autres widgets dans graphItems ici...
         
     def NouveauProjet(self):
@@ -237,6 +243,12 @@ class Vue(object):
         else:
             tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
 
+    def afficherScrum(self):
+        if self.etat==1:
+            self.effacerFenetre()
+            self.Scrum.frame.pack(side=LEFT,padx=30)
+        else:
+            tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
 
     def afficherUnMessage(self,Texte,erreur="ERREUR!!!"):
         tkMessageBox.showerror(erreur, Texte)
@@ -274,6 +286,11 @@ class Onglets(object):
         r.config(activeforeground="blue",relief=RIDGE)
         r.pack(side=LEFT)
         
+        
+        
+        r=Radiobutton(self.frame, text="Scrum", variable=self.v, value=9,command=self.vueParent.afficherScrum)
+        r.config(activeforeground="blue",relief=RIDGE)
+        r.pack(side=LEFT)
         #autres onglets a suivre...
         self.v.set(0)
 
