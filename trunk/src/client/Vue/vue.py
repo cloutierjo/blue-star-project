@@ -136,20 +136,24 @@ class Vue(object):
                                      'Entrez le nom:',parent=self.root)
         if nom:
             self.parent.createNewUser(nom)
+            self.crc.updateListeUser()
     
     def propos(self):
-        self.root = Tk()
-        self.root.title("This is...")
+        self.fen = Toplevel()
+        self.fen.title("This is...")
         
-        self.frame2 = Frame(self.root);
+        self.fen.grab_set()
+        self.fen.focus_set()
+        
+        self.frame2 = Frame(self.fen);
         txtFont = tkFont.Font(size=25)
         titre = Label(self.frame2, 
                       text="Blue Star Project",
                       font=txtFont)
         titre.pack()
-        doByPeople = Label(self.frame2, text= "\nFait par: Jonathan Hallée, François Lahey, \n\tJonathan Cloutier St-Jean, Mathieu Lavoie, \nPascal Lemay, Jean-Philippe Chan")
+        doByPeople = Label(self.frame2, text= "\nFait par:   Jonathan Hallée\n\tFrançois Lahey\n\t               Jonatan Cloutier St-Jean\n\t Mathieu Lavoie\n\tPascal Lemay\n\t   Jean-Philippe Chan")
         doByPeople.pack()
-        texteCours = Label(self.frame2, text="\nPour le cour B41")
+        texteCours = Label(self.frame2, text="\nPour le cours B41")
         texteCours.pack()
         self.frame2.pack()
     
