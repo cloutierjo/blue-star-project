@@ -253,11 +253,18 @@ class CrcVUE(object):
         
         self.infoDonnee.config(state=DISABLED)
         
-    def addCollaborateur(self):
-        pass
-        # à venir
-        
-        
+    def addCollaborateur(self,evt):
+        if self.crcCourant != None:
+            present=False
+            nouveauCollabo = self.col.get()
+            if nouveauCollabo:
+                for collaborateur in self.crcCourant.collaboration:
+                    if nouveauCollabo==collaborateur:
+                        present=True
+                if present==False:
+                    self.crcCourant.collaboration.append(nouveauCollabo)
+                    
+                self.afficherCollabo()
 
     def gestion(self):
         self.infoDonnee.config(state=NORMAL)
