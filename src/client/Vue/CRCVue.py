@@ -24,9 +24,11 @@ class CrcVUE(object):
         self.frameInfo = Frame(self.frame)
         self.frameCollabo = Frame(self.frame)#les frames
         
-        #self.entreeProp = Entry(self.frameNom,width=40)
+        self.entreeProprio=Entry(self.frameInfo,relief=RIDGE)
+        self.entreeProprio.config(width=30)
+        
         self.varUser = Tix.StringVar()
-        self.comboProprio = Tix.ComboBox(self.frameInfo,label='Propriétaire :',editable=0,variable=self.varUser,dropdown=1,options='listbox.width 30')
+        self.comboProprio = Tix.ComboBox(self.frameInfo,label='Propriétaire   :',editable=0,variable=self.varUser,dropdown=1,command=self.setProprietaire,options='listbox.width 30')
         
         self.varcombo = Tix.StringVar()#comboClasse->liste des crc du projet
         self.comboClasse=Tix.ComboBox(self.frameInfo,label='Liste des CRC:',editable=0,variable=self.varcombo,dropdown=1,command=self.getCrc,options='listbox.width 30')
@@ -40,7 +42,10 @@ class CrcVUE(object):
         
         self.updateListeUser()#load la liste des users du projet dans le combo de users
         
-        self.comboProprio.pack(pady=5)
+
+        self.comboProprio.pack(pady=2)
+        self.entreeProprio.pack(pady=2)
+        self.entreeProprio.config(state=DISABLED)
 
         
         titreInfo = Label(self.frameInfo,text="Rôles:(Données et Fonctions)")
@@ -100,6 +105,12 @@ class CrcVUE(object):
             self.afficherRoles()
             self.afficherCollabo()
             
+    def setProprietaire(self,evt):
+        self.entreeProprio.config(state=NORMAL)
+        self.entreeProprio.delete(0,END)
+        self.entreeProprio.insert(END,self.varUser.get())
+        self.entreeProprio.config(state=DISABLED)
+            
     def updateListeCRC(self):
         self.comboClasse.subwidget_list['slistbox'].subwidget_list['listbox'].delete(0,END)
         self.comboCRC.subwidget_list['slistbox'].subwidget_list['listbox'].delete(0,END)
@@ -122,6 +133,11 @@ class CrcVUE(object):
             self.retours=[]        
             self.etats=[]
             self.rows=[]
+            
+            self.entreeProprio.config(state=NORMAL)
+            self.entreeProprio.delete(0,END)
+            self.entreeProprio.insert(END,self.crcCourant.proprio)
+            self.entreeProprio.config(state=DISABLED)
             
             self.infoDonnee.delete(0.0,END)
                                                                                                                   
@@ -207,6 +223,10 @@ class CrcVUE(object):
         if self.crcCourant!=None:
             self.crcCourant.responsabilite=[]
             self.crcCourant.collaboration=[]
+            
+            self.entreeProprio.config(state=NORMAL)
+            self.crcCourant.proprio=self.entreeProprio.get()
+            self.entreeProprio.config(state=DISABLED)
             
             for row in self.rows:
                 unRole=[]
