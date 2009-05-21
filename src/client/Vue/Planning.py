@@ -8,13 +8,14 @@ class Planning:
 
     def __init__(self, parent):
         
+            self.parent = parent
         #Timeline
             hauteurTxtBox = 100
             largeurTxtBox = 300
             padxGen = 15
             #Creation du Frame
             self.frameGenTotal = Frame()
-            self.windows = ScrolledWindow(self.frameGenTotal, scrollbar='auto')
+            self.windows = ScrolledWindow(self.frameGenTotal, scrollbar='auto', width=(largeurTxtBox+padxGen)*4)
             self.windows.pack(pady=15)
             self.listeSprint = []
             for i in range(10):
@@ -25,10 +26,11 @@ class Planning:
                 txtGenTempo.text.insert(END, "ENTREZ TEXTE")
                 txtGenTempo.pack()
                 frameGenTempo.pack(side=LEFT, padx=padxGen)
-                self.listeSprint.append(frameGenTempo)
-                
-            
-            
+                self.listeSprint.append(txtGenTempo)
+            self.listeSprint[0].text.focus_set()
+                   
+            Button(self.frameGenTotal, text="core", command=self.retournerFocus).pack()
+            self.frameGenTotal.pack()
             #Debut Detaillé#
             self.frameDetail = Frame()
                     
@@ -228,7 +230,9 @@ class Planning:
             
         self.grille.config(state=DISABLED)
         
-        
+    def retournerFocus(evt=None):
+        monobjet=root.focus_get()
+        print monobjet.get(1.0, END)
             
             
             
