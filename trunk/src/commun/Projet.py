@@ -131,8 +131,8 @@ if __name__ == '__main__':
     sp=Sprint.Sprint()
     sp.dateFin="29 avr"
     
-    sp.taskGeneral.append("gentask1")
-    sp.taskGeneral.append("gentask2")
+    sp.taskGeneral.append(["gentask1",0])
+    sp.taskGeneral.append(["gentask2",1])
         
     tlf=TaskList.TaskList()
     
