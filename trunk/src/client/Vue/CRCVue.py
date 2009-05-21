@@ -32,6 +32,10 @@ class CrcVUE(object):
         self.comboClasse=Tix.ComboBox(self.frameInfo,label='Liste des CRC:',editable=0,variable=self.varcombo,dropdown=1,command=self.getCrc,options='listbox.width 30')
         self.comboClasse.pack()
         
+#######collaborateur potentiel dans combobox        
+        self.col = Tix.StringVar()
+        self.comboCRC=Tix.ComboBox(self.frameCollabo,editable=0,variable=self.col,dropdown=1,command=self.addCollaborateur,options='listbox.width 30')
+        
         self.updateListeCRC()#load la liste des crc du projet dans le combobox
         
         self.updateListeUser()#load la liste des users du projet dans le combo de users
@@ -60,10 +64,7 @@ class CrcVUE(object):
         
         
 #######collaborateur potentiel dans combobox
-        self.col = Tix.StringVar()
-        self.comboCRC=Tix.ComboBox(self.frameCollabo,editable=0,variable=self.col,dropdown=1,options='listbox.width 30')
         self.comboCRC.pack()
-######pas terminé
         
 #######collaborateurs
         
@@ -101,9 +102,12 @@ class CrcVUE(object):
             
     def updateListeCRC(self):
         self.comboClasse.subwidget_list['slistbox'].subwidget_list['listbox'].delete(0,END)
+        self.comboCRC.subwidget_list['slistbox'].subwidget_list['listbox'].delete(0,END)
         self.listeDeCRC=self.vueParent.parent.getListeCRC()
-        for crc in self.listeDeCRC:  #load la liste des crc du projet dans le combobox
+        for crc in self.listeDeCRC:  #load la liste des crc du projet dans les comboboxs
             self.comboClasse.insert(END,crc)
+            self.comboCRC.insert(END,crc)
+            
             
     def updateListeUser(self):
         self.comboProprio.subwidget_list['slistbox'].subwidget_list['listbox'].delete(0,END)
@@ -248,6 +252,10 @@ class CrcVUE(object):
         self.infoDonnee.window_create(INSERT,window=ligne)
         
         self.infoDonnee.config(state=DISABLED)
+        
+    def addCollaborateur(self):
+        pass
+        # à venir
         
         
 
