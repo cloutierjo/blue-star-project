@@ -495,8 +495,10 @@ voici le model de scrum
 
 ==Pascal L.==
  ===1- qu'est-ce que j'ai fais (livré) depuis "hier"?===
-  * ... 
+  * Lié la sauvegarde des collaborateurs sur projet pour les CRC
+  * Le handled  
  ===2- qu'est-ce que je ferais (livré) aujourd'hui?===
-  * ... 
+  * Gérer le handle sur CRC courant
+  * Aider mathieu sur l'interface du planning général
  ===3- est-ce que j'ai eu des difficultés particulières? (besoin d'aide ?)===
-  * ...
+  * N/A
