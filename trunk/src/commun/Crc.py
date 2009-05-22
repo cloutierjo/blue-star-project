@@ -59,6 +59,7 @@ class Crc:
     PROPRIO="proprio"
     RESPONSABILITE="responsabilite"
     COLLABORATION="collaboration"
+    HANDLED="handled"
     
     def __init__(self):
         self.nomClasse = ""
@@ -77,13 +78,14 @@ class Crc:
             
     def serialize(self):
         self.unicodize()
-        return {self.NOMCLASS:self.nomClasse,self.PROPRIO:self.proprio,self.RESPONSABILITE:self.responsabilite,self.COLLABORATION:self.collaboration}
+        return {self.NOMCLASS:self.nomClasse,self.PROPRIO:self.proprio,self.RESPONSABILITE:self.responsabilite,self.COLLABORATION:self.collaboration,self.HANDLED:self.handled}
     
     def deserialize(self, serializedCrc):
         self.nomClasse=serializedCrc[self.NOMCLASS]
         self.proprio=serializedCrc[self.PROPRIO]
         self.responsabilite=serializedCrc[self.RESPONSABILITE]
         self.collaboration=serializedCrc[self.COLLABORATION]
+        self.handled=serializedCrc[self.HANDLED]
 
 if __name__ == '__main__':
     crcs=LstCrc()
