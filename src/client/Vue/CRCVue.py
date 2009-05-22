@@ -60,9 +60,14 @@ class CrcVUE(object):
         self.scrollbarInfo.config(command=self.infoDonnee.yview)
         self.infoDonnee.config(yscrollcommand=self.scrollbarInfo.set)
         
+        ##
+        miniFrameBoutons=Frame(self.frameCollabo)
+        self.boutonNewCrc=Button(miniFrameBoutons,text='Créer nouveau CRC',command=self.nouveauCrc)
+        self.boutonNewCrc.pack(side=LEFT)
         
-        self.boutonNewCrc=Button(self.frameCollabo,text='Créer nouveau CRC',command=self.nouveauCrc)
-        self.boutonNewCrc.pack()
+        self.boutonUpdate=Button(miniFrameBoutons,text='Update',command=self.updateCRC)
+        self.boutonUpdate.pack(side=LEFT)
+        miniFrameBoutons.pack()
         
         self.titreCollabo = Label(self.frameCollabo,text="Les collaborateurs")
         self.titreCollabo.pack()
@@ -235,7 +240,7 @@ class CrcVUE(object):
                 self.crcCourant.collaboration.append(collaborateur)
 
             self.vueParent.parent.updateCrc(self.crcCourant)
-        
+            
        
     def addRow(self):
         self.infoDonnee.config(state=NORMAL)
