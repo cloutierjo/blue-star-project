@@ -44,6 +44,7 @@ class ControleurClient:
         self.i.ATExplicite.updateAnalyse()
         self.i.ATImplicite.updateAnalyse()
         self.i.crc.updateCRC()
+        self.i.crc2.updateCRC()
         self.i.dictionnaireDonnee.updateListes()
         self.m.projet.unicodize()
         pjser=self.m.projet.serialize()
