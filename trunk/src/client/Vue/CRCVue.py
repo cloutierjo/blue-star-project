@@ -28,15 +28,15 @@ class CrcVUE(object):
         self.entreeProprio.config(width=30)
         
         self.varUser = Tix.StringVar()
-        self.comboProprio = Tix.ComboBox(self.frameInfo,label='Propriétaire   :',editable=0,variable=self.varUser,dropdown=1,command=self.setProprietaire,options='listbox.width 30')
-        
+        self.comboProprio = Tix.ComboBox(self.frameInfo,label='Propriétaire   :',editable=0,variable=self.varUser,dropdown=1,command=self.setProprietaire,width=30)
+        #'listbox.width 30'
         self.varcombo = Tix.StringVar()#comboClasse->liste des crc du projet
-        self.comboClasse=Tix.ComboBox(self.frameInfo,label='Liste des CRC:',editable=0,variable=self.varcombo,dropdown=1,command=self.getCrc,options='listbox.width 30')
+        self.comboClasse=Tix.ComboBox(self.frameInfo,label='Liste des CRC:',editable=0,variable=self.varcombo,dropdown=1,command=self.getCrc,width=30)
         self.comboClasse.pack()
         
 #######collaborateur potentiel dans combobox        
         self.col = Tix.StringVar()
-        self.comboCRC=Tix.ComboBox(self.frameCollabo,editable=0,variable=self.col,dropdown=1,command=self.addCollaborateur,options='listbox.width 30')
+        self.comboCRC=Tix.ComboBox(self.frameCollabo,editable=0,variable=self.col,dropdown=1,command=self.addCollaborateur,width=30)
         
         self.updateListeCRC()#load la liste des crc du projet dans le combobox
         
@@ -66,9 +66,7 @@ class CrcVUE(object):
         
         self.titreCollabo = Label(self.frameCollabo,text="Les collaborateurs")
         self.titreCollabo.pack()
-        
-        
-#######collaborateur potentiel dans combobox
+######collaborateur potentiel dans combobox
         self.comboCRC.pack()
         
 #######collaborateurs
