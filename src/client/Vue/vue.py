@@ -50,6 +50,7 @@ class Vue(object):
         self.dictionnaireDonnee = None
 #Lobjet graphique CRC
         self.crc = None
+        self.crc2=None
 #Lobjet graphique scrum
         self.scrum = None
 #Haut    
@@ -107,6 +108,7 @@ class Vue(object):
         self.casUsage = CasUsageVue(self)
         self.dictionnaireDonnee = DictionnaireDonnee(self, self.parent.ouvrirDicDonneeVar(), self.parent.ouvrirDicDonneeFonc())
         self.crc = CrcVUE(self,self.parent.getListeCRC())
+        self.crc2 = CrcVUE(self,self.parent.getListeCRC())
         #self.scrum = ScrumView(self,self.parent.getListeCRC())
 #####charger autres objets graphiques ici...
 
@@ -120,6 +122,7 @@ class Vue(object):
         self.graphItems.append(self.scenario)
         self.graphItems.append(self.dictionnaireDonnee)
         self.graphItems.append(self.crc)
+        self.graphItems.append(self.crc2)
         #self.graphItems.append(self.scrum)
         
 #####ajouter autres widgets dans graphItems ici...
@@ -146,7 +149,8 @@ class Vue(object):
     
     def propos(self):
         self.fen = Toplevel()
-        self.fen.title("This is...")
+        self.fen.title("This is :")
+        self.fen.resizable(False,False)
         
         self.fen.grab_set()
         self.fen.focus_set()
@@ -157,7 +161,7 @@ class Vue(object):
                       text="Blue Star Project",
                       font=txtFont)
         titre.pack()
-        doByPeople = Label(self.frame2, text= "\nFait par:   Jonathan Hallée\n\tFrançois Lahey\n\t               Jonatan Cloutier St-Jean\n\t Mathieu Lavoie\n\tPascal Lemay\n\t   Jean-Philippe Chan")
+        doByPeople = Label(self.frame2, text= "\nFait par:\nJonathan Hallée,\nFrançois Lahey,\nJonatan Cloutier St-Jean,\nMathieu Lavoie,\nPascal Lemay,\nJean-Philippe Chan")
         doByPeople.pack()
         texteCours = Label(self.frame2, text="\nPour le cours B41")
         texteCours.pack()
@@ -198,9 +202,9 @@ class Vue(object):
         if self.etat==1:
             #efface la fenetre avant affichage desiree
             self.effacerFenetre()
-            self.ATExplicite.frame.pack(padx=50,side=LEFT,fill=Y)
+            self.ATExplicite.frame.pack(padx=50,pady=10,side=LEFT,fill=Y)
                                         #was right
-            self.ATImplicite.frame.pack(side=LEFT,padx=50,fill=Y)
+            self.ATImplicite.frame.pack(side=LEFT,padx=50,pady=10,fill=Y)
         else:
             tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
             
@@ -209,7 +213,7 @@ class Vue(object):
         if self.etat==1:
             #efface la fenetre avant affichage desiree
             self.effacerFenetre()
-            self.ATImplicite.frame.pack(padx=50,side=LEFT,fill=Y)
+            self.ATImplicite.frame.pack(padx=50,pady=10,side=LEFT,fill=Y)
             #code affichage cas usage a venir ici
             self.casUsage.frame.pack(side=LEFT,padx=50,fill=Y)
         else:
@@ -239,7 +243,9 @@ class Vue(object):
     def afficherCRC(self):
         if self.etat==1:
             self.effacerFenetre()
-            self.crc.frame.pack(side=LEFT,padx=30)
+            #self.crc.frame.pack(side=LEFT,padx=30)
+            self.crc.frame.pack(anchor=W,padx=30,pady=10)
+            self.crc2.frame.pack(anchor=W,padx=30,pady=10)
         else:
             tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
 
