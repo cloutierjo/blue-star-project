@@ -69,6 +69,11 @@ class CrcVUE(object):
         self.boutonUpdate.pack(side=LEFT)
         miniFrameBoutons.pack()
         
+        valeur=IntVar()
+        self.checkHandled=Checkbutton(miniFrameBoutons,variable=valeur,cursor="arrow",command=self.setHandled)
+        self.checkHandled.var=valeur
+        self.checkHandled.pack(side=LEFT)
+        
         self.titreCollabo = Label(self.frameCollabo,text="Les collaborateurs")
         self.titreCollabo.pack()
 ######collaborateur potentiel dans combobox
@@ -103,15 +108,26 @@ class CrcVUE(object):
     def getCrc(self,evt):
         nom = self.varcombo.get()
         if nom:
+            self.checkHandled.deselect()
             self.crcCourant=self.vueParent.parent.getCRC(nom)
             self.afficherRoles()
             self.afficherCollabo()
+            if self.crcCourant.handled==1:
+                self.checkHandled.select()
             
     def setProprietaire(self,evt):
         self.entreeProprio.config(state=NORMAL)
         self.entreeProprio.delete(0.0,END)###################################
         self.entreeProprio.insert(END,self.varUser.get())
         self.entreeProprio.config(state=DISABLED)
+        
+    def setHandled(self):
+        if self.crcCourant != None:
+            if self.checkHandled.var.get()==1:
+                self.crcCourant.handled=1
+            else:
+                self.crcCourant.handled=0
+        
             
     def updateListeCRC(self):
         self.comboClasse.subwidget_list['slistbox'].subwidget_list['listbox'].delete(0,END)
