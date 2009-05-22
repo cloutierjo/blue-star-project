@@ -13,7 +13,7 @@ class AnalyseTextuelle(object):
         self.explicite  = explicite
         
         #Creation du Frame
-        self.frame = Frame()
+        self.frame = Frame(borderwidth=2, relief="groove")
         
 #pour gestion (retours des Checkbuttons pour "handled")
         self.retours=[]
