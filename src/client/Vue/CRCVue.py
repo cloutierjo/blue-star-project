@@ -20,7 +20,7 @@ class CrcVUE(object):
         self.etatsCollabo=[]
         
         
-        self.frame = Frame()        
+        self.frame = Frame(borderwidth=2, relief="groove")        
         self.frameInfo = Frame(self.frame)
         self.frameCollabo = Frame(self.frame)#les frames
         
@@ -53,7 +53,7 @@ class CrcVUE(object):
         self.boutonAddRow=Button(self.frameInfo,text='ajouter un rôle',command=self.addRow)
         self.boutonAddRow.pack()
         
-        self.infoDonnee = Text(self.frameInfo, width=30,height=32)    
+        self.infoDonnee = Text(self.frameInfo, width=25,height=12) #height=32   
         self.scrollbarInfo = Scrollbar(self.frameInfo)
         self.scrollbarInfo.pack(side=RIGHT, fill=Y)
         self.infoDonnee.pack(side=LEFT, fill=Y)
@@ -71,7 +71,7 @@ class CrcVUE(object):
         
 #######collaborateurs
         
-        self.collaboration = Text(self.frameCollabo, width=30,height=35)
+        self.collaboration = Text(self.frameCollabo, width=25,height=15)#height=35
         self.scrollbarCol=Scrollbar(self.frameCollabo)
         self.scrollbarCol.pack(side=RIGHT, fill=Y)
         self.collaboration.pack(side=LEFT, fill=Y)
@@ -84,7 +84,6 @@ class CrcVUE(object):
         
         self.infoDonnee.config(state=DISABLED)
         self.collaboration.config(state=DISABLED)
-        
         
 #-----------------------------------------------------------------fin du init
     def nouveauCrc(self):
