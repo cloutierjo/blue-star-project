@@ -24,12 +24,12 @@ class CrcVUE(object):
         self.frameInfo = Frame(self.frame)
         self.frameCollabo = Frame(self.frame)#les frames
         
-        self.entreeProprio=Entry(self.frameInfo,relief=RIDGE)
-        self.entreeProprio.config(width=30)
+        self.entreeProprio=Text(self.frameInfo,relief=RIDGE)#######
+        self.entreeProprio.config(width=20,height=1)
         
         self.varUser = Tix.StringVar()
         self.comboProprio = Tix.ComboBox(self.frameInfo,label='Propriétaire   :',editable=0,variable=self.varUser,dropdown=1,command=self.setProprietaire,width=30)
-        #'listbox.width 30'
+                                                                                                                                                        #option='listbox.width 30'
         self.varcombo = Tix.StringVar()#comboClasse->liste des crc du projet
         self.comboClasse=Tix.ComboBox(self.frameInfo,label='Liste des CRC:',editable=0,variable=self.varcombo,dropdown=1,command=self.getCrc,width=30)
         self.comboClasse.pack()
@@ -105,7 +105,7 @@ class CrcVUE(object):
             
     def setProprietaire(self,evt):
         self.entreeProprio.config(state=NORMAL)
-        self.entreeProprio.delete(0,END)
+        self.entreeProprio.delete(0.0,END)###################################
         self.entreeProprio.insert(END,self.varUser.get())
         self.entreeProprio.config(state=DISABLED)
             
@@ -133,7 +133,7 @@ class CrcVUE(object):
             self.rows=[]
             
             self.entreeProprio.config(state=NORMAL)
-            self.entreeProprio.delete(0,END)
+            self.entreeProprio.delete(0.0,END)#############################
             self.entreeProprio.insert(END,self.crcCourant.proprio)
             self.entreeProprio.config(state=DISABLED)
             
@@ -223,7 +223,7 @@ class CrcVUE(object):
             self.crcCourant.collaboration=[]
             
             self.entreeProprio.config(state=NORMAL)
-            self.crcCourant.proprio=self.entreeProprio.get()
+            self.crcCourant.proprio=self.entreeProprio.get(0.0,END)############
             self.entreeProprio.config(state=DISABLED)
             
             for row in self.rows:
