@@ -113,6 +113,7 @@ if __name__ == '__main__':
     crc.responsabilite.append(["secResp", 1])
     crc.collaboration.append(["firstColl", 1])
     crc.collaboration.append(["secColl", 1])
+    crc.handled=0
     
     crcs.crcs.append(crc)
     
@@ -123,6 +124,7 @@ if __name__ == '__main__':
     crc.responsabilite.append(["secResp", 1])
     crc.collaboration.append(["firstColl", 0])
     crc.collaboration.append(["secColl", 1])
+    crc.handled=1
     
     crcs.crcs.append(crc)
     
