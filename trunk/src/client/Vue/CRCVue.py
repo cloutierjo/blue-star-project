@@ -125,8 +125,16 @@ class CrcVUE(object):
         if self.crcCourant != None:
             if self.checkHandled.var.get()==1:
                 self.crcCourant.handled=1
+                for row in self.rowsCollabo:
+                    row.config(state=DISABLED)
+                #for r in self.retours:
+                 #   r.set(1)
+                  #  self.gestion()
+                    
             else:
                 self.crcCourant.handled=0
+                for row in self.rowsCollabo:
+                    row.config(state=NORMAL)
         
             
     def updateListeCRC(self):
@@ -232,8 +240,11 @@ class CrcVUE(object):
                 entree.insert(END,collaborateur)
         
                 entree.pack(side=LEFT)
-                self.rowsCollabo.append(collaborateur)
+                self.rowsCollabo.append(entree)
                 self.collaboration.window_create(INSERT,window=ligne)
+                
+                if self.crcCourant.handled==1:
+                    entree.config(state=DISABLED)
         self.collaboration.config(state=DISABLED)
         
     
@@ -253,12 +264,13 @@ class CrcVUE(object):
                 self.crcCourant.responsabilite.append(unRole)
                 
             for collaborateur in self.rowsCollabo:
-                self.crcCourant.collaboration.append(collaborateur)
+                self.crcCourant.collaboration.append(collaborateur.get())
 
             self.vueParent.parent.updateCrc(self.crcCourant)
             
        
     def addRow(self):
+        
         self.infoDonnee.config(state=NORMAL)
         #nextRow = self.tableauAnalyse.grid_size()[1]
         col = []
@@ -292,7 +304,7 @@ class CrcVUE(object):
         self.infoDonnee.config(state=DISABLED)
         
     def addCollaborateur(self,evt):
-        if self.crcCourant != None:
+        if self.crcCourant != None and self.crcCourant.handled!=1:
             present=False
             nouveauCollabo = self.col.get()
             if nouveauCollabo:
@@ -339,7 +351,7 @@ class CrcVUE(object):
         i=0;
         while self.etats[i].get()!=1:  #donne l'indice de la row a deleter
             i=i+1
-         
+             
         reste=[]   
         for row in self.rows:    #transfert des donnees des rows dans reste
             col=[]
@@ -347,38 +359,38 @@ class CrcVUE(object):
                 col.append(row[c].get())
             col.append(int(row[1].get()))  # int le handled
             reste.append(col)
-            
+                
         reste.remove(reste[i]) #delete les donnees non voulues
-        
+            
         #update  # re-creation du crc avec les donnees restantes
         self.infoDonnee.delete(0.0,END)
         self.retours=[]        
         self.etats=[]
         self.rows=[]
-        
-        for row in reste:
             
+        for row in reste:
+                
             col = []
             ligne=Frame(self.infoDonnee)
-            
+                
             retour=IntVar()
             check=Checkbutton(ligne,variable=retour,cursor="arrow",command=self.gestion)
             check.var=retour
             self.retours.append(check.var)
             check.pack(side=LEFT)
-            
+                
             if row[1]==1:
                 check.select()
                 gere=True
             else:
                 gere=False
-               
+                   
             etat=IntVar()
             delRow=Radiobutton(ligne,text='x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
             delRow.var=etat
             self.etats.append(delRow.var)
             delRow.pack(side=LEFT)
-            
+                
             for j in range(2):
                     entree = Entry(ligne,relief=RIDGE)
                     entree.config(width=35)
@@ -389,49 +401,51 @@ class CrcVUE(object):
                     if j<1:
                         entree.pack(side=LEFT)
                     col.append(entree)
-                
+                    
             self.rows.append(col)   
-                
+                    
             self.infoDonnee.window_create(INSERT,window=ligne)
-            
-        self.infoDonnee.config(state=DISABLED)
+                
+            self.infoDonnee.config(state=DISABLED)
         
     def deleteRowCollabo(self):
-        self.collaboration.config(state=NORMAL)
-        i=0
-        while self.etatsCollabo[i].get()!=1:  #donne l'indice de la row a deleter
-            i=i+1
-         
-        reste=[]   
-        for row in self.rowsCollabo:    #transfert des donnees des rows dans reste
-            reste.append(row)
+            self.collaboration.config(state=NORMAL)
+            i=0
+            while self.etatsCollabo[i].get()!=1:  #donne l'indice de la row a deleter
+                i=i+1
+             
+            reste=[]   
+            for row in self.rowsCollabo:    #transfert des donnees des rows dans reste
+                reste.append(row.get())
+        
+            reste.remove(reste[i]) #delete les donnees non voulues
+            
+            self.collaboration.delete(0.0,END)
+            #test
+            self.crcCourant.collaboration=[]
+            #        
+            self.etatsCollabo=[]
+            self.rowsCollabo=[]
+            
+            for row in reste:
     
-        reste.remove(reste[i]) #delete les donnees non voulues
-        
-        self.collaboration.delete(0.0,END)
-        #test
-        self.crcCourant.collaboration=[]
-        #        
-        self.etatsCollabo=[]
-        self.rowsCollabo=[]
-        
-        for row in reste:
-
-            ligne=Frame(self.collaboration)
-            
-            state=IntVar()
-            delRowCol=Radiobutton(ligne,text='x',variable=state,value=1,cursor="arrow",indicatoron=False,command=self.deleteRowCollabo)
-            delRowCol.var=state
-            self.etatsCollabo.append(delRowCol.var)
-            delRowCol.pack(side=LEFT)
-            
-            entree = Entry(ligne,relief=RIDGE)
-            entree.config(width=38)
-            entree.insert(END,row)
-            entree.pack(side=LEFT)
-
-            self.rowsCollabo.append(row)
-            
-            self.collaboration.window_create(INSERT,window=ligne)
-            
-        self.collaboration.config(state=DISABLED)   
+                ligne=Frame(self.collaboration)
+                
+                state=IntVar()
+                delRowCol=Radiobutton(ligne,text='x',variable=state,value=1,cursor="arrow",indicatoron=False,command=self.deleteRowCollabo)
+                delRowCol.var=state
+                self.etatsCollabo.append(delRowCol.var)
+                delRowCol.pack(side=LEFT)
+                
+                entree = Entry(ligne,relief=RIDGE)
+                entree.config(width=38)
+                entree.insert(END,row)
+                entree.pack(side=LEFT)
+    
+                self.rowsCollabo.append(entree)
+                if self.crcCourant.handled==1:
+                    entree.config(state=DISABLED)
+                
+                self.collaboration.window_create(INSERT,window=ligne)
+                
+            self.collaboration.config(state=DISABLED)   
