@@ -48,7 +48,7 @@ class Vue(object):
         self.scenario = None
 #L'objet graphique dictionnaire de données
         self.dictionnaireDonnee = None
-#Lobjet graphique CRC
+#Objets graphiques CRC
         self.crc = None
         self.crc2=None
 #Lobjet graphique scrum
@@ -290,17 +290,16 @@ class Onglets(object):
         r.config(activeforeground="blue",relief=RIDGE)
         r.pack(side=LEFT)
         
-        #tempo
         r=Radiobutton(self.frame, text="CRC", variable=self.v, value=7,command=self.vueParent.afficherCRC)
         r.config(activeforeground="blue",relief=RIDGE)
         r.pack(side=LEFT)
         
         
-        
         r=Radiobutton(self.frame, text="Scrum", variable=self.v, value=9,command=self.vueParent.afficherScrum)
         r.config(activeforeground="blue",relief=RIDGE)
         r.pack(side=LEFT)
-        #autres onglets a suivre...
+        
+        #autres onglets...
         self.v.set(0)
 
         
