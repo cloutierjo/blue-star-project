@@ -261,9 +261,9 @@ class ModeleServeur:
         for eachsprint in projet.sprint.sprints:
             idSprint = self.getNewIDSprint()
             cur.execute('insert into Sprint values(?, ?, ?)', (projet.num, idSprint, eachsprint.dateFin))
-            for eachtaskgen in sprint.taskGeneral:
+            for eachtaskgen in eachsprint.taskGeneral:
                 cur2.execute('insert into TaskGen values(?, ?, ?)', (idSprint, eachtaskgen[0], eachtaskgen[1]))
-            for eachtaskfull in sprint.taskFull.tasklist:
+            for eachtaskfull in eachsprint.taskFull.tasklist:
                 cur2.execute('insert into TaskFull values(?, ?, ?, ?, ?)',(idSprint, eachtaskfull.name, eachtaskfull.user, eachtaskfull.priorite, eachtaskfull.handled))
                      
         self.con.commit()        
