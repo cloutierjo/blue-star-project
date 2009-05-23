@@ -1,18 +1,25 @@
-#labels DOCUMENTATION
-=Utilisation du projet=
-
 PROJECT NAME :
-	* Blue-Star Project
+    - Blue-Star Project
 
 PROJECT OWNERS :
-	* Jonathan Hallée
-	* François Lahey
-	* Jonatan Cloutier St-Jean
-	* Mathieu Lavoie
-	* Pascal Lemay
-	* Jean-Philippe Chan
-	
+    - Jonathan Hallée
+    - François Lahey
+    - Jonatan Cloutier St-Jean
+    - Mathieu Lavoie
+    - Pascal Lemay
+    - Jean-Philippe Chan
+    
 HOW TO :
-	* Partir le contrôleur serveur. Le serveur sera démarrée
-	* Partir le contrôleur client L'interface sera démarrée
-	* De la il faut ouvrir un projet et naviguer dans le projet par les onglets
+    1. Partir le contrôleur serveur. Le serveur sera démarrée
+    2. Partir le contrôleur client L'interface sera démarrée
+    x. De la il faut ouvrir un projet et naviguer dans le projet par les onglets
+    
+!!! ATENTION !!!
+    L'aplication ne fonctionne par correctement avec les versions de python 
+    précédant python 2.6.2, l'aplication peu potentiellement etre fonctionnel
+    sur python 2.5.x, mais n'a pas été entièrement testé. 
+    
+    Si vous avez une version incompatible (dans la branche 2.6.x) vous devez 
+    désinstallé votre version actuelle puis installé python 2.6.2 ou plus, faire
+    seulement un mise a jour ne corrige pas les problemes. 
+    python 2.6.2: http://www.python.org/download/releases/2.6.2/
