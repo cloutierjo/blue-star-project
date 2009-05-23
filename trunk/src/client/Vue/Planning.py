@@ -17,14 +17,15 @@ class ButtonCallback(object):
 
 class Planning:
     def __init__(self, parent, listeSprint): 
-        
+        self.ancienIndexDetaille = 0
         self.listeSprint = listeSprint
         self.parent = parent
         self.listeFrame = []
+        self.listeDetaille = []
         #Timeline
         hauteurTxtBox = 200
         largeurTxtBox = 300
-        padxGen = 15
+        padxGen = 25
         #Creation du Frame
         self.frameGenTotal = Frame()
         self.windows = ScrolledWindow(self.frameGenTotal, scrollbar='auto', width=(largeurTxtBox+padxGen)*4)
@@ -33,45 +34,42 @@ class Planning:
             
         for i in self.listeSprint:
             frameGen = Frame(self.windows.window)
-            titre = "Date" + str(1)
             #Label(frameGen, text=titre).pack(side=TOP)
             txtGenTempo = ScrolledText(frameGen, scrollbar='y', height=hauteurTxtBox, width=largeurTxtBox)
-            listeDonne = []
-            listeDonne.append(i)
-            self.pg = PlanningGeneral(frameGen, txtGenTempo.text, titre,i.taskGeneral)
-            txtGenTempo.pack()
-            
-            callback = ButtonCallback(self.afficherDetails, i.taskFull.tasklist)
-            
+            if self.listeSprint.index(i) == len(self.listeSprint)-1:
+                titre = "\tFIN DU PROJET:\n\t"+i.dateFin
+            else:
+                titre = "\tFIN DU SPRINT\n\tET\n\tDEBUT DU PROCHAIN:\n\t"+i.dateFin
+            self.pg = PlanningGeneral(frameGen, txtGenTempo.text, titre, i.taskGeneral)
+            callback = ButtonCallback(self.afficherDetails, self.listeSprint.index(i))
             self.boutonAddRow=Button(frameGen, text='Afficher Les Détails',
                                      command = callback.invoke)
-            self.boutonAddRow.pack(side=BOTTOM)
-            self.listeTacheDetaille.append("test" + str(i))
+            
+            
             self.listeFrame.append(self.pg)
-            frameGen.pack(side=LEFT, padx=padxGen)
+            self.boutonAddRow.pack(side=BOTTOM)
+            txtGenTempo.pack()
+            frameGen.pack(side=LEFT, padx=padxGen, pady=padxGen)
+            self.listeDetaille.append(PlanningDetail(i.taskFull.tasklist))
         self.frameGenTotal.pack()
         
         if self.listeSprint[0]:
-            self.plandet = PlanningDetail(self.listeSprint[0].taskFull.tasklist)
-            self.plandet.frameDetail.pack(side=RIGHT) 
-                  
+            self.afficherDetails(0)
 
         
         
         
        
-    def afficherDetails(self, ListedesTachesAssociees):
-        self.plandet.frameDetail.pack_forget()
-        ##self.listeSprint[index].taskFull.tasklist
-        self.plandet = PlanningDetail(ListedesTachesAssociees)
-        self.plandet.frameDetail.pack(side=RIGHT)   
+    def afficherDetails(self, indexSprint):
+        for i in self.listeDetaille:
+            i.frameDetail.pack_forget()
+        self.listeDetaille[indexSprint].frameDetail.pack(side=RIGHT)
+        
             
     def update(self):
-           for index in len(self.listeFrame):
-               listeTacheGeneral = self.listeFrame[index].update()
-               self.listeSprint[index].taskGeneral = listeTacheGeneral
-             ## TODO TODO TODO 
-                ## TODO TODO TODO ## TODO TODO TODO ## TODO TODO TODO ## TODO TODO TODO 
+       for index in len(self.listeFrame):
+           listeTacheGeneral = self.listeFrame[index].update()
+           self.listeSprint[index].taskGeneral = listeTacheGeneral
             
              
     

@@ -44,7 +44,7 @@ class PlanningDetail:
                     self.etats.append(delRow.var)
                     delRow.pack(side=LEFT)
                     
-                    entreeNom = Entry(ligne,relief=RIDGE, width=50)
+                    entreeNom = Entry(ligne,relief=RIDGE, width=30)
                     entreeNom.insert(END,i.name)
                     entreeNom.pack(side=LEFT)
                     
@@ -110,7 +110,10 @@ class PlanningDetail:
         delRow.pack(side=LEFT)
         
         for j in range(4) :# Utilisation d'une entr
-            entree = Entry(ligne,relief=RIDGE)
+            if j ==0:
+                entree = Entry(ligne,relief=RIDGE, width=30)
+            else:
+                entree = Entry(ligne,relief=RIDGE)
             if j < 3:
                 entree.pack(side=LEFT)
             else:
@@ -199,14 +202,19 @@ class PlanningDetail:
             delRow.pack(side=LEFT)
             
             for j in range(4):
+                
+                if j == 0:
+                    entree = Entry(ligne,relief=RIDGE, width=30)
+                else:
                     entree = Entry(ligne,relief=RIDGE)
-                    entree.insert(END,row[j])
-                    if gere==True:
-                        entree.config(state=DISABLED)
-                    #ne pack pas le entry qui contient le handled
-                    if j<3:
-                        entree.pack(side=LEFT)
-                    col.append(entree)
+                    
+                entree.insert(END,row[j])
+                if gere==True:
+                    entree.config(state=DISABLED)
+                #ne pack pas le entry qui contient le handled
+                if j<3:
+                    entree.pack(side=LEFT)
+                col.append(entree)
                 
             self.rows.append(col)   
                 
@@ -220,5 +228,6 @@ class PlanningDetail:
             uneTache.name = row[0].get()
             uneTache.priorite = row[1].get()
             uneTache.user = row[2].get()
+            uneTache.handled = row[3].get()
             listeTacheDetaille.append(uneTache)
         return listeTacheDetaille
