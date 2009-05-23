@@ -19,7 +19,7 @@ class DictionnaireDonnee(object):
         self.variables = variables
         self.fonctions = fonctions
         
-        title = Label(self.frame, text = "Dictionnaire de données")
+        title = Label(self.frame, text = u"Dictionnaire de données")
         title.pack()
         
         self.d = Donnee(self, self.variables)
@@ -85,7 +85,7 @@ class Donnee(object):
                 
                 #pour deleteRow 
                 etat=IntVar()
-                delRow=Radiobutton(ligne,text='x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
+                delRow=Radiobutton(ligne,text=u'x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
                 delRow.var=etat
                 self.etats.append(delRow.var)
                 delRow.pack(side=LEFT)
@@ -114,9 +114,9 @@ class Donnee(object):
         
         ##############################
         
-        Label(self.frameDonnee,text = 'Données').pack()
+        Label(self.frameDonnee,text = u'Données').pack()
         
-        self.boutonAddRowData=Button(self.frameDonnee,text='Ajouter une ligne',command=self.addRow)
+        self.boutonAddRowData=Button(self.frameDonnee,text=u'Ajouter une ligne',command=self.addRow)
         self.boutonAddRowData.pack()
         
         #self.readDataFromProject()
@@ -167,7 +167,7 @@ class Donnee(object):
                 gere=False
                
             etat=IntVar()
-            delRow=Radiobutton(ligne,text='x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
+            delRow=Radiobutton(ligne,text=u'x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
             delRow.var=etat
             self.etats.append(delRow.var)
             delRow.pack(side=LEFT)
@@ -204,7 +204,7 @@ class Donnee(object):
         checkData.pack(side=LEFT)
         
         etat=IntVar()
-        delRow=Radiobutton(ligneData,text='x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
+        delRow=Radiobutton(ligneData,text=u'x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
         delRow.var=etat
         self.etats.append(delRow.var)
         delRow.pack(side=LEFT)
@@ -270,9 +270,9 @@ class Action(object):
         self.text = Text(self.frameMethodes, yscrollcommand=scrollbar.set)
         self.text.config(width=30, height=60)
         
-        Label(self.frameMethodes,text = 'Actions').pack()
+        Label(self.frameMethodes,text = u'Actions').pack()
          
-        self.boutonAddRow=Button(self.frameMethodes,text='Ajouter une action',command=self.addRow)
+        self.boutonAddRow=Button(self.frameMethodes,text=u'Ajouter une action',command=self.addRow)
         self.boutonAddRow.pack()
         
         if len(self.fonctions) != 0:
@@ -298,7 +298,7 @@ class Action(object):
                 
                 #pour deleteRow 
                 etat=IntVar()
-                self.delRow=Radiobutton(ligne,text='x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
+                self.delRow=Radiobutton(ligne,text=u'x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
                 self.delRow.var=etat
                 self.etats.append(self.delRow.var)
                 self.delRow.pack(side=LEFT)
@@ -370,7 +370,7 @@ class Action(object):
                 gere=False
                
             etat=IntVar()
-            delRow=Radiobutton(ligne,text='x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
+            delRow=Radiobutton(ligne,text=u'x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
             delRow.var=etat
             self.etats.append(delRow.var)
             delRow.pack(side=LEFT)
@@ -407,7 +407,7 @@ class Action(object):
         check.pack(side=LEFT)
         
         etat=IntVar()
-        delRow=Radiobutton(ligne,text='x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
+        delRow=Radiobutton(ligne,text=u'x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
         delRow.var=etat
         self.etats.append(delRow.var)
         delRow.pack(side=LEFT)
