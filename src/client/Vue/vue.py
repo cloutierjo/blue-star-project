@@ -109,7 +109,7 @@ class Vue(object):
         self.dictionnaireDonnee = DictionnaireDonnee(self, self.parent.ouvrirDicDonneeVar(), self.parent.ouvrirDicDonneeFonc())
         self.crc = CrcVUE(self,self.parent.getListeCRC())
         self.crc2 = CrcVUE(self,self.parent.getListeCRC())
-        #self.scrum = ScrumView(self,self.parent.getListeCRC())
+        self.scrum = ScrumView(self,self.parent.getListeCRC())
 #####charger autres objets graphiques ici...
 
         
@@ -123,7 +123,7 @@ class Vue(object):
         self.graphItems.append(self.dictionnaireDonnee)
         self.graphItems.append(self.crc)
         self.graphItems.append(self.crc2)
-        #self.graphItems.append(self.scrum)
+        self.graphItems.append(self.scrum)
         
 #####ajouter autres widgets dans graphItems ici...
         
@@ -250,14 +250,11 @@ class Vue(object):
             tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
 
     def afficherScrum(self):
-        pass
-    '''
         if self.etat==1:
             self.effacerFenetre()
-            self.Scrum.frame.pack(side=LEFT,padx=30)
+            self.scrum.frame.pack(side=LEFT,padx=30)
         else:
             tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
-            '''
 
     def afficherUnMessage(self,Texte,erreur="ERREUR!!!"):
         tkMessageBox.showerror(erreur, Texte)
