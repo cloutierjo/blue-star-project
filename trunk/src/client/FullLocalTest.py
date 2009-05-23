@@ -1,11 +1,14 @@
 #-*- coding: iso-8859-1 -*-
 import sys
 sys.path.append("../server")
+import os
 
 import ControleurClient
 import ServerMethods
 import ModeleServeur
 import sqlite3
+
+
 
 
 '''
@@ -24,8 +27,10 @@ def bdinit(self):
     self.con = sqlite3.connect(self.db)     # Connecteur
 
 if __name__ == '__main__':
+    print u"ATTENTION logiciel partie sans module réseau (RPC)"
+    print "python version :", sys.version
     ControleurClient.ControleurClient.connecter=localConnect
     ModeleServeur.ModeleServeur.__init__=bdinit
     ServerMethods.ms=ModeleServeur.ModeleServeur()
-    print "ATTENTION logiciel partie sans module réseau (RPC)"
+    os.remove(os.getcwd()+'/test1.db')
     cc=ControleurClient.ControleurClient()
