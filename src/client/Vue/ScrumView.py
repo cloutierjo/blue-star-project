@@ -10,6 +10,7 @@ sys.path.append( "../../commun" )
 
 import Scrum
 from Tkinter import *
+import Tix
 
 class ScrumView(object):
     def __init__(self, vueParent, scrumLst):
@@ -19,9 +20,9 @@ class ScrumView(object):
         title = Label(self.frame, text = "Scrum")
         title.pack()
         
-        self.d = GridView(self, self.done)
-        self.t = GridView(self, self.todo)
-        self.p = GridView(self, self.problem)
+        self.d = GridView(self, [])
+        self.t = GridView(self, [])
+        self.p = GridView(self, [])
         
     def updateListes(self):
         self.done = self.d.getData
@@ -31,9 +32,9 @@ class ScrumView(object):
         self.vueParent.parent.updateScrums(self.done, self.todo, self.problem)
 
 class GridView(object):
-    def __init__(self, vueParent, variables):
+    def __init__(self, vueParent, data):
         self.vueParent=vueParent
-        self.data=variables
+        self.data=data
         self.initDonnee()
         
     def initDonnee(self):
@@ -45,7 +46,7 @@ class GridView(object):
         #Ajout du tableau C'est un textbox avec des entrée en grille 1x1
         scrollbarData = Scrollbar(self.frameDonnee)
         self.textData = Text(self.frameDonnee, yscrollcommand=scrollbarData.set)
-        self.textData.config(width=30, height=60)
+        self.textData.config(width=50, height=10)
         
         ##############################
         if len(self.data) != 0:
@@ -71,7 +72,7 @@ class GridView(object):
                 
                 #pour deleteRow 
                 etat=IntVar()
-                delRow=Radiobutton(ligne,text='x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
+                delRow=Radiobutton(ligne,text=u'x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
                 delRow.var=etat
                 self.etats.append(delRow.var)
                 delRow.pack(side=LEFT)
@@ -96,13 +97,14 @@ class GridView(object):
             #sinon vide
         else:
             self.addRow()
-            self.infoDonnee.config(state=DISABLED)
+            #self.infoDonnee.config(state=DISABLED)
         
         ##############################
         
-        Label(self.frameDonnee,text = 'Données').pack()
+        titre=Tix.Label(self.frameDonnee,text=u'Données')
+        titre.pack()
         
-        self.boutonAddRowData=Button(self.frameDonnee,text='Ajouter une ligne',command=self.addRow)
+        self.boutonAddRowData=Button(self.frameDonnee,text=u'Ajouter une ligne',command=self.addRow)
         self.boutonAddRowData.pack()
         
         #self.readDataFromProject()
@@ -111,7 +113,7 @@ class GridView(object):
         scrollbarData.config(command=self.textData.yview)
         
         self.textData.pack(side=LEFT)
-        self.frameDonnee.pack(side=LEFT)
+        self.frameDonnee.pack(side=BOTTOM)
         
     def getData(self):
         data = []
@@ -164,7 +166,7 @@ class GridView(object):
                 gere=False
                
             etat=IntVar()
-            delRow=Radiobutton(ligne,text='x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
+            delRow=Radiobutton(ligne,text=u'x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
             delRow.var=etat
             self.etats.append(delRow.var)
             delRow.pack(side=LEFT)
@@ -201,7 +203,7 @@ class GridView(object):
         checkData.pack(side=LEFT)
         
         etat=IntVar()
-        delRow=Radiobutton(ligneData,text='x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
+        delRow=Radiobutton(ligneData,text=u'x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
         delRow.var=etat
         self.etats.append(delRow.var)
         delRow.pack(side=LEFT)
