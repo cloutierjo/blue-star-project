@@ -65,14 +65,12 @@ class CrcVUE(object):
         self.boutonNewCrc=Button(miniFrameBoutons,text=u'Créer nouveau CRC',command=self.nouveauCrc)
         self.boutonNewCrc.pack(side=LEFT)
         
-        self.boutonUpdate=Button(miniFrameBoutons,text=u'Update',command=self.updateCRC)
-        self.boutonUpdate.pack(side=LEFT)
-        miniFrameBoutons.pack()
-        
         valeur=IntVar()
         self.checkHandled=Checkbutton(miniFrameBoutons,variable=valeur,cursor="arrow",command=self.setHandled)
         self.checkHandled.var=valeur
         self.checkHandled.pack(side=LEFT)
+        
+        miniFrameBoutons.pack()
         
         self.titreCollabo = Label(self.frameCollabo,text=u"Les collaborateurs")
         self.titreCollabo.pack()
@@ -106,6 +104,7 @@ class CrcVUE(object):
                 self.vueParent.afficherUnMessage("Un Crc porte ce nom",erreur="ERREUR!!!")        
     
     def getCrc(self,evt):
+        self.updateCRC()
         nom = self.varcombo.get()
         if nom:
             self.checkHandled.deselect()
@@ -127,14 +126,12 @@ class CrcVUE(object):
                 self.crcCourant.handled=1
                 for row in self.rowsCollabo:
                     row.config(state=DISABLED)
-                #for r in self.retours:
-                 #   r.set(1)
-                  #  self.gestion()
                     
             else:
                 self.crcCourant.handled=0
                 for row in self.rowsCollabo:
                     row.config(state=NORMAL)
+                
         
             
     def updateListeCRC(self):
@@ -270,38 +267,39 @@ class CrcVUE(object):
             
        
     def addRow(self):
+        if self.crcCourant != None and self.crcCourant.handled!=1:
         
-        self.infoDonnee.config(state=NORMAL)
-        #nextRow = self.tableauAnalyse.grid_size()[1]
-        col = []
-        # ligne -> frame avec 1 Entry
-        ligne=Frame(self.infoDonnee)
-        retour=IntVar()
-        check=Checkbutton(ligne,variable=retour,cursor="arrow",command=self.gestion)
-        check.var=retour
-        self.retours.append(check.var)
-        check.pack(side=LEFT)
-        
-        etat=IntVar()
-        delRow=Radiobutton(ligne,text=u'x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
-        delRow.var=etat
-        self.etats.append(delRow.var)
-        delRow.pack(side=LEFT)
-        
-        for j in range(2) :# Utilisation d'une entr
-            entree = Entry(ligne,relief=RIDGE)
-            entree.config(width=35)
-            if j < 1:
-                entree.pack(side=LEFT)
-            else:
-                # si < 1 = le handled : 0 par defaut (pas packé)
-                entree.insert(END,0)
-            col.append(entree)
-        self.rows.append(col)
-        #
-        self.infoDonnee.window_create(INSERT,window=ligne)
-        
-        self.infoDonnee.config(state=DISABLED)
+            self.infoDonnee.config(state=NORMAL)
+            #nextRow = self.tableauAnalyse.grid_size()[1]
+            col = []
+            # ligne -> frame avec 1 Entry
+            ligne=Frame(self.infoDonnee)
+            retour=IntVar()
+            check=Checkbutton(ligne,variable=retour,cursor="arrow",command=self.gestion)
+            check.var=retour
+            self.retours.append(check.var)
+            check.pack(side=LEFT)
+            
+            etat=IntVar()
+            delRow=Radiobutton(ligne,text=u'x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
+            delRow.var=etat
+            self.etats.append(delRow.var)
+            delRow.pack(side=LEFT)
+            
+            for j in range(2) :# Utilisation d'une entr
+                entree = Entry(ligne,relief=RIDGE)
+                entree.config(width=35)
+                if j < 1:
+                    entree.pack(side=LEFT)
+                else:
+                    # si < 1 = le handled : 0 par defaut (pas packé)
+                    entree.insert(END,0)
+                col.append(entree)
+            self.rows.append(col)
+            #
+            self.infoDonnee.window_create(INSERT,window=ligne)
+            
+            self.infoDonnee.config(state=DISABLED)
         
     def addCollaborateur(self,evt):
         if self.crcCourant != None and self.crcCourant.handled!=1:
