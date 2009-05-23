@@ -28,13 +28,9 @@ class PlanningGeneral:
             self.addRow()
             self.grille.config(state=DISABLED)
         self.boutonAddRow=Button(frameParent,text='Ajouter', command=self.addRow)
-        self.boutonAddRow.pack(side=TOP)
-        self.boutonAddRow.pack(side=TOP)
-        
-        #
-        #Label(frameParent,text = lblText).pack() 
-        
-        #self.grille.pack(side=TOP,fill=Y)     
+        self.boutonAddRow.pack(side=TOP, anchor=W, padx =130)
+        Label(frameParent,text = ""+lblText).pack(side=RIGHT) 
+            
     def addRow(self):
         #nextRow = self.grille.grid_size()[1]
         self.grille.config(state=NORMAL)
@@ -78,7 +74,7 @@ class PlanningGeneral:
             self.etats.append(delRow.var)
             delRow.pack(side=LEFT)
             entree = Entry(ligne, relief=RIDGE, width=42)
-            entree.insert(END, row)
+            entree.insert(END, row[0])
             entree.pack(side=LEFT)
             self.rows.append(row)  
             self.grille.window_create(INSERT, window=ligne)
@@ -87,4 +83,5 @@ class PlanningGeneral:
     def update(self):
         listeTacheGen = []
         for i in self.rows:
-            listeTacheGen.append(i.get())
+            listeTacheGen.append([i.get(),0])
+        
