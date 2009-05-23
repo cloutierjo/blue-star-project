@@ -21,8 +21,8 @@ class AnalyseTextuelle(object):
         self.etats=[]
 
         #Ajout du Label Tite
-        titreImplicite = "Analyse Implicite"
-        titreExplicite = "Analyse Explicite"
+        titreImplicite = u"Analyse Implicite"
+        titreExplicite = u"Analyse Explicite"
         if implicite:
             lblTitre = Label(self.frame,text = titreImplicite)
         elif explicite:
@@ -63,7 +63,7 @@ class AnalyseTextuelle(object):
                 
         #pour deleteRow 
                 etat=IntVar()
-                delRow=Radiobutton(ligne,text='x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
+                delRow=Radiobutton(ligne,text=u'x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
                 delRow.var=etat
                 self.etats.append(delRow.var)
                 delRow.pack(side=LEFT)
@@ -90,9 +90,9 @@ class AnalyseTextuelle(object):
         
         
 
-        self.boutonAddRow=Button(self.frame,text='Ajouter une ligne',command=self.addRow)
+        self.boutonAddRow=Button(self.frame,text=u'Ajouter une ligne',command=self.addRow)
         self.boutonAddRow.pack()
-        Label(self.frame,text = 'Noms: Verbe: Adjectifs:').pack()
+        Label(self.frame,text = u'Noms: Verbe: Adjectifs:').pack()
         
         scrollbar.pack(side=RIGHT, fill=Y)
         scrollbar.config(command=self.tableauAnalyse.yview)
@@ -133,7 +133,7 @@ class AnalyseTextuelle(object):
         check.pack(side=LEFT)
         
         etat=IntVar()
-        delRow=Radiobutton(ligne,text='x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
+        delRow=Radiobutton(ligne,text=u'x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
         delRow.var=etat
         self.etats.append(delRow.var)
         delRow.pack(side=LEFT)
@@ -222,7 +222,7 @@ class AnalyseTextuelle(object):
                 gere=False
                
             etat=IntVar()
-            delRow=Radiobutton(ligne,text='x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
+            delRow=Radiobutton(ligne,text=u'x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
             delRow.var=etat
             self.etats.append(delRow.var)
             delRow.pack(side=LEFT)

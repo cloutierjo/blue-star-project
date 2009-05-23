@@ -12,11 +12,11 @@ class CasUsageVue(object):
             '''
         
         self.lb.pack(side=RIGHT, anchor=N)
-        self.btnUp= Button(self.frame, text="Monter", width=10, command=self.monter)
-        self.btnRen= Button(self.frame, text="Renommer", width=10, command=self.renommer)
-        self.btnAdd= Button(self.frame, text="Ajouter", width=10, command=self.ajouter)
-        self.btnDel= Button(self.frame, text="Supprimer", width=10, command=self.supprimer)
-        self.btnDown= Button(self.frame, text="Descendre", width=10, command=self.descendre)
+        self.btnUp= Button(self.frame, text=u"Monter", width=10, command=self.monter)
+        self.btnRen= Button(self.frame, text=u"Renommer", width=10, command=self.renommer)
+        self.btnAdd= Button(self.frame, text=u"Ajouter", width=10, command=self.ajouter)
+        self.btnDel= Button(self.frame, text=u"Supprimer", width=10, command=self.supprimer)
+        self.btnDown= Button(self.frame, text=u"Descendre", width=10, command=self.descendre)
         self.btnUp.pack()
         self.btnAdd.pack(pady=50)
         self.btnRen.pack()

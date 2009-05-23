@@ -48,9 +48,9 @@ class CrcVUE(object):
         self.entreeProprio.config(state=DISABLED)
 
         
-        titreInfo = Label(self.frameInfo,text="Rôles:(Données et Fonctions)")
+        titreInfo = Label(self.frameInfo,text=u"Rôles:(Données et Fonctions)")
         titreInfo.pack()
-        self.boutonAddRow=Button(self.frameInfo,text='ajouter un rôle',command=self.addRow)
+        self.boutonAddRow=Button(self.frameInfo,text=u'ajouter un rôle',command=self.addRow)
         self.boutonAddRow.pack()
         
         self.infoDonnee = Text(self.frameInfo, width=25,height=12) #height=32   
@@ -62,10 +62,10 @@ class CrcVUE(object):
         
         ##
         miniFrameBoutons=Frame(self.frameCollabo)
-        self.boutonNewCrc=Button(miniFrameBoutons,text='Créer nouveau CRC',command=self.nouveauCrc)
+        self.boutonNewCrc=Button(miniFrameBoutons,text=u'Créer nouveau CRC',command=self.nouveauCrc)
         self.boutonNewCrc.pack(side=LEFT)
         
-        self.boutonUpdate=Button(miniFrameBoutons,text='Update',command=self.updateCRC)
+        self.boutonUpdate=Button(miniFrameBoutons,text=u'Update',command=self.updateCRC)
         self.boutonUpdate.pack(side=LEFT)
         miniFrameBoutons.pack()
         
@@ -74,7 +74,7 @@ class CrcVUE(object):
         self.checkHandled.var=valeur
         self.checkHandled.pack(side=LEFT)
         
-        self.titreCollabo = Label(self.frameCollabo,text="Les collaborateurs")
+        self.titreCollabo = Label(self.frameCollabo,text=u"Les collaborateurs")
         self.titreCollabo.pack()
 ######collaborateur potentiel dans combobox
         self.comboCRC.pack()
@@ -190,7 +190,7 @@ class CrcVUE(object):
                 
         #pour deleteRow 
                 etat=IntVar()
-                delRow=Radiobutton(ligne,text='x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
+                delRow=Radiobutton(ligne,text=u'x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
                 delRow.var=etat
                 self.etats.append(delRow.var)
                 delRow.pack(side=LEFT)
@@ -230,7 +230,7 @@ class CrcVUE(object):
                 ligne=Frame(self.collaboration)
             #pour delete 
                 state=IntVar()
-                delRowCol=Radiobutton(ligne,text='x',variable=state,value=1,cursor="arrow",indicatoron=False,command=self.deleteRowCollabo)
+                delRowCol=Radiobutton(ligne,text=u'x',variable=state,value=1,cursor="arrow",indicatoron=False,command=self.deleteRowCollabo)
                 delRowCol.var=state
                 self.etatsCollabo.append(delRowCol.var)
                 delRowCol.pack(side=LEFT)
@@ -283,7 +283,7 @@ class CrcVUE(object):
         check.pack(side=LEFT)
         
         etat=IntVar()
-        delRow=Radiobutton(ligne,text='x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
+        delRow=Radiobutton(ligne,text=u'x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
         delRow.var=etat
         self.etats.append(delRow.var)
         delRow.pack(side=LEFT)
@@ -386,7 +386,7 @@ class CrcVUE(object):
                 gere=False
                    
             etat=IntVar()
-            delRow=Radiobutton(ligne,text='x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
+            delRow=Radiobutton(ligne,text=u'x',variable=etat,value=1,cursor="arrow",indicatoron=False,command=self.deleteRow)
             delRow.var=etat
             self.etats.append(delRow.var)
             delRow.pack(side=LEFT)
@@ -432,7 +432,7 @@ class CrcVUE(object):
                 ligne=Frame(self.collaboration)
                 
                 state=IntVar()
-                delRowCol=Radiobutton(ligne,text='x',variable=state,value=1,cursor="arrow",indicatoron=False,command=self.deleteRowCollabo)
+                delRowCol=Radiobutton(ligne,text=u'x',variable=state,value=1,cursor="arrow",indicatoron=False,command=self.deleteRowCollabo)
                 delRowCol.var=state
                 self.etatsCollabo.append(delRowCol.var)
                 delRowCol.pack(side=LEFT)
