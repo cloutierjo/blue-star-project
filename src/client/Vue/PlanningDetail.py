@@ -3,11 +3,11 @@ from  Tix import *
 import Tkinter as tk
 sys.path.append( "../../commun" )
 import Sprint
-import TaskList
+from TaskList import Task
 class PlanningDetail:
 
  #Debut Detaillé#
-    def __init__(self,uneListeDeListe):
+    def __init__(self,uneListeDeListe = []):
         self.frameDetail = Frame()       
         #pour gestion (retours des Checkbuttons pour "handled")
         self.retours=[]
@@ -19,7 +19,7 @@ class PlanningDetail:
         scrollbar = Scrollbar(self.frameDetail)
         
         self.grille = Text(self.frameDetail, width=52, height=35, yscrollcommand=scrollbar.set)  #
-        if True: 
+        if uneListeDeListe: 
                 for i in uneListeDeListe:
                     col = []
                     ligne=Frame(self.grille)
@@ -224,10 +224,10 @@ class PlanningDetail:
     def update(self):
         listeTacheDetaille = []
         for  row in self.rows:
-            uneTache = TaskList.Task 
-            uneTache.name = row[0].get()
-            uneTache.priorite = row[1].get()
-            uneTache.user = row[2].get()
-            uneTache.handled = row[3].get()
+            uneTache = []
+            uneTache.append(row[0].get())
+            uneTache.append(row[1].get())
+            uneTache.append(row[2].get())
+            uneTache.append(row[3].get())
             listeTacheDetaille.append(uneTache)
         return listeTacheDetaille

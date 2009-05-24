@@ -22,7 +22,7 @@ class PlanningGeneral:
                 entree.insert(END, i[0])
                 entree.pack(side=LEFT)
                 txtParent.window_create(INSERT, window=ligne)
-                self.rows.append(i)
+                self.rows.append([entree,0])
             self.grille.config(state=DISABLED) 
         else:
             self.addRow()
@@ -45,7 +45,7 @@ class PlanningGeneral:
         
         entree = Entry(ligne,relief=RIDGE, width=42)
         entree.pack(side=LEFT)
-        self.rows.append("")
+        self.rows.append([entree,0])
         self.grille.window_create(INSERT,window=ligne)
         self.grille.config(state=DISABLED)
         
@@ -83,5 +83,7 @@ class PlanningGeneral:
     def update(self):
         listeTacheGen = []
         for i in self.rows:
-            listeTacheGen.append([i.get(),0])
+            listeTacheGen.append([i[0].get(),0])
+        
+        return listeTacheGen
         
