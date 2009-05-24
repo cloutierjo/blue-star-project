@@ -27,6 +27,17 @@ class ScrumList:
             scrum.deserialize(i)
             self.scrums.append(scrum)
             
+    def getDateLst(self):
+        datelst=[]
+        for i in self.scrums:
+            if not i.date in datelst:
+                datelst.append(i.date) 
+        return datelst
+    def getScrum(self,date,user):
+        for i in self.scrums:
+            if date==i.date and user==i.user:
+                return i
+            
 class Scrum:
     DATE="date"
     DONE="done"
@@ -95,4 +106,6 @@ if __name__ == '__main__':
     print scl.serialize()
     scl.deserialize(scl.serialize())
     print scl.serialize()    
+    
+    print scl.getDateLst()
                 

@@ -109,7 +109,7 @@ class Vue(object):
         self.dictionnaireDonnee = DictionnaireDonnee(self, self.parent.ouvrirDicDonneeVar(), self.parent.ouvrirDicDonneeFonc())
         self.crc = CrcVUE(self,self.parent.getListeCRC())
         self.crc2 = CrcVUE(self,self.parent.getListeCRC())
-        self.scrum = ScrumView(self,self.parent.getListeCRC())
+        self.scrum = ScrumView(self,self.parent.getLstScrum())
 #####charger autres objets graphiques ici...
 
         

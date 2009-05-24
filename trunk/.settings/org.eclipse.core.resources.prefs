@@ -1,9 +1,18 @@
-#Wed May 20 15:45:00 GMT 2009
+#Sat May 23 18:07:27 EDT 2009
 eclipse.preferences.version=1
 encoding//src/client/ControleurClient.py=iso-8859-1
+encoding//src/client/FullLocalTest.py=iso-8859-1
+encoding//src/client/Vue/AnalyseTextuelle.py=iso-8859-1
+encoding//src/client/Vue/CRCVue.py=iso-8859-1
 encoding//src/client/Vue/CasUsageVue.py=iso-8859-1
+encoding//src/client/Vue/DictionnaireDonnee.py=iso-8859-1
+encoding//src/client/Vue/Liste.py=iso-8859-1
+encoding//src/client/Vue/Mandat.py=iso-8859-1
+encoding//src/client/Vue/Planning.py=iso-8859-1
+encoding//src/client/Vue/PlanningDetail.py=iso-8859-1
 encoding//src/client/Vue/ScenarioVue.py=iso-8859-1
 encoding//src/client/Vue/Scrum.py=iso-8859-1
+encoding//src/client/Vue/ScrumView.py=iso-8859-1
 encoding//src/client/Vue/vue.py=iso-8859-1
 encoding//src/commun/Analyse.py=iso-8859-1
 encoding//src/commun/CasUsage.py=iso-8859-1
