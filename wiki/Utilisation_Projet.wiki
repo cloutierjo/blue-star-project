@@ -1,6 +1,6 @@
 #labels DOCUMENTATION
 PROJECT NAME :
-    - Blue-Star Project
+    * Blue-Star Project
 
 PROJECT OWNERS :
     * Jonathan Hallée
