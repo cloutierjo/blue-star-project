@@ -19,7 +19,8 @@ class ButtonCallback(object):
         self.method(self.bouton)
 
 class Planning:
-    def __init__(self, parent, listeSprint=[]): 
+    def __init__(self, parent, CRC, listeSprint=[]):
+        self.crc = CRC
         self.ancienIndexDetaille = 0
         self.listeSprint = listeSprint
         self.parent = parent
@@ -32,10 +33,9 @@ class Planning:
         #Creation du Frame
         self.frameGenTotal = Frame()
         self.windows = ScrolledWindow(self.frameGenTotal, scrollbar='auto', width=(largeurTxtBox+padxGen)*4)
-        self.windows.pack(pady=15)
         
         
-        
+        #Creation d'un nouveau sprint
         if not listeSprint:
            datefinString = tkSimpleDialog.askstring("Nouveau Projet", "Veuillez entrez la date de fin d'un projet sous la forme jj-mm-aaaa : ", parent=self.windows.window)
            if datefinString:
@@ -57,16 +57,11 @@ class Planning:
         
         
           
-        #Creation d'un nouveau sprint
+        
         if self.listeSprint:                                              
             for i in self.listeSprint:
                 self.creationNouveauObjetGraphiqueSprint(i)
-                
-            self.frameGenTotal.pack()
-            self.afficherDetails(0)
-                                    
-        Button(self.frameGenTotal,text="Sauvegarder", command=self.update).pack()
-        
+                                        
         
     def creationNouveauObjetGraphiqueSprint(self, i): # i est un objet sprint
         hauteurTxtBox = 200
@@ -90,8 +85,7 @@ class Planning:
         txtGenTempo.pack()
         frameGen.pack(side=LEFT, padx=padxGen, pady=padxGen)
         self.listeDetaille.append(PlanningDetail(i.taskFull.tasklist)) 
-        
-         
+            
     def afficherDetails(self, indexSprint):
         for i in self.listeDetaille:
             i.frameDetail.pack_forget()
@@ -117,36 +111,15 @@ class Planning:
         lsp.sprints = self.listeSprint
         return lsp.sprints
              
-    
-if __name__ == '__main__':
-        
-    lsp=Sprint.LstSprint()
-    for i in range(5):
-        sp=Sprint.Sprint()
-        sp.dateFin="29 avr"
-        
-        sp.taskGeneral.append(["gentask1 - "+str(i),0])
-        sp.taskGeneral.append(["gentask2 - "+str(i),1])
+    def cacher(self):
+        self.frameGenTotal.pack_forget()
+        self.windows.pack_forget()
+        for i in self.listeDetaille:
+            i.frameDetail.pack_forget()
+        self.crc.frame.pack_forget()
             
-        tlf=TaskList.TaskList()
-        
-        tb=TaskList.Task()
-        tb.name="task1b - "+str(i)
-        tb.priorite=1
-        tb.user = "moib - "+str(i)
-        tlf.tasklist.append(tb)
-        
-        tb=TaskList.Task()
-        tb.name="task2b - "+str(i)
-        tb.priorite=2
-        tb.user = "301b - "+str(i)
-        tlf.tasklist.append(tb)
-        
-        sp.taskFull=tlf
-        
-        lsp.sprints.append(sp)
-    
-    root = Tk()
-    p = Planning(1,lsp.sprints)
-    p.frameGenTotal.pack()
-    root.mainloop()
+    def afficher(self):
+        self.frameGenTotal.pack()
+        self.windows.pack(pady=15)
+        self.afficherDetails(0)
+        self.crc.frame.pack(side=LEFT, anchor=S)
