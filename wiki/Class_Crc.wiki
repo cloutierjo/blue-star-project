@@ -398,7 +398,47 @@ voici le format a suivre pour les CRC, ne vous occup√© pas du HTML si sa vous m√
    </tr>
 </table>
 
+<table border=1 width=70%>
+   <tr>
+       <td width=60%> PlanningGeneral </td>
+       <td rowspan=3> 
+                      * Planning
+       </td>
+   </tr>
+   <tr>
+       <td align="right">Mathieu L.</td>
+   </tr>
+   <tr>
+       <td>
+           * __init__(self, frameParent, txtParent, lblText, uneListe=[])
+           * addRow(self)
+           * deleteRow(self)
+           * update(self)
+       </td>
+   </tr>
+</table>
 
+<table border=1 width=70%>
+   <tr>
+       <td width=60%> Planning </td>
+       <td rowspan=3> 
+                      * PlanningGeneral
+                      * PlanningDetaillee
+                      * Vue
+                      * LstSprint
+       </td>
+   </tr>
+   <tr>
+       <td align="right">Mathieu L.</td>
+   </tr>
+   <tr>
+       <td>
+           * __init__(self, parent, listeSprint)
+           * afficherDetails(self, indexSprint)
+           * update(self)
+       </td>
+   </tr>
+</table>
 
 =Interface Graphique (Pascal L & Jean-Philippe C)=
 
