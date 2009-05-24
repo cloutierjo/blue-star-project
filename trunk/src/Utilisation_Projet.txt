@@ -14,7 +14,7 @@ HOW TO :
 	2. Partir le contrôleur client L'interface sera démarrée
 	x. De la il faut ouvrir un projet et naviguer dans le projet par les onglets
 	
-!!! ATENTION !!!
+!!! ATTENTION !!!
     L'aplication ne fonctionne pas correctement avec les versions de python 
     précédant python 2.6.2, l'aplication peut potentiellement être fonctionnelle
     sur python 2.5.x et sur python 2.6.1, mais n'a pas été entièrement testé parce que
