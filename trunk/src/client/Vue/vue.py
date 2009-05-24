@@ -248,6 +248,7 @@ class Vue(object):
         if self.etat==1:
             self.effacerFenetre()
             #self.crc.frame.pack(side=LEFT,padx=30)
+            self.dictionnaireDonnee.frame.pack(side=LEFT, pady=30)
             self.crc.frame.pack(anchor=W,padx=30,pady=15)
             self.crc2.frame.pack(anchor=W,padx=30,pady=15)
         else:
