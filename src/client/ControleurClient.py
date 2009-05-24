@@ -45,6 +45,7 @@ class ControleurClient:
         self.i.ATImplicite.updateAnalyse()
         self.i.crc.updateCRC()
         self.i.crc2.updateCRC()
+        self.setListeSprints()
         self.i.dictionnaireDonnee.updateListes()
         self.m.projet.unicodize()
         pjser=self.m.projet.serialize()
@@ -209,6 +210,15 @@ class ControleurClient:
     
     def getLstScrum(self):
         return self.m.projet.scrum
+    
+    def getListeSprints(self):
+        if self.m.projet.sprint.sprints:
+            return self.m.projet.sprint.sprints
+        else:
+            return []
+        
+    def setListeSprints(self):
+        self.m.projet.sprint.sprints = self.i.planning.update()
                  
 if __name__ == '__main__':
     c = ControleurClient()
