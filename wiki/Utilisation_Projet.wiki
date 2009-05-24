@@ -32,4 +32,4 @@ HOW TO :
     * Python 2.6.2 : WORKS
     * Python 3.0.1 : Ne marche pas car certaines syntaxes ont changées
 
-    python 2.6.2: http://www.python.org/download/releases/2.6.2/
+    python 2.6.2 : http://www.python.org/download/releases/2.6.2/
