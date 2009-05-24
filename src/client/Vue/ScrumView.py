@@ -23,8 +23,9 @@ class ScrumView(object):
         title = Label(self.frame, text = u"Scrum")
         title.pack()
         
-        self.PlanningDetail=PlanningDetail.PlanningDetail([])
         '''
+        self.PlanningDetail=PlanningDetail.PlanningDetail([])
+
         voilà la ligne coupable du bug
         self.PlanningDetail.frameDetail.pack(side=LEFT,padx=30)
         '''
@@ -32,12 +33,12 @@ class ScrumView(object):
         self.varDate = Tix.StringVar()
         self.varUser = Tix.StringVar()
         
-        self.comboDate = Tix.ComboBox(self.frame,label=u'Date   :',editable=0,variable=self.varDate,dropdown=1,command=self.setDate,width=15)
+        self.comboDate = Tix.ComboBox(self.frame,label=u'Date      :',editable=0,variable=self.varDate,dropdown=1,command=self.setDate,width=15)
         self.comboDate.pack()
         self.updateListeDate()
         
-        self.comboProprio = Tix.ComboBox(self.frame,label=u'Utilisateur  :',editable=0,variable=self.varUser,dropdown=1,command=self.setUser,width=20)
-        self.comboProprio.pack()
+        self.comboProprio = Tix.ComboBox(self.frame,label=u'Utilisateur :',editable=0,variable=self.varUser,dropdown=1,command=self.setUser,width=20)
+        self.comboProprio.pack(pady=2)
         self.updateListeUser()
         
         self.d = GridView(self, u"fais")
