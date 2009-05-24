@@ -53,7 +53,7 @@ class CrcVUE(object):
         self.boutonAddRow=Button(self.frameInfo,text=u'ajouter un rôle',command=self.addRow)
         self.boutonAddRow.pack()
         
-        self.infoDonnee = Text(self.frameInfo, width=25,height=12) #height=32   
+        self.infoDonnee = Text(self.frameInfo, width=25,height=12)   
         self.scrollbarInfo = Scrollbar(self.frameInfo)
         self.scrollbarInfo.pack(side=RIGHT, fill=Y)
         self.infoDonnee.pack(side=LEFT, fill=Y)
@@ -79,7 +79,7 @@ class CrcVUE(object):
         
 #######collaborateurs
         
-        self.collaboration = Text(self.frameCollabo, width=25,height=15)#height=35
+        self.collaboration = Text(self.frameCollabo, width=25,height=15)
         self.scrollbarCol=Scrollbar(self.frameCollabo)
         self.scrollbarCol.pack(side=RIGHT, fill=Y)
         self.collaboration.pack(side=LEFT, fill=Y)
@@ -93,7 +93,7 @@ class CrcVUE(object):
         self.infoDonnee.config(state=DISABLED)
         self.collaboration.config(state=DISABLED)
         
-#-----------------------------------------------------------------fin du init
+#--------------------------------------------------------------------
     def nouveauCrc(self):
         nom=tkSimpleDialog.askstring('Nouveau CRC',
                                          'Entrez le nom de la classe :',parent=self.vueParent.root)
@@ -164,11 +164,10 @@ class CrcVUE(object):
             
             self.infoDonnee.delete(0.0,END)
                                                                                                                   
-            #for i,laLigneAnalyse in enumerate(analyse):
             for responsabilite in self.crcCourant.responsabilite:
                 col = []
                 
-                # ligne -> frame avec 2 Entry (grille 1x2)
+                # ligne -> frame 
                 ligne=Frame(self.infoDonnee)
                 
                 #pour gestion
@@ -414,7 +413,7 @@ class CrcVUE(object):
             
             self.crcCourant.collaboration=[]
                 
-            for row in self.rowsCollabo:    #transfert des donnees des rows dans self.crcCourant.collaboration
+            for row in self.rowsCollabo:  #transfert des donnees des rows dans self.crcCourant.collaboration
                 self.crcCourant.collaboration.append(row.get())
         
             self.crcCourant.collaboration.remove(self.crcCourant.collaboration[i]) #delete le collaborateur
