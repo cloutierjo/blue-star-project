@@ -133,7 +133,7 @@ class PlanningGeneral:
     def update(self):
         listeTacheGen = []
         for i in self.rows:
-            listeTacheGen.append([i[0].get(),i[1]])
+            listeTacheGen.append([i[0].get(),i[1].get()])
         
         return listeTacheGen
     
