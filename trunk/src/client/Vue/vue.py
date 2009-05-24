@@ -51,9 +51,9 @@ class Vue(object):
         self.dictionnaireDonnee = None
 #Lobjet graphique CRC
         self.crc = None
+        self.crc2 = None
 #Lobjet graphique scrum
         self.scrum = None
-        
 #Lobjet graphique planning
         self.planning = None
 #Haut    
@@ -111,6 +111,7 @@ class Vue(object):
         self.casUsage = CasUsageVue(self)
         self.dictionnaireDonnee = DictionnaireDonnee(self, self.parent.ouvrirDicDonneeVar(), self.parent.ouvrirDicDonneeFonc())
         self.crc = CrcVUE(self,self.parent.getListeCRC())
+        self.crc2 = CrcVUE(self,self.parent.getListeCRC())
         self.planning = Planning(self,self.crc,self.parent.getListeSprints())
         #self.scrum = ScrumView(self,self.parent.getListeCRC())
 #####charger autres objets graphiques ici...
@@ -125,6 +126,7 @@ class Vue(object):
         self.graphItems.append(self.scenario)
         self.graphItems.append(self.dictionnaireDonnee)
         self.graphItems.append(self.crc)
+        self.graphItems.append(self.crc2)
         #self.graphItems.append(self.scrum)
         
 #####ajouter autres widgets dans graphItems ici...
@@ -245,7 +247,9 @@ class Vue(object):
     def afficherCRC(self):
         if self.etat==1:
             self.effacerFenetre()
-            self.crc.frame.pack(side=LEFT,padx=30)
+            #self.crc.frame.pack(side=LEFT,padx=30)
+            self.crc.frame.pack(anchor=W,padx=30,pady=15)
+            self.crc2.frame.pack(anchor=W,padx=30,pady=15)
         else:
             tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
             
