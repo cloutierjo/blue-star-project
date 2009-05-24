@@ -9,6 +9,7 @@ import sys
 sys.path.append( "../../commun" )
 
 import Scrum
+import PlanningDetail
 from Tkinter import *
 import Tix
 
@@ -16,13 +17,65 @@ class ScrumView(object):
     def __init__(self, vueParent, scrumLst):
         self.vueParent = vueParent
         self.frame = Frame()
-                
-        title = Label(self.frame, text = "Scrum")
+        self.scrumLst=scrumLst
+        self.scrumCourant=None
+        
+        title = Label(self.frame, text = u"Scrum")
         title.pack()
         
-        self.d = GridView(self, [])
-        self.t = GridView(self, [])
-        self.p = GridView(self, [])
+        self.PlanningDetail=PlanningDetail.PlanningDetail([])
+        self.PlanningDetail.frameDetail.pack(side=LEFT,padx=30)
+        
+        self.varDate = Tix.StringVar()
+        self.varUser = Tix.StringVar()
+        
+        self.comboDate = Tix.ComboBox(self.frame,label=u'Date   :',editable=0,variable=self.varDate,dropdown=1,command=self.setDate,width=15)
+        self.comboDate.pack()
+        self.updateListeDate()
+        
+        self.comboProprio = Tix.ComboBox(self.frame,label=u'Utilisateur   :',editable=0,variable=self.varUser,dropdown=1,command=self.setUser,width=20)
+        self.comboProprio.pack()
+        self.updateListeUser()
+        
+        self.d = GridView(self, u"fais")
+        self.t = GridView(self, u"a faire")
+        self.p = GridView(self, u"problème")
+        
+
+    def updateListeUser(self):
+        self.comboProprio.subwidget_list['slistbox'].subwidget_list['listbox'].delete(0,END)
+        user=self.vueParent.parent.getUsers()
+        
+        for proprio in user:
+            self.comboProprio.insert(END,proprio)
+            
+        
+    def updateListeDate(self):
+        self.comboDate.subwidget_list['slistbox'].subwidget_list['listbox'].delete(0,END)
+        for date in self.scrumLst.getDateLst():
+            self.comboDate.insert(END,date)
+        
+    def getScrum(self):
+        scrum = self.scrumLst.getScrum(self.varDate.get(), self.varUser.get())
+        if scrum:
+            self.scrumCourant=scrum
+            self.afficherTout()
+                
+    def setDate(self,evt):
+        self.getScrum()
+    
+    def setUser(self,evt):
+        self.getScrum()
+    
+    def afficherTout(self):
+        self.PlanningDetail.frameDetail.pack_forget()
+        sprint=self.vueParent.parent.getLstSprint().getSprint(self.scrumCourant.date)
+        self.PlanningDetail=PlanningDetail.PlanningDetail(sprint.taskFull)
+        self.PlanningDetail.frameDetail.pack(side=LEFT,padx=30)
+        
+        self.d.initDonnee(self.scrumCourant.done)
+        self.t.initDonnee(self.scrumCourant.todo)
+        self.p.initDonnee(self.scrumCourant.probleme)
         
     def updateListes(self):
         self.done = self.d.getData
@@ -32,12 +85,17 @@ class ScrumView(object):
         self.vueParent.parent.updateScrums(self.done, self.todo, self.problem)
 
 class GridView(object):
-    def __init__(self, vueParent, data):
+    def __init__(self, vueParent, title):
         self.vueParent=vueParent
-        self.data=data
-        self.initDonnee()
+        self.data=None
+        self.title=title
+        self.frameDonnee =None
+        self.initDonnee([])
         
-    def initDonnee(self):
+    def initDonnee(self,data):
+        self.data=data
+        if self.frameDonnee:
+            self.frameDonnee.pack_forget()
         self.frameDonnee = Frame(self.vueParent.frame)
         self.retoursData=[]
         self.rowsData=[]
@@ -101,7 +159,7 @@ class GridView(object):
         
         ##############################
         
-        titre=Tix.Label(self.frameDonnee,text=u'Données')
+        titre=Tix.Label(self.frameDonnee,text=self.title)
         titre.pack()
         
         self.boutonAddRowData=Button(self.frameDonnee,text=u'Ajouter une ligne',command=self.addRow)
@@ -113,7 +171,7 @@ class GridView(object):
         scrollbarData.config(command=self.textData.yview)
         
         self.textData.pack(side=LEFT)
-        self.frameDonnee.pack(side=BOTTOM)
+        self.frameDonnee.pack(side=TOP)
         
     def getData(self):
         data = []
@@ -283,7 +341,7 @@ if __name__ == '__main__':
     
     scl.scrums.append(sc)
     
-    root = Tk()
+    root = Tix.Tk()
     c = ScrumView(None,scl)
     c.frame.pack()
     root.mainloop()

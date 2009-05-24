@@ -203,6 +203,12 @@ class ControleurClient:
         
     def getUsers(self):
         return self.m.projet.user.getUsersList()
+    
+    def getLstSprint(self):
+        return self.m.projet.Sprint
+    
+    def getLstScrum(self):
+        return self.m.projet.scrum
                  
 if __name__ == '__main__':
     c = ControleurClient()
