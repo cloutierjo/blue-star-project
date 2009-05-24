@@ -232,26 +232,6 @@ voici le format a suivre pour les CRC, ne vous occup√© pas du HTML si sa vous m√
 
 <table border=1 width=70%>
    <tr>
-       <td width=60%> LstSprint </td>
-       <td rowspan=3> 
-                      * ModelClient
-                      * ModelServeur
-                      * Projet
-       </td>
-   </tr>
-   <tr>
-       <td align="right">Jonatan C.</td>
-   </tr>
-   <tr>
-       <td>
-            * serializedLstSprint serialize()
-            * void deserialize(serializedLstSprint)
-       </td>
-   </tr>
-</table>
-
-<table border=1 width=70%>
-   <tr>
        <td width=60%> Sprint </td>
        <td rowspan=3> 
                       * ModelClient
