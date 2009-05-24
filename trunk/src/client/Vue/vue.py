@@ -52,7 +52,7 @@ class Vue(object):
         self.crc = None
         self.crc2=None
 #Lobjet graphique scrum
-        #self.scrum = None
+        self.scrum = None
 #Haut    
     def menuPrincipal(self):
         #cree une barre de menu (qui est aussi un objet Menu)
@@ -109,7 +109,7 @@ class Vue(object):
         self.dictionnaireDonnee = DictionnaireDonnee(self, self.parent.ouvrirDicDonneeVar(), self.parent.ouvrirDicDonneeFonc())
         self.crc = CrcVUE(self,self.parent.getListeCRC())
         self.crc2 = CrcVUE(self,self.parent.getListeCRC())
-        #self.scrum = ScrumView(self,self.parent.getLstScrum())
+        self.scrum = ScrumView(self,self.parent.getLstScrum())
 #####charger autres objets graphiques ici...
 
         
@@ -123,7 +123,7 @@ class Vue(object):
         self.graphItems.append(self.dictionnaireDonnee)
         self.graphItems.append(self.crc)
         self.graphItems.append(self.crc2)
-        #self.graphItems.append(self.scrum)
+        self.graphItems.append(self.scrum)
 #####ajouter autres widgets dans graphItems ici...
         
     def NouveauProjet(self):
@@ -251,7 +251,7 @@ class Vue(object):
     def afficherScrum(self):
         if self.etat==1:
             self.effacerFenetre()
-            #self.scrum.frame.pack(side=LEFT,padx=30)
+            self.scrum.frame.pack(side=LEFT,padx=30)
         else:
             tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
 
