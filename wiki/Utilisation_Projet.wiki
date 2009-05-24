@@ -25,5 +25,11 @@ HOW TO :
     désinstaller votre version actuelle puis installer python 2.6.2 (Surtout pas 3.0.1
     , cela fait des erreurs de syntaxe que l'on comprend pas) , faire
     seulement une mise à jour ne corrige pas les problèmes.
-     
+
+    En gros :
+    
+    Python 2.6.1 en descendant : Ne marche pas
+    Python 2.6.2 : WORKS
+    Python 3.0.1 : Ne marche pas car certaines syntaxes ont changées
+
     python 2.6.2: http://www.python.org/download/releases/2.6.2/
