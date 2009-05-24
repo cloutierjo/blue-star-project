@@ -16,7 +16,7 @@ import Tix
 class ScrumView(object):
     def __init__(self, vueParent, scrumLst):
         self.vueParent = vueParent
-        self.frame = Frame()
+        self.frame = Frame(borderwidth=2, relief="groove")
         self.scrumLst=scrumLst
         self.scrumCourant=None
         
@@ -24,7 +24,10 @@ class ScrumView(object):
         title.pack()
         
         self.PlanningDetail=PlanningDetail.PlanningDetail([])
+        '''
+        voilà la ligne coupable du bug
         self.PlanningDetail.frameDetail.pack(side=LEFT,padx=30)
+        '''
         
         self.varDate = Tix.StringVar()
         self.varUser = Tix.StringVar()
@@ -33,7 +36,7 @@ class ScrumView(object):
         self.comboDate.pack()
         self.updateListeDate()
         
-        self.comboProprio = Tix.ComboBox(self.frame,label=u'Utilisateur   :',editable=0,variable=self.varUser,dropdown=1,command=self.setUser,width=20)
+        self.comboProprio = Tix.ComboBox(self.frame,label=u'Utilisateur  :',editable=0,variable=self.varUser,dropdown=1,command=self.setUser,width=20)
         self.comboProprio.pack()
         self.updateListeUser()
         
@@ -71,7 +74,7 @@ class ScrumView(object):
         self.PlanningDetail.frameDetail.pack_forget()
         sprint=self.vueParent.parent.getLstSprint().getSprint(self.scrumCourant.date)
         self.PlanningDetail=PlanningDetail.PlanningDetail(sprint.taskFull)
-        self.PlanningDetail.frameDetail.pack(side=LEFT,padx=30)
+        #self.PlanningDetail.frameDetail.pack(side=LEFT,padx=30)
         
         self.d.initDonnee(self.scrumCourant.done)
         self.t.initDonnee(self.scrumCourant.todo)
@@ -137,7 +140,7 @@ class GridView(object):
                     
                 for j in range(2):
                     entree = Entry(ligne,relief=RIDGE)
-                    entree.config(width=35)
+                    entree.config(width=60)
                     entree.insert(END,ligneVariable[j])
                     if gere==True:
                         entree.config(state=DISABLED)
@@ -231,7 +234,7 @@ class GridView(object):
             
             for j in range(2):
                     entree = Entry(ligne,relief=RIDGE)
-                    entree.config(width = 50)
+                    entree.config(width=60)
                     entree.insert(END,row[j])
                     if gere==True:
                         entree.config(state=DISABLED)
@@ -268,7 +271,7 @@ class GridView(object):
         
         for j in range(2) :# Création des deux entrées de ma ligne
             entree = Entry(ligneData,relief=RIDGE)
-            entree.config(width=50)
+            entree.config(width=60)
                 
             if j < 1:
                 entree.pack(side=LEFT)
