@@ -411,39 +411,13 @@ class CrcVUE(object):
             i=0
             while self.etatsCollabo[i].get()!=1:  #donne l'indice de la row a deleter
                 i=i+1
-             
-            reste=[]   
-            for row in self.rowsCollabo:    #transfert des donnees des rows dans reste
-                reste.append(row.get())
-        
-            reste.remove(reste[i]) #delete les donnees non voulues
             
-            self.collaboration.delete(0.0,END)
-            #test
             self.crcCourant.collaboration=[]
-            #        
-            self.etatsCollabo=[]
-            self.rowsCollabo=[]
+                
+            for row in self.rowsCollabo:    #transfert des donnees des rows dans self.crcCourant.collaboration
+                self.crcCourant.collaboration.append(row.get())
+        
+            self.crcCourant.collaboration.remove(self.crcCourant.collaboration[i]) #delete le collaborateur
             
-            for row in reste:
-    
-                ligne=Frame(self.collaboration)
-                
-                state=IntVar()
-                delRowCol=Radiobutton(ligne,text=u'x',variable=state,value=1,cursor="arrow",indicatoron=False,command=self.deleteRowCollabo)
-                delRowCol.var=state
-                self.etatsCollabo.append(delRowCol.var)
-                delRowCol.pack(side=LEFT)
-                
-                entree = Entry(ligne,relief=RIDGE)
-                entree.config(width=38)
-                entree.insert(END,row)
-                entree.pack(side=LEFT)
-    
-                self.rowsCollabo.append(entree)
-                if self.crcCourant.handled==1:
-                    entree.config(state=DISABLED)
-                
-                self.collaboration.window_create(INSERT,window=ligne)
-                
-            self.collaboration.config(state=DISABLED)   
+            #réaffichage
+            self.afficherCollabo()  
