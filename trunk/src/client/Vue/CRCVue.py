@@ -100,7 +100,7 @@ class CrcVUE(object):
         if nom:
             if self.vueParent.parent.createNewCrc(nom):
                 self.updateListeCRC()
-                self.updateCRC()
+                self.vueParent.updateCRC()
                 self.varcombo.set(nom)
                 self.checkHandled.deselect()
                 self.crcCourant=self.vueParent.parent.getCRC(nom)
