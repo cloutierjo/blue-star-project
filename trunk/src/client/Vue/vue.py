@@ -203,9 +203,9 @@ class Vue(object):
         if self.etat==1:
             #efface la fenetre avant affichage desiree
             self.effacerFenetre()
-            self.ATExplicite.frame.pack(padx=50,side=LEFT,fill=Y)
-                                        #was right
-            self.ATImplicite.frame.pack(side=LEFT,padx=50,fill=Y)
+            self.ATExplicite.frame.pack(padx=40,side=LEFT,fill=Y)
+
+            self.ATImplicite.frame.pack(side=LEFT,padx=40,fill=Y)
         else:
             tkMessageBox.showinfo(u"Message",u"Aucun projet n'est ouvert")
             
@@ -296,7 +296,6 @@ class Onglets(object):
         r.config(activeforeground="blue",relief=RIDGE)
         r.pack(side=LEFT)
         
-        #tempo
         r=Radiobutton(self.frame, text=u"CRC", variable=self.v, value=7,command=self.vueParent.afficherCRC)
         r.config(activeforeground="blue",relief=RIDGE)
         r.pack(side=LEFT)
@@ -309,7 +308,6 @@ class Onglets(object):
         r.config(activeforeground="blue",relief=RIDGE)
         r.pack(side=LEFT)
         
-        #autres onglets a suivre...
         self.v.set(0)
 
         
