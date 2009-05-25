@@ -86,13 +86,6 @@ class Vue(object):
         self.filemenu.add_command(label=u"Quitter", command=self.parent.quitter)
         
         
-        #commandes de l'affichage
-        #displaymenu=Menu(menu)
-        #menu.add_cascade(label=u"Affichage",menu=displaymenu)
-        #displaymenu.add_command(label="Afficher le mandat / analyse explicite",command=self.afficherFenMandat)
-        #displaymenu.add_command(label="Afficher analyse explicite / implicite",command=self.afficherLesAnalyses)
-        #...
-        
         #Aide
         helpmenu = Menu(menu)
         menu.add_cascade(label=u"Aide", menu=helpmenu)
