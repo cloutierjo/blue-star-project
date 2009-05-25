@@ -4,13 +4,19 @@ import tkMessageBox, tkSimpleDialog
 class CasUsageVue(object):
     def __init__(self,vueParent):
         self.vueParent = vueParent
-        self.frame = Frame(pady=40)
+        self.frame = Frame(pady=5,borderwidth=2, relief="groove")
         self.DerniereSelection = None
-        self.lb = Listbox(self.frame, selectmode=SINGLE, height=100, width=40)
+        self.lb = Listbox(self.frame, selectmode=SINGLE,width=40,height=20)#height=100
         '''for item in vueParent.parent.ouvrirCasUsages():
             lb.insert(END,item[0])
             '''
+        self.scroll = Scrollbar(self.frame)
+        self.scroll.pack(side=RIGHT, fill=Y)
+        self.scroll.config(command=self.lb.yview)
+        self.lb.config(yscrollcommand=self.scroll.set)
         
+        label=Label(self.frame,text=u"Cas d'usage")
+        label.pack()
         self.lb.pack(side=RIGHT, anchor=N)
         self.btnUp= Button(self.frame, text=u"Monter", width=10, command=self.monter)
         self.btnRen= Button(self.frame, text=u"Renommer", width=10, command=self.renommer)
@@ -18,9 +24,11 @@ class CasUsageVue(object):
         self.btnDel= Button(self.frame, text=u"Supprimer", width=10, command=self.supprimer)
         self.btnDown= Button(self.frame, text=u"Descendre", width=10, command=self.descendre)
         self.btnUp.pack()
-        self.btnAdd.pack(pady=50)
+        #self.btnAdd.pack(pady=50)
+        self.btnAdd.pack(pady=10)
         self.btnRen.pack()
-        self.btnDel.pack(pady=50)
+        #self.btnDel.pack(pady=50)
+        self.btnDel.pack(pady=10)
         self.btnDown.pack()
         
         self.lb.bind("<ButtonRelease-1>", self.updateScenarioAssocie)
