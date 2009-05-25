@@ -47,7 +47,6 @@ class ControleurClient:
         self.i.crc2.updateCRC()
         self.setListeSprints()
         self.i.dictionnaireDonnee.updateListes()
-        self.m.projet.unicodize()
         pjser=self.m.projet.serialize()
         return self.server.sauvegarderProjet(pjser)
     
@@ -206,11 +205,14 @@ class ControleurClient:
         return self.m.projet.user.getUsersList()
     
     def getLstSprint(self):
-        return self.m.projet.Sprint
+        return self.m.projet.sprint
     
     def getLstScrum(self):
         return self.m.projet.scrum
     
+    def createNewScrum(self,date,user):
+        return self.m.projet.scrum.addNewScrum(date,user)
+                 
     def getListeSprints(self):
         if self.m.projet.sprint.sprints:
             return self.m.projet.sprint.sprints

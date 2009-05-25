@@ -7,8 +7,8 @@ from TaskList import Task
 class PlanningDetail:
 
  #Debut Detaillé#
-    def __init__(self,uneListeDeListe = []):
-        self.frameDetail = Frame()       
+    def __init__(self,uneListeDeListe=[],parentFrame=None):
+        self.frameDetail = Frame(parentFrame)       # pour pouvoir l'inséré correctement dans la vue principale 
         #pour gestion (retours des Checkbuttons pour "handled")
         self.retours=[]
         #pour deleteRow (retours des Radiobuttons pour deleteRow)

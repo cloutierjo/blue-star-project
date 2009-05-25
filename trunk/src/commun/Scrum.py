@@ -38,6 +38,13 @@ class ScrumList:
             if date==i.date and user==i.user:
                 return i
             
+    def addNewScrum(self,date,user):
+        sc=Scrum()
+        sc.date=date
+        sc.user=user
+        self.scrums.append(sc)
+        return sc
+            
 class Scrum:
     DATE="date"
     DONE="done"

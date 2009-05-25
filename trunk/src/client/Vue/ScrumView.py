@@ -12,6 +12,9 @@ import Scrum
 import PlanningDetail
 from Tkinter import *
 import Tix
+import tkSimpleDialog
+import tkMessageBox
+import re
 
 class ScrumView(object):
     def __init__(self, vueParent, scrumLst):
@@ -23,23 +26,24 @@ class ScrumView(object):
         title = Label(self.frame, text = u"Scrum")
         title.pack()
         
-        '''
-        self.PlanningDetail=PlanningDetail.PlanningDetail([])
-
-        voilà la ligne coupable du bug
+        self.PlanningDetail=PlanningDetail.PlanningDetail([],self.frame)
         self.PlanningDetail.frameDetail.pack(side=LEFT,padx=30)
-        '''
         
         self.varDate = Tix.StringVar()
         self.varUser = Tix.StringVar()
         
-        self.comboDate = Tix.ComboBox(self.frame,label=u'Date      :',editable=0,variable=self.varDate,dropdown=1,command=self.setDate,width=15)
+        self.comboDate = Tix.ComboBox(self.frame,label=u'Date   :',editable=1,variable=self.varDate,dropdown=1,command=self.setDate,width=15)
         self.comboDate.pack()
         self.updateListeDate()
+        if not self.varDate.get():
+            self.varDate.set(self.comboDate.subwidget("listbox").get(0))
         
-        self.comboProprio = Tix.ComboBox(self.frame,label=u'Utilisateur :',editable=0,variable=self.varUser,dropdown=1,command=self.setUser,width=20)
-        self.comboProprio.pack(pady=2)
+        self.comboProprio = Tix.ComboBox(self.frame,label=u'Utilisateur   :',editable=0,variable=self.varUser,dropdown=1,command=self.setUser,width=20)
+        self.comboProprio.pack()
         self.updateListeUser()
+        if not self.varUser.get():
+            self.varUser.set(self.comboProprio.subwidget("listbox").get(0))
+            
         
         self.d = GridView(self, u"fais")
         self.t = GridView(self, u"a faire")
@@ -60,10 +64,15 @@ class ScrumView(object):
             self.comboDate.insert(END,date)
         
     def getScrum(self):
+        if self.scrumCourant:
+            self.saveData()
         scrum = self.scrumLst.getScrum(self.varDate.get(), self.varUser.get())
         if scrum:
             self.scrumCourant=scrum
             self.afficherTout()
+        else:
+            if self.varDate.get():
+                self.newScrum(self.varDate.get(),self.varUser.get())
                 
     def setDate(self,evt):
         self.getScrum()
@@ -72,22 +81,32 @@ class ScrumView(object):
         self.getScrum()
     
     def afficherTout(self):
-        self.PlanningDetail.frameDetail.pack_forget()
-        sprint=self.vueParent.parent.getLstSprint().getSprint(self.scrumCourant.date)
-        self.PlanningDetail=PlanningDetail.PlanningDetail(sprint.taskFull)
-        #self.PlanningDetail.frameDetail.pack(side=LEFT,padx=30)
-        
+        sprint=None
+        if self.scrumCourant:
+            sprint=self.vueParent.parent.getLstSprint().getSprint(self.scrumCourant.date)
+        if sprint:
+            self.PlanningDetail.frameDetail.pack_forget()
+            
+            self.PlanningDetail=PlanningDetail.PlanningDetail(sprint.taskFull)
+            self.PlanningDetail.frameDetail.pack(side=LEFT,padx=30)
+            
         self.d.initDonnee(self.scrumCourant.done)
         self.t.initDonnee(self.scrumCourant.todo)
         self.p.initDonnee(self.scrumCourant.probleme)
         
-    def updateListes(self):
-        self.done = self.d.getData
-        self.todo = self.t.getData
-        self.problem = self.p.getData
+    def newScrum(self,dte,usr):
+        if re.match(r"\d\d\d\d-\d\d-\d\d", dte):
+            self.scrumCourant=self.vueParent.parent.createNewScrum(dte, usr)
+            self.updateListeDate()
+            self.afficherTout()
+        else:
+            tkMessageBox.showerror(u"mauvais format", u"veuillez utilisez le format de date suivant : AAAA-MM-JJ")
+    
+    def saveData(self):
+        self.scrumCourant.done = self.d.getData()
+        self.scrumCourant.todo = self.t.getData()
+        self.scrumCourant.probleme = self.p.getData()
         
-        self.vueParent.parent.updateScrums(self.done, self.todo, self.problem)
-
 class GridView(object):
     def __init__(self, vueParent, title):
         self.vueParent=vueParent
@@ -314,38 +333,4 @@ class GridView(object):
             
         self.textData.config(state=DISABLED)
             
-
-if __name__ == '__main__':
-    
-    scl=Scrum.ScrumList()
-    
-    sc=Scrum.Scrum()
-    
-    sc.date="19 mai"
-    sc.user="moi"
-    sc.done.append(["fais1",0])
-    sc.done.append(["fais2",0])
-    sc.todo.append(["afaire1",0])
-    sc.todo.append(["afaire2",0])
-    sc.probleme.append(["prob1",0])
-    sc.probleme.append(["prob2",0])
-    
-    scl.scrums.append(sc)
-    
-    sc=Scrum.Scrum()
-    
-    sc.date="20 mai"
-    sc.user="s01"
-    sc.done.append(["bfais1",0])
-    sc.done.append(["bfais2",0])
-    sc.todo.append(["bafaire1",0])
-    sc.todo.append(["bafaire2",0])
-    sc.probleme.append(["bprob1",0])
-    sc.probleme.append(["bprob2",0])
-    
-    scl.scrums.append(sc)
-    
-    root = Tix.Tk()
-    c = ScrumView(None,scl)
-    c.frame.pack()
-    root.mainloop()
+            
