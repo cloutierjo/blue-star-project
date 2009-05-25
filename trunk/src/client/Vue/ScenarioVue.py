@@ -28,7 +28,7 @@ class ScenarioVue(object):
             indexAMonter = int(self.lb.curselection()[0])
             self.vueParent.parent.monterEtapeScenario(indexAMonter)
         else:
-            tkMessageBox.showwarning("Veuillez sélectionner un élément dans la liste différent du Premier")
+            tkMessageBox.showwarning(u"Veuillez sélectionner un élément dans la liste différent du Premier")
         
         self.remplirListe()
         
@@ -38,23 +38,23 @@ class ScenarioVue(object):
             indexADescendre = int(self.lb.curselection()[0])
             self.vueParent.parent.descendreEtapeScenario(indexADescendre)
         else:
-            tkMessageBox.showwarning("Selection Invalide", "Veuillez sélectionner un élément dans la liste différent du Dernier")
+            tkMessageBox.showwarning(u"Selection Invalide", u"Veuillez sélectionner un élément dans la liste différent du Dernier")
         self.remplirListe()
     
     def renommer(self):
         if self.lb.get(self.lb.curselection()[0])!= None:
             nomAncient = self.lb.get(self.lb.curselection()[0])
-            nouveauNom = tkSimpleDialog.askstring("Modifier "+nomAncient , "Veuillez entrer un nouveau nom pour Cette Etape "+ nomAncient+" : ")
+            nouveauNom = tkSimpleDialog.askstring("Modifier "+nomAncient , u"Veuillez entrer un nouveau nom pour Cette Etape "+ nomAncient+" : ")
             if nouveauNom != "":
                 self.vueParent.parent.renommerEtapsScenario(int(self.lb.curselection()[0]), nouveauNom)
         else:
-            tkMessageBox.showwarning("Selection Invalide", "Veuillez sélectionner un élément dans la liste")    
+            tkMessageBox.showwarning(u"Selection Invalide", u"Veuillez sélectionner un élément dans la liste")    
         
         self.remplirListe()
         
         
     def ajouter(self):
-        nouveauNom = tkSimpleDialog.askstring("Ajouter Cas Usage" , "Veuillez entrer un nom pour le nouveau cas d'usage : ")
+        nouveauNom = tkSimpleDialog.askstring(u"Ajouter Cas Usage" , u"Veuillez entrer un nom pour le nouveau cas d'usage : ")
         if nouveauNom != "":
             self.vueParent.parent.ajouterEtapeScenario(nouveauNom)
          

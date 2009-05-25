@@ -95,13 +95,13 @@ class CrcVUE(object):
         
 #--------------------------------------------------------------------
     def nouveauCrc(self):
-        nom=tkSimpleDialog.askstring('Nouveau CRC',
-                                         'Entrez le nom de la classe :',parent=self.vueParent.root)
+        nom=tkSimpleDialog.askstring(u'Nouveau CRC',
+                                         u'Entrez le nom de la classe :',parent=self.vueParent.root)
         if nom:
             if self.vueParent.parent.createNewCrc(nom):
                 self.updateListeCRC()
             else:
-                self.vueParent.afficherUnMessage("Un Crc porte ce nom",erreur="ERREUR!!!")        
+                self.vueParent.afficherUnMessage(u"Un Crc porte ce nom",erreur="ERREUR!!!")        
     
     def getCrc(self,evt):
         self.updateCRC()

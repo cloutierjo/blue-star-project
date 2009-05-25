@@ -8,7 +8,7 @@ import Sprint
 import TaskList
 import tkMessageBox, tkSimpleDialog
 from datetime import *
-from time import strftime
+from time import strftime, strptime
 
 class ButtonCallback(object):
     def __init__(self, method, bouton):
@@ -37,22 +37,22 @@ class Planning:
         
         #Creation d'un nouveau sprint
         if not listeSprint:
-           datefinString = tkSimpleDialog.askstring("Nouveau Projet", "Veuillez entrez la date de fin d'un projet sous la forme jj-mm-aaaa : ", parent=self.windows.window)
+           datefinString = tkSimpleDialog.askstring(u"Nouveau Projet", u"Veuillez entrez la date de fin d'un projet sous la forme AAAA-MM-JJ : ", parent=self.windows.window)
            if datefinString:
-               nbsemaineparsprint = tkSimpleDialog.askinteger("Nouveau Projet", "Veillez entrer la durée d'un sprint en semaine (ex: 3) :", parent=self.windows.window, initialvalue=3, minvalue=1)
+               nbsemaineparsprint = tkSimpleDialog.askinteger(u"Nouveau Projet", u"Veillez entrer la durée d'un sprint en semaine (ex: 3) :", parent=self.windows.window, initialvalue=3, minvalue=1)
                
-           dateFin = date(int(datefinString.split("-")[2]),int(datefinString.split("-")[1]),int(datefinString.split("-")[0]))
+           dateFin = datetime(*strptime(datefinString, "%Y-%m-%d")[0:5])
            td = timedelta(weeks=nbsemaineparsprint)
-           dateDebutSprint = date.today()
+           dateDebutSprint = datetime.now()
            while dateDebutSprint + td <= dateFin:
                dateDebutSprint = dateDebutSprint + td
                unSprint = Sprint.Sprint()
-               unSprint.dateFin=dateDebutSprint.strftime("%d-%m-%Y")
+               unSprint.dateFin=dateDebutSprint.strftime("%Y-%m-%d")
                self.listeSprint.append(unSprint)
            
            if dateDebutSprint != dateFin: # si il y reste encore du temps entre la fin du projet, mais moins que pour un sprint regulier de x semaine on en cree un plus petit avec le restant du temps
                unSprint = Sprint.Sprint()
-               unSprint.dateFin=dateFin.strftime("%d-%m-%Y")
+               unSprint.dateFin=dateFin.strftime("%Y-%m-%d")
                self.listeSprint.append(unSprint)
         
         
@@ -71,12 +71,12 @@ class Planning:
         #Label(frameGen, text=titre).pack(side=TOP)
         txtGenTempo = ScrolledText(frameGen, scrollbar='y', height=hauteurTxtBox, width=largeurTxtBox)
         if self.listeSprint.index(i) == len(self.listeSprint)-1:
-            titre = "\tFIN DU PROJET:\n\t"+i.dateFin
+            titre = u"\tFIN DU PROJET:\n\t"+i.dateFin
         else:
-            titre = "\tFIN DU SPRINT\n\tET\n\tDEBUT DU PROCHAIN:\n\t"+i.dateFin
+            titre = u"\tFIN DU SPRINT\n\tET\n\tDEBUT DU PROCHAIN:\n\t"+i.dateFin
         self.pg = PlanningGeneral(frameGen, txtGenTempo.text, titre, i.taskGeneral)
         callback = ButtonCallback(self.afficherDetails, self.listeSprint.index(i))
-        self.boutonAddRow=Button(frameGen, text='Afficher Les Détails',
+        self.boutonAddRow=Button(frameGen, text=u'Afficher Les Détails',
                                  command = callback.invoke)
         
         
