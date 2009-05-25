@@ -27,6 +27,6 @@
 =21/05/2009=
  * testing, correction, amélioration rapide en vue de la version finale (tous)
 
-=21/05/2009=
+=25/05/2009 (Remise)=
  * testing, correction, fin de l'implémentation scrums, planning général
   
