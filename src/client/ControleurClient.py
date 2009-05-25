@@ -47,6 +47,7 @@ class ControleurClient:
         self.i.crc2.updateCRC()
         self.setListeSprints()
         self.i.dictionnaireDonnee.updateListes()
+        self.i.scrum.saveData()
         pjser=self.m.projet.serialize()
         return self.server.sauvegarderProjet(pjser)
     
