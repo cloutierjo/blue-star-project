@@ -32,11 +32,15 @@ class ModeleServeur:
         cur.execute('''CREATE TABLE CRC(IDPROJ NUMBER(6) REFERENCES Projets, IDCRC NUMBER(6) PRIMARY KEY, Nom VARCHAR2(50), Usager varchar2(30), Handle NUMBER(1))''')
         cur.execute('''CREATE TABLE Responsabilite(IDCRC NUMBER(6) REFERENCES CRC, Nom VARCHAR(50), Handle NUMBER(1))''')
         cur.execute('''CREATE TABLE Collaboration(IDCRC NUMBER(6) REFERENCES CRC, Nom VARCHAR(50))''')
-        
-        # DEVEL
         cur.execute('''CREATE TABLE Sprint(IDPROJ NUMBER(6) REFERENCES Projets, IDSPRINT NUMBER(6) PRIMARY KEY, DateFin DATE)''')
         cur.execute('''CREATE TABLE TaskGen(IDSPRINT NUMBER(6) REFERENCES Sprint, Nom VARCHAR(30), Handled NUMBER(1))''')
-        cur.execute('''CREATE TABLE TaskFull(IDSPRINT NUMBER(6) REFERENCES Sprint, Nom VARCHAR(30), User VARCHAR(30), Priorite NUMBER(6), Handled NUMBER(1))''')   
+        cur.execute('''CREATE TABLE TaskFull(IDSPRINT NUMBER(6) REFERENCES Sprint, Nom VARCHAR(30), User VARCHAR(30), Priorite NUMBER(6), Handled NUMBER(1))''')
+        
+        # DEVEL
+        cur.execute('''CREATE TABLE Scrums(IDPROJ NUMBER(6) REFERENCES Projets , IDSCRUM NUMBER(6) PRIMARY KEY , Date DATE , Usager varchar2(30))''')
+        cur.execute('''CREATE TABLE ScrumDone(IDSCRUM NUMBER(6) REFERENCES Scrums , Detail VARCHAR2(50) , Handled NUMBER(1))''')
+        cur.execute('''CREATE TABLE ScrumToDo(IDSCRUM NUMBER(6) REFERENCES Scrums , Detail VARCHAR2(50) , Handled NUMBER(1))''')
+        cur.execute('''CREATE TABLE ScrumBug(IDSCRUM NUMBER(6) REFERENCES Scrums , Detail VARCHAR2(50) , Handled NUMBER(1))''')
         # END DEVEL
         
         # Générateur d'ID unique dans la méthode getNewID() (bonne pour 999 999 projets 
@@ -54,6 +58,9 @@ class ModeleServeur:
         # Générateur d'ID unique pour Sprint 
         cur.execute('''CREATE TABLE SeqSprint(Val NUMBER(9))''')
         cur.execute('insert into SeqSprint values(?)', (1,))
+        # Générateur d'ID unique pour Scrum 
+        cur.execute('''CREATE TABLE SeqScrum(Val NUMBER(9))''')
+        cur.execute('insert into SeqScrum values(?)', (1,))
         
         self.con.commit()
         cur.close()
@@ -137,10 +144,31 @@ class ModeleServeur:
                 
             p.sprint.sprints.append(sprint)
             
-        # DEBUG
-        print p.sprint.sprints[0].taskGeneral[0]
-        # END DEBUG
+        # Loading Scrums
+        scl=Scrum.ScrumList()
+        cur.execute('''SELECT * FROM Scrums WHERE IDPROJ = (?)''', (projectID,))
+        for row in cur:    
+            sc = Scrum.Scrum()
+            sc.date = row[2]
+            sc.user = row[3]
             
+            cur2.execute('''SELECT * FROM ScrumDone WHERE IDSCRUM = (?)''', (row[0],))
+            for row in cur2:
+                sc.done.append([row[1], row[2]])
+                
+            cur2.execute('''SELECT * FROM ScrumToDo WHERE IDSCRUM = (?)''', (row[0],))
+            for row in cur2:
+                sc.todo.append([row[1], row[2]])
+                print "Loading TODO"
+                
+            cur2.execute('''SELECT * FROM ScrumDone WHERE IDSCRUM = (?)''', (row[0],))
+            for row in cur2:
+                sc.probleme.append([row[1], row[2]])
+    
+            scl.scrums.append(sc)
+        
+        p.scrum=scl
+        
         cur.close()  
         return p 
     
@@ -217,6 +245,19 @@ class ModeleServeur:
                 cur2.execute('insert into TaskGen values(?, ?, ?)', (idSprint, eachtaskgen[0], eachtaskgen[1]))
             for eachtaskfull in eachsprint.taskFull.tasklist:
                 cur2.execute('insert into TaskFull values(?, ?, ?, ?, ?)',(idSprint, eachtaskfull.name, eachtaskfull.user, eachtaskfull.priorite, eachtaskfull.handled))
+        
+        # SAVE SCRUMS
+        
+        for eachscrum in projet.scrum.scrums:
+            idScrum = self.getNewIDScrum()
+            cur.execute('insert into Scrums values(?, ?, ?, ?)',(projet.num, idScrum, eachscrum.date, eachscrum.user))
+            for eachDone in eachscrum.done:
+                cur2.execute('insert into ScrumDone values(?, ?, ?)',(idScrum, eachDone[0], eachDone[1]))
+            for eachDone in eachscrum.todo:
+                cur2.execute('insert into ScrumToDo values(?, ?, ?)',(idScrum, eachDone[0], eachDone[1]))
+                print "Saving todo"
+            for eachDone in eachscrum.probleme:
+                cur2.execute('insert into ScrumBug values(?, ?, ?)',(idScrum, eachDone[0], eachDone[1]))
                 
         self.con.commit()        
         cur.close()
@@ -269,7 +310,20 @@ class ModeleServeur:
                 cur2.execute('insert into TaskGen values(?, ?, ?)', (idSprint, eachtaskgen[0], eachtaskgen[1]))
             for eachtaskfull in eachsprint.taskFull.tasklist:
                 cur2.execute('insert into TaskFull values(?, ?, ?, ?, ?)',(idSprint, eachtaskfull.name, eachtaskfull.user, eachtaskfull.priorite, eachtaskfull.handled))
-                
+         
+        # SAVE SCRUMS
+        
+        for eachscrum in projet.scrum.scrums:
+            idScrum = self.getNewIDScrum()
+            cur.execute('insert into Scrums values(?, ?, ?, ?)',(projet.num, idScrum, eachscrum.date, eachscrum.user))
+            for eachDone in eachscrum.done:
+                cur2.execute('insert into ScrumDone values(?, ?, ?)',(idScrum, eachDone[0], eachDone[1]))
+            for eachDone in eachscrum.todo:
+                print "Saving todo"
+                cur2.execute('insert into ScrumToDo values(?, ?, ?)',(idScrum, eachDone[0], eachDone[1]))
+            for eachDone in eachscrum.probleme:
+                cur2.execute('insert into ScrumBug values(?, ?, ?)',(idScrum, eachDone[0], eachDone[1]))
+                       
         self.con.commit()        
         cur.close()
         return projet.num # To be modified for errors handlings
@@ -318,6 +372,21 @@ class ModeleServeur:
             
         cur.execute('DELETE FROM Sprint WHERE IDPROJ = (?)', (projetID,))
         
+        # Deleting Scrums
+        cur.execute('''SELECT IDSCRUM FROM Scrums WHERE IDPROJ =(?)''',(projetID,))
+        for row in cur:
+            cur2.execute('DELETE FROM ScrumDone WHERE IDSCRUM = (?)', (row[0],))
+          
+        cur.execute('''SELECT IDSCRUM FROM Scrums WHERE IDPROJ =(?)''',(projetID,))
+        for row in cur:
+            cur2.execute('DELETE FROM ScrumToDo WHERE IDSCRUM = (?)', (row[0],))
+            
+        cur.execute('''SELECT IDSCRUM FROM Scrums WHERE IDPROJ =(?)''',(projetID,))
+        for row in cur:
+            cur2.execute('DELETE FROM ScrumBug WHERE IDSCRUM = (?)', (row[0],))
+            
+        cur.execute('DELETE FROM Scrums WHERE IDPROJ = (?)', (projetID,))
+            
         self.con.commit()
         cur.close()
         cur2.close()
@@ -393,6 +462,20 @@ class ModeleServeur:
         cur.close()
         return val
  
+   # Sert de séquence de nombre pour l'ID des Sprints en attendant de trouver comment faire une séquence
+    def getNewIDScrum(self):
+        
+        cur = self.con.cursor()    # Curseur
+        
+        cur.execute('''Select Val from SeqScrum''')
+        row = cur.fetchone()
+        val = row[0]
+        cur.execute('UPDATE SeqScrum SET Val = (?)', (val+1,))
+        
+        self.con.commit()
+        cur.close()
+        return val
+    
 # Fin de ModeleServeur
 # Ne pas effacer la suite qui sert à initialiser une BD
 #############################################################################
@@ -448,7 +531,6 @@ if __name__ == "__main__":
         crc.collaboration.append("dummysecColl")   
         p.crc.crcs.append(crc)
         
-        #DEVEL
         sprint=Sprint.Sprint()
         sprint.dateFin = "1979-05-25"
         sprint.taskGeneral.append(["dummyfisrttaskGen", 0])
@@ -467,7 +549,6 @@ if __name__ == "__main__":
         sprint.taskFull.tasklist.append(task)
         
         p.sprint.sprints.append(sprint)
-        # END DEVEL
         
         # TEST CRCs
         '''
@@ -480,6 +561,36 @@ if __name__ == "__main__":
                 print eachCol[0]+" "+str(eachCol[1])
         '''
         
+        scl=Scrum.ScrumList()
+    
+        sc=Scrum.Scrum()
+    
+        sc.date="1990-06-20"
+        sc.user="moi"
+        sc.done.append(["fais1",0])
+        sc.done.append(["fais2",0])
+        sc.todo.append(["afaire1",0])
+        sc.todo.append(["afaire2",0])
+        sc.probleme.append(["prob1",0])
+        sc.probleme.append(["prob2",0])
+    
+        scl.scrums.append(sc)
+    
+        sc=Scrum.Scrum()
+    
+        sc.date="1995-03-05"
+        sc.user="s01"
+        sc.done.append(["fais1",0])
+        sc.done.append(["fais2",0])
+        sc.todo.append(["afaire1",0])
+        sc.todo.append(["afaire2",0])
+        sc.probleme.append(["prob1",0])
+        sc.probleme.append(["prob2",0])
+    
+        scl.scrums.append(sc)
+    
+        p.scrum=scl
+    
         ms.saveProject(p)
     
     # Test de get projet...
@@ -514,14 +625,18 @@ if __name__ == "__main__":
     
     for eachsprint in p2.sprint.sprints:
         print eachsprint.dateFin
-        for eachtaskgen in sprint.taskGeneral:
+        for eachtaskgen in eachsprint.taskGeneral:
             print eachtaskgen[0]+" "+str(eachtaskgen[1])
-        for eachtaskfull in sprint.taskFull.tasklist:
+        for eachtaskfull in eachsprint.taskFull.tasklist:
             print eachtaskfull.name
             print eachtaskfull.user
             print str(eachtaskfull.priorite)
             print str(eachtaskfull.handled) 
-            
+    
+    for eachscrum in p2.scrum.scrums:
+        print eachscrum.date
+        for eachtodo in eachscrum.todo:
+            print eachtodo[0]   
                
     print "Création DB DONE !!!"
         
