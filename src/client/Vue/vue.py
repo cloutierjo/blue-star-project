@@ -49,12 +49,13 @@ class Vue(object):
         self.scenario = None
 #L'objet graphique dictionnaire de données
         self.dictionnaireDonnee = None
-#Lobjet graphique CRC
+#L'objet graphique CRC
         self.crc = None
         self.crc2 = None
-#Lobjet graphique scrum
+#L'objet graphique scrum
         self.scrum = None
-#Lobjet graphique planning
+        
+#L'objet graphique planning
         self.planning = None
 #Haut    
     def menuPrincipal(self):
@@ -113,7 +114,7 @@ class Vue(object):
         self.crc = CrcVUE(self,self.parent.getListeCRC())
         self.crc2 = CrcVUE(self,self.parent.getListeCRC())
         self.planning = Planning(self,self.crc,self.parent.getListeSprints())
-        #self.scrum = ScrumView(self,self.parent.getListeCRC())
+        self.scrum = ScrumView(self,self.parent.getLstScrum())
 #####charger autres objets graphiques ici...
 
         
@@ -127,7 +128,8 @@ class Vue(object):
         self.graphItems.append(self.dictionnaireDonnee)
         self.graphItems.append(self.crc)
         self.graphItems.append(self.crc2)
-        #self.graphItems.append(self.scrum)
+        #self.graphItems.append(self.planning)  # a voir avec mathieu et pascal
+        self.graphItems.append(self.scrum)
         
 #####ajouter autres widgets dans graphItems ici...
         
@@ -161,19 +163,19 @@ class Vue(object):
         self.frame2 = Frame(self.fen);
         txtFont = tkFont.Font(size=25)
         titre = Label(self.frame2, 
-                      text="Blue Star Project",
+                      text=u"Blue Star Project",
                       font=txtFont)
         titre.pack()
-        doByPeople = Label(self.frame2, text= "\nFait par:   Jonathan Hallée\n\tFrançois Lahey\n\t               Jonatan Cloutier St-Jean\n\t Mathieu Lavoie\n\tPascal Lemay\n\t   Jean-Philippe Chan")
+        doByPeople = Label(self.frame2, text=u"\nFait par:   Jonathan Hallée\n\tFrançois Lahey\n\t               Jonatan Cloutier St-Jean\n\t Mathieu Lavoie\n\tPascal Lemay\n\t   Jean-Philippe Chan")
         doByPeople.pack()
-        texteCours = Label(self.frame2, text="\nPour le cours B41")
+        texteCours = Label(self.frame2, text=u"\nPour le cours B41")
         texteCours.pack()
         self.frame2.pack()
     
     def effacerFenetre(self):
         for item in self.graphItems:
             item.frame.pack_forget()
-        self.planning.cacher() 
+        self.planning.cacher()  # a voir avec mathieu et pascal ??
                 
     def fermerProjet(self):
         self.effacerFenetre()
@@ -262,14 +264,11 @@ class Vue(object):
             tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
 
     def afficherScrum(self):
-        pass
-    '''
         if self.etat==1:
             self.effacerFenetre()
-            self.Scrum.frame.pack(side=LEFT,padx=30)
+            self.scrum.frame.pack(side=LEFT,padx=30)
         else:
             tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
-            '''
 
     def afficherUnMessage(self,Texte,erreur="ERREUR!!!"):
         tkMessageBox.showerror(erreur, Texte)
@@ -285,35 +284,36 @@ class Onglets(object):
         self.frame=Frame()
         
         self.v = IntVar()
-        r=Radiobutton(self.frame, text="Mandat/Analyse Explicite",variable=self.v, value=1,command=self.vueParent.afficherFenMandat)
+        r=Radiobutton(self.frame, text=u"Mandat/Analyse Explicite",variable=self.v, value=1,command=self.vueParent.afficherFenMandat)
                         # config + indicatoron=0 (a determiner)
         r.config(activeforeground="blue",relief=RIDGE)
         r.pack(side=LEFT)
-        r=Radiobutton(self.frame, text="Analyse Explicite/Implicite", variable=self.v, value=2,command=self.vueParent.afficherLesAnalyses)
+        r=Radiobutton(self.frame, text=u"Analyse Explicite/Implicite", variable=self.v, value=2,command=self.vueParent.afficherLesAnalyses)
         r.config(activeforeground="blue",relief=RIDGE)
         r.pack(side=LEFT)
-        r=Radiobutton(self.frame, text="Analyse Explicite/Cas d'usage", variable=self.v, value=3,command=self.vueParent.afficherCasUsage)
+        r=Radiobutton(self.frame, text=u"Analyse Explicite/Cas d'usage", variable=self.v, value=3,command=self.vueParent.afficherCasUsage)
         r.config(activeforeground="blue",relief=RIDGE)
         r.pack(side=LEFT)
-        r=Radiobutton(self.frame, text="Cas d'usage/Scenario d'utilisation", variable=self.v, value=4,command=self.vueParent.afficherScenario)
+        r=Radiobutton(self.frame, text=u"Cas d'usage/Scenario d'utilisation", variable=self.v, value=4,command=self.vueParent.afficherScenario)
         r.config(activeforeground="blue",relief=RIDGE)
         r.pack(side=LEFT)
-        r=Radiobutton(self.frame, text="Dictionnaire de donnée", variable=self.v, value=5,command=self.vueParent.afficherDictionnaire)
+        r=Radiobutton(self.frame, text=u"Dictionnaire de donnée", variable=self.v, value=5,command=self.vueParent.afficherDictionnaire)
         r.config(activeforeground="blue",relief=RIDGE)
         r.pack(side=LEFT)
         
         #tempo
-        r=Radiobutton(self.frame, text="CRC", variable=self.v, value=7,command=self.vueParent.afficherCRC)
+        r=Radiobutton(self.frame, text=u"CRC", variable=self.v, value=7,command=self.vueParent.afficherCRC)
         r.config(activeforeground="blue",relief=RIDGE)
         r.pack(side=LEFT)
         
-        r=Radiobutton(self.frame, text="Planning", variable=self.v, value=8,command=self.vueParent.afficherPlanning)
+        r=Radiobutton(self.frame, text=u"Planning", variable=self.v, value=8,command=self.vueParent.afficherPlanning)
         r.config(activeforeground="blue",relief=RIDGE)
         r.pack(side=LEFT)
         
-        r=Radiobutton(self.frame, text="Scrum", variable=self.v, value=9,command=self.vueParent.afficherScrum)
+        r=Radiobutton(self.frame, text=u"Scrum", variable=self.v, value=9,command=self.vueParent.afficherScrum)
         r.config(activeforeground="blue",relief=RIDGE)
         r.pack(side=LEFT)
+        
         #autres onglets a suivre...
         self.v.set(0)
 
