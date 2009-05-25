@@ -13,22 +13,31 @@ HOW TO :
     * Partir le contrôleur serveur. Le serveur sera démarrée
     * Partir le contrôleur client L'interface sera démarrée
     * De la il faut ouvrir un projet et naviguer dans le projet par les onglets
-    
-!!! ATTENTION !!!
+
+CONFIGURATION MINIMUM : 
+	* la configuration minimal de Python/TKinter
+	* résolution : 1024x768
+	* connexion réseau si utilisé avec le composant réseau
+BUGS CONNUS :    
+-	!!! ATTENTION !!!
     L'aplication ne fonctionne pas correctement avec les versions de python 
     précédant python 2.6.2, l'aplication peut potentiellement être fonctionnelle
     sur python 2.5.x et sur python 2.6.1, mais n'a pas été entièrement testé parce que
     ces version causaient un problème au niveau des couleurs dans Tix. 
     
     Si vous avez une version incompatible (Donc 2.6.1 en descendant) vous devez 
-    désinstaller votre version actuelle puis installer python 2.6.2 (Surtout pas 3.0.1
-    , cela fait des erreurs de syntaxe que l'on comprend pas) , faire
-    seulement une mise à jour ne corrige pas les problèmes.
-
+    désinstaller votre version actuelle puis installer python 2.6.2 ou plus (par 
+    contre l'application n'est pas compatible avec python 3.x), faire seulement
+    une mise à jour ne corrige pas les problèmes.
+        
     En gros :
-    
+    * Python 2.5.x semble fonctionnel, mais non supporté par les developpeur
     * Python 2.6.1 en descendant : Ne marche pas
     * Python 2.6.2 : WORKS
-    * Python 3.0.1 : Ne marche pas car certaines syntaxes ont changées
+    * Python 3.x : Ne marche pas car certaines syntaxes ont changées
 
     python 2.6.2 : http://www.python.org/download/releases/2.6.2/
+    
+-	l'affichage n'est pas correcte (et non supporté pour le moment) sur les platformes autre que windows, certaine 
+	information sont manquant dans les vue d'analises
+

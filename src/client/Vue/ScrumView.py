@@ -27,16 +27,8 @@ class ScrumView(object):
         
         title = Label(self.frame, text = u"Scrum")
         title.pack()
-        
-        '''
-        à voir avec jo car cet instanciation ci = 2 ième objet planningDetail
-        j'ai ajusté la vue en fonction...j'affiche planningDetail du planning
-        
-        self.PlanningDetail=PlanningDetail.PlanningDetail([],self.frame)
-        self.PlanningDetail.frameDetail.pack(side=LEFT,padx=30)
-        '''
+
         self.varDate = Tix.StringVar()
-        self.varDate.set(datetime.datetime.now().strftime("%Y-%m-%d"))
         self.varUser = Tix.StringVar()
         
         self.comboDate = Tix.ComboBox(self.frame,label=u'Date  (AAAA-MM-JJ) :',editable=1,variable=self.varDate,dropdown=1,command=self.setDate,width=15)
@@ -51,11 +43,13 @@ class ScrumView(object):
         if not self.varUser.get():
             self.varUser.set(self.comboProprio.subwidget("listbox").get(0))
             
-        
         self.d = GridView(self, u"fais")
         self.t = GridView(self, u"a faire")
         self.p = GridView(self, u"problème")
         
+        if not self.varDate.get():
+            self.varDate.set(datetime.datetime.now().strftime("%Y-%m-%d"))
+            self.setDate(None)
 
     def updateListeUser(self):
         self.comboProprio.subwidget_list['slistbox'].subwidget_list['listbox'].delete(0,END)
