@@ -107,7 +107,7 @@ class Vue(object):
         self.crc = CrcVUE(self,self.parent.getListeCRC())
         self.crc2 = CrcVUE(self,self.parent.getListeCRC())
         self.planning = Planning(self,self.crc,self.parent.getListeSprints())
-        self.scrum = ScrumView(self,self.parent.getLstScrum())
+        self.scrum = ScrumView(self,self.parent.getLstScrum(),self.planning)
 #####charger autres objets graphiques ici...
 
         
@@ -254,6 +254,8 @@ class Vue(object):
     def afficherPlanning(self):
         if self.etat==1:
             self.effacerFenetre()
+            txtFont = tkFont.Font(size=10)
+            Label(text="PLANNING GENERAL", font=txtFont, pady=10).pack()
             self.planning.afficher()
         else:
             tkMessageBox.showinfo(u"Message",u"Aucun projet n'est ouvert")
@@ -261,8 +263,8 @@ class Vue(object):
     def afficherScrum(self):
         if self.etat==1:
             self.effacerFenetre()
-            self.planning.listeDetaille[0].frameDetail.pack(side=LEFT,padx=30) #planninDetail de planning
-            self.scrum.frame.pack(side=LEFT,padx=30)
+            #planninDetail de planning
+            self.scrum.frame.pack(side=RIGHT,padx=30)
         else:
             tkMessageBox.showinfo(u"Message",u"Aucun projet n'est ouvert")
 
