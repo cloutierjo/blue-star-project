@@ -227,26 +227,13 @@ class Vue(object):
             self.effacerFenetre()
             #self.casUsage.frame.pack(anchor=W,padx=50,fill=Y)
             #self.scenario.frame.pack(anchor=W,padx=50,fill=Y)
-            self.dictionnaireDonnee.frame.pack(side=RIGHT,pady=30,padx=20)
+            self.dictionnaireDonnee.frame.pack(side=RIGHT,pady=10,padx=30)
             self.casUsage.frame.pack(anchor=W)
             self.scenario.frame.pack(anchor=W)
             #self.dictionnaireDonnee.frame.pack(side=RIGHT,fill=Y)
         else:
             tkMessageBox.showinfo(u"Message",u"Aucun projet n'est ouvert")
     
-    #dictionnaire de données
-    #cas d'usage et scenario...        
-    def afficherDictionnaire(self):
-        pass
-    '''
-        if self.etat==1:
-            #efface la fenetre avant affichage desiree
-            self.effacerFenetre()
-            self.scenario.frame.pack(side=LEFT,padx=50,fill=Y)
-            self.dictionnaireDonnee.frame.pack(side=LEFT, pady=30)
-        else:
-            tkMessageBox.showinfo(u"Message",u"Aucun projet n'est ouvert")
-       '''     
     def afficherCRC(self):
         if self.etat==1:
             self.effacerFenetre()
@@ -299,19 +286,16 @@ class Onglets(object):
         r=Radiobutton(self.frame, text=u"Cas d'usage/Scenario d'utilisation", variable=self.v, value=4,command=self.vueParent.afficherScenario)
         r.config(activeforeground="blue",relief=RIDGE)
         r.pack(side=LEFT)
-        r=Radiobutton(self.frame, text=u"Dictionnaire de donnée", variable=self.v, value=5,command=self.vueParent.afficherDictionnaire)
+        
+        r=Radiobutton(self.frame, text=u"CRC", variable=self.v, value=6,command=self.vueParent.afficherCRC)
         r.config(activeforeground="blue",relief=RIDGE)
         r.pack(side=LEFT)
         
-        r=Radiobutton(self.frame, text=u"CRC", variable=self.v, value=7,command=self.vueParent.afficherCRC)
+        r=Radiobutton(self.frame, text=u"Planning", variable=self.v, value=7,command=self.vueParent.afficherPlanning)
         r.config(activeforeground="blue",relief=RIDGE)
         r.pack(side=LEFT)
         
-        r=Radiobutton(self.frame, text=u"Planning", variable=self.v, value=8,command=self.vueParent.afficherPlanning)
-        r.config(activeforeground="blue",relief=RIDGE)
-        r.pack(side=LEFT)
-        
-        r=Radiobutton(self.frame, text=u"Scrum", variable=self.v, value=9,command=self.vueParent.afficherScrum)
+        r=Radiobutton(self.frame, text=u"Scrum", variable=self.v, value=8,command=self.vueParent.afficherScrum)
         r.config(activeforeground="blue",relief=RIDGE)
         r.pack(side=LEFT)
         
