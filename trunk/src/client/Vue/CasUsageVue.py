@@ -64,10 +64,11 @@ class CasUsageVue(object):
         
     def ajouter(self):
         nouveauNom = tkSimpleDialog.askstring(u"Ajouter Cas Usage" , u"Veuillez entrer un nom pour le nouveau cas d'usage : ")
-        retour = self.vueParent.parent.ajouterCasUsage(nouveauNom)
-        if not retour:
-            tkMessageBox.showwarning(u"Impossible d'ajouter le cas d'usage vérifier si un autre cas d'usage n'a pas le même nom") 
-        self.remplirListe()
+        if nouveauNom:
+            retour = self.vueParent.parent.ajouterCasUsage(nouveauNom)
+            if not retour:
+                tkMessageBox.showwarning(u"Impossible d'ajouter le cas d'usage vérifier si un autre cas d'usage n'a pas le même nom") 
+            self.remplirListe()
         
         
     def supprimer(self):
