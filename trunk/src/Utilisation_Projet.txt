@@ -18,8 +18,11 @@ CONFIGURATION MINIMUM :
 	* la configuration minimal de Python/TKinter
 	* résolution : 1024x768
 	* connexion réseau si utilisé avec le composant réseau
-BUGS CONNUS :    
+	
+BUGS CONNUS :
+    
 -	!!! ATTENTION !!!
+
     L'aplication ne fonctionne pas correctement avec les versions de python 
     précédant python 2.6.2, l'aplication peut potentiellement être fonctionnelle
     sur python 2.5.x et sur python 2.6.1, mais n'a pas été entièrement testé parce que
@@ -31,13 +34,13 @@ BUGS CONNUS :
     une mise à jour ne corrige pas les problèmes.
         
     En gros :
-    * Python 2.5.x semble fonctionnel, mais non supporté par les developpeur
+    * Python 2.5.x semble fonctionnel, mais non supporté par les developpeurs
     * Python 2.6.1 en descendant : Ne marche pas
     * Python 2.6.2 : WORKS
     * Python 3.x : Ne marche pas car certaines syntaxes ont changées
 
     python 2.6.2 : http://www.python.org/download/releases/2.6.2/
     
--	l'affichage n'est pas correcte (et non supporté pour le moment) sur les platformes autre que windows, certaine 
-	information sont manquant dans les vue d'analises
+-	L'affichage n'est pas correcte (et non supporté pour le moment) sur les platformes autre que windows, certaines 
+	informations sont manquantes dans les vue d'analyses
 
