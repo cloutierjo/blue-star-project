@@ -46,7 +46,7 @@ class PlanningDetail:
                     self.etats.append(delRow.var)
                     delRow.pack(side=LEFT)
                     
-                    entreeNom = Entry(ligne,relief=RIDGE, width=30)
+                    entreeNom = Entry(ligne,relief=RIDGE)
                     entreeNom.insert(END,i.name)
                     entreeNom.pack(side=LEFT)
                     
