@@ -261,6 +261,7 @@ class Vue(object):
     def afficherScrum(self):
         if self.etat==1:
             self.effacerFenetre()
+            self.planning.listeDetaille[0].frameDetail.pack(side=LEFT,padx=30) #planninDetail de planning
             self.scrum.frame.pack(side=LEFT,padx=30)
         else:
             tkMessageBox.showinfo(u"Message",u"Aucun projet n'est ouvert")
