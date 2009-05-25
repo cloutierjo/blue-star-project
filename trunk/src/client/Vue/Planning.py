@@ -36,6 +36,7 @@ class Planning:
         self.windows = ScrolledWindow(self.frameGenTotal, scrollbar='auto', width=(largeurTxtBox+padxGen)*4)
         txtFont = tkFont.Font(size=8)
         Label(self.frameGenTotal, text=u"PLANNING GENERAL", font=txtFont).pack()
+        Button(self.frameGenTotal, text="Ajouter Un Nouveau Sprint", command=self.ajouterNouveauSprint).pack()
         
         #Creation d'un nouveau sprint
         if not listeSprint:
@@ -93,7 +94,18 @@ class Planning:
             i.frameDetail.pack_forget()
         self.listeDetaille[indexSprint].frameDetail.pack(side=RIGHT)
         
-            
+    def ajouterNouveauSprint(self):
+        unSprint = Sprint.Sprint()
+        datefinString = tkSimpleDialog.askstring(u"Nouveau Sprint", u"Veuillez entrez la date de fin du nouveau sprint sous la forme AAAA-MM-JJ : ", parent=self.windows.window)
+        dateFin = datetime(*strptime(datefinString, "%Y-%m-%d")[0:5])
+        unSprint.dateFin=dateFin.strftime("%Y-%m-%d")
+        self.listeSprint.append(unSprint)
+        self.creationNouveauObjetGraphiqueSprint(unSprint)
+        titre = u"\tFIN DU SPRINT\n\tET\n\tDEBUT DU PROCHAIN:\n\t"+self.listeSprint[-2].dateFin
+        self.listeFrame[-2].lblText.set(titre)
+        
+        
+                
     def update(self):
         for index in range(len(self.listeFrame)):
            self.listeSprint[index].taskGeneral = self.listeFrame[index].update()
