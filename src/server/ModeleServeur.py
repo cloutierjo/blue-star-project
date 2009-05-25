@@ -161,7 +161,7 @@ class ModeleServeur:
                 sc.todo.append([row[1], row[2]])
                 print "Loading TODO"
                 
-            cur2.execute('''SELECT * FROM ScrumDone WHERE IDSCRUM = (?)''', (row[0],))
+            cur2.execute('''SELECT * FROM ScrumBug WHERE IDSCRUM = (?)''', (row[0],))
             for row in cur2:
                 sc.probleme.append([row[1], row[2]])
     
@@ -253,12 +253,12 @@ class ModeleServeur:
             cur.execute('insert into Scrums values(?, ?, ?, ?)',(projet.num, idScrum, eachscrum.date, eachscrum.user))
             for eachDone in eachscrum.done:
                 cur2.execute('insert into ScrumDone values(?, ?, ?)',(idScrum, eachDone[0], eachDone[1]))
-            for eachDone in eachscrum.todo:
-                cur2.execute('insert into ScrumToDo values(?, ?, ?)',(idScrum, eachDone[0], eachDone[1]))
+            for eachToDo in eachscrum.todo:
                 print "Saving todo"
-            for eachDone in eachscrum.probleme:
-                cur2.execute('insert into ScrumBug values(?, ?, ?)',(idScrum, eachDone[0], eachDone[1]))
-                
+                cur2.execute('insert into ScrumToDo values(?, ?, ?)',(idScrum, eachToDo[0], eachToDo[1]))
+            for eachProblem in eachscrum.probleme:
+                cur2.execute('insert into ScrumBug values(?, ?, ?)',(idScrum, eachProblem[0], eachProblem[1]))
+                       
         self.con.commit()        
         cur.close()
         return projet.num # To be modified for errors handlings
@@ -318,11 +318,11 @@ class ModeleServeur:
             cur.execute('insert into Scrums values(?, ?, ?, ?)',(projet.num, idScrum, eachscrum.date, eachscrum.user))
             for eachDone in eachscrum.done:
                 cur2.execute('insert into ScrumDone values(?, ?, ?)',(idScrum, eachDone[0], eachDone[1]))
-            for eachDone in eachscrum.todo:
+            for eachToDo in eachscrum.todo:
                 print "Saving todo"
-                cur2.execute('insert into ScrumToDo values(?, ?, ?)',(idScrum, eachDone[0], eachDone[1]))
-            for eachDone in eachscrum.probleme:
-                cur2.execute('insert into ScrumBug values(?, ?, ?)',(idScrum, eachDone[0], eachDone[1]))
+                cur2.execute('insert into ScrumToDo values(?, ?, ?)',(idScrum, eachToDo[0], eachToDo[1]))
+            for eachProblem in eachscrum.probleme:
+                cur2.execute('insert into ScrumBug values(?, ?, ?)',(idScrum, eachProblem[0], eachProblem[1]))
                        
         self.con.commit()        
         cur.close()
@@ -566,7 +566,7 @@ if __name__ == "__main__":
         sc=Scrum.Scrum()
     
         sc.date="1990-06-20"
-        sc.user="moi"
+        sc.user="Frank"
         sc.done.append(["fais1",0])
         sc.done.append(["fais2",0])
         sc.todo.append(["afaire1",0])
@@ -579,7 +579,7 @@ if __name__ == "__main__":
         sc=Scrum.Scrum()
     
         sc.date="1995-03-05"
-        sc.user="s01"
+        sc.user="Frank"
         sc.done.append(["fais1",0])
         sc.done.append(["fais2",0])
         sc.todo.append(["afaire1",0])
@@ -635,8 +635,13 @@ if __name__ == "__main__":
     
     for eachscrum in p2.scrum.scrums:
         print eachscrum.date
+        print eachscrum.user
+        for eachtodo in eachscrum.done:
+            print eachtodo[0]
         for eachtodo in eachscrum.todo:
-            print eachtodo[0]   
+            print eachtodo[0] 
+        for eachtodo in eachscrum.probleme:
+            print eachtodo[0]    
                
     print "Création DB DONE !!!"
         
