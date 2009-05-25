@@ -711,9 +711,14 @@ voici le format a suivre pour les CRC, ne vous occup√© pas du HTML si sa vous m√
    </tr>
    <tr>
        <td>
-           * __init__(self, parent, listeSprint)
+           * __init__(self, parent, CRC, listeSprint=[])
+           * creationNouveauObjetGraphiqueSprint(self, i)
            * afficherDetails(self, indexSprint)
+           * ajouterNouveauSprint(self)
            * update(self)
+           * cacher(self)
+           * afficherDetailSelectionne(self,date)
+           * afficher(self)
        </td>
    </tr>
 </table>
@@ -753,6 +758,10 @@ voici le format a suivre pour les CRC, ne vous occup√© pas du HTML si sa vous m√
        <td>
            * __init__(self, parent, listeSprint)
            * afficherDetails(self, indexSprint)
+           * update(self)
+           * addRow(self)
+           * gestion(self)
+           * deleteRow(self)
            * update(self)
        </td>
    </tr>
