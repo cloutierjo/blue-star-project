@@ -9,6 +9,7 @@ import TaskList
 import tkMessageBox, tkSimpleDialog
 from datetime import *
 from time import strftime, strptime
+import tkFont
 
 class ButtonCallback(object):
     def __init__(self, method, bouton):
@@ -33,7 +34,8 @@ class Planning:
         #Creation du Frame
         self.frameGenTotal = Frame()
         self.windows = ScrolledWindow(self.frameGenTotal, scrollbar='auto', width=(largeurTxtBox+padxGen)*4)
-        
+        txtFont = tkFont.Font(size=8)
+        Label(self.frameGenTotal, text=u"PLANNING GENERAL", font=txtFont).pack()
         
         #Creation d'un nouveau sprint
         if not listeSprint:
