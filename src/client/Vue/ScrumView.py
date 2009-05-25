@@ -24,7 +24,6 @@ class ScrumView(object):
         self.frame = Frame(borderwidth=2, relief="groove")
         self.scrumLst=scrumLst
         self.scrumCourant=None
-        
         title = Label(self.frame, text = u"Scrum")
         title.pack()
 
@@ -34,22 +33,20 @@ class ScrumView(object):
         self.comboDate = Tix.ComboBox(self.frame,label=u'Date  (AAAA-MM-JJ) :',editable=1,variable=self.varDate,dropdown=1,command=self.setDate,width=15)
         self.comboDate.pack()
         self.updateListeDate()
-        if not self.varDate.get():
-            self.varDate.set(self.comboDate.subwidget("listbox").get(0))
         
         self.comboProprio = Tix.ComboBox(self.frame,label=u'Utilisateur   :',editable=0,variable=self.varUser,dropdown=1,command=self.setUser,width=20)
         self.comboProprio.pack()
         self.updateListeUser()
-        if not self.varUser.get():
-            self.varUser.set(self.comboProprio.subwidget("listbox").get(0))
-            
+        
         self.d = GridView(self, u"fais")
         self.t = GridView(self, u"a faire")
         self.p = GridView(self, u"problème")
-        
+        if not self.varDate.get():
+            self.varDate.set(self.comboDate.subwidget("listbox").get(0))
+        if not self.varUser.get():
+            self.varUser.set(self.comboProprio.subwidget("listbox").get(0))
         if not self.varDate.get():
             self.varDate.set(datetime.datetime.now().strftime("%Y-%m-%d"))
-            self.setDate(None)
 
     def updateListeUser(self):
         self.comboProprio.subwidget_list['slistbox'].subwidget_list['listbox'].delete(0,END)
@@ -87,7 +84,7 @@ class ScrumView(object):
             leFrameAAfficherContenantLesDetailDuSprintSelectionne = self.objPlanning.afficherDetailSelectionne(self.scrumCourant.date)
         if leFrameAAfficherContenantLesDetailDuSprintSelectionne:
             leFrameAAfficherContenantLesDetailDuSprintSelectionne.pack(side=LEFT,padx=30)
-            
+        
         self.d.initDonnee(self.scrumCourant.done)
         self.t.initDonnee(self.scrumCourant.todo)
         self.p.initDonnee(self.scrumCourant.probleme)
