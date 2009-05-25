@@ -53,7 +53,7 @@ class CasUsageVue(object):
     def renommer(self):
         if self.lb.get(self.lb.curselection()[0])!= None:
             nomAncient = self.lb.get(self.lb.curselection()[0])
-            nouveauNom = tkSimpleDialog.askstring(unicode("Modifier "+nomAncient , "Veuillez entrer un nouveau nom pour le cas d'usage "+ nomAncient+" : "))
+            nouveauNom = tkSimpleDialog.askstring(unicode("Modifier "+nomAncient) , unicode("Veuillez entrer un nouveau nom pour le cas d'usage "+ nomAncient+" : "))
             if nouveauNom != "":
                 self.vueParent.parent.renommerCasUsage(nomAncient, nouveauNom)
         else:
