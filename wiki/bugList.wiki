@@ -5,19 +5,9 @@ ceux avec une étoile * sont a mon avis, tres important a corrigé avant la remi
 ceux avec un (me) sont des bug qui me concerne moi directement, vous pouvez les corrigé si vous en avez le temp et le courage
 voila la liste:
 
-* entry pas assé large dans les liste triple (analise, planningDetaille)
-- les nouvelles lignes s'ajoute parfois a la 2ieme ligne peu importe le nombre actuellle de ligne
 - gardé la ligne sélectionné lorsqu'on la déplace (cas d'usage...)
-* renommé ne fonctionne pas (le caché pour le moment)
 - ne pas pouvoir entré de scénario s'il n'y a pas de cas sélectionné
-* vue dictinnaire.... on ne voit que le scénario du dernier cas sélectionné dans... l'autre onglet??? (ajouté un mini cas au dessus, peu etre faire qu'un seul onglet pour les 3 (cas, scénario, dictionnaire)
 - focus la case (ligne) qu'on vien d'ajouté
-* faire entré tout dans 1024x768 ou mettre un warning dans le readme pour une utilisation en ??? minimum
-- sélectionné la classe nouvellement créé (ou rendre editable la combobox CRC et géréle ajout de la) ( on peu sélectionné un élément dans la combobox en utilisant la méthode set de la VARiable associé a se combobox -voir dans scrum dans le init je croi-
-* actualisé les combobox des 2 CRC quand on en cré un nouveau
-* remplir la list de user du CRC2
-* (me) liste détail disparait quand ajoute une date de scrum
-* (me) les combo box ne marche plus sur scrum...
-* effacé les ligne vide (ou ne pas les enregistré en BDD)(partout d'apres moi, vue dans scénario) sinon sa affiche None
+* vue dictinnaire.... on ne voit que le scénario du dernier cas sélectionné dans... l'autre onglet??? (ajouté un mini cas au dessus, peu etre faire qu'un seul onglet pour les 3 (cas, scénario, dictionnaire)
 * planing scrum ne sont pas en BDD
 }}}
