@@ -185,6 +185,10 @@ class Vue(object):
         if self.etat !=0:
             self.parent.sauvegarder()
             
+    def updateCRC(self):
+        self.crc.updateCRC()
+        self.crc2.updateCRC()
+            
 #affichages
 
     #mandat et analyse explicite
@@ -225,12 +229,9 @@ class Vue(object):
         if self.etat==1:
             #efface la fenetre avant affichage desiree
             self.effacerFenetre()
-            #self.casUsage.frame.pack(anchor=W,padx=50,fill=Y)
-            #self.scenario.frame.pack(anchor=W,padx=50,fill=Y)
-            self.dictionnaireDonnee.frame.pack(side=RIGHT,pady=10,padx=30)
-            self.casUsage.frame.pack(anchor=W)
-            self.scenario.frame.pack(anchor=W)
-            #self.dictionnaireDonnee.frame.pack(side=RIGHT,fill=Y)
+            self.dictionnaireDonnee.frame.pack(side=RIGHT,pady=10,padx=20)
+            self.casUsage.frame.pack(anchor=W,pady=10,padx=10)
+            self.scenario.frame.pack(anchor=W,pady=10,padx=10)
         else:
             tkMessageBox.showinfo(u"Message",u"Aucun projet n'est ouvert")
     
