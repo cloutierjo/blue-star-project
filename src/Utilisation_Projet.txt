@@ -13,6 +13,29 @@ HOW TO :
     * Partir le contrôleur serveur. Le serveur sera démarrée
     * Partir le contrôleur client L'interface sera démarrée
     * De la il faut ouvrir un projet et naviguer dans le projet par les onglets
+    *****N.B. IMPORTANT****
+    	VOUS DEVEZ SAUVEGARDER LE PROJET AVANT DE QUITTER OU DE FERMER LE PROJET
+    
+    
+    
+    ( Les composantes les plus complexes seront expliqué ici)
+    
+    POUR PLANNING:
+    	* Pour Afficher les détails d'un Planning General : cliquer sur bouton "Afficher Details" associé
+    	* Les CRC sont afficher dans le coin inférieur droit
+    	
+    POUR SCRUM:
+    	* Pour afficher le planning détaillé du sprint associé à la date entrée dans le comboBox du SCRUM:
+    		1) Entrez  une date dans le format demandé (yyyy-mm-dd) 
+    		2) appuyer sur la touche "enter"
+    	
+    	* Pour creer un nouveau SCRUM:
+    		1) Entrez la date du nouveau scrum
+    		2) appuyez sur enter
+    		3) choississez un utilisateur
+    		4) remplir les champs
+    		5) si nécessaire changer d'utilisateur et remplissez de nouveau les champs
+
 
 CONFIGURATION MINIMUM : 
 	* la configuration minimale de Python/TKinter
@@ -35,7 +58,7 @@ BUGS CONNUS :
         
     En gros :
     * Python 2.5.x semble fonctionnel, mais non supporté par les developpeurs
-    * Python 2.6.1 en descendant : Ne marche pas
+    * Python 2.6.1 : Ne marche pas
     * Python 2.6.2 : WORKS
     * Python 3.x : Ne marche pas car certaines syntaxes ont changées
 
@@ -43,4 +66,5 @@ BUGS CONNUS :
     
 -	L'affichage n'est pas correcte (et non supporté pour le moment) sur les platformes autre que windows, certaines 
 	informations sont manquantes dans les vue d'analyses
+
 
