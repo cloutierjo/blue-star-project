@@ -113,7 +113,7 @@ class PlanningDetail:
         
         for j in range(4) :# Utilisation d'une entr
             if j ==0:
-                entree = Entry(ligne,relief=RIDGE, width=30)
+                entree = Entry(ligne,relief=RIDGE)
             else:
                 entree = Entry(ligne,relief=RIDGE)
             if j < 3:
@@ -206,7 +206,7 @@ class PlanningDetail:
             for j in range(4):
                 
                 if j == 0:
-                    entree = Entry(ligne,relief=RIDGE, width=30)
+                    entree = Entry(ligne,relief=RIDGE)
                 else:
                     entree = Entry(ligne,relief=RIDGE)
                     
