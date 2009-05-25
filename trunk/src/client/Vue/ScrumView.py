@@ -26,9 +26,13 @@ class ScrumView(object):
         title = Label(self.frame, text = u"Scrum")
         title.pack()
         
+        '''
+        à voir avec jo car cet instanciation ci = 2 ième objet planningDetail
+        j'ai ajusté la vue en fonction...j'affiche planningDetail du planning
+        
         self.PlanningDetail=PlanningDetail.PlanningDetail([],self.frame)
         self.PlanningDetail.frameDetail.pack(side=LEFT,padx=30)
-        
+        '''
         self.varDate = Tix.StringVar()
         self.varUser = Tix.StringVar()
         
