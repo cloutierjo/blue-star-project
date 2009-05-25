@@ -35,5 +35,5 @@ HOW TO :
 
     python 2.6.2 : http://www.python.org/download/releases/2.6.2/
     
--	L'affichage n'est pas correcte (et non supporté pour le moment) sur les platformes autre que windows, certaines 
-	informations sont manquantes dans les vue d'analyses
+    * L'affichage n'est pas correcte (et non supporté pour le moment) sur les platformes
+    autre que windows, certaines informations sont manquantes dans les vue d'analyses
