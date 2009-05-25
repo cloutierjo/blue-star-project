@@ -100,8 +100,16 @@ class CrcVUE(object):
         if nom:
             if self.vueParent.parent.createNewCrc(nom):
                 self.updateListeCRC()
-            else:
-                self.vueParent.afficherUnMessage(u"Un Crc porte ce nom",erreur="ERREUR!!!")        
+                self.updateCRC()
+                self.varcombo.set(nom)#test#####
+                self.checkHandled.deselect()
+                self.crcCourant=self.vueParent.parent.getCRC(nom)
+                self.afficherRoles()
+                self.afficherCollabo()
+            if self.crcCourant.handled==1:
+                self.checkHandled.select()
+        else:
+            self.vueParent.afficherUnMessage(u"Un Crc porte ce nom",erreur="ERREUR!!!")        
     
     def getCrc(self,evt):
         self.updateCRC()
