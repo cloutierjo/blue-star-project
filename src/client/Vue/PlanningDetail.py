@@ -85,10 +85,10 @@ class PlanningDetail:
     
     
         txtFont = tkFont.Font(size=8)
-        Label(self.frameDetail, text="PLANNING DETAILLE", font=txtFont).pack()
+        Label(self.frameDetail, text=u"PLANNING DÉTAILLÉ", font=txtFont).pack()
         self.boutonAddRow=Button(self.frameDetail,text=u'Ajouter',command=self.addRow)
         self.boutonAddRow.pack()
-        Label(self.frameDetail,text = u"Taches   -  Priorité -  User").pack()
+        Label(self.frameDetail,text = u"Taches   -  Priorité  -  User").pack()
     
         scrollbar.pack(side=RIGHT, fill=Y)
         scrollbar.config(command=self.grille.yview)
