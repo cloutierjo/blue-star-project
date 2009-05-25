@@ -152,18 +152,19 @@ class ModeleServeur:
             sc.date = row[2]
             sc.user = row[3]
             
-            cur2.execute('''SELECT * FROM ScrumDone WHERE IDSCRUM = (?)''', (row[0],))
-            for row in cur2:
-                sc.done.append([row[1], row[2]])
+            cur2.execute('''SELECT * FROM ScrumDone WHERE IDSCRUM = (?)''', (row[1],))
+            for row2 in cur2:
+                print "Loading DONE"
+                sc.done.append([row2[1], row2[2]])
                 
-            cur2.execute('''SELECT * FROM ScrumToDo WHERE IDSCRUM = (?)''', (row[0],))
-            for row in cur2:
-                sc.todo.append([row[1], row[2]])
+            cur2.execute('''SELECT * FROM ScrumToDo WHERE IDSCRUM = (?)''', (row[1],))
+            for row2 in cur2:
+                sc.todo.append([row2[1], row2[2]])
                 print "Loading TODO"
                 
-            cur2.execute('''SELECT * FROM ScrumBug WHERE IDSCRUM = (?)''', (row[0],))
-            for row in cur2:
-                sc.probleme.append([row[1], row[2]])
+            cur2.execute('''SELECT * FROM ScrumBug WHERE IDSCRUM = (?)''', (row[1],))
+            for row2 in cur2:
+                sc.probleme.append([row2[1], row2[2]])
     
             scl.scrums.append(sc)
         
@@ -317,6 +318,7 @@ class ModeleServeur:
             idScrum = self.getNewIDScrum()
             cur.execute('insert into Scrums values(?, ?, ?, ?)',(projet.num, idScrum, eachscrum.date, eachscrum.user))
             for eachDone in eachscrum.done:
+                print "Saving DONE!"
                 cur2.execute('insert into ScrumDone values(?, ?, ?)',(idScrum, eachDone[0], eachDone[1]))
             for eachToDo in eachscrum.todo:
                 print "Saving todo"
@@ -595,6 +597,18 @@ if __name__ == "__main__":
     
     # Test de get projet...
     px=ms.getProject(3)
+    px.scrum.scrums[0].done.append(["donetest", 0])
+    for eachscrum in px.scrum.scrums:
+        print eachscrum.date
+        print eachscrum.user
+        for eachtodo in eachscrum.done:
+            print eachtodo[0]
+        for eachtodo in eachscrum.todo:
+            print eachtodo[0] 
+        for eachtodo in eachscrum.probleme:
+            print eachtodo[0]
+    
+    
     number = ms.saveProject(px)
     print "projet : "+str(number)
     p2=ms.getProject(number)
@@ -641,7 +655,8 @@ if __name__ == "__main__":
         for eachtodo in eachscrum.todo:
             print eachtodo[0] 
         for eachtodo in eachscrum.probleme:
-            print eachtodo[0]    
+            print eachtodo[0]
+               
                
     print "Création DB DONE !!!"
         
