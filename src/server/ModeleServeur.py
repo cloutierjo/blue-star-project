@@ -156,7 +156,7 @@ class ModeleServeur:
     
     # Sauvegarde les donnees d'un projet dans la BD, renvoie True si réussi sinon renvoie false
     def saveProject(self, projet):
-        
+        print "I'M HERE"
         saved = 0
         projet.unicodize()          # Unicodize le projet pour les accents dans la BD
         
@@ -405,7 +405,7 @@ if __name__ == "__main__":
     
     # Creation de 10 projets pour fin de tests
 
-    for i in range(10):
+    for i in range(5):
         p=Projet()
         p.nom="Projet d'études "+str(i)
         p.mandat="Utiliser les caractères spéciaux pour tester la classe ModeleServeur"
@@ -479,7 +479,11 @@ if __name__ == "__main__":
         ms.saveProject(p)
     
     # Test de get projet...
-    p2=ms.getProject(9)
+    px=ms.getProject(3)
+    number = ms.saveProject(px)
+    print "projet : "+str(number)
+    p2=ms.getProject(number)
+    print "projet : "+str(p2.num)
     
     print p2.analyseExplicite.getForDB()
     for cas in p2.casEtScenario.items:
