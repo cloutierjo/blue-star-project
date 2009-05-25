@@ -15,7 +15,7 @@ HOW TO :
     * De la il faut ouvrir un projet et naviguer dans le projet par les onglets
 
 CONFIGURATION MINIMUM : 
-	* la configuration minimal de Python/TKinter
+	* la configuration minimale de Python/TKinter
 	* résolution : 1024x768
 	* connexion réseau si utilisé avec le composant réseau
 	
