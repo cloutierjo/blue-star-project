@@ -8,13 +8,14 @@ class Mandat(object):
         self.vueParent=vueParent
         self.mandat=mandat
         
-        self.frame = Frame()
+        self.frame = Frame(borderwidth=1, relief="groove")
         
         nom = Label(self.frame,text = 'Mandat :')
         nom.pack()
         s = Scrollbar(self.frame)
     #t->texte mandat
         self.t = Text(self.frame)
+        self.t.config(width=74)
         self.t.focus_set()
         s.pack(side=RIGHT, fill=Y)
         self.t.pack(side=LEFT, fill=Y)
