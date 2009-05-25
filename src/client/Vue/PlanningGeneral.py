@@ -9,6 +9,8 @@ class PlanningGeneral:
         self.retours=[]
         self.rows = []
         self.grille = txtParent
+        self.lblText = tk.StringVar()
+        self.lblText.set(lblText)
 
         if uneListe:
             for i in uneListe:
@@ -47,7 +49,8 @@ class PlanningGeneral:
             self.grille.config(state=DISABLED)
         self.boutonAddRow=Button(frameParent,text=u'Ajouter', command=self.addRow)
         self.boutonAddRow.pack(side=TOP, anchor=W, padx =130)
-        Label(frameParent,text = ""+lblText).pack(side=RIGHT)
+        self.label = Label(frameParent,textvariable=self.lblText)
+        self.label.pack(side=RIGHT)
             
     def addRow(self):
         #nextRow = self.grille.grid_size()[1]
