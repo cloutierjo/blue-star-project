@@ -35,13 +35,10 @@ class ModeleServeur:
         cur.execute('''CREATE TABLE Sprint(IDPROJ NUMBER(6) REFERENCES Projets, IDSPRINT NUMBER(6) PRIMARY KEY, DateFin DATE)''')
         cur.execute('''CREATE TABLE TaskGen(IDSPRINT NUMBER(6) REFERENCES Sprint, Nom VARCHAR(30), Handled NUMBER(1))''')
         cur.execute('''CREATE TABLE TaskFull(IDSPRINT NUMBER(6) REFERENCES Sprint, Nom VARCHAR(30), User VARCHAR(30), Priorite NUMBER(6), Handled NUMBER(1))''')
-        
-        # DEVEL
         cur.execute('''CREATE TABLE Scrums(IDPROJ NUMBER(6) REFERENCES Projets , IDSCRUM NUMBER(6) PRIMARY KEY , Date DATE , Usager varchar2(30))''')
         cur.execute('''CREATE TABLE ScrumDone(IDSCRUM NUMBER(6) REFERENCES Scrums , Detail VARCHAR2(50) , Handled NUMBER(1))''')
         cur.execute('''CREATE TABLE ScrumToDo(IDSCRUM NUMBER(6) REFERENCES Scrums , Detail VARCHAR2(50) , Handled NUMBER(1))''')
         cur.execute('''CREATE TABLE ScrumBug(IDSCRUM NUMBER(6) REFERENCES Scrums , Detail VARCHAR2(50) , Handled NUMBER(1))''')
-        # END DEVEL
         
         # Générateur d'ID unique dans la méthode getNewID() (bonne pour 999 999 projets 
         cur.execute('''CREATE TABLE SeqProj(Val NUMBER(6))''')
@@ -154,13 +151,11 @@ class ModeleServeur:
             
             cur2.execute('''SELECT * FROM ScrumDone WHERE IDSCRUM = (?)''', (row[1],))
             for row2 in cur2:
-                print "Loading DONE"
                 sc.done.append([row2[1], row2[2]])
                 
             cur2.execute('''SELECT * FROM ScrumToDo WHERE IDSCRUM = (?)''', (row[1],))
             for row2 in cur2:
                 sc.todo.append([row2[1], row2[2]])
-                print "Loading TODO"
                 
             cur2.execute('''SELECT * FROM ScrumBug WHERE IDSCRUM = (?)''', (row[1],))
             for row2 in cur2:
@@ -189,7 +184,6 @@ class ModeleServeur:
     
     # Sauvegarde les donnees d'un projet dans la BD, renvoie True si réussi sinon renvoie false
     def saveProject(self, projet):
-        print "I'M HERE"
         saved = 0
         projet.unicodize()          # Unicodize le projet pour les accents dans la BD
         
@@ -255,7 +249,6 @@ class ModeleServeur:
             for eachDone in eachscrum.done:
                 cur2.execute('insert into ScrumDone values(?, ?, ?)',(idScrum, eachDone[0], eachDone[1]))
             for eachToDo in eachscrum.todo:
-                print "Saving todo"
                 cur2.execute('insert into ScrumToDo values(?, ?, ?)',(idScrum, eachToDo[0], eachToDo[1]))
             for eachProblem in eachscrum.probleme:
                 cur2.execute('insert into ScrumBug values(?, ?, ?)',(idScrum, eachProblem[0], eachProblem[1]))
@@ -489,9 +482,12 @@ class ModeleServeur:
 # DEBUGAGE
 if __name__ == "__main__":
     
+    print "Création de la base de données en cours...."
     ms = ModeleServeur()        # Creation du ModeleServeur
     ms.initDB()                 # TO BE CALLED FOR FIRST USE ON A SERVER (CREATE TABLES)
+    print "Création DATABASE DONE !!!"
     
+'''
     # Creation de 10 projets pour fin de tests
 
     for i in range(5):
@@ -551,17 +547,6 @@ if __name__ == "__main__":
         sprint.taskFull.tasklist.append(task)
         
         p.sprint.sprints.append(sprint)
-        
-        # TEST CRCs
-        '''
-        for eachcrc in p.crc.crcs:
-            print eachcrc.nomClasse
-            print eachcrc.proprio
-            for eachResp in eachcrc.responsabilite:
-                print eachResp[0]+" "+str(eachResp[1])
-            for eachCol in eachcrc.collaboration:
-                print eachCol[0]+" "+str(eachCol[1])
-        '''
         
         scl=Scrum.ScrumList()
     
@@ -657,6 +642,5 @@ if __name__ == "__main__":
         for eachtodo in eachscrum.probleme:
             print eachtodo[0]
                
-               
-    print "Création DB DONE !!!"
+'''
         
