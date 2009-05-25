@@ -152,6 +152,7 @@ class Vue(object):
         if nom:
             self.parent.createNewUser(nom)
             self.crc.updateListeUser()
+            self.crc2.updateListeUser()
             self.scrum.updateListeUser()
     
     def propos(self):
