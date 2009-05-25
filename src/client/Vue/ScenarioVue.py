@@ -44,7 +44,7 @@ class ScenarioVue(object):
     def renommer(self):
         if self.lb.get(self.lb.curselection()[0])!= None:
             nomAncient = self.lb.get(self.lb.curselection()[0])
-            nouveauNom = tkSimpleDialog.askstring("Modifier "+nomAncient , u"Veuillez entrer un nouveau nom pour Cette Etape "+ nomAncient+" : ")
+            nouveauNom = tkSimpleDialog.askstring(u"Modifier "+nomAncient , u"Veuillez entrer un nouveau nom pour Cette Etape "+ nomAncient+" : ")
             if nouveauNom != "":
                 self.vueParent.parent.renommerEtapsScenario(int(self.lb.curselection()[0]), nouveauNom)
         else:
