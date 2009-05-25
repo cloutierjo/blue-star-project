@@ -47,6 +47,9 @@ class ScrumView(object):
             self.varUser.set(self.comboProprio.subwidget("listbox").get(0))
         if not self.varDate.get():
             self.varDate.set(datetime.datetime.now().strftime("%Y-%m-%d"))
+            
+        self.objPlanning.cacher()#Eviter au demarrage d'afficher le planning detaille associé au scrum , car aucun onglet n'est selectionne
+
 
     def updateListeUser(self):
         self.comboProprio.subwidget_list['slistbox'].subwidget_list['listbox'].delete(0,END)
