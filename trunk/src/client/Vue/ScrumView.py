@@ -17,7 +17,8 @@ import tkMessageBox
 import re
 
 class ScrumView(object):
-    def __init__(self, vueParent, scrumLst):
+    def __init__(self, vueParent, scrumLst, objPlanning):
+        self.objPlanning = objPlanning
         self.vueParent = vueParent
         self.frame = Frame(borderwidth=2, relief="groove")
         self.scrumLst=scrumLst
@@ -36,7 +37,7 @@ class ScrumView(object):
         self.varDate = Tix.StringVar()
         self.varUser = Tix.StringVar()
         
-        self.comboDate = Tix.ComboBox(self.frame,label=u'Date   :',editable=1,variable=self.varDate,dropdown=1,command=self.setDate,width=15)
+        self.comboDate = Tix.ComboBox(self.frame,label=u'Date  (AAAA-MM-JJ) :',editable=1,variable=self.varDate,dropdown=1,command=self.setDate,width=15)
         self.comboDate.pack()
         self.updateListeDate()
         if not self.varDate.get():
@@ -87,12 +88,9 @@ class ScrumView(object):
     def afficherTout(self):
         sprint=None
         if self.scrumCourant:
-            sprint=self.vueParent.parent.getLstSprint().getSprint(self.scrumCourant.date)
-        if sprint:
-            self.PlanningDetail.frameDetail.pack_forget()
-            
-            self.PlanningDetail=PlanningDetail.PlanningDetail(sprint.taskFull)
-            self.PlanningDetail.frameDetail.pack(side=LEFT,padx=30)
+            leFrameAAfficherContenantLesDetailDuSprintSelectionne = self.objPlanning.afficherDetailSelectionne(self.scrumCourant.date)
+        if leFrameAAfficherContenantLesDetailDuSprintSelectionne:
+            leFrameAAfficherContenantLesDetailDuSprintSelectionne.pack(side=LEFT,padx=30)
             
         self.d.initDonnee(self.scrumCourant.done)
         self.t.initDonnee(self.scrumCourant.todo)

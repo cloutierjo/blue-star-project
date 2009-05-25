@@ -117,7 +117,17 @@ class Planning:
         for i in self.listeDetaille:
             i.frameDetail.pack_forget()
         self.crc.frame.pack_forget()
-            
+        
+        
+    def afficherDetailSelectionne(self,date):
+        for i in self.listeDetaille:
+            i.frameDetail.pack_forget()
+        dte=strptime(date, "%Y-%m-%d")
+        for i in range(len(self.listeSprint)):
+            spDte=strptime(self.listeSprint[i].dateFin, "%Y-%m-%d")
+            if dte<spDte:
+                return self.listeDetaille[i].frameDetail
+     
     def afficher(self):
         self.frameGenTotal.pack()
         self.windows.pack(pady=15)

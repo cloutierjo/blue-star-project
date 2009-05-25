@@ -5,6 +5,7 @@ sys.path.append( "../../commun" )
 import Sprint
 from TaskList import Task
 import re
+import tkFont
 
 class PlanningDetail:
 
@@ -83,7 +84,8 @@ class PlanningDetail:
             self.grille.config(state=DISABLED)
     
     
-
+        txtFont = tkFont.Font(size=8)
+        Label(self.frameDetail, text="PLANNING DETAILLE", font=txtFont).pack()
         self.boutonAddRow=Button(self.frameDetail,text=u'Ajouter',command=self.addRow)
         self.boutonAddRow.pack()
         Label(self.frameDetail,text = u"Taches   -  Priorité -  User").pack()
