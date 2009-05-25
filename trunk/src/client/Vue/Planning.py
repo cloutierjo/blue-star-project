@@ -137,10 +137,13 @@ class Planning:
         for i in self.listeDetaille:
             i.frameDetail.pack_forget()
         dte=strptime(date, "%Y-%m-%d")
+        retour = self.listeDetaille[-1].frameDetail
         for i in range(len(self.listeSprint)):
             spDte=strptime(self.listeSprint[i].dateFin, "%Y-%m-%d")
             if dte<spDte:
                 return self.listeDetaille[i].frameDetail
+        else:
+            return retour
      
     def afficher(self):
         self.frameGenTotal.pack()
