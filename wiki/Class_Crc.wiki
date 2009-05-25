@@ -654,6 +654,7 @@ voici le format a suivre pour les CRC, ne vous occup√© pas du HTML si sa vous m√
            * afficherDictionnaire(self)
            * afficherCRC(self)
            * afficherUnMessage(self,Texte,erreur="ERREUR!!!")
+           * updateListeCRC(self)
        </td>
    </tr>
 </table>
@@ -763,6 +764,53 @@ voici le format a suivre pour les CRC, ne vous occup√© pas du HTML si sa vous m√
            * gestion(self)
            * deleteRow(self)
            * update(self)
+       </td>
+   </tr>
+</table>
+
+<table border=1 width=70%>
+   <tr>
+       <td width=60%> ScrumView </td>
+       <td rowspan=3> 
+                      * Scrum
+       </td>
+   </tr>
+   <tr>
+       <td align="right">Jonathan C.</td>
+   </tr>
+   <tr>
+       <td>
+           * __init__(self, vueParent, scrumLst, objPlanning)
+           * updateListeUser(self)
+           * updateListeDate(self)
+           * getScrum(self)
+           * setDate(self,evt)
+           * setUser(self,evt)
+           * afficherTout(self)
+           * newScrum(self,dte,usr)
+           * saveData(self)
+       </td>
+   </tr>
+</table>
+
+<table border=1 width=70%>
+   <tr>
+       <td width=60%> GridView </td>
+       <td rowspan=3> 
+                      * ScrumView
+       </td>
+   </tr>
+   <tr>
+       <td align="right">Jonathan C.</td>
+   </tr>
+   <tr>
+       <td>
+           * __init__(self, vueParent, title)
+           * initDonnee(self,data)
+           * getData(self)
+           * deleteRow(self)
+           * addRow(self)
+           * gestion(self)
        </td>
    </tr>
 </table>
@@ -908,6 +956,7 @@ voici le format a suivre pour les CRC, ne vous occup√© pas du HTML si sa vous m√
            * getNewIDUsager(self)
            * getNewIDCRC(self)
            * test(self) //m√©thodes de tests interne a la classe
+           * getNewIdScrum(self)
        </td>
    </tr>
 </table>
