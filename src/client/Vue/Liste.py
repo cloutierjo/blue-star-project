@@ -40,9 +40,8 @@ class ListeProjets(object):
             self.fen.destroy()
         else:
             tkMessageBox.showwarning(
-            "Echec d'ouverture",
-            "impossible d'ouvrir le projet")
-            #print "impossible d'ouvrir le projet"
+            u"Echec d'ouverture",
+            u"impossible d'ouvrir le projet")
         
 #----------------------------------------------------------------------------
 class Liste(Listbox):

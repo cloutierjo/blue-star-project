@@ -29,7 +29,7 @@ class AnalyseTextuelle(object):
             lblTitre = Label(self.frame,text = titreExplicite)
         else:
             lblTitre = Label(self.frame,text = titreExplicite)
-            print "Aucun type d'analyse spécifié, Explicite par défault"
+            print u"Aucun type d'analyse spécifié, Explicite par défault"
         
         lblTitre.pack()
             

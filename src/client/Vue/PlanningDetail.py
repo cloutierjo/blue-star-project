@@ -4,6 +4,8 @@ import Tkinter as tk
 sys.path.append( "../../commun" )
 import Sprint
 from TaskList import Task
+import re
+
 class PlanningDetail:
 
  #Debut Detaillé#
@@ -82,9 +84,9 @@ class PlanningDetail:
     
     
 
-        self.boutonAddRow=Button(self.frameDetail,text='Ajouter',command=self.addRow)
+        self.boutonAddRow=Button(self.frameDetail,text=u'Ajouter',command=self.addRow)
         self.boutonAddRow.pack()
-        Label(self.frameDetail,text = "Taches   -  Priorité -  User").pack()
+        Label(self.frameDetail,text = u"Taches   -  Priorité -  User").pack()
     
         scrollbar.pack(side=RIGHT, fill=Y)
         scrollbar.config(command=self.grille.yview)
@@ -226,7 +228,10 @@ class PlanningDetail:
         for  row in self.rows:
             uneTache = []
             uneTache.append(row[0].get())
-            uneTache.append(row[1].get())
+            if re.match(r"\d+", row[1].get()):
+                uneTache.append(row[1].get())
+            else:
+                uneTache.append(0)
             uneTache.append(row[2].get())
             uneTache.append(row[3].get())
             listeTacheDetaille.append(uneTache)

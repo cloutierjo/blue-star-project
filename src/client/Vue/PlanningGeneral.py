@@ -45,7 +45,7 @@ class PlanningGeneral:
         else:
             self.addRow()
             self.grille.config(state=DISABLED)
-        self.boutonAddRow=Button(frameParent,text='Ajouter', command=self.addRow)
+        self.boutonAddRow=Button(frameParent,text=u'Ajouter', command=self.addRow)
         self.boutonAddRow.pack(side=TOP, anchor=W, padx =130)
         Label(frameParent,text = ""+lblText).pack(side=RIGHT)
             

@@ -35,7 +35,7 @@ class CasUsageVue(object):
             self.vueParent.parent.monterPrioriteCas(nomAMonter)
             self.vueParent.parent.descendrePrioriteCas(nomADescendre)
         else:
-            tkMessageBox.showwarning("Veuillez sélectionner un élément dans la liste")
+            tkMessageBox.showwarning(u"Veuillez sélectionner un élément dans la liste")
         
         self.remplirListe()
         
@@ -47,26 +47,26 @@ class CasUsageVue(object):
             self.vueParent.parent.monterPrioriteCas(nomAMonter)
             self.vueParent.parent.descendrePrioriteCas(nomADescendre)
         else:
-            tkMessageBox.showwarning("Veuillez sélectionner un élément dans la liste")
+            tkMessageBox.showwarning(u"Veuillez sélectionner un élément dans la liste")
         self.remplirListe()
     
     def renommer(self):
         if self.lb.get(self.lb.curselection()[0])!= None:
             nomAncient = self.lb.get(self.lb.curselection()[0])
-            nouveauNom = tkSimpleDialog.askstring("Modifier "+nomAncient , "Veuillez entrer un nouveau nom pour le cas d'usage "+ nomAncient+" : ")
+            nouveauNom = tkSimpleDialog.askstring(unicode("Modifier "+nomAncient , "Veuillez entrer un nouveau nom pour le cas d'usage "+ nomAncient+" : "))
             if nouveauNom != "":
                 self.vueParent.parent.renommerCasUsage(nomAncient, nouveauNom)
         else:
-            tkMessageBox.showwarning("Veuillez sélectionner un élément dans la liste")    
+            tkMessageBox.showwarning(u"Veuillez sélectionner un élément dans la liste")    
         
         self.remplirListe()
         
         
     def ajouter(self):
-        nouveauNom = tkSimpleDialog.askstring("Ajouter Cas Usage" , "Veuillez entrer un nom pour le nouveau cas d'usage : ")
+        nouveauNom = tkSimpleDialog.askstring(u"Ajouter Cas Usage" , u"Veuillez entrer un nom pour le nouveau cas d'usage : ")
         retour = self.vueParent.parent.ajouterCasUsage(nouveauNom)
         if not retour:
-            tkMessageBox.showwarning("Impossible d'ajouter le cas d'usage vérifier si un autre cas d'usage n'a pas le même nom") 
+            tkMessageBox.showwarning(u"Impossible d'ajouter le cas d'usage vérifier si un autre cas d'usage n'a pas le même nom") 
         self.remplirListe()
         
         

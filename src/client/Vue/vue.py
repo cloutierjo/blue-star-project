@@ -66,37 +66,37 @@ class Vue(object):
         
         self.filemenu = Menu(menu)
         #menu 
-        menu.add_cascade(label="Fichier", menu=self.filemenu)
+        menu.add_cascade(label=u"Fichier", menu=self.filemenu)
         #Nouveau projet
-        self.filemenu.add_command(label="Nouveau projet", command=self.NouveauProjet)
+        self.filemenu.add_command(label=u"Nouveau projet", command=self.NouveauProjet)
         #projet
-        self.filemenu.add_command(label="Ouvrir Projet", command=self.OuvrirProjet)
+        self.filemenu.add_command(label=u"Ouvrir Projet", command=self.OuvrirProjet)
         
-        self.filemenu.add_command(label="Sauvegarder", command=self.save)
+        self.filemenu.add_command(label=u"Sauvegarder", command=self.save)
         
-        self.filemenu.add_command(label="Fermer le projet", command=self.fermerProjet)
+        self.filemenu.add_command(label=u"Fermer le projet", command=self.fermerProjet)
         self.filemenu.add_separator()
         
-        self.filemenu.add_command(label="Nouvel utilisateur", command=self.users)
+        self.filemenu.add_command(label=u"Nouvel utilisateur", command=self.users)
         
         self.filemenu.entryconfig(6,state=DISABLED)
         
         self.filemenu.add_separator()
         #quitter
-        self.filemenu.add_command(label="Quitter", command=self.parent.quitter)
+        self.filemenu.add_command(label=u"Quitter", command=self.parent.quitter)
         
         
         #commandes de l'affichage
-        displaymenu=Menu(menu)
-        menu.add_cascade(label="Affichage",menu=displaymenu)
+        #displaymenu=Menu(menu)
+        #menu.add_cascade(label=u"Affichage",menu=displaymenu)
         #displaymenu.add_command(label="Afficher le mandat / analyse explicite",command=self.afficherFenMandat)
         #displaymenu.add_command(label="Afficher analyse explicite / implicite",command=self.afficherLesAnalyses)
         #...
         
         #Aide
         helpmenu = Menu(menu)
-        menu.add_cascade(label="Aide", menu=helpmenu)
-        helpmenu.add_command(label="À propos de ...", command = self.propos)
+        menu.add_cascade(label=u"Aide", menu=helpmenu)
+        helpmenu.add_command(label=u"À propos de ...", command = self.propos)
         
 
 #fonction sur l'ouverture projet
@@ -135,27 +135,28 @@ class Vue(object):
         
     def NouveauProjet(self):
          if self.etat==0:
-            nom=tkSimpleDialog.askstring('Nom de projet',
-                                         'Entrez un nom pour le projet:', 
+            nom=tkSimpleDialog.askstring(u'Nom de projet',
+                                         u'Entrez un nom pour le projet:', 
                                                     parent=self.root)
             if nom:
                 self.parent.creerProjet(nom)
-                self.root.title("Blue Star        "+nom)
+                self.root.title(u"Blue Star        "+nom)
                 self.etat=1
                 #affichage des onglets
                 self.onglets.frame.pack()
                 self.filemenu.entryconfig(6,state=NORMAL)
                 
     def users(self):
-        nom=tkSimpleDialog.askstring('Nouvel utilisateur',
-                                     'Entrez le nom:',parent=self.root)
+        nom=tkSimpleDialog.askstring(u'Nouvel utilisateur',
+                                     u'Entrez le nom:',parent=self.root)
         if nom:
             self.parent.createNewUser(nom)
             self.crc.updateListeUser()
+            self.scrum.updateListeUser()
     
     def propos(self):
         self.fen = Toplevel()
-        self.fen.title("This is...")
+        self.fen.title(u"This is...")
         
         self.fen.grab_set()
         self.fen.focus_set()
@@ -181,7 +182,7 @@ class Vue(object):
         self.effacerFenetre()
         self.onglets.v.set(0)
         self.onglets.frame.pack_forget()
-        self.root.title("Blue Star")
+        self.root.title(u"Blue Star")
         self.etat=0
         self.filemenu.entryconfig(6,state=DISABLED)
     
@@ -201,7 +202,7 @@ class Vue(object):
             self.mandat.frame.pack(side=LEFT,fill=Y)
             self.ATExplicite.frame.pack(side=LEFT,fill=Y)
         else:
-            tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
+            tkMessageBox.showinfo(u"Message",u"Aucun projet n'est ouvert")
             
     #analyse explicite et implicite       
     def afficherLesAnalyses(self):
@@ -212,7 +213,7 @@ class Vue(object):
                                         #was right
             self.ATImplicite.frame.pack(side=LEFT,padx=50,fill=Y)
         else:
-            tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
+            tkMessageBox.showinfo(u"Message",u"Aucun projet n'est ouvert")
             
     #analyse implicite/cas d'usage
     def afficherCasUsage(self):
@@ -223,7 +224,7 @@ class Vue(object):
             #code affichage cas usage a venir ici
             self.casUsage.frame.pack(side=LEFT,padx=50,fill=Y)
         else:
-            tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
+            tkMessageBox.showinfo(u"Message",u"Aucun projet n'est ouvert")
     
     #cas d'usage et scenario...        
     def afficherScenario(self):
@@ -233,7 +234,7 @@ class Vue(object):
             self.casUsage.frame.pack(side=LEFT,padx=50,fill=Y)
             self.scenario.frame.pack(side=LEFT,padx=50,fill=Y)
         else:
-            tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
+            tkMessageBox.showinfo(u"Message",u"Aucun projet n'est ouvert")
     
     #dictionnaire de données
     #cas d'usage et scenario...        
@@ -244,7 +245,7 @@ class Vue(object):
             self.scenario.frame.pack(side=LEFT,padx=50,fill=Y)
             self.dictionnaireDonnee.frame.pack(side=LEFT, pady=30)
         else:
-            tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
+            tkMessageBox.showinfo(u"Message",u"Aucun projet n'est ouvert")
             
     def afficherCRC(self):
         if self.etat==1:
@@ -254,23 +255,23 @@ class Vue(object):
             self.crc.frame.pack(anchor=W,padx=30,pady=15)
             self.crc2.frame.pack(anchor=W,padx=30,pady=15)
         else:
-            tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
+            tkMessageBox.showinfo(u"Message",u"Aucun projet n'est ouvert")
             
     def afficherPlanning(self):
         if self.etat==1:
             self.effacerFenetre()
             self.planning.afficher()
         else:
-            tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
+            tkMessageBox.showinfo(u"Message",u"Aucun projet n'est ouvert")
 
     def afficherScrum(self):
         if self.etat==1:
             self.effacerFenetre()
             self.scrum.frame.pack(side=LEFT,padx=30)
         else:
-            tkMessageBox.showinfo("Message","Aucun projet n'est ouvert")
+            tkMessageBox.showinfo(u"Message",u"Aucun projet n'est ouvert")
 
-    def afficherUnMessage(self,Texte,erreur="ERREUR!!!"):
+    def afficherUnMessage(self,Texte,erreur=u"ERREUR!!!"):
         tkMessageBox.showerror(erreur, Texte)
 #---------------------------------------------------------------------------
 #classe Onglet 
