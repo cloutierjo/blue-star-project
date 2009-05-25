@@ -101,7 +101,7 @@ class CrcVUE(object):
             if self.vueParent.parent.createNewCrc(nom):
                 self.updateListeCRC()
                 self.updateCRC()
-                self.varcombo.set(nom)#test#####
+                self.varcombo.set(nom)
                 self.checkHandled.deselect()
                 self.crcCourant=self.vueParent.parent.getCRC(nom)
                 self.afficherRoles()
