@@ -15,7 +15,8 @@ import Tix
 import tkSimpleDialog
 import tkMessageBox
 import re
-
+import datetime
+import time
 class ScrumView(object):
     def __init__(self, vueParent, scrumLst, objPlanning):
         self.objPlanning = objPlanning
@@ -35,6 +36,7 @@ class ScrumView(object):
         self.PlanningDetail.frameDetail.pack(side=LEFT,padx=30)
         '''
         self.varDate = Tix.StringVar()
+        self.varDate.set(datetime.datetime.now().strftime("%Y-%m-%d"))
         self.varUser = Tix.StringVar()
         
         self.comboDate = Tix.ComboBox(self.frame,label=u'Date  (AAAA-MM-JJ) :',editable=1,variable=self.varDate,dropdown=1,command=self.setDate,width=15)
