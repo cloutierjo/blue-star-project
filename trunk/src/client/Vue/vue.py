@@ -216,7 +216,7 @@ class Vue(object):
             self.effacerFenetre()
             self.ATImplicite.frame.pack(padx=50,side=LEFT,fill=Y)
             #code affichage cas usage a venir ici
-            self.casUsage.frame.pack(side=LEFT,padx=50,fill=Y)
+            self.casUsage.frame.pack(side=LEFT,padx=50)
         else:
             tkMessageBox.showinfo(u"Message",u"Aucun projet n'est ouvert")
     
@@ -225,14 +225,20 @@ class Vue(object):
         if self.etat==1:
             #efface la fenetre avant affichage desiree
             self.effacerFenetre()
-            self.casUsage.frame.pack(side=LEFT,padx=50,fill=Y)
-            self.scenario.frame.pack(side=LEFT,padx=50,fill=Y)
+            #self.casUsage.frame.pack(anchor=W,padx=50,fill=Y)
+            #self.scenario.frame.pack(anchor=W,padx=50,fill=Y)
+            self.dictionnaireDonnee.frame.pack(side=RIGHT,pady=30,padx=20)
+            self.casUsage.frame.pack(anchor=W)
+            self.scenario.frame.pack(anchor=W)
+            #self.dictionnaireDonnee.frame.pack(side=RIGHT,fill=Y)
         else:
             tkMessageBox.showinfo(u"Message",u"Aucun projet n'est ouvert")
     
     #dictionnaire de données
     #cas d'usage et scenario...        
     def afficherDictionnaire(self):
+        pass
+    '''
         if self.etat==1:
             #efface la fenetre avant affichage desiree
             self.effacerFenetre()
@@ -240,7 +246,7 @@ class Vue(object):
             self.dictionnaireDonnee.frame.pack(side=LEFT, pady=30)
         else:
             tkMessageBox.showinfo(u"Message",u"Aucun projet n'est ouvert")
-            
+       '''     
     def afficherCRC(self):
         if self.etat==1:
             self.effacerFenetre()
@@ -254,8 +260,6 @@ class Vue(object):
     def afficherPlanning(self):
         if self.etat==1:
             self.effacerFenetre()
-            txtFont = tkFont.Font(size=10)
-            Label(text="PLANNING GENERAL", font=txtFont, pady=10).pack()
             self.planning.afficher()
         else:
             tkMessageBox.showinfo(u"Message",u"Aucun projet n'est ouvert")
