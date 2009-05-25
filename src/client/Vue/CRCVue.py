@@ -99,8 +99,8 @@ class CrcVUE(object):
                                          u'Entrez le nom de la classe :',parent=self.vueParent.root)
         if nom:
             if self.vueParent.parent.createNewCrc(nom):
-                self.updateListeCRC()
-                self.vueParent.updateCRC()
+                self.vueParent.updateListeCRC()
+                self.updateCRC()
                 self.varcombo.set(nom)
                 self.checkHandled.deselect()
                 self.crcCourant=self.vueParent.parent.getCRC(nom)

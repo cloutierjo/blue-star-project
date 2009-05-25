@@ -185,9 +185,9 @@ class Vue(object):
         if self.etat !=0:
             self.parent.sauvegarder()
             
-    def updateCRC(self):
-        self.crc.updateCRC()
-        self.crc2.updateCRC()
+    def updateListeCRC(self):
+        self.crc.updateListeCRC()
+        self.crc2.updateListeCRC()
             
 #affichages
 
