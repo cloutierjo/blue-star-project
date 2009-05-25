@@ -121,11 +121,11 @@ class ModeleServeur:
             sprint=Sprint.Sprint()
             sprint.dateFin = row[2]
             
-            cur2.execute('''SELECT * FROM TaskGen WHERE IDSPRINT = (?)''', (row[0],))
+            cur2.execute('''SELECT * FROM TaskGen WHERE IDSPRINT = (?)''', (row[1],))
             for row2 in cur2:
                 sprint.taskGeneral.append([row2[1], row2[2]])
                 
-            cur2.execute('''SELECT * FROM TaskFull WHERE IDSPRINT = (?)''', (row[0],))
+            cur2.execute('''SELECT * FROM TaskFull WHERE IDSPRINT = (?)''', (row[1],))
             for row2 in cur2:
                 task=TaskList.Task()
                 task.name = row2[1]
@@ -136,6 +136,10 @@ class ModeleServeur:
                 sprint.taskFull.tasklist.append(task)
                 
             p.sprint.sprints.append(sprint)
+            
+        # DEBUG
+        print p.sprint.sprints[0].taskGeneral[0]
+        # END DEBUG
             
         cur.close()  
         return p 
@@ -265,7 +269,7 @@ class ModeleServeur:
                 cur2.execute('insert into TaskGen values(?, ?, ?)', (idSprint, eachtaskgen[0], eachtaskgen[1]))
             for eachtaskfull in eachsprint.taskFull.tasklist:
                 cur2.execute('insert into TaskFull values(?, ?, ?, ?, ?)',(idSprint, eachtaskfull.name, eachtaskfull.user, eachtaskfull.priorite, eachtaskfull.handled))
-                     
+                
         self.con.commit()        
         cur.close()
         return projet.num # To be modified for errors handlings
