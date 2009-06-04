@@ -8,6 +8,11 @@ import sqlite3
 import sys
 sys.path.append( "../commun" )
 from Projet import *
+import os
+os.environ['PATH'] ="C:/Python26/instantclient_11_1" + os.pathsep + os.environ['PATH']
+import cx_Oracle
+
+# cx_Oracle.connect([user, password, dsn, mode, handle, pool, threaded, twophase, events, cclass, purity, newpassword])
 
 class ModeleServeur:
 
@@ -15,6 +20,8 @@ class ModeleServeur:
     def __init__(self):    
         self.db = 'test1.db'                    # cheminFichierDB
         self.con = sqlite3.connect(self.db)     # Connecteur
+        #self.con = cx_Oracle.Connection("user/pass@serveur/instance")
+        
     
     # Initialisation de premier demarrage (Creation BD/Tables)
     def initDB(self):
@@ -182,24 +189,16 @@ class ModeleServeur:
             
         return projets
     
-    # Sauvegarde les donnees d'un projet dans la BD, renvoie True si réussi sinon renvoie false
+    # Nouvelle méthode gérant la sauvegarde de nouveaux projet ou l'update d'un projet existant 
     def saveProject(self, projet):
-        saved = 0
-        projet.unicodize()          # Unicodize le projet pour les accents dans la BD
-        
-        # Si c'est un nouveau projet... on le cré
-        if projet.num == 0:
-            saved = self.saveNewProject(projet)
-        # Sinon... on update les tables nécéssaire. 
-        else:
-            saved = self.updateProject(projet)
-              
-        return saved
-    
-    def saveNewProject(self, projet):
+
         cur = self.con.cursor()             # Curseur
         cur2 = self.con.cursor()
-        projet.num = self.getNewIDProj()    # Get a Unique ID for the project
+        
+        if projet.num == 0:
+            projet.num = self.getNewIDProj()    # Get a Unique ID for the project
+        else:
+            self.deleteProject(projet.num)
             
         # Ajout du projet dans la table Projets
         entryTableProjets = (projet.num, projet.nom, projet.mandat) # Nouvelle entrée
@@ -255,73 +254,7 @@ class ModeleServeur:
                        
         self.con.commit()        
         cur.close()
-        return projet.num # To be modified for errors handlings
-     
-    def updateProject(self, projet):   
-          
-        self.deleteProject(projet.num)   
-        
-        cur = self.con.cursor()             # Curseur
-        cur2 = self.con.cursor()            # Curseur 2 (boucle)
-        #projet.num = self.getNewIDProj()    # Get a Unique ID for the project
-            
-        # Ajout du projet dans la table Projets
-        entryTableProjets = (projet.num, projet.nom, projet.mandat) # Nouvelle entrée
-        cur.execute('insert into Projets values(?, ?, ?)', entryTableProjets)
-        cur.executemany('insert into AnalysesExp values(?, ?, ?, ?, ?)', projet.analyseExplicite.getForDB())
-        cur.executemany('insert into AnalysesImp values(?, ?, ?, ?, ?)', projet.analyseImplicite.getForDB())
-        
-        projet.casEtScenario.unicodize()
-        for cas in projet.casEtScenario.items:
-            idCasUsage = self.getNewIDCasUsages()
-            cur.execute('insert into CasUsages values(?, ?, ?, ?)', (idCasUsage, projet.num, cas.nom, cas.priorite))
-            for scen in cas.scenario.etapes:
-                cur2.execute('insert into Senarios values(?, ?, ?)', (idCasUsage, scen.etapes, scen.ordre,))
-        
-        for var in projet.dictDonne.variable:
-            cur.execute('insert into Variables values(?, ?, ?)', (projet.num, var[0], var[1]))
-            
-        for fon in projet.dictDonne.fonction:
-            cur.execute('insert into Fonctions values(?, ?, ?)', (projet.num, fon[0], fon[1]))
-            
-        for usager in projet.user.user:
-            idUsager = self.getNewIDUsager()
-            cur.execute('insert into Usagers values(?, ?, ?)', (idUsager, projet.num, usager))
-            
-        for eachcrc in projet.crc.crcs:
-            idcrc = self.getNewIDCRC()
-            cur.execute('insert into CRC values(?, ?, ?, ?, ?)', (projet.num, idcrc, eachcrc.nomClasse, eachcrc.proprio, eachcrc.handled))
-            for eachResp in eachcrc.responsabilite:
-                cur2.execute('insert into Responsabilite values(?, ?, ?)', (idcrc, eachResp[0], eachResp[1]))
-            for eachCol in eachcrc.collaboration:
-                cur2.execute('insert into Collaboration values(?, ?)', (idcrc, eachCol))
-           
-        # SAVE SPRINT    
-        for eachsprint in projet.sprint.sprints:
-            idSprint = self.getNewIDSprint()
-            cur.execute('insert into Sprint values(?, ?, ?)', (projet.num, idSprint, eachsprint.dateFin))
-            for eachtaskgen in eachsprint.taskGeneral:
-                cur2.execute('insert into TaskGen values(?, ?, ?)', (idSprint, eachtaskgen[0], eachtaskgen[1]))
-            for eachtaskfull in eachsprint.taskFull.tasklist:
-                cur2.execute('insert into TaskFull values(?, ?, ?, ?, ?)',(idSprint, eachtaskfull.name, eachtaskfull.user, eachtaskfull.priorite, eachtaskfull.handled))
-         
-        # SAVE SCRUMS
-        
-        for eachscrum in projet.scrum.scrums:
-            idScrum = self.getNewIDScrum()
-            cur.execute('insert into Scrums values(?, ?, ?, ?)',(projet.num, idScrum, eachscrum.date, eachscrum.user))
-            for eachDone in eachscrum.done:
-                print "Saving DONE!"
-                cur2.execute('insert into ScrumDone values(?, ?, ?)',(idScrum, eachDone[0], eachDone[1]))
-            for eachToDo in eachscrum.todo:
-                print "Saving todo"
-                cur2.execute('insert into ScrumToDo values(?, ?, ?)',(idScrum, eachToDo[0], eachToDo[1]))
-            for eachProblem in eachscrum.probleme:
-                cur2.execute('insert into ScrumBug values(?, ?, ?)',(idScrum, eachProblem[0], eachProblem[1]))
-                       
-        self.con.commit()        
-        cur.close()
-        return projet.num # To be modified for errors handlings
+        return projet.num # To be modified for errors handlings      
      
     def deleteProject(self, projetID):
         
@@ -484,7 +417,7 @@ if __name__ == "__main__":
     
     print "Création de la base de données en cours...."
     ms = ModeleServeur()        # Creation du ModeleServeur
-    ms.initDB()                 # TO BE CALLED FOR FIRST USE ON A SERVER (CREATE TABLES)
+    #ms.initDB()                 # TO BE CALLED FOR FIRST USE ON A SERVER (CREATE TABLES)
     print "Création DATABASE DONE !!!"
     
 '''
