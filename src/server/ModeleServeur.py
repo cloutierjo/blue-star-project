@@ -417,7 +417,7 @@ if __name__ == "__main__":
     
     print "Création de la base de données en cours...."
     ms = ModeleServeur()        # Creation du ModeleServeur
-    #ms.initDB()                 # TO BE CALLED FOR FIRST USE ON A SERVER (CREATE TABLES)
+    ms.initDB()                 # TO BE CALLED FOR FIRST USE ON A SERVER (CREATE TABLES)
     print "Création DATABASE DONE !!!"
     
 '''
