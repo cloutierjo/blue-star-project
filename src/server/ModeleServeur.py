@@ -8,9 +8,9 @@ import sqlite3
 import sys
 sys.path.append( "../commun" )
 from Projet import *
-import os
-os.environ['PATH'] ="C:/Python26/instantclient_11_1" + os.pathsep + os.environ['PATH']
-import cx_Oracle
+# import os
+# os.environ['PATH'] ="C:/Python26/instantclient_11_1" + os.pathsep + os.environ['PATH']
+# import cx_Oracle
 
 # cx_Oracle.connect([user, password, dsn, mode, handle, pool, threaded, twophase, events, cclass, purity, newpassword])
 
