@@ -1,0 +1,84 @@
+#labels avenir
+VISION DE L'AVENIR DU PROJET
+
+=Jonatan C.=
+==interface==
+pour évité le goulo d'étranglement qu'est le dévelopement d'interface avec tkinter-TIX,
+j'aurais tendance a privilégier l'utilisation d'une autre librairie, les choix sont large, 
+voici les principale que je considererai (c'est aussi les plus grosse librairie graphique 
+utilisable dans plusieur langage,) :
+ * directement en python (par contre je nes les est jamais utilisé en python)
+  * wxpython 
+  * pyQt (déja utilisé Qt dont est dérivé pyQt en c++)
+ * en java
+  * swing
+  
+si l'on doit prendre en considération les outils disponible au cégep, le plus simple reste 
+probablement d'utilisé java swing, sinon reste a voir de quoi on l'aire wxPython et pyQt en python
+et s'il est possible de les intégré dans notre environement du cégep par nous meme (donc sans 
+demandé leur ajout au département)
+
+===direction: librairie différent===
+le fais de changé de librairie demande de refaire completement les interface déja fais,
+ceux-ci demandant déja un refactoring assé profond et le travaille serai accéléré par la suite en 
+utilisant une librairie "complete". je considere donc qu'il serai avantageux de changé de librairie
+graphique.
+
+swing
++est déja connue et 'maitrisé' par chacun de nous
++présent au cégep
++le développement est assé rapide
++oblige a bien séparé vue/modele
+-le model événementiel n'est (a mon avis) pas des meilleur ni des plus logique qui soit
+-oblige a utilisé un langage différent pour l'interface que pour le reste de l'aplication
+
+wxpython & pyQt
++grande librairi tres utilisé
++grande source d'information pour aprendre a l'utilisé
++utilisable directement en python
+-inconnue par nous (sourtout en python) donc temp d'Aprentissage plus élevé
+-non présent au cégep donc on doit voir si l'inclusion est possible
+
+===direction: tkinter-TIX===
+le projet est déja partie sur la base de ces librairie, elle sont présente dans une instalation 
+de base de python par contre puisque l'on a apris beaucoups sur ceux-ci durant le développment du 
+projet il y a beaucoups de chose a refactoré (list non exaustive): 
+ * faire UN widget qui représente nos différente liste et dictionnaire
+  * sa nous permet de faire évolué le widget sans devoir re faire le code partout dans le projet
+ * refaire la mainWindows avec le notebook widget (je ne suis as 100% certein du nom, mais c un 
+widget d'onglet) de TIX
+  * sa nous permet de simplifié énormément la main windows
+ *uniformisation des différente vue
+ * etc.
+ 
+et il y a encore quelque vue a ajouté avec les modules qui le sont autant ainsi que des modification
+au vue existante (sourtout les deniere qui on été fais assé rapidement) 
+
+==modele serveur==
+j'hésite a le gardé coté serveur, étant donné qu'il est difficil d'hébergé un serveur python autrement 
+que chez nous et que la pluspart d'entre nous n'avons pas de serveur *stable* autant a la maison 
+(je croi qu'il n'y a que frank qui a une connexion permetant d'en avoir un) et un serveur dédier a un
+prix exhorbitant pour une utilisation de ce type. je n'est pas trouvé d'hébergeur gratuis ou a _tres_ 
+peu de frais ofrant la possibilité de faire tourné un serveur en python, quelque un par contre permete
+d'avoir un fichier python qui agisse comme un fichier php et peu donc répondre a des requetes, mais on 
+devrait donc changé de protocole pour utilisé le http (je croi que c'est le seul disponible dans une 
+installation de cette sorte, a vérifier) et revoir comment on gere les connexion puisque le serveur 
+ne fonctionnerai pas en permanence mais seulement lorsqu'il recoit une requete (peut-etre que sa ne change 
+rien dans notre cas.) encore une fois par contre il faudrait exploré la possibilité et voir si c'est 
+réellement fesable sans créé trop de probleme.
+
+une derniere possibilité, mais qui demanderai probablement trop en réécriture et en aprentissage serais 
+de refaire le serveur completement en php, mais rendu la aussi bien faire l'interface sous forme de site web
+par contre je ne croi pas que se soit vraiment envisagable pour le moment. reste a voir si l'on pouvais utilisé
+le modele serveur (sourtout la bdd) en python peut-etre que sa pourais etre possible étant donné que le coté client
+doit pratiquement tout est refait (la partie connexion reseau n'étant plus important si l'on prend cette direction)
+par contre coté désaventage, l'aplication ne peu pas etre utilisable offline, et il faut revoir la conception visuel
+d'un bout a l'autre.
+ 
+==modele client==
+un refactoring du 'Projet' est néscéssaire pour utiliser le pickle unpickle plustot que le serialise unserialise
+de plus j'aimerai que l'on ajoute la posibilité de :
+ * sortire des rapports (hystoir de pouvoir remettre directement sans devoir tout recopié)
+ * d'avoir des aide a la gestion du projet
+ * graphique d'évolution du projet, des objectif a atteindre (gant)
+ * tout autre chose qui puisse etre utile
